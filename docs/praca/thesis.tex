@@ -1,6 +1,7 @@
+% !TeX spellcheck = en_GB
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                        %
-% Szablon pracy dyplomowej inzynierskiej % 
+%    Engineer thesis LaTeX template      % 
 %                                        %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -10,7 +11,7 @@
 \usepackage[utf8]{inputenc}                                      
 \usepackage[T1]{fontenc}  
 \usepackage{amsmath,amsfonts,amssymb,amsthm}
-\usepackage[british,polish]{babel} 
+\usepackage[polish,british]{babel} 
 \usepackage{indentfirst}
 \usepackage{lmodern}
 \usepackage{graphicx} 
@@ -20,11 +21,7 @@
 \usepackage{pgfplots}
 \usepackage{mathtools}
 \usepackage{geometry}
-%\usepackage[nolists,nomarkers]{endfloat}  // wersja pracy z rysunkami i tabelami na końcu
-\usepackage[page]{appendix} % toc,
-\renewcommand{\appendixtocname}{Dodatki}
-\renewcommand{\appendixpagename}{Dodatki}
-\renewcommand{\appendixname}{Dodatek}
+\usepackage[page]{appendix} 
 
 \usepackage{setspace}
 \onehalfspacing
@@ -33,15 +30,42 @@
 \frenchspacing
 
 \usepackage{listings}
-%\lstset{
-%	language={},
-%	basicstyle=\ttfamily,
-%	keywordstyle=\lst@ifdisplaystyle\color{blue}\fi,
-%	commentstyle=\color{gray}
-%}
+\lstset{
+	language={},
+	basicstyle=\ttfamily,
+	keywordstyle=\lst@ifdisplaystyle\color{blue}\fi,
+	commentstyle=\color{gray}
+}
+
+%%%%%%%%%
+
+ 
+
+%%%%%%%%%%%% FANCY HEADERS %%%%%%%%%%%%%%%
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LO]{\nouppercase{\it\rightmark}}
+\fancyhead[RE]{\nouppercase{\it\leftmark}}
+\fancyhead[LE,RO]{\it\thepage}
+
+
+\fancypagestyle{onlyPageNumbers}{%
+   \fancyhf{} 
+   \fancyhead[LE,RO]{\it\thepage}
+}
+
+\fancypagestyle{PageNumbersChapterTitles}{%
+   \fancyhf{} 
+   \fancyhead[LO]{\nouppercase{\it\rightmark}}
+   \fancyhead[RE]{\nouppercase{\it\leftmark}}
+   \fancyhead[LE,RO]{\it\thepage}
+}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
-% listingi 
+% listings 
 \usepackage{listings}
 \lstset{%
 language=C++,%
@@ -61,73 +85,28 @@ escapeinside={@*}{*@},%
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-%%%%%%%%%
-
 %%%% TODO LIST GENERATOR %%%%%%%%%
 
-%\usepackage{tikz}
-%\usepackage{manfnt}   % dangerous sign 
 \usepackage{color}
 \definecolor{brickred}      {cmyk}{0   , 0.89, 0.94, 0.28}
 
-\makeatletter \newcommand \kslistofremarks{\section*{Uwagi} \@starttoc{rks}}
+\makeatletter \newcommand \kslistofremarks{\section*{Remarks} \@starttoc{rks}}
   \newcommand\l@uwagas[2]
     {\par\noindent \textbf{#2:} %\parbox{10cm}
 {#1}\par} \makeatother
 
 
-\newcommand{\ksremark}[1]{%
+\newcommand{\remark}[1]{%
 {%\marginpar{\textdbend}
 {\color{brickred}{[#1]}}}%
 \addcontentsline{rks}{uwagas}{\protect{#1}}%
 }
 
-\newcommand{\comma}{\ksremark{przecinek}}
-\newcommand{\nocomma}{\ksremark{bez przecinka}}
-\newcommand{\styl}{\ksremark{styl}}
-\newcommand{\ortografia}{\ksremark{ortografia}}
-\newcommand{\fleksja}{\ksremark{fleksja}}
-\newcommand{\pauza}{\ksremark{pauza `--', nie dywiz `-'}}
-\newcommand{\kolokwializm}{\ksremark{kolokwializm}}
+%%%%%%%%%%%%%% END OF TODO LIST GENERATOR %%%%%%%%%%% 
 
-%%%%%%%%%%%%%% END OF TODO LIST GENERATOR %%%%%%%%%%%
+% some issues...
 
-%%%%%%%%%%%% ZYWA PAGINA %%%%%%%%%%%%%%%
-% brak kapitalizacji zywej paginy
-\usepackage{fancyhdr}
-\pagestyle{fancy}
-\fancyhf{}
-\fancyhead[LO]{\nouppercase{\it\rightmark}}
-\fancyhead[RE]{\nouppercase{\it\leftmark}}
-\fancyhead[LE,RO]{\it\thepage}
-
-
-\fancypagestyle{tylkoNumeryStron}{%
-   \fancyhf{} 
-   \fancyhead[LE,RO]{\it\thepage}
-}
-
-\fancypagestyle{NumeryStronNazwyRozdzialow}{%
-   \fancyhf{} 
-   \fancyhead[LO]{\nouppercase{\it\rightmark}}
-   \fancyhead[RE]{\nouppercase{\it\leftmark}}
-   \fancyhead[LE,RO]{\it\thepage}
-}
-
-
-%%%%%%%%%%%%% OBCE WTRETY  
-\newcommand{\obcy}[1]{\emph{#1}}
-\newcommand{\ang}[1]{{\selectlanguage{british}\obcy{#1}}}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% polskie oznaczenia funkcji matematycznych
-\renewcommand{\tan}{\operatorname {tg}}
-\renewcommand{\log}{\operatorname {lg}}
-
-% jeszcze jakies drobiazgi
-
-\newcounter{stronyPozaNumeracja}
+\newcounter{PagesWithoutNumbers}
 
 \newcommand{\hcancel}[1]{%
     \tikz[baseline=(tocancel.base)]{
@@ -136,20 +115,20 @@ escapeinside={@*}{*@},%
     }%
 }%
 
-\newcommand{\miesiac}{%
+\newcommand{\MonthName}{%
   \ifcase\the\month
-  \or styczeń% 1
-  \or luty% 2
-  \or marzec% 3
-  \or kwiecień% 4
-  \or maj% 5
-  \or czerwiec% 6
-  \or lipiec% 7
-  \or sierpień% 8
-  \or wrzesień% 9
-  \or październik% 10
-  \or listopad% 11
-  \or grudzień% 12
+  \or January% 1
+  \or February% 2
+  \or March% 3
+  \or April% 4
+  \or May% 5
+  \or June% 6
+  \or July% 7
+  \or August% 8
+  \or September% 9
+  \or October% 10
+  \or November% 11
+  \or December% 12
   \fi}
 
 
@@ -168,18 +147,17 @@ escapeinside={@*}{*@},%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\newcommand{\autor}{Imię Nazwisko}
-\newcommand{\promotor}{dr inż. Imię Nazwisko}
-\newcommand{\konsultant}{dr inż. Imię Nazwisko}
-\newcommand{\tytul}{Tytuł pracy dyplomowej inżynierskiej}
-\newcommand{\polsl}{Politechnika Śląska}
-\newcommand{\wydzial}{Wydział Automatyki, Elektroniki i Informatyki}
+\newcommand{\Author}{Name Surname}
+\newcommand{\Supervisor}{Name Surname, DSc PhD}
+\newcommand{\Consultant}{Name Surname, PhD}
+\newcommand{\Title}{Title of engineer thesis}
+\newcommand{\Polsl}{Silesian University of Technology}
+\newcommand{\Faculty}{Faculty of Automatic Control, Electronics, and Computer Science}
 
 
-\begin{document}
-%\kslistofremarks 
+\begin{document} 
 	
-%%%%%%%%%%%%%%%%%%  STRONA TYTULOWA %%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%  Title page %%%%%%%%%%%%%%%%%%% 
 \pagestyle{empty}
 {
 	\newgeometry{top=2.5cm,%
@@ -190,23 +168,23 @@ escapeinside={@*}{*@},%
 	\rule{0cm}{0cm}
 	
 	\begin{center}
-	\includegraphics[width=0.4\textwidth]{politechnika_sl_logo_bw_poziom_pl.eps}
+	\includegraphics[width=0.4\textwidth]{politechnika_sl_logo_bw_poziom_en.eps}
 	\end{center} 
 	\vspace{1cm}
 	\begin{center}
-	\headerfont \polsl
+	\headerfont \Polsl
 	\end{center}
 	\begin{center}
-	\headerfont \wydzial
+	\headerfont \Faculty
 	\end{center}
 	\vfill
 	\begin{center}
-	\titlefont Praca dyplomowa inżynierska
+	\titlefont Engineer  thesis
 	\end{center}
 	\vfill
 	
 	\begin{center}
-	\otherfont \tytul\par
+	\otherfont \Title\par
 	\end{center}
 	
 	\vfill
@@ -215,16 +193,16 @@ escapeinside={@*}{*@},%
 	 
 	\noindent\vbox
 	{
-		\hbox{\otherfont autor: \autor}
+		\hbox{\otherfont author: \Author}
 		\vspace{12pt}
-		\hbox{\otherfont kierujący pracą: \promotor}
-		\vspace{12pt}  % zakomentuj, jezeli nie ma konsultanta
-		\hbox{\otherfont konsultant: \konsultant} % zakomentuj, jezeli nie ma konsultanta
+		\hbox{\otherfont supervisor: \Supervisor}
+		\vspace{12pt}
+		\hbox{\otherfont consultant: \Consultant}
 	}
 	\vfill 
  
    \begin{center}
-   \otherfont Gliwice,  \miesiac\ \the\year
+   \otherfont Gliwice,  \MonthName\ \the\year
    \end{center}	
 	\restoregeometry
 }
@@ -236,7 +214,8 @@ escapeinside={@*}{*@},%
 \rmfamily
 \normalfont
 
-%%%%%%%%%%%%%%%%%%%%% oswiadczenie o udostępnianiu pracy dyplomowej %%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%% statements required by law and Dean's office %%%%%%%%%%
 \cleardoublepage
 
 \begin{flushright}
@@ -251,11 +230,11 @@ załącznik nr 2 do zarz. nr 97/08/09
 
 \vfill
 
-Wyrażam  zgodę / Nie wyrażam zgody*  na  udostępnienie  mojej  pracy  dyplomowej / rozprawy doktorskiej*.
+\foreignlanguage{polish}{Wyrażam  zgodę / Nie wyrażam zgody*  na  udostępnienie  mojej  pracy  dyplomowej / rozprawy doktorskiej*.}
 
 \vfill
 
-Gliwice, dnia \today
+Gliwice, dnia {\selectlanguage{polish}\today}
 
 \vfill
 
@@ -272,7 +251,7 @@ Gliwice, dnia \today
 
 \rule{0.5\textwidth}{0cm}
 \begin{minipage}{0.45\textwidth}
-{\begin{center}\rule{0mm}{5mm}(poświadczenie wiarygodności podpisu przez Dziekanat)\end{center}}
+{\begin{center}\rule{0mm}{5mm}(\foreignlanguage{polish}{poświadczenie wiarygodności podpisu przez Dziekanat})\end{center}}
 \end{minipage}
 
 
@@ -283,7 +262,7 @@ Gliwice, dnia \today
  
 
 
-%%%%%%%%%%%%%%%%%%%%%% oswiadczenie promotora o spełnieniu wymagań formalnych %%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%  
 %\cleardoublepage
 %
 %\rule{1cm}{0cm}
@@ -296,7 +275,7 @@ Gliwice, dnia \today
 %
 %\vfill
 %
-%Oświadczam, że praca „\tytul” spełnia wymagania formalne pracy dyplomowej inżynierskiej.
+%\foreignlanguage{polish}{Oświadczam, że praca „\Title” spełnia wymagania formalne pracy dyplomowej inżynierskiej.}
 %
 %\vfill
 %
@@ -304,7 +283,7 @@ Gliwice, dnia \today
 %
 %\vfill
 %
-%Gliwice, dnia \today
+%Gliwice, dnia {\selectlanguage{polish}\today}
 %
 %\rule{0.5\textwidth}{0cm}\dotfill 
 %
@@ -314,71 +293,70 @@ Gliwice, dnia \today
 %\end{minipage} 
 %
 %\vfill
-
- 
+% 
+% 
 
 \cleardoublepage
 
 
-%%%%%%%%%%%%%%%%%% SPIS TRESCI %%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%% Table of contents %%%%%%%%%%%%%%%%%%%%%%
 \pagenumbering{Roman}
-\pagestyle{tylkoNumeryStron}
+\pagestyle{onlyPageNumbers}
 \tableofcontents
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setcounter{PagesWithoutNumbers}{\value{page}}
 \mainmatter
-\pagenumbering{arabic}
-\setcounter{stronyPozaNumeracja}{\value{page}}
-\pagestyle{NumeryStronNazwyRozdzialow}
+\pagestyle{PageNumbersChapterTitles}
 
-%%%%%%%%%%%%%% wlasciwa tresc pracy %%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%% body of the thesis %%%%%%%%%%%%%%%%%
 
-\chapter{Wstęp}
+
+\chapter{Introduction}
 
 \begin{itemize}
-\item wprowadzenie w problem/zagadnienie
-\item osadzenie problemu w dziedzinie
-\item cel pracy
-\item zakres pracy
-\item zwięzła charakterystyka rozdziałów
-\item jednoznaczne określenie wkładu autora, w przypadku prac wieloosobowych – tabela z autorstwem poszczególnych elementów pracy
+\item introduction into the problem domain
+\item settling of the problem in the domain
+\item objective of the thesis 
+\item scope of the thesis
+\item short description of chapters
+\item clear description of contribution of the thesis's author – in case of more authors table with enumeration of contribution of authors
+\end{itemize}
+
+\chapter{[Problem analysis]}
+
+\begin{itemize}
+\item  problem analysis
+\item state of the art, problem statement
+\item  literature research (all sources in the thesis have to be referenced \cite{bib:article,bib:book,bib:conference,bib:internet})
+\item description of existing solutions (also scientific ones, if the problem is scientifically researched), algorithms,  location of the thesis in the scientific domain
 \end{itemize}
 
 
-\chapter{[Analiza tematu]}
+
+
+\chapter{Requirements and tools}
 
 \begin{itemize}
-\item analiza tematu
-\item  wprowadzenie do dziedziny (\ang{state of the art}) – sformułowanie problemu
-\item  studia literaturowe \cite{bib:artykul,bib:ksiazka,bib:konferencja,bib:internet}
-\item  przegląd literatury tematu (należy wskazać źródła wszystkich informacji zawartych w pracy)
-\item  opis znanych rozwiązań (także opisanych naukowo, jeżeli problem jest poruszany w publikacjach naukowych), algorytmów, osadzenie pracy w kontekście
-\end{itemize}
+\item functional and nonfunctional requirements
+\item use cases (UML diagrams)
+\item description of tools
+\item methodology of design and implementation
+\end{itemize} 
 
- 
-\chapter{Wymagania i narzędzia}
 
+\chapter{External specification}
 \begin{itemize}
-\item wymagania funkcjonalne i niefunkcjonalne
-\item przypadki użycia (diagramy UML)
-\item opis narzędzi
-\item metodyka pracy nad projektowaniem i implementacją
+\item hardware and software requirements
+\item installation procedure
+\item activation procedure
+\item types of users
+\item user manual
+\item system administration
+\item security issues
+\item example of usage
+\item working scenarios (with screenshots or output files)
 \end{itemize}
-
-\chapter{Specyfikacja zewnętrzna}
-\begin{itemize}
-\item  wymagania sprzętowe i programowe
-\item  sposób instalacji
-\item  sposób aktywacji
-\item  kategorie użytkowników
-\item  sposób obsługi
-\item   administracja systemem
-\item  kwestie bezpieczeństwa
-\item  przykład działania
-\item  scenariusze korzystania z systemu (ilustrowane zrzutami z ekranu lub generowanymi dokumentami)
-\end{itemize}
- 
-
 
 \begin{figure}
 \centering
@@ -386,8 +364,8 @@ Gliwice, dnia \today
 \begin{axis}[
     y tick label style={
         /pgf/number format/.cd,
-            fixed,   % po zakomentowaniu os rzednych jest indeksowana wykladniczo
-            fixed zerofill, % 1.0 zamiast 1
+            fixed,   
+            fixed zerofill, % 1.0 instead of 1
             precision=1,
         /tikz/.cd
     },
@@ -402,30 +380,27 @@ Gliwice, dnia \today
 \addplot [domain=0.0:0.1] {rnd};
 \end{axis} 
 \end{tikzpicture}
-\caption{Podpis rysunku po rysunkiem.}
+\caption{A caption of a figure is \textbf{below} it.}
 \label{fig:2}
 \end{figure}
 
- 
 
-\chapter{Specyfikacja wewnętrzna}
+\chapter{Internal specification}
 
-
- 
 \begin{itemize}
-\item przedstawienie idei
-\item architektura systemu
-\item opis struktur danych (i organizacji baz danych)
-\item komponenty, moduły, biblioteki, przegląd ważniejszych klas (jeśli występują)
-\item przegląd ważniejszych algorytmów (jeśli występują)
-\item szczegóły implementacji wybranych fragmentów, zastosowane wzorce projektowe
-\item diagramy UML
+\item concept of the system
+\item system architecture
+\item description of data structures (and data bases)
+\item components, modules, libraries, resume of important classes (if used)
+\item resume of important algorithms (if used)
+\item details of implementation of selected parts
+\item applied design patterns
+\item UML diagrams
 \end{itemize}
 
 
-
-Krótka wstawka kodu w linii tekstu jest możliwa, np. \lstinline|descriptor|, a nawet \lstinline|descriptor_gaussian|. 
-Dłuższe fragmenty lepiej jest umieszczać jako rysunek, np. kod na rysunku \ref{fig:pseudokod}, a naprawdę długie fragmenty – w załączniku.
+Use special environment for inline code, eg \lstinline|descriptor| or \lstinline|descriptor_gaussian|. 
+Longer parts of code put in the figure environment, eg. code in Fig. \ref{fig:pseudokod}. Very long listings–move to an appendix.
 
 \begin{figure}
 \centering
@@ -451,37 +426,37 @@ class descriptor_gaussian : virtual public descriptor
      
 };
 \end{lstlisting}
-\caption{Klasa \lstinline|descriptor_gaussian|.}
+\caption{The \lstinline|descriptor_gaussian| class.}
 \label{fig:pseudokod}
 \end{figure}
 
 
-\chapter{Weryfikacja i walidacja}
+\chapter{Verification and validation}
 \begin{itemize}
-\item sposób testowania w ramach pracy (np. odniesienie do modelu V)
-\item organizacja eksperymentów
-\item przypadki testowe zakres testowania (pełny/niepełny)
-\item wykryte i usunięte błędy
-\item opcjonalnie wyniki badań eksperymentalnych
+\item testing paradigm (eg V model)
+\item test cases, testing scope (full / partial)
+\item detected and fixed bugs
+\item results of experiments (optional)
 \end{itemize}
+
+ 
  
 
-
-\chapter{Podsumowanie i wnioski}
+\chapter{Conclusions}
 \begin{itemize}
-\item uzyskane wyniki w świetle postawionych celów i zdefiniowanych wyżej wymagań
-\item kierunki ewentualnych danych prac (rozbudowa funkcjonalna …)
-\item problemy napotkane w trakcie pracy
+\item achieved results with regard to objectives of the thesis and requirements
+\item path of further development (eg functional extension …)
+\item encountered difficulties and problems
 \end{itemize}
 
-
+ 
 \begin{table}
 \centering
-\caption{Opis tabeli nad nią.}
+\caption{A caption of a table is \textbf{above} it.}
 \label{id:tab:wyniki}
 \begin{tabular}{rrrrrrrr}
 \toprule
-	         &                                     \multicolumn{7}{c}{metoda}                                      \\
+	         &                                     \multicolumn{7}{c}{method}                                      \\
 	         \cmidrule{2-8}
 	         &         &         &        \multicolumn{3}{c}{alg. 3}        & \multicolumn{2}{c}{alg. 4, $\gamma = 2$} \\
 	         \cmidrule(r){4-6}\cmidrule(r){7-8}
@@ -501,42 +476,46 @@ class descriptor_gaussian : virtual public descriptor
 \bottomrule
 \end{tabular}
 \end{table}  
- 
+
  
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\backmatter 
-\stepcounter{stronyPozaNumeracja}
+ 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\backmatter
 \pagenumbering{Roman}
-\setcounter{page}{\value{stronyPozaNumeracja}}
-\pagestyle{tylkoNumeryStron}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\stepcounter{PagesWithoutNumbers}
+\setcounter{page}{\value{PagesWithoutNumbers}}
+
+\pagestyle{onlyPageNumbers}
+
+%%%%%%%%%%% bibliography %%%%%%%%%%%%
+\bibliographystyle{plain}
+\bibliography{bibliography}
+
+%%%%%%%%%  appendices %%%%%%%%%%%%%%%%%%% 
+
+\begin{appendices} 
+
+
  
-\bibliographystyle{plplain}
-\bibliography{bibliografia}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter*{List of abbreviations and symbols}
 
-
-
-\begin{appendices}
- 
-
-\chapter*{Spis skrótów i symboli}
-
-\begin{description}
-\item[DNA] kwas deoksyrybonukleinowy (ang. \ang{deoxyribonucleic acid})
-\item[MVC] model -- widok -- kontroler (ang. \ang{model--view--controller}) 
-\item[$N$] liczebność zbioru danych
-\item[$\mu$] stopnień przyleżności do zbioru
-\item[$\mathbb{E}$] zbiór krawędzi grafu
-\item[$\mathcal{L}$] transformata Laplace'a 
-\end{description}
+\begin{itemize}
+\item[DNA] deoxyribonucleic acid
+\item[MVC] model--view--controller 
+\item[$N$] cardinality of data set
+\item[$\mu$] membership function of a fuzzy set
+\item[$\mathbb{E}$] set of edges of a graph
+\item[$\mathcal{L}$] Laplace transformation
+\end{itemize}
 
 
-\chapter*{Źródła}
+\chapter*{Listings}
 
-Jeżeli w pracy konieczne jest umieszczenie długich fragmentów kodu źródłowego, należy je przenieść do załącznika.
+(Put long listings in the appendix.)
 
 \begin{lstlisting}
 partition fcm_possibilistic::doPartition
@@ -614,17 +593,17 @@ partition fcm_possibilistic::doPartition
       throw my_exception (__FILE__, __FUNCTION__, __LINE__, "unknown expection");       
    }  
 }
-\end{lstlisting}
- 
+\end{lstlisting} 
 
-\chapter*{Zawartość dołączonej płyty}
+\chapter*{Contents of attached CD}
 
-Do pracy dołączona jest płyta CD z~następującą zawartością:
+The thesis is accompanied by a CD containing:
 \begin{itemize}
-\item praca (źródła \LaTeX owe i końcowa wersja w \texttt{pdf}),
-\item źródła programu,
-\item dane testowe.
+\item thesis (\LaTeX\ source files and final \texttt{pdf} file),
+\item source code of the application,
+\item test data.
 \end{itemize}
+ 
 
 \listoffigures
 \listoftables
