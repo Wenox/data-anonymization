@@ -2,8 +2,47 @@ Szymon Pluta
 ============
 informatics, 284512
 
+Data anonimisation web platform
+Webowa platforma anonimizacji danych
+
+Platforma udostępnia użytkownikom kompleksowe narzędzie do anonimizacji danych. Dane mogą zostać przekazane w różnych formach, na przykład w postaci relacyjnej bazy danych lub pliku (json, csv). Narzędzie posługuje się algorytmami opartymi na zróżnicowanych technikach anonimizacji, dzięki czemu użytkownik łatwo może osiągnąć oczekiwany rezultat. Użytkownik przekazuje dane wejściowe, dostosowuje żądanie anonimizacji pod własne potrzeby biznesowe, a następnie rozpoczyna proces anonimizacji i otrzymuje gotowy wynik. Platforma udostępnia interfejs webowy.
+
+
+--------------------
+* techniki anonimizacji:
+  - supresja, randomizacja, perturbacja, czy też pseudonimizacja nieodwracalna (w tym: zastąpienie sztucznymi danymi, maskowanie, szyfrowanie kluczem, tokenizacja)
+* dane wejściowe
+  - relacyjna baza danych (wielotabelowa)
+  - pliki (json, csv)
+* użytkownicy, konta w serwisie
+  - zwykły 
+  - administrator
+  -
+* aplikacja webowa (TypeScript, React)
+* Java spring
+
+
+UZASADNIENIE
+
+W wyniku analizy możliwości technologicznych dostępnych dla domeny problemu konieczna okazała się zmiana technologii i zastosowanie innego rozwiązania niż heksagonalna architektura mikroserwisów wymienona w zgłoszonym temacie. 
+
+--------------------------------------------------
+
+
+
+
+
+============================
+pierwotny
+
+Szymon Pluta
+============
+informatics, 284512
+
 Databases anonymization engine based on hexagonal microservice architecture
 Silnik anonimizacji baz danych z wykorzystaniem heksagonalnej architektury mikroserwisów
 
 Aplikacja udostępnia użytkownikom możliwość anonimizacji relacyjnych baz danych. Każdy użytkownik może miec inne wymagania biznesowe wobec anonimizacji, dlatego aplikacja udostępnia różne techniki anonimizacji, takie jak: supresja, randomizacja, perturbacja, czy też pseudonimizacja nieodwracalna (w tym: zastąpienie sztucznymi danymi, maskowanie, szyfrowanie kluczem, tokenizacja). Użytkownik przekazuje zrzut bazy danych do aplikacji. System wykrywa tabele, kolumny i relacje oraz wyświetla je użytkownikowi. Użytkownik do interesujących go kolumn dostosowuje jedną z kilku powyższych strategii anonimizacji. Po dostosowaniu, system rozpoczyna proces anonimizacji. System powiadamia użytkownika o gotowym wyniku, tj. nowym zrzucie bazy danych, lub skryptach SQL modyfikujących bazę. Użytkownik może mieć dostęp do historii swoich anonimizacji. Administrator zarządza kontami użytkowników. Aplikacja jest udostępniona użytkownikowi poprzez interfejs webowy oparty o TypeScript i React. Aplikacja oparta jest na architekturze heksagonalnej i mikroserwisach opartych na Javie i Spring Framework. Do asynchronicznej komunikacji pomiędzy serwisami zostanie użyta kolejka Apache Kafka, natomiast do synchronicznej Spring Cloud OpenFeign. Wstępny podział na serwisy: API gateway, auth service, serwis historii i serwis anonimizacji (który prawdopodobnie zostanie podzielony na kilka mniejszych).
+
+
 
