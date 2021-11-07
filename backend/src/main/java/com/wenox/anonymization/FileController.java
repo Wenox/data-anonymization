@@ -1,7 +1,6 @@
 package com.wenox.anonymization;
 
 import java.io.IOException;
-import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,22 +22,18 @@ public class FileController {
   public void upload(@RequestParam("file") MultipartFile file, @RequestParam("type") FileType type) {
     try {
       final var savedFile = fileUploader.upload(file, type);
-      publisher.publishEvent(new FileUploadedSuccessEvent(this, savedFile));
+      publisher.publishEvent(new FileUploadedSuccessEvent(savedFile));
     } catch (final IOException ex) {
       ex.printStackTrace();
-      publisher.publishEvent(new FileUploadedFailureEvent(this));
+      publisher.publishEvent(new FileUploadedFailureEvent(ex));
     }
-
-    System.out.println("All successful");
-
   }
 
-  static class FileUploadedSuccessEvent extends ApplicationEvent {
+  static class FileUploadedSuccessEvent {
 
-    private FileEntity file;
+    private final FileEntity file;
 
-    public FileUploadedSuccessEvent(Object source, FileEntity file) {
-      super(source);
+    public FileUploadedSuccessEvent(FileEntity file) {
       this.file = file;
     }
 
@@ -47,10 +42,16 @@ public class FileController {
     }
   }
 
-  static class FileUploadedFailureEvent extends ApplicationEvent {
+  static class FileUploadedFailureEvent {
 
-    public FileUploadedFailureEvent(Object source) {
-      super(source);
+    private final IOException exception;
+
+    public FileUploadedFailureEvent(final IOException exception) {
+      this.exception = exception;
+    }
+
+    public IOException getException() {
+      return exception;
     }
   }
 }
