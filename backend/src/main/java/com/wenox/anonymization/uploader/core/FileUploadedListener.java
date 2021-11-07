@@ -1,6 +1,7 @@
 package com.wenox.anonymization.uploader.core;
 
 import com.wenox.anonymization.commons.domain.FileType;
+import com.wenox.anonymization.uploader.core.event.FileUploadedFailureEvent;
 import com.wenox.anonymization.uploader.core.event.FileUploadedSuccessEvent;
 import com.wenox.anonymization.uploader.restorer.event.DatabaseRestoreFailureEvent;
 import com.wenox.anonymization.uploader.restorer.event.DatabaseRestoreSuccessEvent;
@@ -34,5 +35,11 @@ public class FileUploadedListener {
     } catch (final Exception ex) {
       publisher.publishEvent(new DatabaseRestoreFailureEvent(ex));
     }
+  }
+
+  @EventListener
+  public void onFileUploadedFailure(FileUploadedFailureEvent event) {
+    System.out.println("file uploaded failure");
+    System.out.println("Exception message: " + event.getException().getMessage());
   }
 }

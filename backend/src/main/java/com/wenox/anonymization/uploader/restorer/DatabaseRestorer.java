@@ -22,10 +22,4 @@ public class DatabaseRestorer {
     ProcessExecutorFactory.newProcess("createdb", "-U", "postgres", "-T", "template0", dbName).execute();
     ProcessExecutorFactory.newProcess("pg_restore", "-U", "postgres", "-d", dbName, "-v", dbPath).execute();
   }
-
-  @EventListener
-  public void onFileUploadedFailure(FileUploadedFailureEvent event) {
-    System.out.println("file uploaded failure");
-    System.out.println("Exception message: " + event.getException().getMessage());
-  }
 }
