@@ -1,4 +1,4 @@
-package com.wenox.anonymization;
+package com.wenox.anonymization.commons.domain;
 
 public enum FileType {
   JSON,

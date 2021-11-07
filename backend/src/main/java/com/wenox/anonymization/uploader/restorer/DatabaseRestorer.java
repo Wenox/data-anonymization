@@ -1,5 +1,8 @@
-package com.wenox.anonymization;
+package com.wenox.anonymization.uploader.restorer;
 
+import com.wenox.anonymization.uploader.core.FileEntity;
+import com.wenox.anonymization.commons.ProcessExecutorFactory;
+import com.wenox.anonymization.uploader.core.event.FileUploadedFailureEvent;
 import java.io.IOException;
 import java.time.LocalTime;
 import java.util.concurrent.TimeoutException;
@@ -21,23 +24,8 @@ public class DatabaseRestorer {
   }
 
   @EventListener
-  public void onFileUploadedFailure(FileController.FileUploadedFailureEvent event) {
+  public void onFileUploadedFailure(FileUploadedFailureEvent event) {
     System.out.println("file uploaded failure");
     System.out.println("Exception message: " + event.getException().getMessage());
   }
-
-  static class DatabaseRestoreSuccessEvent {
-
-  }
-
-  static class DatabaseRestoreFailureEvent {
-    private final Exception ex;
-
-    public DatabaseRestoreFailureEvent(Exception ex) {
-      this.ex = ex;
-    }
-
-
-  }
-
 }

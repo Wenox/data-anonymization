@@ -1,5 +1,6 @@
-package com.wenox.anonymization;
+package com.wenox.anonymization.uploader.storage;
 
+import com.wenox.anonymization.commons.domain.FileType;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
