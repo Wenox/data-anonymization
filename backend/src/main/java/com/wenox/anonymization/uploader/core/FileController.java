@@ -1,5 +1,8 @@
-package com.wenox.anonymization;
+package com.wenox.anonymization.uploader.core;
 
+import com.wenox.anonymization.commons.domain.FileType;
+import com.wenox.anonymization.uploader.core.event.FileUploadedFailureEvent;
+import com.wenox.anonymization.uploader.core.event.FileUploadedSuccessEvent;
 import java.io.IOException;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,32 +29,6 @@ public class FileController {
     } catch (final IOException ex) {
       ex.printStackTrace();
       publisher.publishEvent(new FileUploadedFailureEvent(ex));
-    }
-  }
-
-  static class FileUploadedSuccessEvent {
-
-    private final FileEntity file;
-
-    public FileUploadedSuccessEvent(FileEntity file) {
-      this.file = file;
-    }
-
-    public FileEntity getFile() {
-      return file;
-    }
-  }
-
-  static class FileUploadedFailureEvent {
-
-    private final IOException exception;
-
-    public FileUploadedFailureEvent(final IOException exception) {
-      this.exception = exception;
-    }
-
-    public IOException getException() {
-      return exception;
     }
   }
 }

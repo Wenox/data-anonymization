@@ -1,5 +1,8 @@
-package com.wenox.anonymization;
+package com.wenox.anonymization.uploader.core;
 
+import com.wenox.anonymization.uploader.core.namegenerator.FileNameGenerator;
+import com.wenox.anonymization.commons.domain.FileType;
+import com.wenox.anonymization.uploader.storage.FileStorage;
 import java.io.IOException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
