@@ -3,6 +3,7 @@ package com.wenox.anonymization.uploader.restorer;
 import com.wenox.anonymization.commons.ConnectionDetails;
 import com.wenox.anonymization.commons.DataSourceFactory;
 import com.wenox.anonymization.config.DatabaseRestoreFailureException;
+import com.wenox.anonymization.uploader.extractor.MetadataExtractor;
 import com.wenox.anonymization.uploader.restorer.event.DatabaseRestoreFailureEvent;
 import com.wenox.anonymization.uploader.restorer.event.DatabaseRestoreSuccessEvent;
 import java.sql.SQLException;
@@ -15,9 +16,11 @@ import org.springframework.stereotype.Component;
 public class DatabaseRestoredListener {
 
   private final DataSourceFactory dataSourceFactory;
+  private final MetadataExtractor metadataExtractor;
 
-  public DatabaseRestoredListener(DataSourceFactory dataSourceFactory) {
+  public DatabaseRestoredListener(DataSourceFactory dataSourceFactory, MetadataExtractor metadataExtractor) {
     this.dataSourceFactory = dataSourceFactory;
+    this.metadataExtractor = metadataExtractor;
   }
 
   @EventListener
@@ -33,10 +36,20 @@ public class DatabaseRestoredListener {
     final DataSource dataSource = dataSourceFactory.getDataSource(connectionDetails);
     final JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 
-    int result1 = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM songs", Integer.class);
-    System.out.println("result1: " + result1);
-    int result2 = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM public.songs", Integer.class);
-    System.out.println("result2: " + result2);
+    System.out.println("Extracting metadata...");
+
+    final var metadata = metadataExtractor.extractMetadata(connectionDetails);
+
+
+//    int result1 = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM songs", Integer.class);
+//    System.out.println("result1: " + result1);
+//    int result2 = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM public.songs", Integer.class);
+//    System.out.println("result2: " + result2);
+
+
+
+
+    System.out.println("metadata extracted --- all done");
   }
 
   @EventListener
