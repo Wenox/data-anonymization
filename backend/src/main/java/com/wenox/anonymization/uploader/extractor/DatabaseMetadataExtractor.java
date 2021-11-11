@@ -4,8 +4,8 @@ import com.wenox.anonymization.commons.ConnectionDetails;
 import com.wenox.anonymization.commons.DataSourceFactory;
 import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -28,51 +28,70 @@ public class DatabaseMetadataExtractor implements MetadataExtractor {
 
     final WorksheetTemplateMetadata metadata = new WorksheetTemplateMetadata();
 
+    final var schemas = extractor.getSchemas();
 
-    final var tables = extractor.getTables(null, null, null, new String[]{"TABLE"});
-    while (tables.next()) {
+    while (schemas.next()) {
 
-      String tableName = tables.getString("TABLE_NAME");
-      String schemaName = tables.getString("TABLE_SCHEM");
-      String type = tables.getString("TABLE_TYPE");
-      String remarks = tables.getString("REMARKS");
-      System.out.println("tableName: " + tableName);
-      System.out.println("schema: " + schemaName);
-      System.out.println("type: " + type);
-      System.out.println("remarks: " + remarks);
+      String schemaName = schemas.getString("TABLE_SCHEM");
 
-      Table table = new Table();
-      table.setName(tableName);
-      table.setSchema(schemaName);
+      System.out.println("SCHEMA DETECTED:" + schemaName);
 
-      final var columns = extractor.getColumns(null, schemaName, tableName, null);
-      while (columns.next()) {
 
-        String columnName = columns.getString("COLUMN_NAME");
-        String columnSize = columns.getString("COLUMN_SIZE");
-        String datatype = columns.getString("DATA_TYPE");
-        String isNullable = columns.getString("IS_NULLABLE");
-        String isAutoIncrement = columns.getString("IS_AUTOINCREMENT");
+      Schema schema = new Schema();
+      schema.setName(schemaName);
 
-        System.out.println("columnName: " + columnName);
-        System.out.println("columnSize: " + columnSize);
-        System.out.println("datatype: " + datatype);
-        System.out.println("isNullable: " + isNullable);
-        System.out.println("isAutoIncrement: " + isAutoIncrement);
-
-        Column column = new Column();
-        column.setName(columnName);
-        column.setType(datatype);
-        column.setNullable(isNullable);
-
-        if (table.getColumns() == null) {
-          table.setColumns(new ArrayList<>());
-        }
-        table.getColumns().add(column);
-
+      if (metadata.getSchemas() == null) {
+        metadata.setSchemas(new HashMap<>());
       }
+      metadata.getSchemas().putIfAbsent(schemaName, schema);
 
-      metadata.getTables().add(table);
+      final var tables = extractor.getTables(null, schemaName, null, new String[]{"TABLE"});
+      while (tables.next()) {
+
+        String tableName = tables.getString("TABLE_NAME");
+        String type = tables.getString("TABLE_TYPE");
+        String remarks = tables.getString("REMARKS");
+        System.out.println("tableName: " + tableName);
+        System.out.println("schema: " + schemaName);
+        System.out.println("type: " + type);
+        System.out.println("remarks: " + remarks);
+
+        Table table = new Table();
+        table.setName(tableName);
+        table.setSchema(schemaName);
+
+        if (schema.getTables() == null) {
+          schema.setTables(new HashMap<>());
+        }
+        schema.getTables().putIfAbsent(tableName, table);
+
+        final var columns = extractor.getColumns(null, schemaName, tableName, null);
+        while (columns.next()) {
+
+          String columnName = columns.getString("COLUMN_NAME");
+          String columnSize = columns.getString("COLUMN_SIZE");
+          String datatype = columns.getString("DATA_TYPE");
+          String isNullable = columns.getString("IS_NULLABLE");
+          String isAutoIncrement = columns.getString("IS_AUTOINCREMENT");
+
+          System.out.println("columnName: " + columnName);
+          System.out.println("columnSize: " + columnSize);
+          System.out.println("datatype: " + datatype);
+          System.out.println("isNullable: " + isNullable);
+          System.out.println("isAutoIncrement: " + isAutoIncrement);
+
+          Column column = new Column();
+          column.setName(columnName);
+          column.setType(datatype);
+          column.setNullable(isNullable);
+
+          if (table.getColumns() == null) {
+            table.setColumns(new HashMap<>());
+          }
+          table.getColumns().putIfAbsent(columnName, column);
+
+        }
+      }
     }
 
     System.out.println(metadata);
@@ -81,15 +100,25 @@ public class DatabaseMetadataExtractor implements MetadataExtractor {
   }
 
   static class WorksheetTemplateMetadata {
-    List<Table> tables = new ArrayList<>();
+    Map<String, Schema> schemas = new HashMap<>();
+    int numberOfSchemas;
     int numberOfTables;
 
-    public List<Table> getTables() {
-      return tables;
+    public Map<String, Schema> getSchemas() {
+      return schemas;
     }
 
-    public void setTables(List<Table> tables) {
-      this.tables = tables;
+    public void setSchemas(
+        Map<String, Schema> schemas) {
+      this.schemas = schemas;
+    }
+
+    public int getNumberOfSchemas() {
+      return numberOfSchemas;
+    }
+
+    public void setNumberOfSchemas(int numberOfSchemas) {
+      this.numberOfSchemas = numberOfSchemas;
     }
 
     public int getNumberOfTables() {
@@ -101,12 +130,34 @@ public class DatabaseMetadataExtractor implements MetadataExtractor {
     }
   }
 
+  static class Schema {
+    String name;
+    Map<String, Table> tables;
+
+    public String getName() {
+      return name;
+    }
+
+    public void setName(String name) {
+      this.name = name;
+    }
+
+    public Map<String, Table> getTables() {
+      return tables;
+    }
+
+    public void setTables(
+        Map<String, Table> tables) {
+      this.tables = tables;
+    }
+  }
+
   static class Table {
     String name;
     String schema;
     PK primaryKey;
-    List<FK> foreignKeys;
-    List<Column> columns;
+    Map<String, FK> foreignKeys;
+    Map<String, Column> columns;
     int numberOfRows;
 
     public String getName() {
@@ -133,20 +184,21 @@ public class DatabaseMetadataExtractor implements MetadataExtractor {
       this.primaryKey = primaryKey;
     }
 
-    public List<FK> getForeignKeys() {
+    public Map<String, FK> getForeignKeys() {
       return foreignKeys;
     }
 
     public void setForeignKeys(
-        List<FK> foreignKeys) {
+        Map<String, FK> foreignKeys) {
       this.foreignKeys = foreignKeys;
     }
 
-    public List<Column> getColumns() {
+    public Map<String, Column> getColumns() {
       return columns;
     }
 
-    public void setColumns(List<Column> columns) {
+    public void setColumns(
+        Map<String, Column> columns) {
       this.columns = columns;
     }
 
