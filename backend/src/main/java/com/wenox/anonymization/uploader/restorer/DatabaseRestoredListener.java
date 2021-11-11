@@ -1,11 +1,13 @@
 package com.wenox.anonymization.uploader.restorer;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wenox.anonymization.commons.ConnectionDetails;
 import com.wenox.anonymization.commons.DataSourceFactory;
 import com.wenox.anonymization.config.DatabaseRestoreFailureException;
 import com.wenox.anonymization.uploader.extractor.MetadataExtractor;
 import com.wenox.anonymization.uploader.restorer.event.DatabaseRestoreFailureEvent;
 import com.wenox.anonymization.uploader.restorer.event.DatabaseRestoreSuccessEvent;
+import java.io.File;
 import java.sql.SQLException;
 import javax.sql.DataSource;
 import org.springframework.context.event.EventListener;
@@ -39,6 +41,12 @@ public class DatabaseRestoredListener {
     System.out.println("Extracting metadata...");
 
     final var metadata = metadataExtractor.extractMetadata(connectionDetails);
+
+    try {
+      new ObjectMapper().writerWithDefaultPrettyPrinter().writeValue(new File("E:/anon/data-anonymization/out2.json"), metadata);
+    } catch (Exception ex) {
+      ex.printStackTrace();
+    }
 
 
 //    int result1 = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM songs", Integer.class);
