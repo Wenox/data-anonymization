@@ -27,15 +27,13 @@ public class DatabaseMetadataExtractor implements MetadataExtractor {
     final DatabaseMetaData extractor = dataSource.getConnection().getMetaData();
 
     final WorksheetTemplateMetadata metadata = new WorksheetTemplateMetadata();
+    int numberOfSchemas = 0;
+    int numberOfTables = 0;
 
     final var schemas = extractor.getSchemas();
 
     while (schemas.next()) {
-
       String schemaName = schemas.getString("TABLE_SCHEM");
-
-      System.out.println("SCHEMA DETECTED:" + schemaName);
-
 
       Schema schema = new Schema();
       schema.setName(schemaName);
@@ -44,17 +42,14 @@ public class DatabaseMetadataExtractor implements MetadataExtractor {
         metadata.setSchemas(new HashMap<>());
       }
       metadata.getSchemas().putIfAbsent(schemaName, schema);
+      numberOfSchemas++;
 
       final var tables = extractor.getTables(null, schemaName, null, new String[]{"TABLE"});
       while (tables.next()) {
 
         String tableName = tables.getString("TABLE_NAME");
-        String type = tables.getString("TABLE_TYPE");
-        String remarks = tables.getString("REMARKS");
-        System.out.println("tableName: " + tableName);
-        System.out.println("schema: " + schemaName);
-        System.out.println("type: " + type);
-        System.out.println("remarks: " + remarks);
+        String type = tables.getString("TABLE_TYPE"); /// todo: consider using it or remove it
+        String remarks = tables.getString("REMARKS"); /// todo: consider using it or remove it
 
         Table table = new Table();
         table.setName(tableName);
@@ -64,21 +59,19 @@ public class DatabaseMetadataExtractor implements MetadataExtractor {
           schema.setTables(new HashMap<>());
         }
         schema.getTables().putIfAbsent(tableName, table);
+        numberOfTables++;
+
+        Integer numberOfRows = jdbcTemplate.queryForObject(String.format("SELECT COUNT(*) FROM %s.%s", schemaName, tableName), Integer.class);
+        table.setNumberOfRows(numberOfRows);
 
         final var columns = extractor.getColumns(null, schemaName, tableName, null);
         while (columns.next()) {
 
           String columnName = columns.getString("COLUMN_NAME");
-          String columnSize = columns.getString("COLUMN_SIZE");
+          String columnSize = columns.getString("COLUMN_SIZE"); // todo: consider using it or remove it
           String datatype = columns.getString("DATA_TYPE");
           String isNullable = columns.getString("IS_NULLABLE");
-          String isAutoIncrement = columns.getString("IS_AUTOINCREMENT");
-
-          System.out.println("columnName: " + columnName);
-          System.out.println("columnSize: " + columnSize);
-          System.out.println("datatype: " + datatype);
-          System.out.println("isNullable: " + isNullable);
-          System.out.println("isAutoIncrement: " + isAutoIncrement);
+          String isAutoIncrement = columns.getString("IS_AUTOINCREMENT"); // todo: consider using it or remove it
 
           Column column = new Column();
           column.setName(columnName);
@@ -94,7 +87,8 @@ public class DatabaseMetadataExtractor implements MetadataExtractor {
       }
     }
 
-    System.out.println(metadata);
+    metadata.setNumberOfSchemas(numberOfSchemas);
+    metadata.setNumberOfTables(numberOfTables);
 
     return metadata;
   }
@@ -158,7 +152,7 @@ public class DatabaseMetadataExtractor implements MetadataExtractor {
     PK primaryKey;
     Map<String, FK> foreignKeys;
     Map<String, Column> columns;
-    int numberOfRows;
+    Integer numberOfRows;
 
     public String getName() {
       return name;
@@ -202,11 +196,11 @@ public class DatabaseMetadataExtractor implements MetadataExtractor {
       this.columns = columns;
     }
 
-    public int getNumberOfRows() {
+    public Integer getNumberOfRows() {
       return numberOfRows;
     }
 
-    public void setNumberOfRows(int numberOfRows) {
+    public void setNumberOfRows(Integer numberOfRows) {
       this.numberOfRows = numberOfRows;
     }
   }
