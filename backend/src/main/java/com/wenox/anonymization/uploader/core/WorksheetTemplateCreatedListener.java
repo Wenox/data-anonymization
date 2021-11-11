@@ -10,14 +10,14 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 @Component
-public class WorksheetTemplateListener {
+public class WorksheetTemplateCreatedListener {
 
   private final DatabaseRestorer restorer;
   private final ApplicationEventPublisher publisher;
   private final WorksheetTemplateRepository repository;
 
-  public WorksheetTemplateListener(final DatabaseRestorer restorer, final ApplicationEventPublisher publisher,
-                                   final WorksheetTemplateRepository repository) {
+  public WorksheetTemplateCreatedListener(final DatabaseRestorer restorer, final ApplicationEventPublisher publisher,
+                                          final WorksheetTemplateRepository repository) {
     this.restorer = restorer;
     this.publisher = publisher;
     this.repository = repository;
