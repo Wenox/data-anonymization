@@ -4,8 +4,11 @@ import com.wenox.anonymization.commons.domain.FileType;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Random;
+import java.util.UUID;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class WorksheetTemplateService {
@@ -36,5 +39,11 @@ public class WorksheetTemplateService {
     }
 
     return worksheetTemplateRepository.save(worksheetTemplate);
+  }
+
+  public String getStatus(final UUID uuid) {
+    return worksheetTemplateRepository.findById(uuid)
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND))
+        .getStatus();
   }
 }

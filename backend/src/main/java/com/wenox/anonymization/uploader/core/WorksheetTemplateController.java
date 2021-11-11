@@ -5,6 +5,8 @@ import com.wenox.anonymization.uploader.core.event.WorksheetTemplateCreatedEvent
 import java.util.UUID;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,5 +29,10 @@ public class WorksheetTemplateController {
     final var worksheetTemplate = worksheetTemplateService.createFrom(worksheetTemplateFile, type);
     publisher.publishEvent(new WorksheetTemplateCreatedEvent(worksheetTemplate));
     return ResponseEntity.ok(worksheetTemplate.getUuid());
+  }
+
+  @GetMapping("/api/v1/worksheet-templates/{uuid}/status")
+  public ResponseEntity<String> getStatus(@PathVariable("uuid") UUID uuid) {
+    return ResponseEntity.ok(worksheetTemplateService.getStatus(uuid));
   }
 }
