@@ -7,6 +7,7 @@ import com.wenox.anonymization.uploader.restorer.event.DatabaseRestoreSuccessEve
 import com.wenox.anonymization.uploader.restorer.DatabaseRestorer;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.event.EventListener;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -16,13 +17,15 @@ public class WorksheetTemplateCreatedListener {
   private final ApplicationEventPublisher publisher;
   private final WorksheetTemplateRepository repository;
 
-  public WorksheetTemplateCreatedListener(final DatabaseRestorer restorer, final ApplicationEventPublisher publisher,
-                                          final WorksheetTemplateRepository repository) {
+  public WorksheetTemplateCreatedListener(DatabaseRestorer restorer,
+                                          ApplicationEventPublisher publisher,
+                                          WorksheetTemplateRepository repository) {
     this.restorer = restorer;
     this.publisher = publisher;
     this.repository = repository;
   }
 
+  @Async
   @EventListener
   public void onWorksheetTemplateCreated(WorksheetTemplateCreatedEvent event) {
 
