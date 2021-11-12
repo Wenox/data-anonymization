@@ -20,7 +20,8 @@ public class WorksheetTemplateController {
   private final ApplicationEventPublisher publisher;
   private final WorksheetTemplateService worksheetTemplateService;
 
-  public WorksheetTemplateController(final ApplicationEventPublisher publisher, final WorksheetTemplateService worksheetTemplateService) {
+  public WorksheetTemplateController(ApplicationEventPublisher publisher,
+                                     WorksheetTemplateService worksheetTemplateService) {
     this.publisher = publisher;
     this.worksheetTemplateService = worksheetTemplateService;
   }
@@ -28,7 +29,7 @@ public class WorksheetTemplateController {
   @PostMapping
   public ResponseEntity<UUID> create(@RequestParam("file") MultipartFile worksheetTemplateFile,
                                      @RequestParam("type") FileType type) {
-    final var worksheetTemplate = worksheetTemplateService.createFrom(worksheetTemplateFile, type);
+    final WorksheetTemplate worksheetTemplate = worksheetTemplateService.createFrom(worksheetTemplateFile, type);
     publisher.publishEvent(new WorksheetTemplateCreatedEvent(worksheetTemplate));
     return ResponseEntity.ok(worksheetTemplate.getUuid());
   }
