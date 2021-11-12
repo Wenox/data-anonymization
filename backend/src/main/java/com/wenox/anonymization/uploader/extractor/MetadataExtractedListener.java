@@ -1,6 +1,7 @@
 package com.wenox.anonymization.uploader.extractor;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wenox.anonymization.uploader.extractor.event.MetadataExtractedEvent;
 import java.io.File;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
