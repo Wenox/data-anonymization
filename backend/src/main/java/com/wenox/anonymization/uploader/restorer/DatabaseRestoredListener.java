@@ -35,10 +35,7 @@ public class DatabaseRestoredListener {
     connectionDetails.setUsername("postgres");
     connectionDetails.setPassword("postgres");
 
-    long start1 = System.currentTimeMillis();
     final WorksheetTemplateMetadata metadata = metadataExtractor.extractMetadata(connectionDetails);
-    long end1 = System.currentTimeMillis();
-    System.out.println("MEASURED TIME: " + (end1 - start1));
 
     publisher.publishEvent(new MetadataExtractedEvent(event.getWorksheetTemplate(), metadata));
   }
