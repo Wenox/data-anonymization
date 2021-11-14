@@ -21,11 +21,11 @@ public class FileEntity {
   @Column(nullable = false)
   private String savedName;
 
-  @Column(nullable = false)
+  @Column(nullable = true)
   private String originalName;
 
   @Enumerated(EnumType.STRING)
-  @Column(nullable = false)
+  @Column(nullable = true)
   private FileType type;
 
   public Long getId() {

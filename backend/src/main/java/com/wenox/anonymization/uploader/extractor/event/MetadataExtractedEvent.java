@@ -1,7 +1,6 @@
 package com.wenox.anonymization.uploader.extractor.event;
 
 import com.wenox.anonymization.uploader.core.WorksheetTemplate;
-import com.wenox.anonymization.uploader.extractor.DatabaseMetadataExtractor;
 import com.wenox.anonymization.uploader.extractor.metadata.WorksheetTemplateMetadata;
 
 public class MetadataExtractedEvent {

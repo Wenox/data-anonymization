@@ -1,5 +1,6 @@
 package com.wenox.anonymization.uploader.core;
 
+import com.wenox.anonymization.uploader.storage.TemplateFileData;
 import com.wenox.anonymization.uploader.storage.event.TemplateFileStoredFailureEvent;
 import com.wenox.anonymization.uploader.storage.event.TemplateFileStoredSuccessEvent;
 import com.wenox.anonymization.uploader.core.event.WorksheetTemplateCreatedEvent;
@@ -16,7 +17,7 @@ public class WorksheetTemplateCreatedListener {
   private final ApplicationEventPublisher publisher;
   private final WorksheetTemplateRepository repository;
 
-  public WorksheetTemplateCreatedListener(FileUploader fileUploader,
+  public WorksheetTemplateCreatedListener(MultipartFileUploader fileUploader,
                                           ApplicationEventPublisher publisher,
                                           WorksheetTemplateRepository repository) {
     this.fileUploader = fileUploader;
@@ -30,12 +31,16 @@ public class WorksheetTemplateCreatedListener {
 
     final var worksheetTemplate = event.getWorksheetTemplate();
     try {
-      final var savedTemplateFile = fileUploader.upload(event.getMultipartFile(), worksheetTemplate.getType());
+      TemplateFileData fileData = new TemplateFileData();
+      fileData.setMultipartFile(event.getMultipartFile());
+      fileData.setFileType(worksheetTemplate.getType());
+      final var savedTemplateFile = fileUploader.upload(fileData);
       worksheetTemplate.setStatus("TEMPLATE_UPLOAD_SUCCESS"); // todo: enum
       worksheetTemplate.setTemplateFile(savedTemplateFile);
       repository.save(worksheetTemplate);
       publisher.publishEvent(new TemplateFileStoredSuccessEvent(worksheetTemplate));
     } catch (final IOException ex) {
+      ex.printStackTrace();
       worksheetTemplate.setStatus("TEMPLATE_UPLOAD_FAILURE");
       repository.save(worksheetTemplate);
       publisher.publishEvent(new TemplateFileStoredFailureEvent(worksheetTemplate));

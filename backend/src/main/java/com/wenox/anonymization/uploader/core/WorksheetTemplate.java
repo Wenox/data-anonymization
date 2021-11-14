@@ -4,6 +4,8 @@ import com.wenox.anonymization.commons.domain.FileType;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -15,6 +17,7 @@ public class WorksheetTemplate {
   @Id
   private UUID uuid = UUID.randomUUID();
 
+  @Enumerated(EnumType.STRING)
   private FileType type;
 
   @OneToOne

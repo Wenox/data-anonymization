@@ -1,35 +1,11 @@
 package com.wenox.anonymization.uploader.core;
 
-import com.wenox.anonymization.uploader.core.namegenerator.FileNameGenerator;
-import com.wenox.anonymization.commons.domain.FileType;
-import com.wenox.anonymization.uploader.storage.FileStorage;
+import com.wenox.anonymization.uploader.storage.FileData;
 import java.io.IOException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 @Service
-public class FileUploader {
+public interface FileUploader {
 
-  private final FileStorage fileStorage;
-  private final FileNameGenerator fileNameGenerator;
-  private final FileRepository fileRepository;
-
-  public FileUploader(final FileStorage fileStorage, final FileNameGenerator fileNameGenerator,
-                      final FileRepository fileRepository) {
-    this.fileStorage = fileStorage;
-    this.fileNameGenerator = fileNameGenerator;
-    this.fileRepository = fileRepository;
-  }
-
-  public FileEntity upload(final MultipartFile multipartFile, final FileType type) throws IOException {
-    final String savedFileName = fileNameGenerator.get();
-
-    fileStorage.store(savedFileName, type, multipartFile);
-
-    final var file = new FileEntity();
-    file.setOriginalName(multipartFile.getOriginalFilename());
-    file.setSavedName(savedFileName);
-    file.setType(type);
-    return fileRepository.save(file);
-  }
+  FileEntity upload(FileData fileData) throws IOException;
 }
