@@ -1,18 +1,19 @@
 package com.wenox.anonymization.uploader.storage;
 
 import com.wenox.anonymization.commons.domain.FileType;
-import org.springframework.web.multipart.MultipartFile;
+import com.wenox.anonymization.uploader.core.FileDTO;
 
 public class TemplateFileData extends FileData {
-  private MultipartFile multipartFile;
+
+  private FileDTO fileDTO;
   private FileType fileType;
 
-  public MultipartFile getMultipartFile() {
-    return multipartFile;
+  public FileDTO getFileDTO() {
+    return fileDTO;
   }
 
-  public void setMultipartFile(MultipartFile multipartFile) {
-    this.multipartFile = multipartFile;
+  public void setFileDTO(FileDTO fileDTO) {
+    this.fileDTO = fileDTO;
   }
 
   public FileType getFileType() {

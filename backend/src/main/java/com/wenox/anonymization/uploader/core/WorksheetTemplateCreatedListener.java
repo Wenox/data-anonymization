@@ -32,7 +32,7 @@ public class WorksheetTemplateCreatedListener {
     final var worksheetTemplate = event.getWorksheetTemplate();
     try {
       TemplateFileData fileData = new TemplateFileData();
-      fileData.setMultipartFile(event.getMultipartFile());
+      fileData.setFileDTO(event.getFileDTO());
       fileData.setFileType(worksheetTemplate.getType());
       final var savedTemplateFile = fileUploader.upload(fileData);
       worksheetTemplate.setStatus("TEMPLATE_UPLOAD_SUCCESS"); // todo: enum

@@ -1,6 +1,7 @@
 package com.wenox.anonymization.uploader.core;
 
 import com.wenox.anonymization.commons.domain.FileType;
+import java.io.IOException;
 import java.util.UUID;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,9 +23,9 @@ public class WorksheetTemplateController {
   }
 
   @PostMapping
-  public ResponseEntity<UUID> create(@RequestParam("file") MultipartFile worksheetTemplateFile,
-                                     @RequestParam("type") FileType type) {
-    final UUID uuid = worksheetTemplateService.createFrom(worksheetTemplateFile, type);
+  public ResponseEntity<UUID> create(@RequestParam("file") MultipartFile multipartFile,
+                                     @RequestParam("type") FileType type) throws IOException {
+    final UUID uuid = worksheetTemplateService.createFrom(FileDTO.from(multipartFile), type);
     return ResponseEntity.accepted().body(uuid);
   }
 

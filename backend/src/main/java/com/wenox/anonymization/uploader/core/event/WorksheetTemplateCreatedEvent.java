@@ -1,23 +1,23 @@
 package com.wenox.anonymization.uploader.core.event;
 
+import com.wenox.anonymization.uploader.core.FileDTO;
 import com.wenox.anonymization.uploader.core.WorksheetTemplate;
-import org.springframework.web.multipart.MultipartFile;
 
 public class WorksheetTemplateCreatedEvent {
 
   private final WorksheetTemplate worksheetTemplate;
-  private final MultipartFile multipartFile;
+  private final FileDTO fileDTO;
 
-  public WorksheetTemplateCreatedEvent(WorksheetTemplate worksheetTemplate, MultipartFile multipartFile) {
+  public WorksheetTemplateCreatedEvent(WorksheetTemplate worksheetTemplate, FileDTO fileDTO) {
     this.worksheetTemplate = worksheetTemplate;
-    this.multipartFile = multipartFile;
+    this.fileDTO = fileDTO;
   }
 
   public WorksheetTemplate getWorksheetTemplate() {
     return worksheetTemplate;
   }
 
-  public MultipartFile getMultipartFile() {
-    return multipartFile;
+  public FileDTO getFileDTO() {
+    return fileDTO;
   }
 }
