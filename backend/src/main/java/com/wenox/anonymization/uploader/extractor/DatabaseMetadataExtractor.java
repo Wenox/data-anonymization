@@ -3,6 +3,8 @@ package com.wenox.anonymization.uploader.extractor;
 import com.wenox.anonymization.commons.ConnectionDetails;
 import com.wenox.anonymization.commons.DataSourceFactory;
 import com.wenox.anonymization.uploader.extractor.metadata.Column;
+import com.wenox.anonymization.uploader.extractor.metadata.ForeignKey;
+import com.wenox.anonymization.uploader.extractor.metadata.PrimaryKey;
 import com.wenox.anonymization.uploader.extractor.metadata.Schema;
 import com.wenox.anonymization.uploader.extractor.metadata.Table;
 import com.wenox.anonymization.uploader.extractor.metadata.WorksheetTemplateMetadata;
@@ -39,7 +41,7 @@ public class DatabaseMetadataExtractor implements MetadataExtractor {
       String schemaName = schemas.getString("TABLE_SCHEM");
 
       Schema schema = new Schema();
-      schema.setName(schemaName);
+      schema.setSchemaName(schemaName);
 
       if (metadata.getSchemas() == null) {
         metadata.setSchemas(new HashMap<>());
@@ -55,8 +57,8 @@ public class DatabaseMetadataExtractor implements MetadataExtractor {
         String remarks = tables.getString("REMARKS"); /// todo: consider using it or remove it
 
         Table table = new Table();
-        table.setName(tableName);
-        table.setSchema(schemaName);
+        table.setTableName(tableName);
+        table.setSchemaName(schemaName);
 
         if (schema.getTables() == null) {
           schema.setTables(new HashMap<>());
@@ -66,6 +68,58 @@ public class DatabaseMetadataExtractor implements MetadataExtractor {
 
         Integer numberOfRows = jdbcTemplate.queryForObject(String.format("SELECT COUNT(*) FROM %s.%s", schemaName, tableName), Integer.class);
         table.setNumberOfRows(numberOfRows);
+
+        final var PKs = extractor.getPrimaryKeys(null, schemaName, tableName);
+        while (PKs.next()) {
+          if (table.getPrimaryKeys() == null) {
+            table.setPrimaryKeys(new HashMap<>());
+          }
+          String columnName = PKs.getString("COLUMN_NAME");
+          String primaryKeyName = PKs.getString("PK_NAME");
+          PrimaryKey primaryKey = new PrimaryKey();
+          primaryKey.setColumnName(columnName);
+          primaryKey.setPrimaryKeyName(primaryKeyName);
+          primaryKey.setType(null);
+          table.getPrimaryKeys().putIfAbsent(primaryKeyName, primaryKey);
+        }
+
+        final var exportedKeys = extractor.getExportedKeys(null, schemaName, tableName);
+        while (exportedKeys.next()) {
+          ForeignKey exportedKey = new ForeignKey();
+          exportedKey.setReferencedSchemaName(exportedKeys.getString("FKTABLE_SCHEM"));
+          exportedKey.setReferencedTableName(exportedKeys.getString("FKTABLE_NAME"));
+          exportedKey.setReferencedColumnName(exportedKeys.getString("FKCOLUMN_NAME"));
+          exportedKey.setReferencingSchemaName(exportedKeys.getString("PKTABLE_SCHEM"));
+          exportedKey.setReferencingTableName(exportedKeys.getString("PKTABLE_NAME"));
+          exportedKey.setReferencingColumnName(exportedKeys.getString("PKCOLUMN_NAME"));
+          String foreignKeyName = exportedKeys.getString("FK_NAME");
+          exportedKey.setForeignKeyName(foreignKeyName);
+          exportedKey.setPrimaryKeyName(exportedKeys.getString("PK_NAME"));
+          exportedKey.setType(null); // todo
+          if (table.getExportedKeys() == null) {
+            table.setExportedKeys(new HashMap<>());
+          }
+          table.getExportedKeys().putIfAbsent(foreignKeyName, exportedKey);
+        }
+
+        final var importedKeys = extractor.getImportedKeys(null, schemaName, tableName);
+        while (importedKeys.next()) {
+          ForeignKey importedKey = new ForeignKey();
+          importedKey.setReferencedSchemaName(importedKeys.getString("FKTABLE_SCHEM"));
+          importedKey.setReferencedTableName(importedKeys.getString("FKTABLE_NAME"));
+          importedKey.setReferencedColumnName(importedKeys.getString("FKCOLUMN_NAME"));
+          importedKey.setReferencingSchemaName(importedKeys.getString("PKTABLE_SCHEM"));
+          importedKey.setReferencingTableName(importedKeys.getString("PKTABLE_NAME"));
+          importedKey.setReferencingColumnName(importedKeys.getString("PKCOLUMN_NAME"));
+          importedKey.setForeignKeyName(importedKeys.getString("FK_NAME"));
+          String primaryKeyName = importedKeys.getString("PK_NAME");
+          importedKey.setPrimaryKeyName(primaryKeyName);
+          importedKey.setType(null); // todo
+          if (table.getImportedKeys() == null) {
+            table.setImportedKeys(new HashMap<>());
+          }
+          table.getImportedKeys().putIfAbsent(primaryKeyName, importedKey);
+        }
 
         final var columns = extractor.getColumns(null, schemaName, tableName, null);
         while (columns.next()) {
@@ -77,7 +131,7 @@ public class DatabaseMetadataExtractor implements MetadataExtractor {
           String isAutoIncrement = columns.getString("IS_AUTOINCREMENT"); // todo: consider using it or remove it
 
           Column column = new Column();
-          column.setName(columnName);
+          column.setColumnName(columnName);
           column.setType(datatype);
           column.setNullable(isNullable);
 

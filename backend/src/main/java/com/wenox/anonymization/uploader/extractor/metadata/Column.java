@@ -1,16 +1,16 @@
 package com.wenox.anonymization.uploader.extractor.metadata;
 
 public class Column {
-  private String name;
+  private String columnName;
   private String type; // todo: enum
   private String nullable;
 
-  public String getName() {
-    return name;
+  public String getColumnName() {
+    return columnName;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setColumnName(String columnName) {
+    this.columnName = columnName;
   }
 
   public String getType() {

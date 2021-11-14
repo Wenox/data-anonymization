@@ -3,15 +3,15 @@ package com.wenox.anonymization.uploader.extractor.metadata;
 import java.util.Map;
 
 public class Schema {
-  private String name;
+  private String schemaName;
   private Map<String, Table> tables;
 
-  public String getName() {
-    return name;
+  public String getSchemaName() {
+    return schemaName;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setSchemaName(String schemaName) {
+    this.schemaName = schemaName;
   }
 
   public Map<String, Table> getTables() {
