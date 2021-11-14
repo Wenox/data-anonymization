@@ -1,9 +1,7 @@
 package com.wenox.anonymization.uploader.core;
 
 import com.wenox.anonymization.commons.domain.FileType;
-import com.wenox.anonymization.uploader.core.event.WorksheetTemplateCreatedEvent;
 import java.util.UUID;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,21 +15,17 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/api/v1/worksheet-templates")
 public class WorksheetTemplateController {
 
-  private final ApplicationEventPublisher publisher;
   private final WorksheetTemplateService worksheetTemplateService;
 
-  public WorksheetTemplateController(ApplicationEventPublisher publisher,
-                                     WorksheetTemplateService worksheetTemplateService) {
-    this.publisher = publisher;
+  public WorksheetTemplateController(WorksheetTemplateService worksheetTemplateService) {
     this.worksheetTemplateService = worksheetTemplateService;
   }
 
   @PostMapping
   public ResponseEntity<UUID> create(@RequestParam("file") MultipartFile worksheetTemplateFile,
                                      @RequestParam("type") FileType type) {
-    final WorksheetTemplate worksheetTemplate = worksheetTemplateService.createFrom(worksheetTemplateFile, type);
-    publisher.publishEvent(new WorksheetTemplateCreatedEvent(worksheetTemplate));
-    return ResponseEntity.ok(worksheetTemplate.getUuid());
+    final UUID uuid = worksheetTemplateService.createFrom(worksheetTemplateFile, type);
+    return ResponseEntity.accepted().body(uuid);
   }
 
   @GetMapping("/{uuid}/status")
