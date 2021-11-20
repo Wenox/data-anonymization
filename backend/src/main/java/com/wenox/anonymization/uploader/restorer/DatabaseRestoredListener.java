@@ -1,7 +1,6 @@
 package com.wenox.anonymization.uploader.restorer;
 
 import com.wenox.anonymization.commons.ConnectionDetails;
-import com.wenox.anonymization.commons.DataSourceFactory;
 import com.wenox.anonymization.config.DatabaseRestoreFailureException;
 import com.wenox.anonymization.uploader.core.TemplateRepository;
 import com.wenox.anonymization.uploader.core.TemplateStatus;
@@ -17,14 +16,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class DatabaseRestoredListener {
 
-  private final DataSourceFactory dataSourceFactory;
   private final MetadataExtractor metadataExtractor;
   private final ApplicationEventPublisher publisher;
   private final TemplateRepository repository;
 
-  public DatabaseRestoredListener(DataSourceFactory dataSourceFactory, MetadataExtractor metadataExtractor,
-                                  ApplicationEventPublisher publisher, TemplateRepository repository) {
-    this.dataSourceFactory = dataSourceFactory;
+  public DatabaseRestoredListener(MetadataExtractor metadataExtractor,
+                                  ApplicationEventPublisher publisher,
+                                  TemplateRepository repository) {
     this.metadataExtractor = metadataExtractor;
     this.publisher = publisher;
     this.repository = repository;
