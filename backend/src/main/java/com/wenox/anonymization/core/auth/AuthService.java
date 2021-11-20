@@ -2,8 +2,10 @@ package com.wenox.anonymization.core.auth;
 
 import com.wenox.anonymization.core.ApiResponse;
 import com.wenox.anonymization.core.domain.Role;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class AuthService {
@@ -17,6 +19,10 @@ public class AuthService {
   }
 
   public ApiResponse register(RegisterRequest dto) {
+    if (userRepository.existsByEmail(dto.getEmail())) {
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User with this email already exists!");
+    }
+
     User user = new User();
     user.setEmail(dto.getEmail());
     user.setPassword(passwordEncoder.encode(dto.getPassword()));
