@@ -1,17 +1,26 @@
 package com.wenox.anonymization.uploader.core;
 
+import com.vladmihalcea.hibernate.type.json.JsonType;
 import com.wenox.anonymization.commons.domain.FileType;
+import com.wenox.anonymization.uploader.extractor.metadata.WorksheetTemplateMetadata;
 import java.time.LocalDateTime;
 import java.util.UUID;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.TypeDefs;
 
 @Entity
 @Table(name = "worksheet_templates")
+@TypeDefs({
+    @TypeDef(name = "json", typeClass = JsonType.class)
+})
 public class WorksheetTemplate {
 
   @Id
@@ -23,8 +32,9 @@ public class WorksheetTemplate {
   @OneToOne
   private FileEntity templateFile;
 
-  @OneToOne
-  private FileEntity metadataFile;
+  @Type(type = "json")
+  @Column(columnDefinition = "jsonb")
+  private WorksheetTemplateMetadata metadata;
 
   private String databaseName;
 
@@ -56,12 +66,12 @@ public class WorksheetTemplate {
     this.templateFile = templateFile;
   }
 
-  public FileEntity getMetadataFile() {
-    return metadataFile;
+  public WorksheetTemplateMetadata getMetadata() {
+    return metadata;
   }
 
-  public void setMetadataFile(FileEntity metadataFile) {
-    this.metadataFile = metadataFile;
+  public void setMetadata(WorksheetTemplateMetadata metadata) {
+    this.metadata = metadata;
   }
 
   public String getDatabaseName() {
