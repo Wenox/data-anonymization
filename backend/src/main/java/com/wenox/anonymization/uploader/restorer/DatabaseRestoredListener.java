@@ -3,11 +3,11 @@ package com.wenox.anonymization.uploader.restorer;
 import com.wenox.anonymization.commons.ConnectionDetails;
 import com.wenox.anonymization.commons.DataSourceFactory;
 import com.wenox.anonymization.config.DatabaseRestoreFailureException;
-import com.wenox.anonymization.uploader.core.WorksheetTemplateRepository;
-import com.wenox.anonymization.uploader.core.WorksheetTemplateStatus;
+import com.wenox.anonymization.uploader.core.TemplateRepository;
+import com.wenox.anonymization.uploader.core.TemplateStatus;
 import com.wenox.anonymization.uploader.extractor.event.MetadataExtractedEvent;
 import com.wenox.anonymization.uploader.extractor.MetadataExtractor;
-import com.wenox.anonymization.uploader.extractor.metadata.WorksheetTemplateMetadata;
+import com.wenox.anonymization.uploader.extractor.metadata.TemplateMetadata;
 import com.wenox.anonymization.uploader.restorer.event.DatabaseRestoreFailureEvent;
 import com.wenox.anonymization.uploader.restorer.event.DatabaseRestoreSuccessEvent;
 import org.springframework.context.ApplicationEventPublisher;
@@ -20,10 +20,10 @@ public class DatabaseRestoredListener {
   private final DataSourceFactory dataSourceFactory;
   private final MetadataExtractor metadataExtractor;
   private final ApplicationEventPublisher publisher;
-  private final WorksheetTemplateRepository repository;
+  private final TemplateRepository repository;
 
   public DatabaseRestoredListener(DataSourceFactory dataSourceFactory, MetadataExtractor metadataExtractor,
-                                  ApplicationEventPublisher publisher, WorksheetTemplateRepository repository) {
+                                  ApplicationEventPublisher publisher, TemplateRepository repository) {
     this.dataSourceFactory = dataSourceFactory;
     this.metadataExtractor = metadataExtractor;
     this.publisher = publisher;
@@ -33,24 +33,24 @@ public class DatabaseRestoredListener {
   @EventListener
   public void onDatabaseRestoreSuccessEvent(final DatabaseRestoreSuccessEvent event) {
     final var connectionDetails = new ConnectionDetails();
-    connectionDetails.setDatabaseType(event.getWorksheetTemplate().getType());
-    connectionDetails.setDatabaseName(event.getWorksheetTemplate().getDatabaseName());
+    connectionDetails.setDatabaseType(event.getTemplate().getType());
+    connectionDetails.setDatabaseName(event.getTemplate().getDatabaseName());
     connectionDetails.setUsername("postgres");
     connectionDetails.setPassword("postgres");
 
-    final var worksheetTemplate = event.getWorksheetTemplate();
+    final var template = event.getTemplate();
 
     try {
-      final WorksheetTemplateMetadata metadata = metadataExtractor.extractMetadata(connectionDetails);
-      worksheetTemplate.setStatus(WorksheetTemplateStatus.METADATA_READY);
-      worksheetTemplate.setMetadata(metadata);
+      final TemplateMetadata metadata = metadataExtractor.extractMetadata(connectionDetails);
+      template.setStatus(TemplateStatus.METADATA_READY);
+      template.setMetadata(metadata);
     } catch (final Exception ex) {
-      worksheetTemplate.setStatus(WorksheetTemplateStatus.METADATA_FAILURE);
-      worksheetTemplate.setMetadata(null);
+      template.setStatus(TemplateStatus.METADATA_FAILURE);
+      template.setMetadata(null);
     }
-    repository.save(worksheetTemplate);
+    repository.save(template);
 
-    publisher.publishEvent(new MetadataExtractedEvent(event.getWorksheetTemplate()));
+    publisher.publishEvent(new MetadataExtractedEvent(event.getTemplate()));
   }
 
   @EventListener

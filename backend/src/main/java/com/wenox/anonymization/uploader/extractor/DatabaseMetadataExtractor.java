@@ -7,7 +7,7 @@ import com.wenox.anonymization.uploader.extractor.metadata.ForeignKey;
 import com.wenox.anonymization.uploader.extractor.metadata.PrimaryKey;
 import com.wenox.anonymization.uploader.extractor.metadata.Schema;
 import com.wenox.anonymization.uploader.extractor.metadata.Table;
-import com.wenox.anonymization.uploader.extractor.metadata.WorksheetTemplateMetadata;
+import com.wenox.anonymization.uploader.extractor.metadata.TemplateMetadata;
 import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -24,14 +24,14 @@ public class DatabaseMetadataExtractor implements MetadataExtractor {
     this.dataSourceFactory = dataSourceFactory;
   }
 
-  public WorksheetTemplateMetadata extractMetadata(ConnectionDetails connectionDetails) throws SQLException {
+  public TemplateMetadata extractMetadata(ConnectionDetails connectionDetails) throws SQLException {
 
     final DataSource dataSource = dataSourceFactory.getDataSource(connectionDetails);
     final JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 
     final DatabaseMetaData extractor = dataSource.getConnection().getMetaData();
 
-    final WorksheetTemplateMetadata metadata = new WorksheetTemplateMetadata();
+    final TemplateMetadata metadata = new TemplateMetadata();
     int numberOfSchemas = 0;
     int numberOfTables = 0;
 

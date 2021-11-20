@@ -1,6 +1,6 @@
 package com.wenox.anonymization.uploader.core;
 
-public enum WorksheetTemplateStatus {
+public enum TemplateStatus {
   NEW,
   UPLOAD_SUCCESS,
   UPLOAD_FAILURE,

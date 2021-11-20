@@ -1,16 +1,16 @@
 package com.wenox.anonymization.uploader.extractor.event;
 
-import com.wenox.anonymization.uploader.core.WorksheetTemplate;
+import com.wenox.anonymization.uploader.core.Template;
 
 public class MetadataExtractedEvent {
 
-  private final WorksheetTemplate template;
+  private final Template template;
 
-  public MetadataExtractedEvent(WorksheetTemplate template) {
+  public MetadataExtractedEvent(Template template) {
     this.template = template;
   }
 
-  public WorksheetTemplate getTemplate() {
+  public Template getTemplate() {
     return template;
   }
 }

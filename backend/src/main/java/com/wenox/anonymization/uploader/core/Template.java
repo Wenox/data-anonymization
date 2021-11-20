@@ -2,7 +2,7 @@ package com.wenox.anonymization.uploader.core;
 
 import com.vladmihalcea.hibernate.type.json.JsonType;
 import com.wenox.anonymization.commons.domain.FileType;
-import com.wenox.anonymization.uploader.extractor.metadata.WorksheetTemplateMetadata;
+import com.wenox.anonymization.uploader.extractor.metadata.TemplateMetadata;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import javax.persistence.Column;
@@ -17,17 +17,17 @@ import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
 
 @Entity
-@Table(name = "worksheet_templates")
+@Table(name = "templates")
 @TypeDefs({
     @TypeDef(name = "json", typeClass = JsonType.class)
 })
-public class WorksheetTemplate {
+public class Template {
 
   @Id
   private UUID uuid = UUID.randomUUID();
 
   @Enumerated(EnumType.STRING)
-  private WorksheetTemplateStatus status;
+  private TemplateStatus status;
 
   @Enumerated(EnumType.STRING)
   private FileType type;
@@ -37,7 +37,7 @@ public class WorksheetTemplate {
 
   @Type(type = "json")
   @Column(columnDefinition = "jsonb")
-  private WorksheetTemplateMetadata metadata;
+  private TemplateMetadata metadata;
 
   private String databaseName;
 
@@ -67,11 +67,11 @@ public class WorksheetTemplate {
     this.templateFile = templateFile;
   }
 
-  public WorksheetTemplateMetadata getMetadata() {
+  public TemplateMetadata getMetadata() {
     return metadata;
   }
 
-  public void setMetadata(WorksheetTemplateMetadata metadata) {
+  public void setMetadata(TemplateMetadata metadata) {
     this.metadata = metadata;
   }
 
@@ -99,11 +99,11 @@ public class WorksheetTemplate {
     this.author = author;
   }
 
-  public WorksheetTemplateStatus getStatus() {
+  public TemplateStatus getStatus() {
     return status;
   }
 
-  public void setStatus(WorksheetTemplateStatus status) {
+  public void setStatus(TemplateStatus status) {
     this.status = status;
   }
 

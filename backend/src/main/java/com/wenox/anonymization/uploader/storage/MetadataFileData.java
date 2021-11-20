@@ -1,16 +1,16 @@
 package com.wenox.anonymization.uploader.storage;
 
-import com.wenox.anonymization.uploader.extractor.metadata.WorksheetTemplateMetadata;
+import com.wenox.anonymization.uploader.extractor.metadata.TemplateMetadata;
 
 @Deprecated
 public class MetadataFileData extends FileData {
-  WorksheetTemplateMetadata metadata;
+  TemplateMetadata metadata;
 
-  public WorksheetTemplateMetadata getMetadata() {
+  public TemplateMetadata getMetadata() {
     return metadata;
   }
 
-  public void setMetadata(WorksheetTemplateMetadata metadata) {
+  public void setMetadata(TemplateMetadata metadata) {
     this.metadata = metadata;
   }
 }
