@@ -1,6 +1,7 @@
 package com.wenox.anonymization.uploader.core;
 
 import com.wenox.anonymization.commons.domain.FileType;
+import com.wenox.anonymization.uploader.extractor.metadata.WorksheetTemplateMetadata;
 import java.io.IOException;
 import java.util.UUID;
 import org.springframework.http.ResponseEntity;
@@ -32,5 +33,10 @@ public class WorksheetTemplateController {
   @GetMapping("/{uuid}/status")
   public ResponseEntity<String> getStatus(@PathVariable("uuid") UUID uuid) {
     return ResponseEntity.ok(worksheetTemplateService.getStatus(uuid));
+  }
+
+  @GetMapping("/{uuid}/metadata")
+  public ResponseEntity<WorksheetTemplateMetadata> getMetadata(@PathVariable("uuid") UUID uuid) {
+    return ResponseEntity.ok(worksheetTemplateService.getMetadata(uuid));
   }
 }
