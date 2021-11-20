@@ -1,7 +1,7 @@
 package com.wenox.anonymization.uploader.core;
 
 import com.vladmihalcea.hibernate.type.json.JsonType;
-import com.wenox.anonymization.commons.domain.FileType;
+import com.wenox.anonymization.core.domain.FileType;
 import com.wenox.anonymization.uploader.extractor.metadata.TemplateMetadata;
 import java.time.LocalDateTime;
 import java.util.UUID;

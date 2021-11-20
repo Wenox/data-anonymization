@@ -1,7 +1,7 @@
 package com.wenox.anonymization.uploader.extractor;
 
-import com.wenox.anonymization.commons.ConnectionDetails;
-import com.wenox.anonymization.commons.DataSourceFactory;
+import com.wenox.anonymization.core.ConnectionDetails;
+import com.wenox.anonymization.core.DataSourceFactory;
 import com.wenox.anonymization.uploader.extractor.metadata.Column;
 import com.wenox.anonymization.uploader.extractor.metadata.ForeignKey;
 import com.wenox.anonymization.uploader.extractor.metadata.PrimaryKey;

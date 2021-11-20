@@ -1,6 +1,6 @@
 package com.wenox.anonymization.uploader.restorer;
 
-import com.wenox.anonymization.commons.ConnectionDetails;
+import com.wenox.anonymization.core.ConnectionDetails;
 import com.wenox.anonymization.config.DatabaseRestoreFailureException;
 import com.wenox.anonymization.uploader.core.TemplateRepository;
 import com.wenox.anonymization.uploader.core.TemplateStatus;

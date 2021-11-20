@@ -1,6 +1,6 @@
 package com.wenox.anonymization.uploader.storage;
 
-import com.wenox.anonymization.commons.domain.FileType;
+import com.wenox.anonymization.core.domain.FileType;
 import com.wenox.anonymization.uploader.core.FileDTO;
 
 public class TemplateFileData extends FileData {
