@@ -3,6 +3,10 @@ package com.wenox.anonymization.core.auth;
 import com.wenox.anonymization.core.ApiResponse;
 import com.wenox.anonymization.core.domain.Role;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -12,13 +16,17 @@ public class AuthService {
 
   private final UserRepository userRepository;
   private final PasswordEncoder passwordEncoder;
+  private final AuthenticationManager authenticationManager;
 
-  public AuthService(UserRepository userRepository,PasswordEncoder passwordEncoder) {
+  public AuthService(UserRepository userRepository,
+                     PasswordEncoder passwordEncoder,
+                     AuthenticationManager authenticationManager) {
     this.userRepository = userRepository;
     this.passwordEncoder = passwordEncoder;
+    this.authenticationManager = authenticationManager;
   }
 
-  public ApiResponse register(RegisterRequest dto) {
+  public ApiResponse register(UserRequest dto) {
     if (userRepository.existsByEmail(dto.getEmail())) {
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User with this email already exists!");
     }
@@ -32,5 +40,17 @@ public class AuthService {
     userRepository.save(user);
 
     return new ApiResponse("Your account was registered successfully.");
+  }
+
+  public ApiResponse login(UserRequest dto) {
+    try {
+      var auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword()));
+      SecurityContextHolder.getContext().setAuthentication(auth);
+
+      return new ApiResponse("Logged in successfully.");
+    } catch (AuthenticationException e) {
+      e.printStackTrace();
+      return new ApiResponse("Logging in failed.", false);
+    }
   }
 }

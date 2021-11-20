@@ -47,7 +47,7 @@ public class User {
     this.password = password;
   }
 
-  public Boolean getBlocked() {
+  public Boolean isBlocked() {
     return blocked;
   }
 
