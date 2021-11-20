@@ -4,6 +4,7 @@ import com.wenox.anonymization.commons.ConnectionDetails;
 import com.wenox.anonymization.commons.DataSourceFactory;
 import com.wenox.anonymization.config.DatabaseRestoreFailureException;
 import com.wenox.anonymization.uploader.core.WorksheetTemplateRepository;
+import com.wenox.anonymization.uploader.core.WorksheetTemplateStatus;
 import com.wenox.anonymization.uploader.extractor.event.MetadataExtractedEvent;
 import com.wenox.anonymization.uploader.extractor.MetadataExtractor;
 import com.wenox.anonymization.uploader.extractor.metadata.WorksheetTemplateMetadata;
@@ -41,10 +42,10 @@ public class DatabaseRestoredListener {
 
     try {
       final WorksheetTemplateMetadata metadata = metadataExtractor.extractMetadata(connectionDetails);
-      worksheetTemplate.setStatus("METADATA_EXTRACTED_SUCCESS");
+      worksheetTemplate.setStatus(WorksheetTemplateStatus.METADATA_READY);
       worksheetTemplate.setMetadata(metadata);
     } catch (final Exception ex) {
-      worksheetTemplate.setStatus("METADATA_EXTRACTED_FAILURE");
+      worksheetTemplate.setStatus(WorksheetTemplateStatus.METADATA_FAILURE);
       worksheetTemplate.setMetadata(null);
     }
     repository.save(worksheetTemplate);

@@ -27,6 +27,9 @@ public class WorksheetTemplate {
   private UUID uuid = UUID.randomUUID();
 
   @Enumerated(EnumType.STRING)
+  private WorksheetTemplateStatus status;
+
+  @Enumerated(EnumType.STRING)
   private FileType type;
 
   @OneToOne
@@ -41,8 +44,6 @@ public class WorksheetTemplate {
   private String description;
 
   private String author; // todo: User
-
-  private String status; // todo: WorksheetTemplateStatus
 
   private LocalDateTime createdDate;
 
@@ -98,11 +99,11 @@ public class WorksheetTemplate {
     this.author = author;
   }
 
-  public String getStatus() {
+  public WorksheetTemplateStatus getStatus() {
     return status;
   }
 
-  public void setStatus(String status) {
+  public void setStatus(WorksheetTemplateStatus status) {
     this.status = status;
   }
 

@@ -40,7 +40,7 @@ public class WorksheetTemplateService {
     return worksheetTemplate.getUuid();
   }
 
-  public String getStatus(UUID uuid) {
+  public WorksheetTemplateStatus getStatus(UUID uuid) {
     return worksheetTemplateRepository.findById(uuid)
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND))
         .getStatus();

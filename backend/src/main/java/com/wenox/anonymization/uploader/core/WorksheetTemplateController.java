@@ -31,7 +31,7 @@ public class WorksheetTemplateController {
   }
 
   @GetMapping("/{uuid}/status")
-  public ResponseEntity<String> getStatus(@PathVariable("uuid") UUID uuid) {
+  public ResponseEntity<WorksheetTemplateStatus> getStatus(@PathVariable("uuid") UUID uuid) {
     return ResponseEntity.ok(worksheetTemplateService.getStatus(uuid));
   }
 

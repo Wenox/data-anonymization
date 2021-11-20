@@ -6,5 +6,6 @@ public enum WorksheetTemplateStatus {
   UPLOAD_FAILURE,
   RESTORE_SUCCESS,
   RESTORE_FAILURE,
-  READY
+  METADATA_READY,
+  METADATA_FAILURE
 }
