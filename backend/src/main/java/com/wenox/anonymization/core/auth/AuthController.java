@@ -1,6 +1,7 @@
 package com.wenox.anonymization.core.auth;
 
 import com.wenox.anonymization.core.ApiResponse;
+import javax.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,7 +19,7 @@ public class AuthController {
   }
 
   @PostMapping("/register")
-  public ResponseEntity<ApiResponse> register(@RequestBody RegisterRequest dto) {
+  public ResponseEntity<ApiResponse> register(@Valid @RequestBody RegisterRequest dto) {
     return ResponseEntity.ok(authService.register(dto));
   }
 }
