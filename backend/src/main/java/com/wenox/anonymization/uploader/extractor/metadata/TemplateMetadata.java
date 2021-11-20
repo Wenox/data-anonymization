@@ -3,7 +3,7 @@ package com.wenox.anonymization.uploader.extractor.metadata;
 import java.util.HashMap;
 import java.util.Map;
 
-public class WorksheetTemplateMetadata {
+public class TemplateMetadata {
   private Map<String, Schema> schemas = new HashMap<>();
   private int numberOfSchemas;
   private int numberOfTables;

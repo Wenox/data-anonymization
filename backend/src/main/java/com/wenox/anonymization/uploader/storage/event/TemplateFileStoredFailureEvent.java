@@ -1,20 +1,20 @@
 package com.wenox.anonymization.uploader.storage.event;
 
-import com.wenox.anonymization.uploader.core.WorksheetTemplate;
+import com.wenox.anonymization.uploader.core.Template;
 
 public class TemplateFileStoredFailureEvent {
 
-  private WorksheetTemplate template;
+  private Template template;
 
-  public TemplateFileStoredFailureEvent(WorksheetTemplate template) {
+  public TemplateFileStoredFailureEvent(Template template) {
     this.template = template;
   }
 
-  public WorksheetTemplate getTemplate() {
+  public Template getTemplate() {
     return template;
   }
 
-  public void setTemplate(WorksheetTemplate template) {
+  public void setTemplate(Template template) {
     this.template = template;
   }
 }

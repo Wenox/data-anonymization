@@ -1,7 +1,7 @@
 package com.wenox.anonymization.uploader.core;
 
 import com.wenox.anonymization.commons.domain.FileType;
-import com.wenox.anonymization.uploader.extractor.metadata.WorksheetTemplateMetadata;
+import com.wenox.anonymization.uploader.extractor.metadata.TemplateMetadata;
 import java.io.IOException;
 import java.util.UUID;
 import org.springframework.http.ResponseEntity;
@@ -14,29 +14,29 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-@RequestMapping("/api/v1/worksheet-templates")
-public class WorksheetTemplateController {
+@RequestMapping("/api/v1/templates")
+public class TemplateController {
 
-  private final WorksheetTemplateService worksheetTemplateService;
+  private final TemplateService templateService;
 
-  public WorksheetTemplateController(WorksheetTemplateService worksheetTemplateService) {
-    this.worksheetTemplateService = worksheetTemplateService;
+  public TemplateController(TemplateService templateService) {
+    this.templateService = templateService;
   }
 
   @PostMapping
   public ResponseEntity<UUID> create(@RequestParam("file") MultipartFile multipartFile,
                                      @RequestParam("type") FileType type) throws IOException {
-    final UUID uuid = worksheetTemplateService.createFrom(FileDTO.from(multipartFile), type);
+    final UUID uuid = templateService.createFrom(FileDTO.from(multipartFile), type);
     return ResponseEntity.accepted().body(uuid);
   }
 
   @GetMapping("/{uuid}/status")
-  public ResponseEntity<String> getStatus(@PathVariable("uuid") UUID uuid) {
-    return ResponseEntity.ok(worksheetTemplateService.getStatus(uuid));
+  public ResponseEntity<TemplateStatus> getStatus(@PathVariable("uuid") UUID uuid) {
+    return ResponseEntity.ok(templateService.getStatus(uuid));
   }
 
   @GetMapping("/{uuid}/metadata")
-  public ResponseEntity<WorksheetTemplateMetadata> getMetadata(@PathVariable("uuid") UUID uuid) {
-    return ResponseEntity.ok(worksheetTemplateService.getMetadata(uuid));
+  public ResponseEntity<TemplateMetadata> getMetadata(@PathVariable("uuid") UUID uuid) {
+    return ResponseEntity.ok(templateService.getMetadata(uuid));
   }
 }
