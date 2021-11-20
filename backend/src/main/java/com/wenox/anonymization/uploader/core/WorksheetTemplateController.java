@@ -36,7 +36,7 @@ public class WorksheetTemplateController {
   }
 
   @GetMapping("/{uuid}/metadata")
-  public ResponseEntity<WorksheetTemplateMetadata> getMetadata(@PathVariable("uuid") UUID uuid) throws IOException {
+  public ResponseEntity<WorksheetTemplateMetadata> getMetadata(@PathVariable("uuid") UUID uuid) {
     return ResponseEntity.ok(worksheetTemplateService.getMetadata(uuid));
   }
 }

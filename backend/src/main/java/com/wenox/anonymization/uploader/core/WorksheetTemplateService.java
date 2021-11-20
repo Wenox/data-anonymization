@@ -1,11 +1,8 @@
 package com.wenox.anonymization.uploader.core;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wenox.anonymization.commons.domain.FileType;
 import com.wenox.anonymization.uploader.core.event.WorksheetTemplateCreatedEvent;
 import com.wenox.anonymization.uploader.extractor.metadata.WorksheetTemplateMetadata;
-import java.io.File;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Random;
 import java.util.UUID;
@@ -31,7 +28,7 @@ public class WorksheetTemplateService {
     worksheetTemplate.setType(type);
     worksheetTemplate.setAuthor("Principal");
     worksheetTemplate.setDescription("Description");
-    worksheetTemplate.setMetadataFile(null);
+    worksheetTemplate.setMetadata(null);
     worksheetTemplate.setTemplateFile(null);
     worksheetTemplate.setCreatedDate(LocalDateTime.now());
     worksheetTemplate.setDatabaseName("dbname_" + new Random().nextInt(Integer.MAX_VALUE));
@@ -48,14 +45,9 @@ public class WorksheetTemplateService {
         .getStatus();
   }
 
-  public WorksheetTemplateMetadata getMetadata(UUID uuid) throws IOException {
-    final FileEntity metadataFile = worksheetTemplateRepository.findById(uuid)
+  public WorksheetTemplateMetadata getMetadata(UUID uuid) {
+    return worksheetTemplateRepository.findById(uuid)
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND))
-        .getMetadataFile();
-
-    return new ObjectMapper().readValue(
-        new File("E:/anon/data-anonymization/stored_files/" + metadataFile.getSavedName()),
-        WorksheetTemplateMetadata.class
-    );
+        .getMetadata();
   }
 }

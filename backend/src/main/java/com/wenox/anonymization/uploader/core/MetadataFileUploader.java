@@ -8,6 +8,7 @@ import com.wenox.anonymization.uploader.storage.MetadataFileStorage;
 import java.io.IOException;
 import org.springframework.stereotype.Service;
 
+@Deprecated
 @Service
 public class MetadataFileUploader implements FileUploader {
 

@@ -2,6 +2,7 @@ package com.wenox.anonymization.uploader.storage;
 
 import com.wenox.anonymization.uploader.extractor.metadata.WorksheetTemplateMetadata;
 
+@Deprecated
 public class MetadataFileData extends FileData {
   WorksheetTemplateMetadata metadata;
 
