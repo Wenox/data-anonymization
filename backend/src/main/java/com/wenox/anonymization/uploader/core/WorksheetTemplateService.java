@@ -24,10 +24,11 @@ public class WorksheetTemplateService {
 
   public UUID createFrom(FileDTO fileDTO, FileType type) {
     final var worksheetTemplate = new WorksheetTemplate();
+    worksheetTemplate.setStatus(WorksheetTemplateStatus.NEW);
     worksheetTemplate.setType(type);
     worksheetTemplate.setAuthor("Principal");
     worksheetTemplate.setDescription("Description");
-    worksheetTemplate.setMetadataFile(null);
+    worksheetTemplate.setMetadata(null);
     worksheetTemplate.setTemplateFile(null);
     worksheetTemplate.setCreatedDate(LocalDateTime.now());
     worksheetTemplate.setDatabaseName("dbname_" + new Random().nextInt(Integer.MAX_VALUE));

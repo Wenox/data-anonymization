@@ -35,13 +35,13 @@ public class WorksheetTemplateCreatedListener {
       fileData.setFileDTO(event.getFileDTO());
       fileData.setFileType(worksheetTemplate.getType());
       final var savedTemplateFile = fileUploader.upload(fileData);
-      worksheetTemplate.setStatus("TEMPLATE_UPLOAD_SUCCESS"); // todo: enum
+      worksheetTemplate.setStatus(WorksheetTemplateStatus.UPLOAD_SUCCESS);
       worksheetTemplate.setTemplateFile(savedTemplateFile);
       repository.save(worksheetTemplate);
       publisher.publishEvent(new TemplateFileStoredSuccessEvent(worksheetTemplate));
     } catch (final IOException ex) {
       ex.printStackTrace();
-      worksheetTemplate.setStatus("TEMPLATE_UPLOAD_FAILURE");
+      worksheetTemplate.setStatus(WorksheetTemplateStatus.UPLOAD_FAILURE);
       repository.save(worksheetTemplate);
       publisher.publishEvent(new TemplateFileStoredFailureEvent(worksheetTemplate));
     }

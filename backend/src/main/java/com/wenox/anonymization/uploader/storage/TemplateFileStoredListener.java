@@ -2,6 +2,7 @@ package com.wenox.anonymization.uploader.storage;
 
 import com.wenox.anonymization.commons.domain.FileType;
 import com.wenox.anonymization.uploader.core.WorksheetTemplateRepository;
+import com.wenox.anonymization.uploader.core.WorksheetTemplateStatus;
 import com.wenox.anonymization.uploader.storage.event.TemplateFileStoredFailureEvent;
 import com.wenox.anonymization.uploader.storage.event.TemplateFileStoredSuccessEvent;
 import com.wenox.anonymization.uploader.restorer.DatabaseRestorer;
@@ -36,10 +37,10 @@ public class TemplateFileStoredListener {
 
     try {
       restorer.restorePostgresDatabase(worksheetTemplate.getTemplateFile().getSavedName(), worksheetTemplate.getDatabaseName());
-      worksheetTemplate.setStatus("DATABASE_RESTORE_SUCCESS"); // todo: enum
+      worksheetTemplate.setStatus(WorksheetTemplateStatus.RESTORE_SUCCESS);
       repository.save(worksheetTemplate);
     } catch (final Exception ex) {
-      worksheetTemplate.setStatus("DATABASE_RESTORE_FAILURE"); // todo: enum
+      worksheetTemplate.setStatus(WorksheetTemplateStatus.RESTORE_FAILURE);
       repository.save(worksheetTemplate);
       publisher.publishEvent(new DatabaseRestoreFailureEvent(ex));
       return;
