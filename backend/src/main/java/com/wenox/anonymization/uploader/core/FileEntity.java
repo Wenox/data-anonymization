@@ -1,6 +1,6 @@
 package com.wenox.anonymization.uploader.core;
 
-import com.wenox.anonymization.commons.domain.FileType;
+import com.wenox.anonymization.core.domain.FileType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;

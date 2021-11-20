@@ -1,6 +1,6 @@
 package com.wenox.anonymization.uploader.storage;
 
-import com.wenox.anonymization.commons.domain.FileType;
+import com.wenox.anonymization.core.domain.FileType;
 import com.wenox.anonymization.uploader.core.TemplateRepository;
 import com.wenox.anonymization.uploader.core.TemplateStatus;
 import com.wenox.anonymization.uploader.storage.event.TemplateFileStoredFailureEvent;
