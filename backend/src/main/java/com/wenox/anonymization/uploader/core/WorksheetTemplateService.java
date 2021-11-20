@@ -2,6 +2,7 @@ package com.wenox.anonymization.uploader.core;
 
 import com.wenox.anonymization.commons.domain.FileType;
 import com.wenox.anonymization.uploader.core.event.WorksheetTemplateCreatedEvent;
+import com.wenox.anonymization.uploader.extractor.metadata.WorksheetTemplateMetadata;
 import java.time.LocalDateTime;
 import java.util.Random;
 import java.util.UUID;
@@ -27,7 +28,7 @@ public class WorksheetTemplateService {
     worksheetTemplate.setType(type);
     worksheetTemplate.setAuthor("Principal");
     worksheetTemplate.setDescription("Description");
-    worksheetTemplate.setMetadataFile(null);
+    worksheetTemplate.setMetadata(null);
     worksheetTemplate.setTemplateFile(null);
     worksheetTemplate.setCreatedDate(LocalDateTime.now());
     worksheetTemplate.setDatabaseName("dbname_" + new Random().nextInt(Integer.MAX_VALUE));
@@ -42,5 +43,11 @@ public class WorksheetTemplateService {
     return worksheetTemplateRepository.findById(uuid)
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND))
         .getStatus();
+  }
+
+  public WorksheetTemplateMetadata getMetadata(UUID uuid) {
+    return worksheetTemplateRepository.findById(uuid)
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND))
+        .getMetadata();
   }
 }
