@@ -1,7 +1,6 @@
 package com.wenox.anonymization.uploader.restorer;
 
-import com.wenox.anonymization.core.ConnectionDetails;
-import com.wenox.anonymization.config.DatabaseRestoreFailureException;
+import com.wenox.anonymization.core.service.ConnectionDetails;
 import com.wenox.anonymization.uploader.core.TemplateRepository;
 import com.wenox.anonymization.uploader.core.TemplateStatus;
 import com.wenox.anonymization.uploader.extractor.event.MetadataExtractedEvent;
@@ -54,6 +53,5 @@ public class DatabaseRestoredListener {
   @EventListener
   public void onDatabaseRestoreFailureEvent(final DatabaseRestoreFailureEvent event) {
     System.out.println("DatabaseRestoreFailureEvent");
-    throw new DatabaseRestoreFailureException();
   }
 }

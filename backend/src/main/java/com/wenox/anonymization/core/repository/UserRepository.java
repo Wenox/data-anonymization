@@ -1,5 +1,6 @@
-package com.wenox.anonymization.core.auth;
+package com.wenox.anonymization.core.repository;
 
+import com.wenox.anonymization.core.domain.User;
 import java.util.Optional;
 import java.util.UUID;
 import org.springframework.data.repository.CrudRepository;

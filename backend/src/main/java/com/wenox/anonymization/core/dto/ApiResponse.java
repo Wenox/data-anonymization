@@ -1,4 +1,4 @@
-package com.wenox.anonymization.core;
+package com.wenox.anonymization.core.dto;
 
 public class ApiResponse {
   private String message = "Action completed successfully";

@@ -1,4 +1,4 @@
-package com.wenox.anonymization.core;
+package com.wenox.anonymization.core.service;
 
 import com.wenox.anonymization.core.domain.FileType;
 
