@@ -1,9 +1,10 @@
-package com.wenox.anonymization.core.auth;
+package com.wenox.anonymization.core.security.filter;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wenox.anonymization.core.security.service.JwtService;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;

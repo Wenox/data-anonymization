@@ -1,5 +1,6 @@
-package com.wenox.anonymization.core.auth;
+package com.wenox.anonymization.core.security.service;
 
+import com.wenox.anonymization.core.repository.UserRepository;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

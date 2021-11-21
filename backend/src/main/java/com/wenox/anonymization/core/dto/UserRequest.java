@@ -1,4 +1,4 @@
-package com.wenox.anonymization.core.auth;
+package com.wenox.anonymization.core.dto;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

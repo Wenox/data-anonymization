@@ -1,4 +1,4 @@
-package com.wenox.anonymization.core;
+package com.wenox.anonymization.core.service;
 
 import java.util.concurrent.TimeUnit;
 import org.slf4j.LoggerFactory;

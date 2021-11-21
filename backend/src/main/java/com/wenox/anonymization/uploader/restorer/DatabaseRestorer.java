@@ -1,6 +1,6 @@
 package com.wenox.anonymization.uploader.restorer;
 
-import com.wenox.anonymization.core.ProcessExecutorFactory;
+import com.wenox.anonymization.core.service.ProcessExecutorFactory;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,8 @@
-package com.wenox.anonymization.core.auth;
+package com.wenox.anonymization.core.security.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wenox.anonymization.core.dto.UserRequest;
+import com.wenox.anonymization.core.security.service.JwtService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import java.io.IOException;

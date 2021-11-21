@@ -1,9 +1,10 @@
-package com.wenox.anonymization.config;
+package com.wenox.anonymization.core.config;
 
-import com.wenox.anonymization.core.auth.JwtAuthenticationFilter;
-import com.wenox.anonymization.core.auth.JwtAuthorizationFilter;
-import com.wenox.anonymization.core.auth.JwtUserDetailsService;
-import com.wenox.anonymization.core.auth.JwtService;
+import com.wenox.anonymization.core.security.filter.JwtAuthenticationFilter;
+import com.wenox.anonymization.core.security.filter.JwtAuthorizationFilter;
+import com.wenox.anonymization.core.security.service.JwtService;
+import com.wenox.anonymization.core.security.service.JwtUserDetailsService;
+import com.wenox.anonymization.core.security.filter.RequestLoggingFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -45,6 +46,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     return new JwtAuthorizationFilter();
   }
 
+  @Bean
+  public RequestLoggingFilter requestLoggingFilter() {
+    return new RequestLoggingFilter();
+  }
+
   @Override
   protected void configure(AuthenticationManagerBuilder builder) throws Exception {
     builder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
@@ -75,6 +81,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .cors()
         .disable()
         .addFilter(new JwtAuthenticationFilter(authenticationManagerBean(), jwtService))
-        .addFilterBefore(jwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
+        .addFilterBefore(jwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
+        .addFilterAfter(requestLoggingFilter(), UsernamePasswordAuthenticationFilter.class);
   }
 }

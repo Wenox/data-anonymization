@@ -1,6 +1,8 @@
-package com.wenox.anonymization.core.auth;
+package com.wenox.anonymization.core.controller;
 
-import com.wenox.anonymization.core.ApiResponse;
+import com.wenox.anonymization.core.dto.ApiResponse;
+import com.wenox.anonymization.core.service.AuthService;
+import com.wenox.anonymization.core.dto.UserRequest;
 import javax.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -1,4 +1,4 @@
-package com.wenox.anonymization.core.auth;
+package com.wenox.anonymization.core.domain;
 
 import com.wenox.anonymization.core.domain.Role;
 import java.time.LocalDateTime;

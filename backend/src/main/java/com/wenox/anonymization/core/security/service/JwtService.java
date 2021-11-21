@@ -1,4 +1,4 @@
-package com.wenox.anonymization.core.auth;
+package com.wenox.anonymization.core.security.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

@@ -1,4 +1,4 @@
-package com.wenox.anonymization.core;
+package com.wenox.anonymization.core.service;
 
 import javax.sql.DataSource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;

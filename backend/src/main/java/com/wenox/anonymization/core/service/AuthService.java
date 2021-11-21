@@ -1,7 +1,10 @@
-package com.wenox.anonymization.core.auth;
+package com.wenox.anonymization.core.service;
 
-import com.wenox.anonymization.core.ApiResponse;
+import com.wenox.anonymization.core.dto.ApiResponse;
 import com.wenox.anonymization.core.domain.Role;
+import com.wenox.anonymization.core.domain.User;
+import com.wenox.anonymization.core.dto.UserRequest;
+import com.wenox.anonymization.core.repository.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
