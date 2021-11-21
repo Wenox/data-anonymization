@@ -1,5 +1,6 @@
 package com.wenox.anonymization.config;
 
+import com.wenox.anonymization.core.auth.JwtAuthenticationFilter;
 import com.wenox.anonymization.core.auth.JwtUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -18,9 +20,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
   private final JwtUserDetailsService userDetailsService;
+  private final JwtAuthenticationFilter jwtAuthenticationFilter;
+  private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
-  public SecurityConfiguration(JwtUserDetailsService userDetailsService) {
+  public SecurityConfiguration(JwtUserDetailsService userDetailsService, JwtAuthenticationFilter jwtAuthenticationFilter,
+                               JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint) {
     this.userDetailsService = userDetailsService;
+    this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+    this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
   }
 
   @Bean
@@ -44,14 +51,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     http.authorizeRequests()
         .antMatchers("/api/v1/auth/**")
         .permitAll()
+        .and()
+        .authorizeRequests()
         .anyRequest()
         .authenticated()
         .and()
         .sessionManagement()
-        .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
         .csrf()
         .disable()
+        .exceptionHandling()
+        .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+        .and()
         .headers()
         .frameOptions()
         .disable()
@@ -59,5 +71,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .logout()
         .permitAll()
         .logoutSuccessUrl("/login");
+
+    http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
   }
 }

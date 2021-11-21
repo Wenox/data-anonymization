@@ -17,13 +17,16 @@ public class AuthService {
   private final UserRepository userRepository;
   private final PasswordEncoder passwordEncoder;
   private final AuthenticationManager authenticationManager;
+  private final TokenProvider jwtTokenUtil;
 
   public AuthService(UserRepository userRepository,
                      PasswordEncoder passwordEncoder,
-                     AuthenticationManager authenticationManager) {
+                     AuthenticationManager authenticationManager,
+                     TokenProvider jwtTokenUtil) {
     this.userRepository = userRepository;
     this.passwordEncoder = passwordEncoder;
     this.authenticationManager = authenticationManager;
+    this.jwtTokenUtil = jwtTokenUtil;
   }
 
   public ApiResponse register(UserRequest dto) {
@@ -46,8 +49,8 @@ public class AuthService {
     try {
       var auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword()));
       SecurityContextHolder.getContext().setAuthentication(auth);
-
-      return new ApiResponse("Logged in successfully.");
+      final String token = jwtTokenUtil.generateToken(auth);
+      return new ApiResponse("Logged in successfully. Token: " + token);
     } catch (AuthenticationException e) {
       e.printStackTrace();
       return new ApiResponse("Logging in failed.", false);
