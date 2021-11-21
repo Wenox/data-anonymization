@@ -64,7 +64,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         .setIssuedAt(new Date(System.currentTimeMillis()))
         .setExpiration(new Date(System.currentTimeMillis() + 120 * 1000))
         .claim("role", user.getAuthorities().iterator().next().getAuthority())
-        .signWith(jwtService.getKey(), SignatureAlgorithm.HS256)
+        .signWith(jwtService.getSigningKey(), SignatureAlgorithm.HS256)
         .compact();
 
     final var refreshToken = Jwts.builder()
@@ -72,7 +72,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         .setIssuer(request.getRequestURI())
         .setIssuedAt(new Date(System.currentTimeMillis()))
         .setExpiration(new Date(System.currentTimeMillis() + 120000 * 1000))
-        .signWith(jwtService.getKey(), SignatureAlgorithm.HS256)
+        .signWith(jwtService.getSigningKey(), SignatureAlgorithm.HS256)
         .compact();
 
     log.info("Generated accessToken: {}", accessToken);
