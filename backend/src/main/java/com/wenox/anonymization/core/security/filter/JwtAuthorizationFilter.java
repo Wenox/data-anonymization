@@ -2,7 +2,6 @@ package com.wenox.anonymization.core.security.filter;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wenox.anonymization.core.security.service.JwtService;
 import java.io.IOException;
@@ -38,7 +37,6 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
       if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
 
         String token = authorizationHeader.substring("Bearer ".length());
-        System.out.println("Passed token: " + token);
 
         try {
           final var username = jwtService.getUsernameFromToken(token);

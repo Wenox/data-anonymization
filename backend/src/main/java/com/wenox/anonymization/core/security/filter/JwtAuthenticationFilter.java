@@ -3,10 +3,7 @@ package com.wenox.anonymization.core.security.filter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wenox.anonymization.core.dto.UserRequest;
 import com.wenox.anonymization.core.security.service.JwtService;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import java.io.IOException;
-import java.util.Date;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -58,22 +55,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     User user = (User) authResult.getPrincipal();
 
-    final var accessToken = Jwts.builder()
-        .setSubject(user.getUsername())
-        .setIssuer(request.getRequestURI())
-        .setIssuedAt(new Date(System.currentTimeMillis()))
-        .setExpiration(new Date(System.currentTimeMillis() + 120 * 1000))
-        .claim("role", user.getAuthorities().iterator().next().getAuthority())
-        .signWith(jwtService.getSigningKey(), SignatureAlgorithm.HS256)
-        .compact();
-
-    final var refreshToken = Jwts.builder()
-        .setSubject(user.getUsername())
-        .setIssuer(request.getRequestURI())
-        .setIssuedAt(new Date(System.currentTimeMillis()))
-        .setExpiration(new Date(System.currentTimeMillis() + 120000 * 1000))
-        .signWith(jwtService.getSigningKey(), SignatureAlgorithm.HS256)
-        .compact();
+    String accessToken = jwtService.generateAccessTokenFor(user, request.getServletPath());
+    String refreshToken = jwtService.generateRefreshTokenFor(user, request.getServletPath());
 
     log.info("Generated accessToken: {}", accessToken);
     log.info("Generated refreshToken: {}", refreshToken);

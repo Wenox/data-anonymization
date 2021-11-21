@@ -10,6 +10,7 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -21,11 +22,13 @@ public class JwtService {
   @Value("${core.jwt.algorithm}")
   private SignatureAlgorithm algorithm;
 
-  private SecretKey signingKey;
+  @Value("${core.jwt.accessToken.expireTimeInSeconds}")
+  private Long accessTokenExpireTime;
 
-  public SecretKey getSigningKey() {
-    return signingKey;
-  }
+  @Value("${core.jwt.refreshToken.expireTimeInSeconds}")
+  private Long refreshTokenExpireTime;
+
+  private SecretKey signingKey;
 
   @PostConstruct
   public void init() {
@@ -56,5 +59,26 @@ public class JwtService {
         .build()
         .parseClaimsJws(token)
         .getBody();
+  }
+
+  public String generateAccessTokenFor(User user, String issuer) {
+    return Jwts.builder()
+        .setSubject(user.getUsername())
+        .setIssuer(issuer)
+        .setIssuedAt(new Date(System.currentTimeMillis()))
+        .setExpiration(new Date(System.currentTimeMillis() + accessTokenExpireTime * 1000))
+        .claim("role", user.getAuthorities().iterator().next().getAuthority())
+        .signWith(signingKey, algorithm)
+        .compact();
+  }
+
+  public String generateRefreshTokenFor(User user, String issuer) {
+    return Jwts.builder()
+        .setSubject(user.getUsername())
+        .setIssuer(issuer)
+        .setIssuedAt(new Date(System.currentTimeMillis()))
+        .setExpiration(new Date(System.currentTimeMillis() + refreshTokenExpireTime * 1000))
+        .signWith(signingKey, algorithm)
+        .compact();
   }
 }

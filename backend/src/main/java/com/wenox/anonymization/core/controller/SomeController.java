@@ -1,8 +1,5 @@
 package com.wenox.anonymization.core.controller;
 
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.io.Encoders;
-import io.jsonwebtoken.security.Keys;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,10 +23,6 @@ public class SomeController {
 
   @PostMapping("/none")
   public String tryNoRoles() {
-    var key = Keys.secretKeyFor(SignatureAlgorithm.HS512);
-    String secretString = Encoders.BASE64.encode(key.getEncoded());
-    System.out.println("secret string: " + secretString);
-
     return "none ok";
   }
 }
