@@ -12,6 +12,7 @@ import javax.xml.bind.DatatypeConverter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @Service
 public class JwtService {
@@ -61,10 +62,10 @@ public class JwtService {
         .getBody();
   }
 
-  public String generateAccessTokenFor(User user, String issuer) {
+  public String generateAccessTokenFor(User user) {
     return Jwts.builder()
         .setSubject(user.getUsername())
-        .setIssuer(issuer)
+        .setIssuer(ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString())
         .setIssuedAt(new Date(System.currentTimeMillis()))
         .setExpiration(new Date(System.currentTimeMillis() + accessTokenExpireTime * 1000))
         .claim("role", user.getAuthorities().iterator().next().getAuthority())
@@ -72,10 +73,10 @@ public class JwtService {
         .compact();
   }
 
-  public String generateRefreshTokenFor(User user, String issuer) {
+  public String generateRefreshTokenFor(User user) {
     return Jwts.builder()
         .setSubject(user.getUsername())
-        .setIssuer(issuer)
+        .setIssuer(ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString())
         .setIssuedAt(new Date(System.currentTimeMillis()))
         .setExpiration(new Date(System.currentTimeMillis() + refreshTokenExpireTime * 1000))
         .signWith(signingKey, algorithm)

@@ -55,8 +55,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     User user = (User) authResult.getPrincipal();
 
-    String accessToken = jwtService.generateAccessTokenFor(user, request.getServletPath());
-    String refreshToken = jwtService.generateRefreshTokenFor(user, request.getServletPath());
+    String accessToken = jwtService.generateAccessTokenFor(user);
+    String refreshToken = jwtService.generateRefreshTokenFor(user);
 
     log.info("Generated accessToken: {}", accessToken);
     log.info("Generated refreshToken: {}", refreshToken);
