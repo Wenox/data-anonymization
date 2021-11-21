@@ -22,9 +22,4 @@ public class AuthController {
   public ResponseEntity<ApiResponse> register(@Valid @RequestBody UserRequest dto) {
     return ResponseEntity.ok(authService.register(dto));
   }
-
-  @PostMapping("/login")
-  public ResponseEntity<ApiResponse> login(@Valid @RequestBody UserRequest dto) {
-    return ResponseEntity.ok(authService.login(dto));
-  }
 }

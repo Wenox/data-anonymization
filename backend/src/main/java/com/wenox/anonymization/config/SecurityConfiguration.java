@@ -1,7 +1,9 @@
 package com.wenox.anonymization.config;
 
 import com.wenox.anonymization.core.auth.JwtAuthenticationFilter;
+import com.wenox.anonymization.core.auth.JwtAuthorizationFilter;
 import com.wenox.anonymization.core.auth.JwtUserDetailsService;
+import com.wenox.anonymization.core.auth.JwtService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,14 +22,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
   private final JwtUserDetailsService userDetailsService;
-  private final JwtAuthenticationFilter jwtAuthenticationFilter;
-  private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+  private final JwtService jwtService;
 
-  public SecurityConfiguration(JwtUserDetailsService userDetailsService, JwtAuthenticationFilter jwtAuthenticationFilter,
-                               JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint) {
+  public SecurityConfiguration(JwtUserDetailsService userDetailsService, JwtService jwtService) {
     this.userDetailsService = userDetailsService;
-    this.jwtAuthenticationFilter = jwtAuthenticationFilter;
-    this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
+    this.jwtService = jwtService;
   }
 
   @Bean
@@ -41,6 +40,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     return super.authenticationManagerBean();
   }
 
+  @Bean
+  public JwtAuthorizationFilter jwtAuthorizationFilter() {
+    return new JwtAuthorizationFilter();
+  }
+
   @Override
   protected void configure(AuthenticationManagerBuilder builder) throws Exception {
     builder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
@@ -48,30 +52,29 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
+
     http.authorizeRequests()
         .antMatchers("/api/v1/auth/**")
         .permitAll()
-        .and()
-        .authorizeRequests()
         .anyRequest()
         .authenticated()
+        .and()
+        .logout()
+        .permitAll()
+        .logoutSuccessUrl("/login")
         .and()
         .sessionManagement()
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
         .csrf()
         .disable()
-        .exceptionHandling()
-        .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-        .and()
         .headers()
         .frameOptions()
         .disable()
         .and()
-        .logout()
-        .permitAll()
-        .logoutSuccessUrl("/login");
-
-    http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+        .cors()
+        .disable()
+        .addFilter(new JwtAuthenticationFilter(authenticationManagerBean(), jwtService))
+        .addFilterBefore(jwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
   }
 }
