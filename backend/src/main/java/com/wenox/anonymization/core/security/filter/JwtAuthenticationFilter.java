@@ -1,6 +1,7 @@
 package com.wenox.anonymization.core.security.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wenox.anonymization.core.dto.UserJwt;
 import com.wenox.anonymization.core.dto.UserRequest;
 import com.wenox.anonymization.core.security.service.JwtService;
 import java.io.IOException;
@@ -52,8 +53,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                           HttpServletResponse response,
                                           FilterChain chain,
                                           Authentication authResult) {
-
-    User user = (User) authResult.getPrincipal();
+    UserJwt user = UserJwt.from((User) authResult.getPrincipal());
 
     String accessToken = jwtService.generateAccessTokenFor(user);
     String refreshToken = jwtService.generateRefreshTokenFor(user);

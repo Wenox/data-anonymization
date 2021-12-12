@@ -5,7 +5,6 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wenox.anonymization.core.security.service.JwtService;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -55,7 +54,6 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
           response.setStatus(403);
           Map<String, String> error = new HashMap<>();
           error.put("error_message", ex.getMessage());
-          error.put("stacktrace", Arrays.toString(ex.getStackTrace()));
           response.setContentType(APPLICATION_JSON_VALUE);
           new ObjectMapper().writeValue(response.getOutputStream(), error);
         }
