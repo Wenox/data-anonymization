@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 public class JwtAuthorizationFilter extends OncePerRequestFilter {
@@ -44,7 +45,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
           Collection<SimpleGrantedAuthority> authorities = Collections.singleton(new SimpleGrantedAuthority(role));
 
           UsernamePasswordAuthenticationToken authenticationToken =
-              new UsernamePasswordAuthenticationToken(username, null, authorities);
+              new UsernamePasswordAuthenticationToken(new User(username, "", authorities), null, authorities);
           SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 
           filterChain.doFilter(request, response);
