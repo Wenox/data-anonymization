@@ -78,8 +78,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .frameOptions()
         .disable()
         .and()
-        .cors()
-        .disable()
         .addFilter(new JwtAuthenticationFilter(authenticationManagerBean(), jwtService))
         .addFilterBefore(jwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
         .addFilterAfter(requestLoggingFilter(), UsernamePasswordAuthenticationFilter.class);

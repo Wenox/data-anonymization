@@ -12,7 +12,6 @@ import javax.xml.bind.DatatypeConverter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @Service
 public class JwtService {
@@ -65,7 +64,7 @@ public class JwtService {
   public String generateAccessTokenFor(User user) {
     return Jwts.builder()
         .setSubject(user.getUsername())
-        .setIssuer(ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString())
+        .setIssuer("issuer: todo")
         .setIssuedAt(new Date(System.currentTimeMillis()))
         .setExpiration(new Date(System.currentTimeMillis() + accessTokenExpireTime * 1000))
         .claim("role", user.getAuthorities().iterator().next().getAuthority())
@@ -76,7 +75,7 @@ public class JwtService {
   public String generateRefreshTokenFor(User user) {
     return Jwts.builder()
         .setSubject(user.getUsername())
-        .setIssuer(ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString())
+        .setIssuer("issuer: todo")
         .setIssuedAt(new Date(System.currentTimeMillis()))
         .setExpiration(new Date(System.currentTimeMillis() + refreshTokenExpireTime * 1000))
         .signWith(signingKey, algorithm)

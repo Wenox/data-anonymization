@@ -50,8 +50,6 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
           filterChain.doFilter(request, response);
         } catch (Exception ex) {
-          // todo: error handling
-          System.out.println(ex.getMessage());
           ex.printStackTrace();
           response.setHeader("error", ex.getMessage());
           response.setStatus(403);
