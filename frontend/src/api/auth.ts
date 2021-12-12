@@ -6,9 +6,9 @@ export interface UserRequest {
     password: string;
 }
 
-export const getHeadersConfig = (): AxiosRequestConfig => ({ headers: authHeader() })
+export const getHeadersConfig = (): AxiosRequestConfig => ({ headers: accessTokenHeader() })
 
-export const authHeader = (): AxiosRequestHeaders => ({ 'Authorization': BEARER_PREFIX + localStorage.getItem(ACCESS_TOKEN) })
+export const accessTokenHeader = (): AxiosRequestHeaders => ({ 'Authorization': BEARER_PREFIX + localStorage.getItem(ACCESS_TOKEN) })
 
 export const registerUser = (body: UserRequest) => {
     return axios.post('/api/v1/auth/register', body);
@@ -19,7 +19,7 @@ export const login = (body: UserRequest) => {
 }
 
 export const testUser = () => {
-    return axios.post('/api/v1/some/user', {}, getHeadersConfig());
+    return axios.post('/api/v1/some/user');
 }
 
 export const testAdmin = () => {
@@ -27,5 +27,5 @@ export const testAdmin = () => {
 }
 
 export const testNone = () => {
-    return axios.post('/api/v1/some/none', {}, getHeadersConfig());
+    return axios.post('/api/v1/some/none');
 }
