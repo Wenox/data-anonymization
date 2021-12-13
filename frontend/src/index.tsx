@@ -5,6 +5,9 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import axios from "axios";
 import {ACCESS_TOKEN, JWT_EXPIRED_MSG, REFRESH_TOKEN} from "./constants/token";
+import {toast} from "react-toastify";
+
+toast.configure();
 
 const refresher = axios.create({});
 
@@ -29,7 +32,7 @@ axios.interceptors.response.use(
         let originalConfig = err.config;
 
         if (err.response) {
-            if (err.response.status === 403 && err.response.headers['error'].startsWith(JWT_EXPIRED_MSG) && !originalConfig._retry) {
+            if (err.response.status === 403 && err.response.headers && err.response.headers['error'] && err.response.headers['error'].startsWith(JWT_EXPIRED_MSG) && !originalConfig._retry) {
                 originalConfig._retry = true;
 
                 refresher.post('/api/v1/auth/refresh-token', {}, {

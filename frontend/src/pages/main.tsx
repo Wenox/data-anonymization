@@ -1,7 +1,15 @@
 import {login, registerUser, testAdmin, testNone, testUser} from "../api/auth";
+import About from "./about";
+import Login from "./login";
+import Register from "./register";
 
 const Main = () => (
     <>
+      <About/>
+      <Login/>
+      <Register/>
+
+
         <button onClick={() => registerUser({email: "mail@mail.com", password: "password"})
             .then(function (response) {
                 console.log("Success: " + JSON.stringify(response, null, 2));
