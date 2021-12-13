@@ -9,7 +9,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
-import {login} from "../api/auth";
+import {getMe, login} from "../api/auth";
 import {FC, useState} from "react";
 import {Alert, Collapse, IconButton} from "@mui/material";
 import * as yup from 'yup';
@@ -33,11 +33,14 @@ const schema = yup.object().shape({
 const theme = createTheme();
 
 const Login: FC = () => {
+
+  localStorage.removeItem('logged_user');
+
   const {
     handleSubmit,
     control,
     formState: {errors},
-  } = useForm<IFormInputs>({ resolver: yupResolver(schema) })
+  } = useForm<IFormInputs>({resolver: yupResolver(schema)})
 
   const navigate = useNavigate();
 
@@ -46,29 +49,44 @@ const Login: FC = () => {
   const formSubmitHandler: SubmitHandler<IFormInputs> = (data: IFormInputs) => {
     console.log('login data: ', data);
     setFailedLogin(false);
-    login(data).then(response => {
-      toast.success('Logged in successfully.', {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
+    login(data)
+      .then(function (response) {
+        if (response.status === 200 && response.headers['access_token'] && response.headers['refresh_token']) {
+          localStorage.setItem('access_token', response.headers['access_token']);
+          localStorage.setItem('refresh_token', response.headers['refresh_token']);
+          console.log('local storage was set.');
+        }
+      })
+      .then(response => {
+          getMe().then(response => {
+            if (response.status === 200) {
+              localStorage.setItem('logged_user', JSON.stringify(response.data));
+            }
+            toast.success('Logged in successfully.', {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+            navigate('/register')
+          })
+        }
+      )
+      .catch(err => {
+        toast.error('Logging in failed.', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        setFailedLogin(true)
       });
-      navigate('/register')
-    }).catch(err => {
-      toast.error('Logging in failed.', {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-      setFailedLogin(true)
-    });
   }
 
   return (
@@ -92,7 +110,8 @@ const Login: FC = () => {
           <Typography component="h1" variant="h2">
             Sign in
           </Typography>
-          <Box component="form" onSubmit={handleSubmit(formSubmitHandler)} noValidate sx={{mt: 1}}>
+          <Box component="form" onSubmit={handleSubmit(formSubmitHandler)} noValidate
+               sx={{mt: 1}}>
             <Controller
               name='email'
               control={control}
