@@ -1,53 +1,44 @@
-import React from 'react';
+import React, {FC} from 'react';
 import Main from './pages/main';
 import {QueryClient, QueryClientProvider} from 'react-query';
-import {BrowserRouter, Navigate, Outlet, Route, Routes} from "react-router-dom";
+import {BrowserRouter, Navigate, Outlet, Route, Routes, useLocation} from "react-router-dom";
 import About from "./pages/about";
 import Login from "./pages/login";
 import Register from "./pages/register";
 import Navigation from "./components/navigation";
-import {IndexRouteProps, LayoutRouteProps, PathRouteProps} from "react-router";
+import {Box, ThemeProvider} from "@mui/material";
+import PrivateRoute from "./components/private-route";
+import {theme} from "./styles/theme";
 
 const queryClient = new QueryClient();
 
-const PrivateRoute = () => {
-  const auth = localStorage.getItem('logged_user') !== null;
-  return auth ? <Outlet /> : <Navigate to="/login" />;
-}
-
-function App() {
+const App: FC = () => {
 
   const isLoggedIn: boolean = localStorage.getItem('logged_user') !== null;
 
   return (
     <BrowserRouter>
-      <QueryClientProvider client={queryClient}>
-
-
-        <Routes>
-
-          <Route path='/' element={<PrivateRoute/>}>
-            <Route path='/' element={<Main/>}/>
-          </Route>
-
-          <Route path='/about' element={<PrivateRoute/>}>
-            <Route path='/about' element={<About/>}/>
-          </Route>
-
-          <Route path="/login" element={<Login/>}/>
-          <Route path="/register" element={<Register/>}/>
-
-
-
-          <Route
-            path="*"
-            element={<Navigate to="/login" />}
-          />
-        </Routes>
-        <Navigation />
-
-
-      </QueryClientProvider>
+      <ThemeProvider theme={theme}>
+        <QueryClientProvider client={queryClient}>
+          <Navigation/>
+          <Box mt={'64px'}>
+            <Routes>
+              <Route path='/' element={<PrivateRoute/>}>
+                <Route path='/' element={<Main/>}/>
+              </Route>
+              <Route path='/about' element={<PrivateRoute/>}>
+                <Route path='/about' element={<About/>}/>
+              </Route>
+              <Route path="/login" element={<Login/>}/>
+              <Route path="/register" element={<Register/>}/>
+              <Route
+                path="*"
+                element={<Navigate to="/login"/>}
+              />
+            </Routes>
+          </Box>
+        </QueryClientProvider>
+      </ThemeProvider>
     </BrowserRouter>
   );
 }
