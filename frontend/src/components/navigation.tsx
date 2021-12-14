@@ -21,7 +21,7 @@ const Navigation: FC = () => {
           <Tab label='Login' onClick={() => navigate('/login')}/>
           <Tab label='Logout' onClick={() => {
             localStorage.clear();
-            navigate('/login');
+            navigate('/');
           }}/>
         </Tabs>
       </AppBar>

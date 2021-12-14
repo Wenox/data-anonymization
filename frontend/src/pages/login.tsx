@@ -71,7 +71,7 @@ const Login: FC = () => {
               draggable: true,
               progress: undefined,
             });
-            navigate('/register')
+            navigate('/')
           })
         }
       )
