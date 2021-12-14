@@ -1,4 +1,7 @@
 const Register = () => {
+
+  localStorage.clear();
+
   return (
     <p>Register</p>
   )

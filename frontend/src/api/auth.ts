@@ -29,3 +29,12 @@ export const testAdmin = () => {
 export const testNone = () => {
     return axios.post('/api/v1/some/none');
 }
+
+export interface IMe {
+    email: string,
+    role: string
+}
+
+export const getMe = () => {
+    return axios.get('/api/v1/me');
+}
