@@ -1,4 +1,4 @@
-package com.wenox.anonymization.core.service;
+package com.wenox.anonymization.core.service.resetpassword;
 
 import com.wenox.anonymization.core.domain.ResetPasswordToken;
 import com.wenox.anonymization.core.domain.User;

@@ -1,4 +1,4 @@
-package com.wenox.anonymization.core.service;
+package com.wenox.anonymization.core.service.resetpassword;
 
 import com.wenox.anonymization.core.domain.ResetPasswordToken;
 import com.wenox.anonymization.core.domain.User;
@@ -6,8 +6,6 @@ import com.wenox.anonymization.core.repository.ResetPasswordTokenRepository;
 import com.wenox.anonymization.core.repository.UserRepository;
 import com.wenox.anonymization.core.service.mail.MailDescription;
 import com.wenox.anonymization.core.service.mail.SimpleMailService;
-import java.time.LocalDateTime;
-import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 @Service
