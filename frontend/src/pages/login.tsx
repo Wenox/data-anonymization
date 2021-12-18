@@ -1,6 +1,5 @@
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
@@ -11,7 +10,7 @@ import Container from '@mui/material/Container';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import {getMe, login} from "../api/auth";
 import {FC, useState} from "react";
-import {Alert, Collapse, IconButton} from "@mui/material";
+import {Alert, CircularProgress, Collapse, IconButton} from "@mui/material";
 import * as yup from 'yup';
 import {SubmitHandler, useForm, Controller} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
@@ -45,9 +44,11 @@ const Login: FC = () => {
   const navigate = useNavigate();
 
   const [failedLogin, setFailedLogin] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const formSubmitHandler: SubmitHandler<IFormInputs> = (data: IFormInputs) => {
     console.log('login data: ', data);
+    setLoading(true);
     setFailedLogin(false);
     login(data)
       .then(function (response) {
@@ -85,26 +86,30 @@ const Login: FC = () => {
           draggable: true,
           progress: undefined,
         });
-        setFailedLogin(true)
+        setFailedLogin(true);
+      })
+      .then(() => {
+        setLoading(false);
       });
   }
 
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" sx={{
-        border: '1px solid #d6daff',
-        boxShadow: '5px 5px 12px #d6daff'
+        border: '1px solid #000000',
+        boxShadow: '6px 6px 0px #00bfff',
+        backgroundColor: 'white',
       }} maxWidth="xs">
-        <CssBaseline/>
         <Box
           sx={{
-            marginTop: 8,
+            mt: 12,
+            mb: 12,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
+          <Avatar sx={{m: 1, bgcolor: '#17bf00'}}>
             <LockOutlinedIcon/>
           </Avatar>
           <Typography component="h1" variant="h2">
@@ -185,7 +190,7 @@ const Login: FC = () => {
             </Collapse>
             <Grid container>
               <Grid item xs>
-                <Link href="forgot-password" variant="body2">
+                <Link href="reset-password" variant="body2">
                   Forgot password?
                 </Link>
               </Grid>
@@ -198,6 +203,10 @@ const Login: FC = () => {
           </Box>
         </Box>
         <Copyright/>
+        {loading && <CircularProgress style={{
+          position: 'absolute', left: '50%', top: '50%',
+          transform: 'translate(-50%, -50%)'
+        }}/>}
       </Container>
     </ThemeProvider>
   );

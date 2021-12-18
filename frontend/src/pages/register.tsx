@@ -50,7 +50,7 @@ const Register: FC = () => {
     console.log('login data: ', data);
     setFailedLogin(false);
     registerUser(data)
-      .then(function (response) {
+      .then(response => {
         if (response.status === 200)
           toast.success('Signed up successfully.', {
             position: "top-right",
@@ -79,8 +79,9 @@ const Register: FC = () => {
 
   return (
     <Container component="main" sx={{
-      border: '1px solid #d6daff',
-      boxShadow: '5px 5px 12px #d6daff'
+      border: '1px solid #000000',
+      boxShadow: '6px 6px 0px #00bfff',
+      background: 'white'
     }} maxWidth="xs">
       <CssBaseline enableColorScheme={true}/>
       <Box
