@@ -1,6 +1,7 @@
 package com.wenox.anonymization.core.dto;
 
 import com.wenox.anonymization.core.domain.Role;
+import com.wenox.anonymization.core.domain.User;
 
 public class UserResponse {
 
@@ -10,6 +11,10 @@ public class UserResponse {
   public UserResponse(String email, Role role) {
     this.email = email;
     this.role = role;
+  }
+
+  public static UserResponse from(User user) {
+    return new UserResponse(user.getEmail(), user.getRole());
   }
 
   public String getEmail() {

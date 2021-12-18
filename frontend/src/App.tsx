@@ -15,6 +15,7 @@ import ChangePasswordForm from "./pages/reset-password/change-password-form";
 import InvalidToken from "./pages/reset-password/tokens/invalid-token";
 import ExpiredToken from "./pages/reset-password/tokens/expired-token";
 import ConsumedToken from "./pages/reset-password/tokens/consumed-token";
+import Users from "./pages/users";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +33,9 @@ const App: FC = () => {
               </Route>
               <Route path='/about' element={<PrivateRoute/>}>
                 <Route path='/about' element={<About/>}/>
+              </Route>
+              <Route path='/users' element={<PrivateRoute/>}>
+                <Route path='/users' element={<Users/>}/>
               </Route>
               <Route path="/login" element={<Login/>}/>
               <Route path="/register" element={<Register/>}/>

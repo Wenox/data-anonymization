@@ -15,6 +15,7 @@ const Navigation: FC = () => {
         <Tabs value={tab} onChange={(e, v) => setTab(v)}>
           <Tab label='Start' onClick={() => navigate('/')}/>
           <Tab label='About' onClick={() => navigate('/about')}/>
+          <Tab label='Users' onClick={() => navigate('/users')}/>
           <Tab label='Register' onClick={() => navigate('/register')}/>
           {logged.role === 'USER' && <Tab label='User-only' onClick={() => navigate('/register')}/>}
           {logged.role === 'ADMIN' && <Tab label='Admin-only' onClick={() => navigate('/register')}/>}
