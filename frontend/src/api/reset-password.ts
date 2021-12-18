@@ -5,5 +5,14 @@ export const resetPassword = (email: string) => {
 }
 
 export const showChangePassword = (token: string) => {
-  return axios.get(`/api/v1/show-change-password?token=${token}`)
+  return axios.get(`/api/v1/show-change-password?token=${token}`);
+}
+
+export interface ResetPasswordDto {
+  newPassword: string;
+  token: string;
+}
+
+export const changePassword = (body: ResetPasswordDto) => {
+  return axios.post(`/api/v1/change-password`, body);
 }

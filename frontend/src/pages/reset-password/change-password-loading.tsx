@@ -6,7 +6,7 @@ import Avatar from "@mui/material/Avatar";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import {Box, CircularProgress, Container} from "@mui/material";
 
-const ChangePassword: FC = () => {
+const ChangePasswordLoading: FC = () => {
 
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
@@ -15,7 +15,7 @@ const ChangePassword: FC = () => {
 
     useEffect(() => {
       showChangePassword(token).then(response => {
-        navigate(`/change-password/${response.data}`)
+        navigate(`/change-password/${response.data}?token=${token}`)
       })
     });
 
@@ -43,4 +43,4 @@ const ChangePassword: FC = () => {
     );
 }
 
-export default ChangePassword;
+export default ChangePasswordLoading;

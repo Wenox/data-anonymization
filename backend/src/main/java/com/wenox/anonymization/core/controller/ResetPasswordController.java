@@ -1,9 +1,14 @@
 package com.wenox.anonymization.core.controller;
 
+import com.wenox.anonymization.core.dto.ResetPasswordRequest;
 import com.wenox.anonymization.core.service.resetpassword.ResetPasswordService;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,9 +31,12 @@ public class ResetPasswordController {
 
   @GetMapping("/api/v1/show-change-password")
   public ResponseEntity<String> showChangePassword(@RequestParam("token") String token) {
-    System.out.println("Inside endpoint, token: " + token);
     final var result = resetPasswordService.getChangePasswordPageForToken(token);
-    System.out.println("Result: " + result);
     return ResponseEntity.ok(result);
+  }
+
+  @PostMapping("/api/v1/change-password")
+  public ResponseEntity<String> changePassword(@Valid @RequestBody ResetPasswordRequest dto) {
+    return ResponseEntity.ok(resetPasswordService.changePassword(dto));
   }
 }
