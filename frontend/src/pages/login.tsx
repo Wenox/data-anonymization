@@ -19,7 +19,7 @@ import {toast} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import {useNavigate} from "react-router-dom";
 import AuthContext from "../context/auth-context";
-import {LOGGED_USER} from "../constants/auth";
+import {ACCESS_TOKEN, REFRESH_TOKEN} from "../constants/auth";
 
 interface IFormInputs {
   email: string;
@@ -54,15 +54,14 @@ const Login: FC = () => {
     setFailedLogin(false);
     login(data)
       .then(function (response) {
-        if (response.status === 200 && response.headers['access_token'] && response.headers['refresh_token']) {
-          localStorage.setItem('access_token', response.headers['access_token']);
-          localStorage.setItem('refresh_token', response.headers['refresh_token']);
+        if (response.status === 200 && response.headers[ACCESS_TOKEN] && response.headers[REFRESH_TOKEN]) {
+          localStorage.setItem(ACCESS_TOKEN, response.headers[ACCESS_TOKEN]);
+          localStorage.setItem(REFRESH_TOKEN, response.headers[REFRESH_TOKEN]);
         }
       })
       .then(response => {
           getMe().then(response => {
             if (response.status === 200) {
-              localStorage.setItem(LOGGED_USER, JSON.stringify(response.data));
               setAuth(response.data);
             }
             toast.success('Logged in successfully.', {
