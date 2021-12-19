@@ -1,30 +1,26 @@
 import {useQuery} from "react-query";
 import {getUsers, User} from "../api/users";
+import {DataGrid, GridColDef} from "@mui/x-data-grid";
+import '../styles/users.scss';
 
 const Users = () => {
-  const {
-    isLoading,
-    isError,
-    data,
-    isFetching
-  } = useQuery('users', getUsers);
 
-  const users: User[] = data?.data ?? [];
+  const { data } = useQuery('users', getUsers);
+  const users: User[] = data?.data || [];
+
+  const columns: GridColDef[] = [
+    { field: 'email', headerName: 'E-mail address' },
+    { field: 'blocked', headerName: 'Is blocked?' },
+    { field: 'role', headerName: 'Role' },
+  ];
 
   return (
     <>
-      <div style={{backgroundColor: 'white'}}>
-        <h1>Users table</h1>
-
-        {isLoading && <h1>is loading...</h1>}
-        {isFetching && <h1>is FETCHING...</h1>}
-        {isError && <h1>is error...</h1>}
-
-        {!isLoading && users.map(user => {
-          return <p>{user.email} - blocked: {user.blocked} - role: {user.role}</p>
-        })}
-
+      <div id='user-registration' style={{ height: 500 }}>
+        <h1>Users</h1>
+        <DataGrid columns={columns} rows={users} />
       </div>
+
     </>
   )
 }

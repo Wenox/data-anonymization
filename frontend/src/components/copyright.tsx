@@ -6,8 +6,7 @@ export const Copyright: FC = () => (
   <Typography
     variant="body2"
     color="text.secondary"
-    align="center"
-    sx={{ mt: 8, mb: 4 }}
+    sx={{ mt: 10, mb: 2 }}
   >
     {'Copyright © '}
     <Link color="inherit" href="about">

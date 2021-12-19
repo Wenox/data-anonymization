@@ -6,7 +6,7 @@ import About from "./pages/about";
 import Login from "./pages/login";
 import Register from "./pages/register";
 import Navigation from "./components/navigation";
-import {Box, ThemeProvider} from "@mui/material";
+import {Container, ThemeProvider} from "@mui/material";
 import PrivateRoute from "./components/private-route";
 import {theme} from "./styles/theme";
 import ResetPassword from "./pages/reset-password/reset-password";
@@ -18,6 +18,7 @@ import ConsumedToken from "./pages/reset-password/tokens/consumed-token";
 import Users from "./pages/users";
 import {getMe, IMe} from "./api/auth";
 import AuthContext from "./context/auth-context";
+import CssBaseline from "@mui/material/CssBaseline";
 
 const queryClient = new QueryClient();
 
@@ -40,10 +41,11 @@ const App: FC = () => {
       <ThemeProvider theme={theme}>
         <QueryClientProvider client={queryClient}>
           <AuthContext.Provider value={{auth, setAuth}}>
-            {!isLoading && (
-              <>
-                <Navigation/>
-                <Box mt={'64px'}>
+            <Container maxWidth={"xl"} id={auth ? 'app-container' : 'app-login'}>
+              {!isLoading && (
+                <>
+                  <CssBaseline/>
+                  <Navigation/>
                   <Routes>
                     <Route path='/' element={<PrivateRoute/>}>
                       <Route path='/' element={<Main/>}/>
@@ -67,8 +69,8 @@ const App: FC = () => {
                       element={<Navigate to="/login"/>}
                     />
                   </Routes>
-                </Box>
-              </>)}
+                </>)}
+            </Container>
           </AuthContext.Provider>
         </QueryClientProvider>
       </ThemeProvider>

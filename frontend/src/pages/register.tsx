@@ -6,7 +6,6 @@ import {useNavigate} from "react-router-dom";
 import {registerUser} from "../api/auth";
 import {toast} from "react-toastify";
 import Container from "@mui/material/Container";
-import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -81,17 +80,13 @@ const Register: FC = () => {
     <Container component="main" sx={{
       border: '1px solid #000000',
       boxShadow: '6px 6px 0px #00bfff',
-      background: 'white'
+      backgroundColor: 'white',
+      mt: 4,
+      paddingTop: 8,
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center'
     }} maxWidth="xs">
-      <CssBaseline enableColorScheme={true}/>
-      <Box
-        sx={{
-          marginTop: 8,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
         <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
           <LockOutlinedIcon/>
         </Avatar>
@@ -243,7 +238,6 @@ const Register: FC = () => {
             </Grid>
           </Grid>
         </Box>
-      </Box>
       <Copyright/>
     </Container>
   );

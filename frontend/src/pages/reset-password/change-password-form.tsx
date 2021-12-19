@@ -5,7 +5,6 @@ import {yupResolver} from "@hookform/resolvers/yup";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import {toast} from "react-toastify";
 import Container from "@mui/material/Container";
-import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -57,8 +56,7 @@ const ChangePasswordForm: FC = () => {
               progress: undefined,
             });
             navigate('/login');
-          }
-          else {
+          } else {
             toast.error('Failed to change password.', {
               position: "top-right",
               autoClose: 5000,
@@ -90,85 +88,80 @@ const ChangePasswordForm: FC = () => {
     <Container component="main" sx={{
       border: '1px solid #000000',
       boxShadow: '6px 6px 0px #00bfff',
-      background: 'white'
+      backgroundColor: 'white',
+      mt: 20,
+      paddingTop: 8,
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center'
     }} maxWidth="xs">
-      <CssBaseline enableColorScheme={true}/>
-      <Box
-        sx={{
-          marginTop: 8,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
-        <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
-          <LockOutlinedIcon/>
-        </Avatar>
-        <Typography component="h5" variant="h4">
-          Set new password
-        </Typography>
-        <Box component="form" onSubmit={handleSubmit(formSubmitHandler)} noValidate
-             sx={{mt: 1}}>
-          <Controller
-            name='password'
-            control={control}
-            defaultValue=''
-            render={({field}) => (
-              <TextField
-                {...field}
-                variant="outlined"
-                error={!!errors.password}
-                helperText={errors.password ? errors.password?.message : ''}
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
-            )}
-          />
+      <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
+        <LockOutlinedIcon/>
+      </Avatar>
+      <Typography component="h5" variant="h4">
+        Set new password
+      </Typography>
+      <Box component="form" onSubmit={handleSubmit(formSubmitHandler)} noValidate
+           sx={{mt: 1}}>
+        <Controller
+          name='password'
+          control={control}
+          defaultValue=''
+          render={({field}) => (
+            <TextField
+              {...field}
+              variant="outlined"
+              error={!!errors.password}
+              helperText={errors.password ? errors.password?.message : ''}
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+            />
+          )}
+        />
 
-          <Controller
-            name='confirmPassword'
-            control={control}
-            defaultValue=''
-            render={({field}) => (
-              <TextField
-                {...field}
-                variant="outlined"
-                error={!!errors.confirmPassword}
-                helperText={errors.confirmPassword ? errors.confirmPassword?.message : ''}
-                margin="normal"
-                required
-                fullWidth
-                name="confirmPassword"
-                label="Confirm Password"
-                type="confirmPassword"
-                id="confirmPassword"
-                autoComplete="current-password"
-              />
-            )}
-          />
+        <Controller
+          name='confirmPassword'
+          control={control}
+          defaultValue=''
+          render={({field}) => (
+            <TextField
+              {...field}
+              variant="outlined"
+              error={!!errors.confirmPassword}
+              helperText={errors.confirmPassword ? errors.confirmPassword?.message : ''}
+              margin="normal"
+              required
+              fullWidth
+              name="confirmPassword"
+              label="Confirm Password"
+              type="confirmPassword"
+              id="confirmPassword"
+              autoComplete="current-password"
+            />
+          )}
+        />
 
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{mt: 3, mb: 2}}
-          >
-            Confirm
-          </Button>
-          <Grid container>
-            <Grid item>
-              <Link href="login" variant="body2">
-                {"Return to login"}
-              </Link>
-            </Grid>
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          sx={{mt: 3, mb: 2}}
+        >
+          Confirm
+        </Button>
+        <Grid container>
+          <Grid item>
+            <Link href="login" variant="body2">
+              {"Return to login"}
+            </Link>
           </Grid>
-        </Box>
+        </Grid>
       </Box>
       <Copyright/>
     </Container>
