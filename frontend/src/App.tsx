@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 import Main from './pages/main';
 import {QueryClient, QueryClientProvider} from 'react-query';
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
@@ -16,41 +16,48 @@ import InvalidToken from "./pages/reset-password/tokens/invalid-token";
 import ExpiredToken from "./pages/reset-password/tokens/expired-token";
 import ConsumedToken from "./pages/reset-password/tokens/consumed-token";
 import Users from "./pages/users";
+import {IMe} from "./api/auth";
+import AuthContext from "./context/auth-context";
+import {LOGGED_USER} from "./constants/auth";
 
 const queryClient = new QueryClient();
 
 const App: FC = () => {
 
+  const [auth, setAuth] = useState<IMe | null>(JSON.parse(localStorage.getItem(LOGGED_USER)!));
+
   return (
     <BrowserRouter>
       <ThemeProvider theme={theme}>
         <QueryClientProvider client={queryClient}>
-          <Navigation/>
-          <Box mt={'64px'}>
-            <Routes>
-              <Route path='/' element={<PrivateRoute/>}>
-                <Route path='/' element={<Main/>}/>
-              </Route>
-              <Route path='/about' element={<PrivateRoute/>}>
-                <Route path='/about' element={<About/>}/>
-              </Route>
-              <Route path='/users' element={<PrivateRoute/>}>
-                <Route path='/users' element={<Users/>}/>
-              </Route>
-              <Route path="/login" element={<Login/>}/>
-              <Route path="/register" element={<Register/>}/>
-              <Route path="/reset-password" element={<ResetPassword/>}/>
-              <Route path="/change-password" element={<ChangePasswordLoading/>}/>
-              <Route path="/change-password/form" element={<ChangePasswordForm/>}/>
-              <Route path="/change-password/invalid-token" element={<InvalidToken/>}/>
-              <Route path="/change-password/expired-token" element={<ExpiredToken/>}/>
-              <Route path="/change-password/consumed-token" element={<ConsumedToken/>}/>
-              <Route
-                path="*"
-                element={<Navigate to="/login"/>}
-              />
-            </Routes>
-          </Box>
+          <AuthContext.Provider value={{auth, setAuth}}>
+            <Navigation/>
+            <Box mt={'64px'}>
+              <Routes>
+                <Route path='/' element={<PrivateRoute/>}>
+                  <Route path='/' element={<Main/>}/>
+                </Route>
+                <Route path='/about' element={<PrivateRoute/>}>
+                  <Route path='/about' element={<About/>}/>
+                </Route>
+                <Route path='/users' element={<PrivateRoute/>}>
+                  <Route path='/users' element={<Users/>}/>
+                </Route>
+                <Route path="/login" element={<Login/>}/>
+                <Route path="/register" element={<Register/>}/>
+                <Route path="/reset-password" element={<ResetPassword/>}/>
+                <Route path="/change-password" element={<ChangePasswordLoading/>}/>
+                <Route path="/change-password/form" element={<ChangePasswordForm/>}/>
+                <Route path="/change-password/invalid-token" element={<InvalidToken/>}/>
+                <Route path="/change-password/expired-token" element={<ExpiredToken/>}/>
+                <Route path="/change-password/consumed-token" element={<ConsumedToken/>}/>
+                <Route
+                  path="*"
+                  element={<Navigate to="/login"/>}
+                />
+              </Routes>
+            </Box>
+          </AuthContext.Provider>
         </QueryClientProvider>
       </ThemeProvider>
     </BrowserRouter>

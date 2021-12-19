@@ -1,5 +1,5 @@
-import axios, {AxiosRequestConfig, AxiosRequestHeaders} from "axios";
-import {ACCESS_TOKEN, BEARER_PREFIX} from "../constants/token";
+import axios, {AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse} from "axios";
+import {ACCESS_TOKEN, BEARER_PREFIX} from "../constants/auth";
 
 export interface UserRequest {
     email: string;
@@ -35,6 +35,6 @@ export interface IMe {
     role: string
 }
 
-export const getMe = () => {
+export const getMe = (): Promise<AxiosResponse<IMe>> => {
     return axios.get('/api/v1/me');
 }

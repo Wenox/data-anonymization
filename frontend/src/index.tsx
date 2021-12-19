@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import axios from "axios";
-import {ACCESS_TOKEN, JWT_EXPIRED_MSG, REFRESH_TOKEN} from "./constants/token";
+import {ACCESS_TOKEN, JWT_EXPIRED_MSG, REFRESH_TOKEN} from "./constants/auth";
 import {toast} from "react-toastify";
 
 toast.configure();
