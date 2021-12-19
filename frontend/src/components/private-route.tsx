@@ -1,8 +1,9 @@
 import {Navigate, Outlet} from "react-router-dom";
-import React from "react";
+import React, {useContext} from "react";
+import AuthContext from "../context/auth-context";
 
 const PrivateRoute = () => {
-  const auth = localStorage.getItem('logged_user') !== null;
+  const { auth } = useContext(AuthContext);
   return auth ? <Outlet/> : <Navigate to="/login"/>;
 }
 

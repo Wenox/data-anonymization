@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import {getMe, login} from "../api/auth";
-import {FC, useState} from "react";
+import {FC, useContext, useState} from "react";
 import {Alert, CircularProgress, Collapse, IconButton} from "@mui/material";
 import * as yup from 'yup';
 import {SubmitHandler, useForm, Controller} from "react-hook-form";
@@ -18,6 +18,8 @@ import {Copyright} from "../components/copyright";
 import {toast} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import {useNavigate} from "react-router-dom";
+import AuthContext from "../context/auth-context";
+import {LOGGED_USER} from "../constants/auth";
 
 interface IFormInputs {
   email: string;
@@ -33,7 +35,7 @@ const theme = createTheme();
 
 const Login: FC = () => {
 
-  localStorage.removeItem('logged_user');
+  const { setAuth } = useContext(AuthContext);
 
   const {
     handleSubmit,
@@ -55,13 +57,13 @@ const Login: FC = () => {
         if (response.status === 200 && response.headers['access_token'] && response.headers['refresh_token']) {
           localStorage.setItem('access_token', response.headers['access_token']);
           localStorage.setItem('refresh_token', response.headers['refresh_token']);
-          console.log('local storage was set.');
         }
       })
       .then(response => {
           getMe().then(response => {
             if (response.status === 200) {
-              localStorage.setItem('logged_user', JSON.stringify(response.data));
+              localStorage.setItem(LOGGED_USER, JSON.stringify(response.data));
+              setAuth(response.data);
             }
             toast.success('Logged in successfully.', {
               position: "top-right",
