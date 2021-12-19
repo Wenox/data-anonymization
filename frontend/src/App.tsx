@@ -28,9 +28,11 @@ const App: FC = () => {
 
   useEffect(() => {
     getMe()
-      .then(response => setAuth(response.data))
-      .catch(() => {})
-      .then(() => setIsLoading(false));
+      .then(response => {
+        setAuth(response.data);
+        setIsLoading(false);
+      })
+      .catch(() => setIsLoading(false))
   }, []);
 
   return (
