@@ -53,7 +53,7 @@ public class AuthService {
 
     final var userDb = userRepository.findByEmail(principal.getUsername()).orElseThrow();
 
-    return new UserResponse(userDb.getEmail(), userDb.getRole());
+    return UserResponse.from(userDb);
   }
 
   public UserResponse getMe2(HttpServletRequest request) {
@@ -78,7 +78,7 @@ public class AuthService {
 
         System.out.println("Returning response");
 
-        return new UserResponse(dbUser.getEmail(), dbUser.getRole());
+        return UserResponse.from(dbUser);
       } catch (Exception ex) {
         throw new RuntimeException(ex);
       }

@@ -7,7 +7,6 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import {createTheme, ThemeProvider} from '@mui/material/styles';
 import {getMe, login} from "../api/auth";
 import {FC, useContext, useState} from "react";
 import {Alert, CircularProgress, Collapse, IconButton} from "@mui/material";
@@ -31,11 +30,9 @@ const schema = yup.object().shape({
   password: yup.string().min(4).max(20).required(),
 });
 
-const theme = createTheme();
-
 const Login: FC = () => {
 
-  const { setAuth } = useContext(AuthContext);
+  const {setAuth} = useContext(AuthContext);
 
   const {
     handleSubmit,
@@ -49,7 +46,6 @@ const Login: FC = () => {
   const [loading, setLoading] = useState(false);
 
   const formSubmitHandler: SubmitHandler<IFormInputs> = (data: IFormInputs) => {
-    console.log('login data: ', data);
     setLoading(true);
     setFailedLogin(false);
     login(data)
@@ -95,121 +91,114 @@ const Login: FC = () => {
   }
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container component="main" sx={{
-        border: '1px solid #000000',
-        boxShadow: '6px 6px 0px #00bfff',
-        backgroundColor: 'white',
-      }} maxWidth="xs">
-        <Box
-          sx={{
-            mt: 12,
-            mb: 12,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <Avatar sx={{m: 1, bgcolor: '#17bf00'}}>
-            <LockOutlinedIcon/>
-          </Avatar>
-          <Typography component="h1" variant="h2">
-            Sign in
-          </Typography>
-          <Box component="form" onSubmit={handleSubmit(formSubmitHandler)} noValidate
-               sx={{mt: 1}}>
-            <Controller
-              name='email'
-              control={control}
-              defaultValue='mail@mail.com'
-              render={({field}) => (
-                <TextField
-                  {...field}
-                  label="E-mail address"
-                  variant="outlined"
-                  error={!!errors.email}
-                  helperText={errors.email ? errors.email?.message : ''}
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="email"
-                  name="email"
-                  autoComplete="email"
-                  autoFocus
-                />
-              )}
-            />
-
-            <Controller
-              name='password'
-              control={control}
-              defaultValue=''
-              render={({field}) => (
-                <TextField
-                  {...field}
-                  variant="outlined"
-                  error={!!errors.password}
-                  helperText={errors.password ? errors.password?.message : ''}
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                />
-              )}
-            />
-
-            <Button
-              type="submit"
+    <Container component="main" sx={{
+      border: '1px solid #000000',
+      boxShadow: '6px 6px 0px #00bfff',
+      backgroundColor: 'white',
+      mt: 20,
+      paddingTop: 12,
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center'
+    }} maxWidth="xs">
+      <Avatar sx={{m: 1, bgcolor: '#17bf00'}}>
+        <LockOutlinedIcon/>
+      </Avatar>
+      <Typography component="h1" variant="h2">
+        Sign in
+      </Typography>
+      <Box component="form" onSubmit={handleSubmit(formSubmitHandler)} noValidate
+           sx={{mt: 1}}>
+        <Controller
+          name='email'
+          control={control}
+          defaultValue='mail@mail.com'
+          render={({field}) => (
+            <TextField
+              {...field}
+              label="E-mail address"
+              variant="outlined"
+              error={!!errors.email}
+              helperText={errors.email ? errors.email?.message : ''}
+              margin="normal"
+              required
               fullWidth
-              variant="contained"
-              sx={{mt: 3, mb: 2}}
-            >
-              Login
-            </Button>
-            <Collapse in={failedLogin}>
-              <Alert
-                severity="error"
-                action={
-                  <IconButton
-                    aria-label="close"
-                    color="inherit"
-                    size="small"
-                    onClick={() => {
-                      setFailedLogin(false);
-                    }}
-                  >
-                    <LockOutlinedIcon fontSize="inherit"/>
-                  </IconButton>
-                }
+              id="email"
+              name="email"
+              autoComplete="email"
+              autoFocus
+            />
+          )}
+        />
+
+        <Controller
+          name='password'
+          control={control}
+          defaultValue=''
+          render={({field}) => (
+            <TextField
+              {...field}
+              variant="outlined"
+              error={!!errors.password}
+              helperText={errors.password ? errors.password?.message : ''}
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+            />
+          )}
+        />
+
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          sx={{mt: 3, mb: 2}}
+        >
+          Login
+        </Button>
+        <Collapse in={failedLogin}>
+          <Alert
+            severity="error"
+            action={
+              <IconButton
+                aria-label="close"
+                color="inherit"
+                size="small"
+                onClick={() => {
+                  setFailedLogin(false);
+                }}
               >
-                Invalid e-mail address or password
-              </Alert>
-            </Collapse>
-            <Grid container>
-              <Grid item xs>
-                <Link href="reset-password" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="register" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
-          </Box>
-        </Box>
-        <Copyright/>
-        {loading && <CircularProgress style={{
-          position: 'absolute', left: '50%', top: '50%',
-          transform: 'translate(-50%, -50%)'
-        }}/>}
-      </Container>
-    </ThemeProvider>
+                <LockOutlinedIcon fontSize="inherit"/>
+              </IconButton>
+            }
+          >
+            Invalid e-mail address or password
+          </Alert>
+        </Collapse>
+        <Grid container>
+          <Grid item xs>
+            <Link href="reset-password" variant="body2">
+              Forgot password?
+            </Link>
+          </Grid>
+          <Grid item>
+            <Link href="register" variant="body2">
+              {"Don't have an account? Sign Up"}
+            </Link>
+          </Grid>
+        </Grid>
+      </Box>
+      <Copyright/>
+      {loading && <CircularProgress style={{
+        position: 'absolute', left: '50%', top: '50%',
+        transform: 'translate(-50%, -50%)'
+      }}/>}
+    </Container>
   );
 }
 

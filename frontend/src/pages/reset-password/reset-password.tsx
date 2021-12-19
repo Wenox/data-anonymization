@@ -5,7 +5,6 @@ import {yupResolver} from "@hookform/resolvers/yup";
 import {resetPassword} from "../../api/reset-password";
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
-import CssBaseline from "@mui/material/CssBaseline";
 import Avatar from "@mui/material/Avatar";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
@@ -50,20 +49,17 @@ const ResetPassword: FC = () => {
   return (
     <>
       {!buttonPressed ?
-      <Container component="main" sx={{
-        border: '1px solid #000000',
-        boxShadow: '6px 6px 0px #00bfff',
-        background: 'white'
-      }} maxWidth="xs">
-        <CssBaseline/>
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
+        <Container component="main" sx={{
+          border: '1px solid #000000',
+          boxShadow: '6px 6px 0px #00bfff',
+          backgroundColor: 'white',
+          mt: 20,
+          paddingTop: 8,
+          paddingBottom: 2,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center'
+        }} maxWidth="xs">
           <Avatar sx={{m: 1, bgcolor: 'primary.main'}}>
             <LockOutlinedIcon/>
           </Avatar>
@@ -103,40 +99,36 @@ const ResetPassword: FC = () => {
               Send password reset email
             </Button>
           </Box>
-        </Box>
-      </Container>
+        </Container>
         :
         <Container component="main" sx={{
           border: '1px solid #000000',
           boxShadow: '6px 6px 0px #00bfff',
-          background: 'white'
+          backgroundColor: 'white',
+          mt: 20,
+          paddingTop: 8,
+          paddingBottom: 2,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center'
         }} maxWidth="xs">
-          <CssBaseline/>
-          <Box
-            sx={{
-              marginTop: 8,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
-          >
-            <Avatar sx={{m: 1, bgcolor: 'primary.main'}}>
-              <LockOutlinedIcon/>
-            </Avatar>
-            <Typography component="h1" variant="h4">
-              Reset your password
-            </Typography>
-            <Box sx={{mt: 1}}>
-              <p>Check your email for a link to reset your password. If it doesn’t appear within a few minutes, check your spam folder.</p>
-              <Button
-                fullWidth
-                variant="contained"
-                sx={{mt: 3, mb: 2}}
-                onClick={() => navigate('/login')}
-              >
-                Return to sign in
-              </Button>
-            </Box>
+          <Avatar sx={{m: 1, bgcolor: 'primary.main'}}>
+            <LockOutlinedIcon/>
+          </Avatar>
+          <Typography component="h1" variant="h4">
+            Reset your password
+          </Typography>
+          <Box sx={{mt: 1}}>
+            <p>Check your email for a link to reset your password. If it doesn’t appear within a few
+              minutes, check your spam folder.</p>
+            <Button
+              fullWidth
+              variant="contained"
+              sx={{mt: 3, mb: 2}}
+              onClick={() => navigate('/login')}
+            >
+              Return to sign in
+            </Button>
           </Box>
         </Container>
       }
