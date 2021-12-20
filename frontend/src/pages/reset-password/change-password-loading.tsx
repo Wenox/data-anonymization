@@ -1,9 +1,9 @@
 import {FC, useEffect} from "react";
-import {showChangePassword} from "../../api/reset-password";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import {CircularProgress, Container} from "@mui/material";
+import {getShowChangePasswordForm} from "../../api/requests/reset-password/reset-password.requests";
 
 const ChangePasswordLoading: FC = () => {
 
@@ -13,7 +13,7 @@ const ChangePasswordLoading: FC = () => {
   const token: string = searchParams.get("token") ?? '';
 
   useEffect(() => {
-    showChangePassword(token).then(response => {
+    getShowChangePasswordForm(token).then(response => {
       navigate(`/change-password/${response.data}?token=${token}`)
     })
   });

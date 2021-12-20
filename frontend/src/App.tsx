@@ -16,9 +16,10 @@ import InvalidToken from "./pages/reset-password/tokens/invalid-token";
 import ExpiredToken from "./pages/reset-password/tokens/expired-token";
 import ConsumedToken from "./pages/reset-password/tokens/consumed-token";
 import Users from "./pages/users";
-import {getMe, IMe} from "./api/auth";
 import AuthContext from "./context/auth-context";
 import CssBaseline from "@mui/material/CssBaseline";
+import {MeResponse} from "./api/requests/me/me.types";
+import {getMe} from "./api/requests/me/me.requests";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -30,13 +31,13 @@ const queryClient = new QueryClient({
 
 const App: FC = () => {
 
-  const [auth, setAuth] = useState<IMe | null>(null);
+  const [me, setMe] = useState<MeResponse | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     getMe()
       .then(response => {
-        setAuth(response.data);
+        setMe(response.data);
         setIsLoading(false);
       })
       .catch(() => setIsLoading(false))
@@ -46,8 +47,8 @@ const App: FC = () => {
     <BrowserRouter>
       <ThemeProvider theme={theme}>
         <QueryClientProvider client={queryClient}>
-          <AuthContext.Provider value={{auth, setAuth}}>
-            <Container maxWidth={"xl"} id={auth ? 'app-container' : 'app-login'}>
+          <AuthContext.Provider value={{me, setMe}}>
+            <Container maxWidth={"xl"} id={me ? 'app-container' : 'app-login'}>
               {!isLoading && (
                 <>
                   <CssBaseline/>

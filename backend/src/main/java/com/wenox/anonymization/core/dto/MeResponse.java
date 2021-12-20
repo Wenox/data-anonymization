@@ -1,33 +1,36 @@
-package com.wenox.anonymization.core.domain;
+package com.wenox.anonymization.core.dto;
 
+import com.wenox.anonymization.core.domain.Role;
+import com.wenox.anonymization.core.domain.User;
 import java.time.LocalDateTime;
 import java.util.Objects;
-import java.util.UUID;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
-@Entity
-@Table(name = "users")
-public class User {
+public class MeResponse {
 
-  @Id
-  private final String id = UUID.randomUUID().toString();
+  public static MeResponse from(User user) {
+    var dto = new MeResponse();
+    dto.setId(user.getId());
+    dto.setEmail(user.getEmail());
+    dto.setRole(user.getRole());
+    dto.setFirstName(user.getFirstName());
+    dto.setLastName(user.getLastName());
+    dto.setBlocked(user.isBlocked());
+    dto.setVerified(user.isVerified());
+    dto.setMarkedForRemoval(user.isMarkedForRemoval());
+    dto.setRemovalRequestedDate(user.getRemovalRequestedDate());
+    dto.setBlockedDate(user.getBlockedDate());
+    return dto;
+  }
+
+  private String id;
 
   private String email;
 
-  private String password;
-
-  @Enumerated(EnumType.STRING)
   private Role role;
 
   private String firstName;
 
   private String lastName;
-
-  private String purpose;
 
   private boolean blocked;
 
@@ -35,17 +38,9 @@ public class User {
 
   private boolean markedForRemoval;
 
-  private boolean forceRemoval;
-
   private LocalDateTime removalRequestedDate;
 
-  private LocalDateTime removedDate;
-
   private LocalDateTime blockedDate;
-
-  private LocalDateTime registeredDate;
-
-  private LocalDateTime lastLoginDate;
 
   @Override
   public boolean equals(Object o) {
@@ -55,7 +50,7 @@ public class User {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    User user = (User) o;
+    MeResponse user = (MeResponse) o;
     return id.equals(user.id);
   }
 
@@ -68,20 +63,16 @@ public class User {
     return id;
   }
 
+  public void setId(String id) {
+    this.id = id;
+  }
+
   public String getEmail() {
     return email;
   }
 
   public void setEmail(String email) {
     this.email = email;
-  }
-
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
   }
 
   public Role getRole() {
@@ -108,14 +99,6 @@ public class User {
     this.lastName = lastName;
   }
 
-  public String getPurpose() {
-    return purpose;
-  }
-
-  public void setPurpose(String purpose) {
-    this.purpose = purpose;
-  }
-
   public boolean isBlocked() {
     return blocked;
   }
@@ -140,28 +123,12 @@ public class User {
     this.markedForRemoval = markedForRemoval;
   }
 
-  public boolean isForceRemoval() {
-    return forceRemoval;
-  }
-
-  public void setForceRemoval(boolean forceRemoval) {
-    this.forceRemoval = forceRemoval;
-  }
-
   public LocalDateTime getRemovalRequestedDate() {
     return removalRequestedDate;
   }
 
   public void setRemovalRequestedDate(LocalDateTime removalRequestedDate) {
     this.removalRequestedDate = removalRequestedDate;
-  }
-
-  public LocalDateTime getRemovedDate() {
-    return removedDate;
-  }
-
-  public void setRemovedDate(LocalDateTime removedDate) {
-    this.removedDate = removedDate;
   }
 
   public LocalDateTime getBlockedDate() {
@@ -171,20 +138,5 @@ public class User {
   public void setBlockedDate(LocalDateTime blockedDate) {
     this.blockedDate = blockedDate;
   }
-
-  public LocalDateTime getRegisteredDate() {
-    return registeredDate;
-  }
-
-  public void setRegisteredDate(LocalDateTime registeredDate) {
-    this.registeredDate = registeredDate;
-  }
-
-  public LocalDateTime getLastLoginDate() {
-    return lastLoginDate;
-  }
-
-  public void setLastLoginDate(LocalDateTime lastLoginDate) {
-    this.lastLoginDate = lastLoginDate;
-  }
 }
+

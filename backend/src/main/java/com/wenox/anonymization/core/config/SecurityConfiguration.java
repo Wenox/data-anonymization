@@ -64,9 +64,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     http.authorizeRequests()
         .antMatchers(
             "/api/v1/auth/**",
-            "/api/v1/request-reset-password/**",
-            "/api/v1/show-change-password/**",
-            "/api/v1/change-password/**"
+            "/api/v1/users/register/**",
+            "/api/v1/reset-password/**"
         )
         .permitAll()
         .anyRequest()

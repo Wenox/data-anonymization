@@ -1,14 +1,14 @@
-import {IMe} from "../api/auth";
 import React from "react";
+import {MeResponse} from "../api/requests/me/me.types";
 
 export interface IAuthContext {
-  auth: IMe | null;
-  setAuth: (user: IMe | null) => void;
+  me: MeResponse | null;
+  setMe: (user: MeResponse | null) => void;
 }
 
 const AuthContext = React.createContext<IAuthContext>({
-  auth: null,
-  setAuth: (auth: IMe | null) => {}
+  me: null,
+  setMe: (me: MeResponse | null) => {}
 });
 
 export default AuthContext;
