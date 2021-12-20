@@ -7,7 +7,6 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import {login} from "../api/auth";
 import {FC, useContext, useState} from "react";
 import {Alert, CircularProgress, Collapse, IconButton} from "@mui/material";
 import * as yup from 'yup';
@@ -20,6 +19,7 @@ import {useNavigate} from "react-router-dom";
 import AuthContext from "../context/auth-context";
 import {ACCESS_TOKEN, REFRESH_TOKEN} from "../constants/auth";
 import {getMe} from "../api/requests/me/me.requests";
+import {postLogin} from "../api/requests/auth/auth.requests";
 
 interface IFormInputs {
   email: string;
@@ -49,7 +49,7 @@ const Login: FC = () => {
   const formSubmitHandler: SubmitHandler<IFormInputs> = (data: IFormInputs) => {
     setLoading(true);
     setFailedLogin(false);
-    login(data)
+    postLogin(data)
       .then(function (response) {
         if (response.status === 200 && response.headers[ACCESS_TOKEN] && response.headers[REFRESH_TOKEN]) {
           localStorage.setItem(ACCESS_TOKEN, response.headers[ACCESS_TOKEN]);
@@ -113,7 +113,7 @@ const Login: FC = () => {
         <Controller
           name='email'
           control={control}
-          defaultValue='mail@mail.com'
+          defaultValue=''
           render={({field}) => (
             <TextField
               {...field}

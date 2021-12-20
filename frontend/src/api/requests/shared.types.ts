@@ -1,5 +1,9 @@
 export enum Role {
-  UNVERIFIED_USER,
   VERIFIED_USER,
   ADMIN
+}
+
+export interface ApiResponse {
+  message: string;
+  success: boolean;
 }

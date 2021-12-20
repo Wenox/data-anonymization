@@ -1,9 +1,10 @@
 import {useQuery} from "react-query";
-import {getUsers, User} from "../api/users";
 import {DataGrid, GridColDef} from "@mui/x-data-grid";
 import '../styles/users.scss';
 import {IconButton} from "@mui/material";
 import {Block, Edit, HowToReg} from "@mui/icons-material";
+import {getUsers} from "../api/requests/users/users.requests";
+import {User} from "../api/requests/users/users.types";
 
 const Users = () => {
 
@@ -16,7 +17,7 @@ const Users = () => {
       renderCell: params => <span>{params.row.blocked ? 'Blocked' : 'Active'}</span>
     },
     { field: 'role', headerName: 'Role', flex: 1 },
-    {field: 'actions', headerName: 'Actions', width: 125,
+    { field: 'actions', headerName: 'Actions', width: 125,
       sortable: false,
       filterable: false,
       renderCell: params => {

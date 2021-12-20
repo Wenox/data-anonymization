@@ -1,8 +1,8 @@
 package com.wenox.anonymization.core.security.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wenox.anonymization.core.dto.LoginUserRequest;
 import com.wenox.anonymization.core.dto.UserJwt;
-import com.wenox.anonymization.core.dto.UserRequest;
 import com.wenox.anonymization.core.security.service.JwtService;
 import java.io.IOException;
 import javax.servlet.FilterChain;
@@ -15,7 +15,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -37,7 +36,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
   public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
       throws AuthenticationException {
     try {
-      UserRequest dto = new ObjectMapper().readValue(request.getInputStream(), UserRequest.class);
+      LoginUserRequest dto = new ObjectMapper().readValue(request.getInputStream(), LoginUserRequest.class);
       log.info("email: {}, password: {}", dto.getEmail(), dto.getPassword());
       UsernamePasswordAuthenticationToken authenticationToken =
           new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword());

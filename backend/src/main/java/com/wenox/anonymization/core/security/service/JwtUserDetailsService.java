@@ -20,7 +20,7 @@ public class JwtUserDetailsService implements UserDetailsService {
   public UserDetails loadUserByUsername(String email) {
     final var user = userRepository.findByEmail(email).orElseThrow();
 
-    user.setLastLogin(LocalDateTime.now());
+    user.setLastLoginDate(LocalDateTime.now());
 
     userRepository.save(user);
 

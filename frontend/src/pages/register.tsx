@@ -3,7 +3,6 @@ import {FC, useState} from "react";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {useNavigate} from "react-router-dom";
-import {registerUser} from "../api/auth";
 import {toast} from "react-toastify";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
@@ -12,25 +11,29 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import {Alert, Collapse, IconButton} from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Link from "@mui/material/Link";
 import {Copyright} from "../components/copyright";
+import {postRegisterUser} from "../api/requests/users/users.requests";
+import {RegisterUserRequest} from "../api/requests/users/users.types";
+import {Alert, Collapse, IconButton} from "@mui/material";
 
 interface IFormInputs {
   email: string;
   password: string;
   confirmPassword: string;
-  name: string;
-  surname: string;
+  firstName: string;
+  lastName: string;
+  purpose: string;
 }
 
 const schema = yup.object().shape({
   email: yup.string().email().required("E-mail address is required"),
   password: yup.string().min(4).max(20).required(),
   confirmPassword: yup.string().oneOf([yup.ref('password'), null], 'Passwords must match'),
-  name: yup.string().required("Name is required"),
-  surname: yup.string().required("Surname is required"),
+  firstName: yup.string().required("First name is required"),
+  lastName: yup.string().required("Last name is required"),
+  purpose: yup.string().required("Please explain the purpose"),
 });
 
 const Register: FC = () => {
@@ -48,7 +51,7 @@ const Register: FC = () => {
   const formSubmitHandler: SubmitHandler<IFormInputs> = (data: IFormInputs) => {
     console.log('login data: ', data);
     setFailedLogin(false);
-    registerUser(data)
+    postRegisterUser(data as RegisterUserRequest)
       .then(response => {
         if (response.status === 200)
           toast.success('Signed up successfully.', {
@@ -98,7 +101,7 @@ const Register: FC = () => {
           <Controller
             name='email'
             control={control}
-            defaultValue='mail@mail.com'
+            defaultValue=''
             render={({field}) => (
               <TextField
                 {...field}
@@ -162,43 +165,64 @@ const Register: FC = () => {
           />
 
           <Controller
-            name='name'
+            name='firstName'
             control={control}
             defaultValue=''
             render={({field}) => (
               <TextField
                 {...field}
                 variant="outlined"
-                error={!!errors.name}
-                helperText={errors.name ? errors.name?.message : ''}
+                error={!!errors.firstName}
+                helperText={errors.firstName ? errors.firstName?.message : ''}
                 margin="normal"
                 required
                 fullWidth
-                name="name"
-                label="Name"
-                type="name"
-                id="name"
+                name="firstName"
+                label="First name"
+                type="firstName"
+                id="firstName"
               />
             )}
           />
 
           <Controller
-            name='surname'
+            name='lastName'
             control={control}
             defaultValue=''
             render={({field}) => (
               <TextField
                 {...field}
                 variant="outlined"
-                error={!!errors.surname}
-                helperText={errors.surname ? errors.surname?.message : ''}
+                error={!!errors.lastName}
+                helperText={errors.lastName ? errors.lastName?.message : ''}
                 margin="normal"
                 required
                 fullWidth
-                name="surname"
-                label="Surname"
-                type="surname"
-                id="surname"
+                name="lastName"
+                label="Last name"
+                type="lastName"
+                id="lastName"
+              />
+            )}
+          />
+
+          <Controller
+            name='purpose'
+            control={control}
+            defaultValue=''
+            render={({field}) => (
+              <TextField
+                {...field}
+                variant="outlined"
+                error={!!errors.purpose}
+                helperText={errors.purpose ? errors.purpose?.message : ''}
+                margin="normal"
+                required
+                fullWidth
+                name="purpose"
+                label="Purpose"
+                type="purpose"
+                id="purpose"
               />
             )}
           />
@@ -227,7 +251,7 @@ const Register: FC = () => {
                 </IconButton>
               }
             >
-              Invalid e-mail address or password
+              This e-mail address is already taken
             </Alert>
           </Collapse>
           <Grid container>

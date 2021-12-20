@@ -2,9 +2,9 @@ package com.wenox.anonymization.core.controller;
 
 
 import com.wenox.anonymization.core.dto.ApiResponse;
+import com.wenox.anonymization.core.dto.RegisterUserRequest;
 import com.wenox.anonymization.core.security.service.RefreshTokenService;
 import com.wenox.anonymization.core.service.AuthService;
-import com.wenox.anonymization.core.dto.UserRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -32,7 +32,7 @@ public class AuthController {
   }
 
   @PostMapping("/register")
-  public ResponseEntity<ApiResponse> register(@Valid @RequestBody UserRequest dto) {
+  public ResponseEntity<ApiResponse> register(@Valid @RequestBody RegisterUserRequest dto) {
     return ResponseEntity.ok(authService.register(dto));
   }
 

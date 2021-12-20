@@ -3,8 +3,9 @@ package com.wenox.anonymization.core.service;
 import com.wenox.anonymization.core.dto.ApiResponse;
 import com.wenox.anonymization.core.domain.Role;
 import com.wenox.anonymization.core.domain.User;
-import com.wenox.anonymization.core.dto.UserRequest;
+import com.wenox.anonymization.core.dto.RegisterUserRequest;
 import com.wenox.anonymization.core.repository.UserRepository;
+import java.time.LocalDateTime;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,7 +25,7 @@ public class AuthService {
     this.passwordEncoder = passwordEncoder;
   }
 
-  public ApiResponse register(UserRequest dto) {
+  public ApiResponse register(RegisterUserRequest dto) {
     if (userRepository.existsByEmail(dto.getEmail())) {
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User with this email already exists!");
     }
@@ -33,7 +34,14 @@ public class AuthService {
     user.setEmail(dto.getEmail());
     user.setPassword(passwordEncoder.encode(dto.getPassword()));
     user.setRole(Role.USER);
+    user.setFirstName(dto.getFirstName());
+    user.setLastName(dto.getLastName());
+    user.setPurpose(dto.getPurpose());
     user.setBlocked(false);
+    user.setVerified(false);
+    user.setMarkedForRemoval(false);
+    user.setForceRemoval(false);
+    user.setRegisteredDate(LocalDateTime.now());
 
     userRepository.save(user);
 

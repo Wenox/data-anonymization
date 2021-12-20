@@ -72,7 +72,7 @@ const ResetPassword: FC = () => {
             <Controller
               name='email'
               control={control}
-              defaultValue='mail@mail.com'
+              defaultValue=''
               render={({field}) => (
                 <TextField
                   {...field}
