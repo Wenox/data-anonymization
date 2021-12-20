@@ -1,7 +1,8 @@
 import axios from "axios";
 import {ACCESS_TOKEN, JWT_EXPIRED_MSG, REFRESH_TOKEN} from "../constants/auth";
+import {postRefreshToken} from "./requests/auth/auth.requests";
 
-const refresher = axios.create({});
+export const refresher = axios.create({});
 
 axios.interceptors.request.use(
   (config) => {
@@ -27,11 +28,7 @@ axios.interceptors.response.use(
       if (err.response.status === 403 && err.response.headers && err.response.headers['error'] && err.response.headers['error'].startsWith(JWT_EXPIRED_MSG) && !originalConfig._retry) {
         originalConfig._retry = true;
 
-        refresher.post('/api/v1/auth/refresh-token', {}, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem(REFRESH_TOKEN)}`
-          }
-        }).then(response => {
+        postRefreshToken().then(response => {
           if (response.status === 200 && response.headers[ACCESS_TOKEN] && response.headers[REFRESH_TOKEN]) {
             localStorage.setItem(ACCESS_TOKEN, response.headers[ACCESS_TOKEN]);
             localStorage.setItem(REFRESH_TOKEN, response.headers[REFRESH_TOKEN]);
