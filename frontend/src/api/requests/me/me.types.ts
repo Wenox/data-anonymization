@@ -1,4 +1,4 @@
-import {Role} from "../shared.types";
+import {Role, UserStatus} from "../shared.types";
 
 export interface MeResponse {
   id: string;
@@ -6,7 +6,7 @@ export interface MeResponse {
   role: Role;
   firstName: string;
   lastName: string;
-  blocked: boolean;
+  status: UserStatus;
   verified: boolean;
   markedForRemoval: boolean;
   removalRequestedDate: string;

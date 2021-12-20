@@ -1,5 +1,6 @@
 package com.wenox.anonymization.core.security.service;
 
+import com.wenox.anonymization.core.domain.UserStatus;
 import com.wenox.anonymization.core.repository.UserRepository;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -30,7 +31,7 @@ public class JwtUserDetailsService implements UserDetailsService {
         true,
         true,
         true,
-        !user.isBlocked(),
+        user.getStatus() == UserStatus.ACTIVE,
         List.of(new SimpleGrantedAuthority(user.getRole().name()))
     );
   }

@@ -3,6 +3,12 @@ export enum Role {
   ADMIN
 }
 
+export enum UserStatus {
+  ACTIVE,
+  BLOCKED,
+  REMOVED
+}
+
 export interface ApiResponse {
   message: string;
   success: boolean;

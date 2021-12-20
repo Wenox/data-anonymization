@@ -2,6 +2,7 @@ package com.wenox.anonymization.core.preloader;
 
 import com.wenox.anonymization.core.domain.Role;
 import com.wenox.anonymization.core.domain.User;
+import com.wenox.anonymization.core.domain.UserStatus;
 import com.wenox.anonymization.core.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -18,14 +19,14 @@ public class DatabasePreloader {
       admin.setRole(Role.ADMIN);
       admin.setEmail("admin@admin.com");
       admin.setPassword(passwordEncoder.encode("admin"));
-      admin.setBlocked(Boolean.FALSE);
+      admin.setStatus(UserStatus.ACTIVE);
       userRepository.save(admin);
 
       User user = new User();
       user.setRole(Role.USER);
       user.setEmail("user@user.com");
       user.setPassword(passwordEncoder.encode("user"));
-      user.setBlocked(Boolean.FALSE);
+      user.setStatus(UserStatus.ACTIVE);
       userRepository.save(user);
     };
   }

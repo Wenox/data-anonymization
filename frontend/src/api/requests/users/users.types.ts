@@ -1,4 +1,4 @@
-import {Role} from "../shared.types";
+import {Role, UserStatus} from "../shared.types";
 
 export interface RegisterUserRequest {
   email: string;
@@ -15,7 +15,7 @@ export interface FullUserResponse {
   firstName: string;
   lastName: string;
   purpose: string;
-  blocked: boolean;
+  status: UserStatus;
   verified: boolean;
   markedForRemoval: boolean;
   forceRemoval: boolean;
