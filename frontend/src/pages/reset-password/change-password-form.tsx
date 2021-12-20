@@ -13,8 +13,8 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import Link from "@mui/material/Link";
-import {changePassword} from "../../api/reset-password";
 import {Copyright} from "../../components/copyright";
+import {postChangePassword} from "../../api/requests/reset-password/reset-password.requests";
 
 interface IFormInputs {
   password: string;
@@ -42,7 +42,7 @@ const ChangePasswordForm: FC = () => {
 
   const formSubmitHandler: SubmitHandler<IFormInputs> = (data: IFormInputs) => {
 
-    changePassword({newPassword: data.password, token: token})
+    postChangePassword({newPassword: data.password, token: token})
       .then(response => {
         if (response.status === 200) {
           if (response.data === 'success') {

@@ -2,7 +2,6 @@ import {FC, useState} from "react";
 import * as yup from "yup";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
-import {resetPassword} from "../../api/reset-password";
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
@@ -11,6 +10,7 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import {Box, Container} from "@mui/material";
 import Button from "@mui/material/Button";
+import {postRequestResetPassword} from "../../api/requests/reset-password/reset-password.requests";
 
 interface IFormInputs {
   email: string;
@@ -35,7 +35,7 @@ const ResetPassword: FC = () => {
 
   const formSubmitHandler: SubmitHandler<IFormInputs> = (data: IFormInputs) => {
     setButtonPressed(true);
-    resetPassword(data.email);
+    postRequestResetPassword(data.email);
     toast.success('E-mail was sent to you.', {
       position: "top-right",
       autoClose: 5000,
