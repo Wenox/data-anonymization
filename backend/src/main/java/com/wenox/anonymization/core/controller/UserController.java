@@ -1,7 +1,8 @@
 package com.wenox.anonymization.core.controller;
 
-import com.wenox.anonymization.core.dto.UserResponse;
+import com.wenox.anonymization.core.dto.FullUserResponse;
 import com.wenox.anonymization.core.service.UserService;
+import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,7 +22,7 @@ public class UserController {
 
   @GetMapping
   @PreAuthorize("hasAuthority('ADMIN')")
-  public ResponseEntity<?> getAll() {
-    return ResponseEntity.ok(userService.getAll().stream().map(UserResponse::from).collect(Collectors.toList()));
+  public ResponseEntity<List<FullUserResponse>> getAll() {
+    return ResponseEntity.ok(userService.getAll().stream().map(FullUserResponse::from).collect(Collectors.toList()));
   }
 }

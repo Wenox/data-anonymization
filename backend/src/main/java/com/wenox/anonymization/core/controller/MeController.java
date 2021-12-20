@@ -1,6 +1,6 @@
 package com.wenox.anonymization.core.controller;
 
-import com.wenox.anonymization.core.dto.UserResponse;
+import com.wenox.anonymization.core.dto.MeResponse;
 import com.wenox.anonymization.core.service.AuthService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -17,7 +17,7 @@ public class MeController {
   }
 
   @GetMapping("/api/v1/me")
-  public ResponseEntity<UserResponse> getMe(Authentication authentication) {
-    return ResponseEntity.ok(authService.getMe(authentication));
+  public ResponseEntity<MeResponse> getMe(Authentication authentication) {
+    return ResponseEntity.ok(MeResponse.from(authService.getMe(authentication)));
   }
 }

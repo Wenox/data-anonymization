@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import {getMe, login} from "../api/auth";
+import {login} from "../api/auth";
 import {FC, useContext, useState} from "react";
 import {Alert, CircularProgress, Collapse, IconButton} from "@mui/material";
 import * as yup from 'yup';
@@ -19,6 +19,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import {useNavigate} from "react-router-dom";
 import AuthContext from "../context/auth-context";
 import {ACCESS_TOKEN, REFRESH_TOKEN} from "../constants/auth";
+import {getMe} from "../api/requests/me/me.requests";
 
 interface IFormInputs {
   email: string;
@@ -32,7 +33,7 @@ const schema = yup.object().shape({
 
 const Login: FC = () => {
 
-  const {setAuth} = useContext(AuthContext);
+  const { setMe } = useContext(AuthContext);
 
   const {
     handleSubmit,
@@ -58,7 +59,7 @@ const Login: FC = () => {
       .then(response => {
           getMe().then(response => {
             if (response.status === 200) {
-              setAuth(response.data);
+              setMe(response.data);
             }
             toast.success('Logged in successfully.', {
               position: "top-right",

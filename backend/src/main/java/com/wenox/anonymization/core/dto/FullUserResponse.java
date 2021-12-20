@@ -1,26 +1,37 @@
-package com.wenox.anonymization.core.domain;
+package com.wenox.anonymization.core.dto;
 
+import com.wenox.anonymization.core.domain.Role;
+import com.wenox.anonymization.core.domain.User;
 import java.time.LocalDateTime;
 import java.util.Objects;
-import java.util.UUID;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
-@Entity
-@Table(name = "users")
-public class User {
+/** Password and relations are not returned. */
+public class FullUserResponse {
 
-  @Id
-  private final String id = UUID.randomUUID().toString();
+  public static FullUserResponse from(User user) {
+    var dto = new FullUserResponse();
+    dto.setId(user.getId());
+    dto.setEmail(user.getEmail());
+    dto.setRole(user.getRole());
+    dto.setFirstName(user.getFirstName());
+    dto.setLastName(user.getLastName());
+    dto.setPurpose(user.getPurpose());
+    dto.setBlocked(user.isBlocked());
+    dto.setVerified(user.isVerified());
+    dto.setMarkedForRemoval(user.isMarkedForRemoval());
+    dto.setForceRemoval(user.isForceRemoval());
+    dto.setRemovalRequestedDate(user.getRemovalRequestedDate());
+    dto.setRemovedDate(user.getRemovedDate());
+    dto.setBlockedDate(user.getBlockedDate());
+    dto.setRegisteredDate(user.getRegisteredDate());
+    dto.setLastLoginDate(user.getLastLoginDate());
+    return dto;
+  }
+
+  private String id;
 
   private String email;
 
-  private String password;
-
-  @Enumerated(EnumType.STRING)
   private Role role;
 
   private String firstName;
@@ -55,7 +66,7 @@ public class User {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    User user = (User) o;
+    FullUserResponse user = (FullUserResponse) o;
     return id.equals(user.id);
   }
 
@@ -68,20 +79,16 @@ public class User {
     return id;
   }
 
+  public void setId(String id) {
+    this.id = id;
+  }
+
   public String getEmail() {
     return email;
   }
 
   public void setEmail(String email) {
     this.email = email;
-  }
-
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
   }
 
   public Role getRole() {
@@ -188,3 +195,4 @@ public class User {
     this.lastLoginDate = lastLoginDate;
   }
 }
+
