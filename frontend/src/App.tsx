@@ -20,7 +20,13 @@ import {getMe, IMe} from "./api/auth";
 import AuthContext from "./context/auth-context";
 import CssBaseline from "@mui/material/CssBaseline";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      cacheTime: 0,
+    }
+  }
+});
 
 const App: FC = () => {
 
