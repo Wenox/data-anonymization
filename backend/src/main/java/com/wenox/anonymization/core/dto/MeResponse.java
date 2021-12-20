@@ -2,6 +2,7 @@ package com.wenox.anonymization.core.dto;
 
 import com.wenox.anonymization.core.domain.Role;
 import com.wenox.anonymization.core.domain.User;
+import com.wenox.anonymization.core.domain.UserStatus;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -14,7 +15,7 @@ public class MeResponse {
     dto.setRole(user.getRole());
     dto.setFirstName(user.getFirstName());
     dto.setLastName(user.getLastName());
-    dto.setBlocked(user.isBlocked());
+    dto.setStatus(user.getStatus());
     dto.setVerified(user.isVerified());
     dto.setMarkedForRemoval(user.isMarkedForRemoval());
     dto.setRemovalRequestedDate(user.getRemovalRequestedDate());
@@ -32,7 +33,7 @@ public class MeResponse {
 
   private String lastName;
 
-  private boolean blocked;
+  private UserStatus status;
 
   private boolean verified;
 
@@ -99,12 +100,12 @@ public class MeResponse {
     this.lastName = lastName;
   }
 
-  public boolean isBlocked() {
-    return blocked;
+  public UserStatus getStatus() {
+    return status;
   }
 
-  public void setBlocked(boolean blocked) {
-    this.blocked = blocked;
+  public void setStatus(UserStatus status) {
+    this.status = status;
   }
 
   public boolean isVerified() {

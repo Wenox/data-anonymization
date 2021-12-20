@@ -1,5 +1,6 @@
 package com.wenox.anonymization.core.service;
 
+import com.wenox.anonymization.core.domain.UserStatus;
 import com.wenox.anonymization.core.dto.ApiResponse;
 import com.wenox.anonymization.core.domain.Role;
 import com.wenox.anonymization.core.domain.User;
@@ -37,7 +38,7 @@ public class AuthService {
     user.setFirstName(dto.getFirstName());
     user.setLastName(dto.getLastName());
     user.setPurpose(dto.getPurpose());
-    user.setBlocked(false);
+    user.setStatus(UserStatus.ACTIVE);
     user.setVerified(false);
     user.setMarkedForRemoval(false);
     user.setForceRemoval(false);

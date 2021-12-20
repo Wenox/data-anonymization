@@ -29,7 +29,7 @@ public class User {
 
   private String purpose;
 
-  private boolean blocked;
+  private UserStatus status;
 
   private boolean verified;
 
@@ -116,12 +116,12 @@ public class User {
     this.purpose = purpose;
   }
 
-  public boolean isBlocked() {
-    return blocked;
+  public UserStatus getStatus() {
+    return status;
   }
 
-  public void setBlocked(boolean blocked) {
-    this.blocked = blocked;
+  public void setStatus(UserStatus status) {
+    this.status = status;
   }
 
   public boolean isVerified() {

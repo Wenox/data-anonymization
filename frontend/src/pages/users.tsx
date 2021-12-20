@@ -3,8 +3,8 @@ import {DataGrid, GridColDef} from "@mui/x-data-grid";
 import '../styles/users.scss';
 import {IconButton} from "@mui/material";
 import {Block, Edit, HowToReg} from "@mui/icons-material";
-import {getUsers} from "../api/requests/users/users.requests";
 import {User} from "../api/requests/users/users.types";
+import {getUsers} from "../api/requests/users/users.requests";
 
 const Users = () => {
 
@@ -13,9 +13,7 @@ const Users = () => {
 
   const columns: GridColDef[] = [
     { field: 'email', headerName: 'E-mail address', flex: 1},
-    { field: 'blocked', headerName: 'Is blocked?', flex: 1,
-      renderCell: params => <span>{params.row.blocked ? 'Blocked' : 'Active'}</span>
-    },
+    { field: 'status', headerName: 'User status', flex: 1},
     { field: 'role', headerName: 'Role', flex: 1 },
     { field: 'actions', headerName: 'Actions', width: 125,
       sortable: false,
@@ -27,7 +25,7 @@ const Users = () => {
               <Edit/>
             </IconButton>
             <IconButton onClick={() => {}}>
-              {params.row.blocked ? <HowToReg color='primary' /> : <Block color='secondary' />}
+              {params.row.status ? <HowToReg color='primary' /> : <Block color='secondary' />}
             </IconButton>
           </div>
         );
