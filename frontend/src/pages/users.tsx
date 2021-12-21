@@ -6,15 +6,86 @@ import {
   Edit,
 } from "@mui/icons-material";
 import {User} from "../api/requests/users/users.types";
-import {getUsers} from "../api/requests/users/users.requests";
+import {getUsers, putBlockUser, putUnblockUser} from "../api/requests/users/users.requests";
 import BlockUser from "../components/user/block-user";
 import UnblockUser from "../components/user/unblock-user";
 import {UserStatus} from "../api/requests/shared.types";
+import {toast} from "react-toastify";
 
 const Users = () => {
 
-  const {data, isLoading} = useQuery('users', getUsers);
+  const {data, isLoading, refetch, isRefetching} = useQuery('users', getUsers);
   const users: User[] = data?.data || [];
+
+  const handleBlockUser = (id: string) => {
+    putBlockUser(id).then(response => {
+      if (response.data.success) {
+        toast.success(response.data.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        refetch();
+      } else {
+        toast.error(response.data.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
+    }).catch(err => toast.error('Failed to block the user.', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    }));
+  }
+
+  const handleUnblockUser = (id: string) => {
+    putUnblockUser(id).then(response => {
+      if (response.data.success) {
+        toast.success(response.data.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        refetch();
+      } else {
+        toast.error(response.data.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
+    }).catch(err => toast.error('Failed to unblock the user.', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    }));
+  }
 
   const columns: GridColDef[] = [
     {field: 'email', headerName: 'E-mail address', flex: 1},
@@ -24,7 +95,7 @@ const Users = () => {
       field: 'actions', headerName: 'Actions', width: 125,
       sortable: false,
       filterable: false,
-      renderCell: ({ row }) => {
+      renderCell: ({row}) => {
         return (
           <div>
             <IconButton onClick={() => {
@@ -32,7 +103,9 @@ const Users = () => {
               <Edit/>
             </IconButton>
 
-            {row.status === UserStatus.BLOCKED ? <UnblockUser /> : <BlockUser status={row.status} />}
+            {row.status === UserStatus.BLOCKED ?
+              <UnblockUser handleUnblockUser={() => handleUnblockUser(row.id)}/> :
+              <BlockUser handleBlockUser={() => handleBlockUser(row.id)} status={row.status}/>}
 
           </div>
         );
@@ -44,7 +117,7 @@ const Users = () => {
     <>
       <div id='user-registration'>
         <h1>Users</h1>
-        <DataGrid autoHeight columns={columns} rows={users} loading={isLoading}/>
+        <DataGrid autoHeight columns={columns} rows={users} loading={isLoading || isRefetching}/>
       </div>
     </>
   )

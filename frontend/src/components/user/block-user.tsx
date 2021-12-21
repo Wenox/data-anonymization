@@ -4,10 +4,11 @@ import {LockOutlined} from "@mui/icons-material";
 import {FC} from "react";
 
 interface BlockUserProps {
-  status: UserStatus
+  status: UserStatus;
+  handleBlockUser: () => void;
 }
 
-const BlockUser: FC<BlockUserProps> = ({status}) => {
+const BlockUser: FC<BlockUserProps> = ({status, handleBlockUser}) => {
 
   const {style, disabled} = status === UserStatus.ACTIVE ? {
     style: {color: 'red'}, disabled: false,
@@ -16,11 +17,12 @@ const BlockUser: FC<BlockUserProps> = ({status}) => {
   };
 
   return (
-    <Tooltip title='Block'>
-      <IconButton disabled={disabled} onClick={() => {
-      }}>
-        <LockOutlined fontSize='large' sx={style}/>
-      </IconButton>
+    <Tooltip title={disabled ? 'Cannot block removed user' : 'Block'} followCursor={disabled} placement={'top'}>
+      <span>
+        <IconButton disabled={disabled} onClick={() => handleBlockUser()}>
+          <LockOutlined fontSize='large' sx={style}/>
+        </IconButton>
+      </span>
     </Tooltip>
   );
 }

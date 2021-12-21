@@ -8,6 +8,14 @@ public class ApiResponse {
 
   }
 
+  public static ApiResponse ofSuccess(String message) {
+    return new ApiResponse(message, true);
+  }
+
+  public static ApiResponse ofError(String message) {
+    return new ApiResponse(message, false);
+  }
+
   public ApiResponse(String message) {
     this.message = message;
   }
