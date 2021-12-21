@@ -22,6 +22,20 @@ public class DatabasePreloader {
       admin.setStatus(UserStatus.ACTIVE);
       userRepository.save(admin);
 
+      User admin1 = new User();
+      admin1.setRole(Role.ADMIN);
+      admin1.setEmail("admin1@admin1.com");
+      admin1.setPassword(passwordEncoder.encode("admin1"));
+      admin1.setStatus(UserStatus.BLOCKED);
+      userRepository.save(admin1);
+
+      User admin2 = new User();
+      admin2.setRole(Role.ADMIN);
+      admin2.setEmail("admin2@admin2.com");
+      admin2.setPassword(passwordEncoder.encode("admin2"));
+      admin2.setStatus(UserStatus.REMOVED);
+      userRepository.save(admin2);
+
       User user = new User();
       user.setRole(Role.USER);
       user.setEmail("user@user.com");

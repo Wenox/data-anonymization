@@ -9,3 +9,11 @@ export const postRegisterUser = (dto: RegisterUserRequest) => {
 export const getUsers = () => {
   return axios.get<FullUserResponse[]>(`/api/v1/users`);
 }
+
+export const putBlockUser = (id: string) => {
+  return axios.put<ApiResponse>(`api/v1/users/${id}/block`)
+}
+
+export const putUnblockUser = (id: string) => {
+  return axios.put<ApiResponse>(`api/v1/users/${id}/unblock`)
+}
