@@ -1,7 +1,9 @@
 package com.wenox.anonymization.core.service.verifymail;
 
 import com.wenox.anonymization.core.domain.User;
+import com.wenox.anonymization.core.domain.UserStatus;
 import com.wenox.anonymization.core.domain.VerifyMailToken;
+import com.wenox.anonymization.core.dto.ApiResponse;
 import com.wenox.anonymization.core.repository.UserRepository;
 import com.wenox.anonymization.core.service.mail.MailDescription;
 import com.wenox.anonymization.core.service.mail.MailService;
@@ -21,6 +23,19 @@ public class VerifyMailService {
     this.tokenService = tokenService;
     this.mailService = mailService;
     this.userRepository = userRepository;
+  }
+
+  public ApiResponse confirmVerification(String id) {
+    User user = userRepository.findById(id).orElseThrow();
+    if (user.isVerified()) {
+      return ApiResponse.ofError("This user is already verified.");
+    }
+    if (user.getStatus() == UserStatus.REMOVED) {
+      return ApiResponse.ofError("Cannot confirm removed user's verification.");
+    }
+    user.setVerified(true);
+    userRepository.save(user);
+    return ApiResponse.ofSuccess("Successfully confirmed user's verification.");
   }
 
   public void sendVerificationMailToUser(User user) {

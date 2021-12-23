@@ -2,6 +2,7 @@ package com.wenox.anonymization.core.security.filter;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wenox.anonymization.core.security.service.JwtService;
 import java.io.IOException;
@@ -30,7 +31,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
       throws ServletException, IOException {
 
     if (request.getServletPath().startsWith("/api/v1/auth/") ||
-    request.getServletPath().startsWith("/api/v1/users/verify-mail")) {
+        request.getServletPath().startsWith("/api/v1/users/verify-mail")) {
       filterChain.doFilter(request, response);
     } else {
 

@@ -10,10 +10,51 @@ import UnblockUser from '../components/user/unblock-user';
 import { UserStatus } from '../api/requests/shared.types';
 import { toast } from 'react-toastify';
 import RemoveUser from '../components/user/remove-user';
+import VerifyUser from '../components/user/verify-user';
+import { postConfirmVerifyMail } from '../api/requests/verify-mail/verify-mail.requests';
 
 const Users = () => {
   const { data, isLoading, refetch, isRefetching } = useQuery('users', getUsers);
   const users: User[] = data?.data || [];
+
+  const handleVerifyUser = (id: string) => {
+    postConfirmVerifyMail(id)
+      .then((response) => {
+        if (response.data.success) {
+          toast.success(response.data.message, {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+          refetch();
+        } else {
+          toast.error(response.data.message, {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        }
+      })
+      .catch(() =>
+        toast.error('Failed to confirm users mail verification.', {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        }),
+      );
+  };
 
   const handleRemoveUser = (id: string) => {
     putForceUserRemoval(id)
@@ -139,15 +180,21 @@ const Users = () => {
     {
       field: 'actions',
       headerName: 'Actions',
-      width: 175,
+      width: 225,
       sortable: false,
       filterable: false,
       renderCell: ({ row }) => {
         return (
           <div>
             <IconButton onClick={() => {}}>
-              <Edit sx={{ color: 'blue' }} />
+              <Edit fontSize="large" sx={{ color: 'blue' }} />
             </IconButton>
+
+            <VerifyUser
+              removed={row.status === UserStatus.REMOVED}
+              verified={row.verified}
+              handleVerifyUser={() => handleVerifyUser(row.id)}
+            />
 
             {row.status === UserStatus.BLOCKED ? (
               <UnblockUser handleUnblockUser={() => handleUnblockUser(row.id)} />

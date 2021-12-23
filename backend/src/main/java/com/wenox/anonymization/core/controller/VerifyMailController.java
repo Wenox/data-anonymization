@@ -1,7 +1,10 @@
 package com.wenox.anonymization.core.controller;
 
+import com.wenox.anonymization.core.dto.ApiResponse;
 import com.wenox.anonymization.core.service.verifymail.VerifyMailService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,5 +30,11 @@ public class VerifyMailController {
       return ResponseEntity.ok(verifyMailService.resendGivenEmail(email));
     }
     return ResponseEntity.ok(verifyMailService.resendGivenToken(token));
+  }
+
+  @PostMapping("/api/v1/users/{id}/confirm-mail-verification")
+  @PreAuthorize("hasAuthority('ADMIN')")
+  public ResponseEntity<ApiResponse> confirmVerification(@PathVariable("id") String id) {
+    return ResponseEntity.ok(verifyMailService.confirmVerification(id));
   }
 }
