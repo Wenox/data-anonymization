@@ -5,16 +5,14 @@ import {FC} from "react";
 
 interface BlockUserProps {
   status: UserStatus;
+  forceRemoval: boolean;
   handleBlockUser: () => void;
 }
 
-const BlockUser: FC<BlockUserProps> = ({status, handleBlockUser}) => {
+const BlockUser: FC<BlockUserProps> = ({status, forceRemoval, handleBlockUser}) => {
 
-  const {style, disabled} = status === UserStatus.ACTIVE ? {
-    style: {color: 'red'}, disabled: false,
-  } : {
-    style: {color: 'gray'}, disabled: true
-  };
+  const {style} = forceRemoval || status !== UserStatus.ACTIVE ? {style: {color: 'gray'}} : { style: {color: 'red'}};
+  const disabled = status !== UserStatus.ACTIVE;
 
   return (
     <Tooltip title={disabled ? 'Cannot block removed user' : 'Block'} followCursor={disabled} placement={'top'}>

@@ -8,8 +8,8 @@ interface UnblockUserProps {
 
 const UnblockUser: FC<UnblockUserProps> = ({ handleUnblockUser }) => (
   <Tooltip title='Unblock' placement={'top'}>
-    <IconButton onClick={() => handleUnblockUser()}>
-      <LockOutlined fontSize='large' sx={{color: 'green'}}/>
+    <IconButton  onClick={() => handleUnblockUser()}>
+      <LockOutlined fontSize='large' sx={{color: '#00cc00'}}/>
     </IconButton>
   </Tooltip>
 );

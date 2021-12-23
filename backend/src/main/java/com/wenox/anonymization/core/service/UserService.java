@@ -40,11 +40,18 @@ public class UserService {
     if (user.getStatus() == UserStatus.REMOVED) {
       return ApiResponse.ofError("Removed user cannot be unblocked.");
     }
-    if (user.getStatus() == UserStatus.ACTIVE) {
-      return ApiResponse.ofError("Active user cannot be unblocked.");
-    }
     user.setStatus(UserStatus.ACTIVE);
     userRepository.save(user);
     return ApiResponse.ofSuccess("Successfully unblocked the user.");
+  }
+
+  public ApiResponse forceUserRemoval(String id) {
+    var user = userRepository.findById(id).orElseThrow();
+    if (user.getStatus() == UserStatus.REMOVED) {
+      return ApiResponse.ofError("This user account had been removed.");
+    }
+    user.setForceRemoval(true);
+    userRepository.save(user);
+    return ApiResponse.ofSuccess("Successfully forced the user account to be removed.");
   }
 }
