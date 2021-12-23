@@ -5,7 +5,6 @@ import com.wenox.anonymization.core.domain.VerifyMailToken;
 import com.wenox.anonymization.core.repository.UserRepository;
 import com.wenox.anonymization.core.service.mail.MailDescription;
 import com.wenox.anonymization.core.service.mail.MailService;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executors;
 import org.springframework.stereotype.Service;
 
@@ -26,10 +25,7 @@ public class VerifyMailService {
 
   public void sendVerificationMailToUser(User user) {
     VerifyMailToken token = tokenService.generateTokenForUser(user);
-    System.out.println("Verify your account: http://localhost:3000/verify-mail?token=" + token.getToken());
-    Executors.newSingleThreadExecutor()
-        .execute(() -> mailService.sendMail(new MailDescription(user.getEmail(), "Verify your account",
-            "Verify your account: http://localhost:3000/verify-mail?token=" + token.getToken())));
+    sendVerificationMail(token);
   }
 
   public String verify(String token) {
@@ -47,5 +43,42 @@ public class VerifyMailService {
     user.setVerified(true);
     userRepository.save(user);
     return "success";
+  }
+
+  public String resendGivenToken(String token) {
+    VerifyMailToken tokenEntity = tokenService.findByToken(token);
+    if (tokenEntity == null) {
+      return "invalid-token";
+    }
+
+    User user = tokenEntity.getUser();
+    if (user.isVerified()) {
+      return "already-verified";
+    }
+
+    sendVerificationMail(tokenService.renewTokenExpirationTime(tokenEntity));
+    return "token-sent-again";
+  }
+
+  public String resendGivenEmail(String email) {
+    VerifyMailToken tokenEntity = tokenService.findByUserEmail(email);
+    if (tokenEntity == null) {
+      return "invalid-token";
+    }
+
+    User user = tokenEntity.getUser();
+    if (user.isVerified()) {
+      return "already-verified";
+    }
+
+    sendVerificationMail(tokenService.renewTokenExpirationTime(tokenEntity));
+    return "token-sent-again";
+  }
+
+  public void sendVerificationMail(VerifyMailToken token) {
+    System.out.println("Verify your account: http://localhost:3000/verify-mail?token=" + token.getToken());
+    Executors.newSingleThreadExecutor()
+        .execute(() -> mailService.sendMail(new MailDescription(token.getUser().getEmail(), "Verify your account",
+            "Verify your account: http://localhost:3000/verify-mail?token=" + token.getToken())));
   }
 }

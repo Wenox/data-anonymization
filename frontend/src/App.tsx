@@ -26,6 +26,7 @@ import InvalidVerifyToken from './pages/verify-mail/tokens/invalid-verify-token'
 import UserAlreadyVerified from './pages/verify-mail/tokens/user-already-verified';
 import UserVerifySuccess from './pages/verify-mail/tokens/user-verify-success';
 import VerifyMailPrompt from './pages/verify-mail/verify-mail-prompt';
+import ResentVerifyToken from './pages/verify-mail/tokens/resent-verify-token';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -82,6 +83,7 @@ const App: FC = () => {
                     <Route path="/verify-mail/invalid-token" element={<InvalidVerifyToken />} />
                     <Route path="/verify-mail/expired-token" element={<ExpiredVerifyToken />} />
                     <Route path="/verify-mail/already-verified" element={<UserAlreadyVerified />} />
+                    <Route path="/verify-mail/token-sent-again" element={<ResentVerifyToken />} />
                     <Route path="*" element={<Navigate to="/login" />} />
                   </Routes>
                 </>

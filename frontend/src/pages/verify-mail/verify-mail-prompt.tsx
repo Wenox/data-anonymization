@@ -1,13 +1,46 @@
 import { FC } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { Box, Container } from '@mui/material';
 import Button from '@mui/material/Button';
+import { postVerifyMailSendAgainGivenEmail } from '../../api/requests/verify-mail/verify-mail.requests';
+import { toast } from 'react-toastify';
 
 const VerifyMailPrompt: FC = () => {
+  const { state } = useLocation();
   const navigate = useNavigate();
+
+  const handleResendVerificationMail = () => {
+    // @ts-ignore
+    postVerifyMailSendAgainGivenEmail(state.email)
+      .then((response) => {
+        if (response.status === 200)
+          toast.success('Verification mail re-sent successfully.', {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        navigate('/verify-mail/token-sent-again');
+      })
+      .catch(() => {
+        toast.error('Failed to re-send the verification mail.', {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        navigate('/login');
+      });
+  };
 
   return (
     <Container
@@ -37,7 +70,7 @@ const VerifyMailPrompt: FC = () => {
         <Button fullWidth variant="contained" sx={{ mt: 3 }} onClick={() => navigate('/login')}>
           Return to sign in
         </Button>
-        <Button fullWidth variant="outlined" sx={{ mt: 1, mb: 2 }} onClick={() => navigate('/login')}>
+        <Button fullWidth variant="outlined" sx={{ mt: 1, mb: 2 }} onClick={handleResendVerificationMail}>
           Re-send verification mail
         </Button>
       </Box>

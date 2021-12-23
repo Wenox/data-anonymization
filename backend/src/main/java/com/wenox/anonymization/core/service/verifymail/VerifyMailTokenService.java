@@ -31,7 +31,17 @@ public class VerifyMailTokenService {
     return repository.save(token);
   }
 
+  public VerifyMailToken renewTokenExpirationTime(VerifyMailToken token) {
+    token.setExpirationDate(LocalDateTime.now().plusSeconds(tokenExpireTime));
+    repository.save(token);
+    return token;
+  }
+
   public VerifyMailToken findByToken(String token) {
     return repository.findByToken(token);
+  }
+
+  public VerifyMailToken findByUserEmail(String email) {
+    return repository.findByUserEmail(email);
   }
 }

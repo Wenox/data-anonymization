@@ -19,4 +19,13 @@ public class VerifyMailController {
   public ResponseEntity<String> verify(@RequestParam("token") String token) {
     return ResponseEntity.ok(verifyMailService.verify(token));
   }
+
+  @PostMapping("/api/v1/users/verify-mail/send-again")
+  public ResponseEntity<String> resend(@RequestParam(value = "token", required = false) String token,
+                                       @RequestParam(value = "email", required = false) String email) {
+    if (token == null) {
+      return ResponseEntity.ok(verifyMailService.resendGivenEmail(email));
+    }
+    return ResponseEntity.ok(verifyMailService.resendGivenToken(token));
+  }
 }
