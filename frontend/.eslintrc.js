@@ -1,9 +1,14 @@
 module.exports = {
   root: true,
+  env: {
+    browser: true,
+    node: true,
+  },
   parser: '@typescript-eslint/parser',
   parserOptions: {
     tsconfigRootDir: __dirname,
     project: ['./tsconfig.json'],
+    ecmaVersion: 2021,
   },
   plugins: [
     '@typescript-eslint',
@@ -15,4 +20,7 @@ module.exports = {
     'plugin:react-hooks/recommended',
     'prettier',
   ],
+  rules: {
+    'react/react-in-jsx-scope': 'off',
+  },
 };

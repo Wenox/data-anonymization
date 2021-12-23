@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { IconButton, Tooltip } from '@mui/material';
-import { AutoDelete, Delete, DeleteForever } from '@mui/icons-material';
+import { AutoDelete, Delete } from '@mui/icons-material';
 import { UserStatus } from '../../api/requests/shared.types';
 
 interface RemoveUserProps {

@@ -55,7 +55,7 @@ const Login: FC = () => {
           localStorage.setItem(REFRESH_TOKEN, response.headers[REFRESH_TOKEN]);
         }
       })
-      .then((response) => {
+      .then(() => {
         getMe().then((response) => {
           if (response.status === 200) {
             setMe(response.data);
@@ -72,7 +72,7 @@ const Login: FC = () => {
           navigate('/');
         });
       })
-      .catch((err) => {
+      .catch(() => {
         toast.error('Logging in failed.', {
           position: 'top-right',
           autoClose: 5000,

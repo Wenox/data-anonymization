@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 export enum Role {
   VERIFIED_USER = 'VERIFIED_USER',
   ADMIN = 'ADMIN',

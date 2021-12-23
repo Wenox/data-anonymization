@@ -64,7 +64,7 @@ const Register: FC = () => {
           });
         navigate('/login');
       })
-      .catch((err) => {
+      .catch(() => {
         toast.error('Failed to sign up.', {
           position: 'top-right',
           autoClose: 5000,

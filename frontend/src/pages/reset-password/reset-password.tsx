@@ -69,7 +69,7 @@ const ResetPassword: FC = () => {
             Reset your password
           </Typography>
           <Box component="form" onSubmit={handleSubmit(formSubmitHandler)} noValidate sx={{ mt: 1 }}>
-            <p>Enter your account's email address and we will send you a password reset link.</p>
+            <p>Enter your account&#39;s email address and we will send you a password reset link.</p>
             <Controller
               name="email"
               control={control}
