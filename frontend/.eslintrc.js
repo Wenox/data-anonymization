@@ -10,8 +10,9 @@ module.exports = {
   ],
   extends: [
     'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
+    'plugin:prettier/recommended',
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
+    'prettier',
   ],
 };
