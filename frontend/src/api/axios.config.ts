@@ -1,6 +1,6 @@
-import axios from "axios";
-import {ACCESS_TOKEN, JWT_EXPIRED_MSG, REFRESH_TOKEN} from "../constants/auth";
-import {postRefreshToken} from "./requests/auth/auth.requests";
+import axios from 'axios';
+import { ACCESS_TOKEN, JWT_EXPIRED_MSG, REFRESH_TOKEN } from '../constants/auth';
+import { postRefreshToken } from './requests/auth/auth.requests';
 
 export const refresher = axios.create({});
 
@@ -14,7 +14,7 @@ axios.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error);
-  }
+  },
 );
 
 axios.interceptors.response.use(
@@ -22,13 +22,19 @@ axios.interceptors.response.use(
     return res;
   },
   (err) => {
-    let originalConfig = err.config;
+    const originalConfig = err.config;
 
     if (err.response) {
-      if (err.response.status === 403 && err.response.headers && err.response.headers['error'] && err.response.headers['error'].startsWith(JWT_EXPIRED_MSG) && !originalConfig._retry) {
+      if (
+        err.response.status === 403 &&
+        err.response.headers &&
+        err.response.headers['error'] &&
+        err.response.headers['error'].startsWith(JWT_EXPIRED_MSG) &&
+        !originalConfig._retry
+      ) {
         originalConfig._retry = true;
 
-        postRefreshToken().then(response => {
+        postRefreshToken().then((response) => {
           if (response.status === 200 && response.headers[ACCESS_TOKEN] && response.headers[REFRESH_TOKEN]) {
             localStorage.setItem(ACCESS_TOKEN, response.headers[ACCESS_TOKEN]);
             localStorage.setItem(REFRESH_TOKEN, response.headers[REFRESH_TOKEN]);
@@ -41,5 +47,5 @@ axios.interceptors.response.use(
       }
     }
     return Promise.reject(err);
-  }
+  },
 );
