@@ -15,8 +15,6 @@ const Users = () => {
   const { data, isLoading, refetch, isRefetching } = useQuery('users', getUsers);
   const users: User[] = data?.data || [];
 
-  const isRemoved = ({ status, forceRemoval }: User) => status === UserStatus.REMOVED || forceRemoval;
-
   const handleRemoveUser = (id: string) => {
     putForceUserRemoval(id)
       .then((response) => {
@@ -43,7 +41,7 @@ const Users = () => {
           });
         }
       })
-      .catch((err) =>
+      .catch(() =>
         toast.error('Failed to block the user.', {
           position: 'top-right',
           autoClose: 5000,
@@ -82,7 +80,7 @@ const Users = () => {
           });
         }
       })
-      .catch((err) =>
+      .catch(() =>
         toast.error('Failed to block the user.', {
           position: 'top-right',
           autoClose: 5000,
@@ -121,7 +119,7 @@ const Users = () => {
           });
         }
       })
-      .catch((err) =>
+      .catch(() =>
         toast.error('Failed to unblock the user.', {
           position: 'top-right',
           autoClose: 5000,

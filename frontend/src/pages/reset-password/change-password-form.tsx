@@ -68,7 +68,7 @@ const ChangePasswordForm: FC = () => {
           }
         }
       })
-      .catch((err) => {
+      .catch(() => {
         toast.error('Failed to change password.', {
           position: 'top-right',
           autoClose: 5000,
