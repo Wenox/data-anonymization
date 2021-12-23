@@ -17,3 +17,7 @@ export const putBlockUser = (id: string) => {
 export const putUnblockUser = (id: string) => {
   return axios.put<ApiResponse>(`api/v1/users/${id}/unblock`)
 }
+
+export const putForceUserRemoval = (id: string) => {
+  return axios.put<ApiResponse>(`api/v1/users/${id}/force-removal`)
+}

@@ -42,6 +42,14 @@ public class DatabasePreloader {
       user.setPassword(passwordEncoder.encode("user"));
       user.setStatus(UserStatus.ACTIVE);
       userRepository.save(user);
+
+      User user1 = new User();
+      user1.setRole(Role.USER);
+      user1.setEmail("user@user.com");
+      user1.setPassword(passwordEncoder.encode("user"));
+      user1.setStatus(UserStatus.ACTIVE);
+      user1.setMarkedForRemoval(true);
+      userRepository.save(user1);
     };
   }
 }

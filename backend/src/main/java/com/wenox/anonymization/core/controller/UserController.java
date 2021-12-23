@@ -52,4 +52,10 @@ public class UserController {
   public ResponseEntity<ApiResponse> unblockUser(@PathVariable("id") String id) {
     return ResponseEntity.ok(userService.unblockUser(id));
   }
+
+  @PutMapping("/{id}/force-removal")
+  @PreAuthorize("hasAuthority('ADMIN')")
+  public ResponseEntity<ApiResponse> forceUserRemoval(@PathVariable("id") String id) {
+    return ResponseEntity.ok(userService.forceUserRemoval(id));
+  }
 }
