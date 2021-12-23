@@ -7,19 +7,19 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import {FC, useContext, useState} from "react";
-import {Alert, CircularProgress, Collapse, IconButton} from "@mui/material";
+import { FC, useContext, useState } from 'react';
+import { Alert, CircularProgress, Collapse, IconButton } from '@mui/material';
 import * as yup from 'yup';
-import {SubmitHandler, useForm, Controller} from "react-hook-form";
-import {yupResolver} from "@hookform/resolvers/yup";
-import {Copyright} from "../components/copyright";
-import {toast} from "react-toastify";
+import { SubmitHandler, useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Copyright } from '../components/copyright';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {useNavigate} from "react-router-dom";
-import AuthContext from "../context/auth-context";
-import {ACCESS_TOKEN, REFRESH_TOKEN} from "../constants/auth";
-import {getMe} from "../api/requests/me/me.requests";
-import {postLogin} from "../api/requests/auth/auth.requests";
+import { useNavigate } from 'react-router-dom';
+import AuthContext from '../context/auth-context';
+import { ACCESS_TOKEN, REFRESH_TOKEN } from '../constants/auth';
+import { getMe } from '../api/requests/me/me.requests';
+import { postLogin } from '../api/requests/auth/auth.requests';
 
 interface IFormInputs {
   email: string;
@@ -27,19 +27,18 @@ interface IFormInputs {
 }
 
 const schema = yup.object().shape({
-  email: yup.string().email().required("E-mail address is required"),
+  email: yup.string().email().required('E-mail address is required'),
   password: yup.string().min(4).max(20).required(),
 });
 
 const Login: FC = () => {
-
   const { setMe } = useContext(AuthContext);
 
   const {
     handleSubmit,
     control,
-    formState: {errors},
-  } = useForm<IFormInputs>({resolver: yupResolver(schema)})
+    formState: { errors },
+  } = useForm<IFormInputs>({ resolver: yupResolver(schema) });
 
   const navigate = useNavigate();
 
@@ -56,27 +55,26 @@ const Login: FC = () => {
           localStorage.setItem(REFRESH_TOKEN, response.headers[REFRESH_TOKEN]);
         }
       })
-      .then(response => {
-          getMe().then(response => {
-            if (response.status === 200) {
-              setMe(response.data);
-            }
-            toast.success('Logged in successfully.', {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            });
-            navigate('/')
-          })
-        }
-      )
-      .catch(err => {
+      .then((response) => {
+        getMe().then((response) => {
+          if (response.status === 200) {
+            setMe(response.data);
+          }
+          toast.success('Logged in successfully.', {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+          navigate('/');
+        });
+      })
+      .catch((err) => {
         toast.error('Logging in failed.', {
-          position: "top-right",
+          position: 'top-right',
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
@@ -89,32 +87,35 @@ const Login: FC = () => {
       .then(() => {
         setLoading(false);
       });
-  }
+  };
 
   return (
-    <Container component="main" sx={{
-      border: '1px solid #000000',
-      boxShadow: '6px 6px 0px #00bfff',
-      backgroundColor: 'white',
-      mt: 20,
-      paddingTop: 12,
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center'
-    }} maxWidth="xs">
-      <Avatar sx={{m: 1, bgcolor: '#17bf00'}}>
-        <LockOutlinedIcon/>
+    <Container
+      component="main"
+      sx={{
+        border: '1px solid #000000',
+        boxShadow: '6px 6px 0px #00bfff',
+        backgroundColor: 'white',
+        mt: 20,
+        paddingTop: 12,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+      }}
+      maxWidth="xs"
+    >
+      <Avatar sx={{ m: 1, bgcolor: '#17bf00' }}>
+        <LockOutlinedIcon />
       </Avatar>
       <Typography component="h1" variant="h2">
         Sign in
       </Typography>
-      <Box component="form" onSubmit={handleSubmit(formSubmitHandler)} noValidate
-           sx={{mt: 1}}>
+      <Box component="form" onSubmit={handleSubmit(formSubmitHandler)} noValidate sx={{ mt: 1 }}>
         <Controller
-          name='email'
+          name="email"
           control={control}
-          defaultValue=''
-          render={({field}) => (
+          defaultValue=""
+          render={({ field }) => (
             <TextField
               {...field}
               label="E-mail address"
@@ -133,10 +134,10 @@ const Login: FC = () => {
         />
 
         <Controller
-          name='password'
+          name="password"
           control={control}
-          defaultValue=''
-          render={({field}) => (
+          defaultValue=""
+          render={({ field }) => (
             <TextField
               {...field}
               variant="outlined"
@@ -154,12 +155,7 @@ const Login: FC = () => {
           )}
         />
 
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          sx={{mt: 3, mb: 2}}
-        >
+        <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
           Login
         </Button>
         <Collapse in={failedLogin}>
@@ -174,7 +170,7 @@ const Login: FC = () => {
                   setFailedLogin(false);
                 }}
               >
-                <LockOutlinedIcon fontSize="inherit"/>
+                <LockOutlinedIcon fontSize="inherit" />
               </IconButton>
             }
           >
@@ -194,13 +190,19 @@ const Login: FC = () => {
           </Grid>
         </Grid>
       </Box>
-      <Copyright/>
-      {loading && <CircularProgress style={{
-        position: 'absolute', left: '50%', top: '50%',
-        transform: 'translate(-50%, -50%)'
-      }}/>}
+      <Copyright />
+      {loading && (
+        <CircularProgress
+          style={{
+            position: 'absolute',
+            left: '50%',
+            top: '50%',
+            transform: 'translate(-50%, -50%)',
+          }}
+        />
+      )}
     </Container>
   );
-}
+};
 
 export default Login;

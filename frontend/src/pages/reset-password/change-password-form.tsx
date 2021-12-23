@@ -1,20 +1,20 @@
-import * as yup from "yup";
-import {FC} from "react";
-import {Controller, SubmitHandler, useForm} from "react-hook-form";
-import {yupResolver} from "@hookform/resolvers/yup";
-import {useNavigate, useSearchParams} from "react-router-dom";
-import {toast} from "react-toastify";
-import Container from "@mui/material/Container";
-import Box from "@mui/material/Box";
-import Avatar from "@mui/material/Avatar";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import Grid from "@mui/material/Grid";
-import Link from "@mui/material/Link";
-import {Copyright} from "../../components/copyright";
-import {postChangePassword} from "../../api/requests/reset-password/reset-password.requests";
+import * as yup from 'yup';
+import { FC } from 'react';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
+import Avatar from '@mui/material/Avatar';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
+import Link from '@mui/material/Link';
+import { Copyright } from '../../components/copyright';
+import { postChangePassword } from '../../api/requests/reset-password/reset-password.requests';
 
 interface IFormInputs {
   password: string;
@@ -27,27 +27,25 @@ const schema = yup.object().shape({
 });
 
 const ChangePasswordForm: FC = () => {
-
   const [searchParams] = useSearchParams();
 
-  const token: string = searchParams.get("token") ?? '';
+  const token: string = searchParams.get('token') ?? '';
 
   const {
     handleSubmit,
     control,
-    formState: {errors},
-  } = useForm<IFormInputs>({resolver: yupResolver(schema)})
+    formState: { errors },
+  } = useForm<IFormInputs>({ resolver: yupResolver(schema) });
 
   const navigate = useNavigate();
 
   const formSubmitHandler: SubmitHandler<IFormInputs> = (data: IFormInputs) => {
-
-    postChangePassword({newPassword: data.password, token: token})
-      .then(response => {
+    postChangePassword({ newPassword: data.password, token: token })
+      .then((response) => {
         if (response.status === 200) {
           if (response.data === 'success') {
             toast.success('Changed password successfully.', {
-              position: "top-right",
+              position: 'top-right',
               autoClose: 5000,
               hideProgressBar: false,
               closeOnClick: true,
@@ -58,7 +56,7 @@ const ChangePasswordForm: FC = () => {
             navigate('/login');
           } else {
             toast.error('Failed to change password.', {
-              position: "top-right",
+              position: 'top-right',
               autoClose: 5000,
               hideProgressBar: false,
               closeOnClick: true,
@@ -70,9 +68,9 @@ const ChangePasswordForm: FC = () => {
           }
         }
       })
-      .catch(err => {
+      .catch((err) => {
         toast.error('Failed to change password.', {
-          position: "top-right",
+          position: 'top-right',
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
@@ -82,32 +80,35 @@ const ChangePasswordForm: FC = () => {
         });
         navigate('/login');
       });
-  }
+  };
 
   return (
-    <Container component="main" sx={{
-      border: '1px solid #000000',
-      boxShadow: '6px 6px 0px #00bfff',
-      backgroundColor: 'white',
-      mt: 20,
-      paddingTop: 8,
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center'
-    }} maxWidth="xs">
-      <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
-        <LockOutlinedIcon/>
+    <Container
+      component="main"
+      sx={{
+        border: '1px solid #000000',
+        boxShadow: '6px 6px 0px #00bfff',
+        backgroundColor: 'white',
+        mt: 20,
+        paddingTop: 8,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+      }}
+      maxWidth="xs"
+    >
+      <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+        <LockOutlinedIcon />
       </Avatar>
       <Typography component="h5" variant="h4">
         Set new password
       </Typography>
-      <Box component="form" onSubmit={handleSubmit(formSubmitHandler)} noValidate
-           sx={{mt: 1}}>
+      <Box component="form" onSubmit={handleSubmit(formSubmitHandler)} noValidate sx={{ mt: 1 }}>
         <Controller
-          name='password'
+          name="password"
           control={control}
-          defaultValue=''
-          render={({field}) => (
+          defaultValue=""
+          render={({ field }) => (
             <TextField
               {...field}
               variant="outlined"
@@ -126,10 +127,10 @@ const ChangePasswordForm: FC = () => {
         />
 
         <Controller
-          name='confirmPassword'
+          name="confirmPassword"
           control={control}
-          defaultValue=''
-          render={({field}) => (
+          defaultValue=""
+          render={({ field }) => (
             <TextField
               {...field}
               variant="outlined"
@@ -147,25 +148,20 @@ const ChangePasswordForm: FC = () => {
           )}
         />
 
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          sx={{mt: 3, mb: 2}}
-        >
+        <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
           Confirm
         </Button>
         <Grid container>
           <Grid item>
             <Link href="login" variant="body2">
-              {"Return to login"}
+              {'Return to login'}
             </Link>
           </Grid>
         </Grid>
       </Box>
-      <Copyright/>
+      <Copyright />
     </Container>
   );
-}
+};
 
 export default ChangePasswordForm;

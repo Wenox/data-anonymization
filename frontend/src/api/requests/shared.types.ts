@@ -1,12 +1,12 @@
 export enum Role {
   VERIFIED_USER = 'VERIFIED_USER',
-  ADMIN = 'ADMIN'
+  ADMIN = 'ADMIN',
 }
 
 export enum UserStatus {
   ACTIVE = 'ACTIVE',
   BLOCKED = 'BLOCKED',
-  REMOVED = 'REMOVED'
+  REMOVED = 'REMOVED',
 }
 
 export interface ApiResponse {

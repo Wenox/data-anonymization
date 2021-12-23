@@ -1,4 +1,4 @@
-import {Role, UserStatus} from "../shared.types";
+import { Role, UserStatus } from '../shared.types';
 
 export interface RegisterUserRequest {
   email: string;
