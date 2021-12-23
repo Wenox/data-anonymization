@@ -1,8 +1,8 @@
 import { FC } from 'react';
-import TokenResult from './token-result';
+import TokenResult from '../../../components/token-result';
 
-const InvalidToken: FC = () => (
+const InvalidPasswordToken: FC = () => (
   <TokenResult title="Cannot change password" content="Invalid change password token – no such token exists." />
 );
 
-export default InvalidToken;
+export default InvalidPasswordToken;

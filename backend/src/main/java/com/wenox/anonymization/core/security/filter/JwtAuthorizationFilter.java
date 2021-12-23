@@ -29,7 +29,8 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
       throws ServletException, IOException {
 
-    if (request.getServletPath().startsWith("/api/v1/auth/")) {
+    if (request.getServletPath().startsWith("/api/v1/auth/") ||
+    request.getServletPath().startsWith("/api/v1/users/verify-mail")) {
       filterChain.doFilter(request, response);
     } else {
 

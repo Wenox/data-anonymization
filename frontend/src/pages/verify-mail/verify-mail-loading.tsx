@@ -1,17 +1,21 @@
-import { Box, Container } from '@mui/material';
+import { FC, useEffect } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import { useNavigate } from 'react-router-dom';
+import { CircularProgress, Container } from '@mui/material';
+import { postVerifyMail } from '../../api/requests/verify-mail/verify-mail.requests';
 
-interface Props {
-  title: string;
-  content: string;
-}
-
-const TokenResult = ({ title, content }: Props) => {
+const VerifyMailLoading: FC = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
+  const token: string = searchParams.get('token') ?? '';
+
+  useEffect(() => {
+    postVerifyMail(token).then((response) => {
+      navigate(`/verify-mail/${response.data}?token=${token}`);
+    });
+  });
 
   return (
     <Container
@@ -32,17 +36,9 @@ const TokenResult = ({ title, content }: Props) => {
       <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
         <LockOutlinedIcon />
       </Avatar>
-      <Typography component="h1" variant="h4">
-        {title}
-      </Typography>
-      <Box sx={{ mt: 1 }}>
-        <p>{content}</p>
-        <Button fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} onClick={() => navigate('/login')}>
-          Return to sign in
-        </Button>
-      </Box>
+      <CircularProgress size="8rem" />
     </Container>
   );
 };
 
-export default TokenResult;
+export default VerifyMailLoading;
