@@ -62,7 +62,7 @@ const Register: FC = () => {
             draggable: true,
             progress: undefined,
           });
-        navigate('/login');
+        navigate('/verify-mail-prompt');
       })
       .catch(() => {
         toast.error('Failed to sign up.', {

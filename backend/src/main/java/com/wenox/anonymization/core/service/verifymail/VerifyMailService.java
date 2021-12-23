@@ -5,6 +5,7 @@ import com.wenox.anonymization.core.domain.VerifyMailToken;
 import com.wenox.anonymization.core.repository.UserRepository;
 import com.wenox.anonymization.core.service.mail.MailDescription;
 import com.wenox.anonymization.core.service.mail.MailService;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executors;
 import org.springframework.stereotype.Service;
 
@@ -25,10 +26,10 @@ public class VerifyMailService {
 
   public void sendVerificationMailToUser(User user) {
     VerifyMailToken token = tokenService.generateTokenForUser(user);
-    System.out.println("Verify your account: http://localhost:3000/verify-account?token=" + token.getToken());
+    System.out.println("Verify your account: http://localhost:3000/verify-mail?token=" + token.getToken());
     Executors.newSingleThreadExecutor()
         .execute(() -> mailService.sendMail(new MailDescription(user.getEmail(), "Verify your account",
-            "Verify your account: http://localhost:3000/verify-account?token=" + token.getToken())));
+            "Verify your account: http://localhost:3000/verify-mail?token=" + token.getToken())));
   }
 
   public String verify(String token) {
