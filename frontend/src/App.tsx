@@ -12,14 +12,19 @@ import { theme } from './styles/theme';
 import ResetPassword from './pages/reset-password/reset-password';
 import ChangePasswordLoading from './pages/reset-password/change-password-loading';
 import ChangePasswordForm from './pages/reset-password/change-password-form';
-import InvalidToken from './pages/reset-password/tokens/invalid-token';
-import ExpiredToken from './pages/reset-password/tokens/expired-token';
-import ConsumedToken from './pages/reset-password/tokens/consumed-token';
+import InvalidPasswordToken from './pages/reset-password/tokens/invalid-password-token';
+import ExpiredPasswordToken from './pages/reset-password/tokens/expired-password-token';
+import ConsumedPasswordToken from './pages/reset-password/tokens/consumed-password-token';
 import Users from './pages/users';
 import AuthContext from './context/auth-context';
 import CssBaseline from '@mui/material/CssBaseline';
 import { MeResponse } from './api/requests/me/me.types';
 import { getMe } from './api/requests/me/me.requests';
+import VerifyMailLoading from './pages/verify-mail/verify-mail-loading';
+import ExpiredVerifyToken from './pages/verify-mail/tokens/expired-verify-token';
+import InvalidVerifyToken from './pages/verify-mail/tokens/invalid-verify-token';
+import UserAlreadyVerified from './pages/verify-mail/tokens/user-already-verified';
+import UserVerifySuccess from './pages/verify-mail/tokens/user-verify-success';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -67,9 +72,14 @@ const App: FC = () => {
                     <Route path="/reset-password" element={<ResetPassword />} />
                     <Route path="/change-password" element={<ChangePasswordLoading />} />
                     <Route path="/change-password/form" element={<ChangePasswordForm />} />
-                    <Route path="/change-password/invalid-token" element={<InvalidToken />} />
-                    <Route path="/change-password/expired-token" element={<ExpiredToken />} />
-                    <Route path="/change-password/consumed-token" element={<ConsumedToken />} />
+                    <Route path="/change-password/invalid-token" element={<InvalidPasswordToken />} />
+                    <Route path="/change-password/expired-token" element={<ExpiredPasswordToken />} />
+                    <Route path="/change-password/consumed-token" element={<ConsumedPasswordToken />} />
+                    <Route path="/verify-mail" element={<VerifyMailLoading />} />
+                    <Route path="/verify-mail/success" element={<UserVerifySuccess />} />
+                    <Route path="/verify-mail/invalid-token" element={<InvalidVerifyToken />} />
+                    <Route path="/verify-mail/expired-token" element={<ExpiredVerifyToken />} />
+                    <Route path="/verify-mail/already-verified" element={<UserAlreadyVerified />} />
                     <Route path="*" element={<Navigate to="/login" />} />
                   </Routes>
                 </>

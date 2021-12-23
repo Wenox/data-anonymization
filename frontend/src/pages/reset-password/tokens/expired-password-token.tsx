@@ -1,8 +1,8 @@
 import { FC } from 'react';
-import TokenResult from './token-result';
+import TokenResult from '../../../components/token-result';
 
-const ExpiredToken: FC = () => (
+const ExpiredPasswordToken: FC = () => (
   <TokenResult title="Cannot change password" content="The reset password token has already expired." />
 );
 
-export default ExpiredToken;
+export default ExpiredPasswordToken;
