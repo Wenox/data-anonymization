@@ -1,6 +1,7 @@
 package com.wenox.anonymization.core.domain;
 
 public enum Role {
-  ADMIN,
-  USER
+  UNVERIFIED_USER,
+  VERIFIED_USER,
+  ADMIN
 }

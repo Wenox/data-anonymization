@@ -1,13 +1,11 @@
 package com.wenox.anonymization.core.service;
 
 import com.wenox.anonymization.core.domain.UserStatus;
-import com.wenox.anonymization.core.domain.VerifyMailToken;
 import com.wenox.anonymization.core.dto.ApiResponse;
 import com.wenox.anonymization.core.domain.Role;
 import com.wenox.anonymization.core.domain.User;
 import com.wenox.anonymization.core.dto.RegisterUserRequest;
 import com.wenox.anonymization.core.repository.UserRepository;
-import com.wenox.anonymization.core.repository.VerifyMailTokenRepository;
 import com.wenox.anonymization.core.service.verifymail.VerifyMailService;
 import java.time.LocalDateTime;
 import org.springframework.http.HttpStatus;
@@ -42,7 +40,7 @@ public class AuthService {
     User user = new User();
     user.setEmail(dto.getEmail());
     user.setPassword(passwordEncoder.encode(dto.getPassword()));
-    user.setRole(Role.USER);
+    user.setRole(Role.UNVERIFIED_USER);
     user.setFirstName(dto.getFirstName());
     user.setLastName(dto.getLastName());
     user.setPurpose(dto.getPurpose());

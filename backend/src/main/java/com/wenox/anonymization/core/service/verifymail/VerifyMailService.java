@@ -1,5 +1,6 @@
 package com.wenox.anonymization.core.service.verifymail;
 
+import com.wenox.anonymization.core.domain.Role;
 import com.wenox.anonymization.core.domain.User;
 import com.wenox.anonymization.core.domain.UserStatus;
 import com.wenox.anonymization.core.domain.VerifyMailToken;
@@ -34,6 +35,7 @@ public class VerifyMailService {
       return ApiResponse.ofError("Cannot confirm removed user's verification.");
     }
     user.setVerified(true);
+    user.setRole(Role.VERIFIED_USER);
     userRepository.save(user);
     return ApiResponse.ofSuccess("Successfully confirmed user's verification.");
   }
@@ -56,6 +58,7 @@ public class VerifyMailService {
       return "expired-token";
     }
     user.setVerified(true);
+    user.setRole(Role.VERIFIED_USER);
     userRepository.save(user);
     return "success";
   }
