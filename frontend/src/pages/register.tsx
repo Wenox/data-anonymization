@@ -97,7 +97,7 @@ const Register: FC = () => {
         <LockOutlinedIcon />
       </Avatar>
       <Typography component="h5" variant="h4">
-        Create new account
+        Create a new account
       </Typography>
       <Box component="form" onSubmit={handleSubmit(formSubmitHandler)} noValidate sx={{ mt: 1 }}>
         <Controller
@@ -159,7 +159,7 @@ const Register: FC = () => {
               fullWidth
               name="confirmPassword"
               label="Confirm Password"
-              type="confirmPassword"
+              type="password"
               id="confirmPassword"
               autoComplete="current-password"
             />
@@ -181,7 +181,7 @@ const Register: FC = () => {
               fullWidth
               name="firstName"
               label="First name"
-              type="firstName"
+              type="text"
               id="firstName"
             />
           )}
@@ -202,7 +202,7 @@ const Register: FC = () => {
               fullWidth
               name="lastName"
               label="Last name"
-              type="lastName"
+              type="text"
               id="lastName"
             />
           )}
@@ -223,7 +223,7 @@ const Register: FC = () => {
               fullWidth
               name="purpose"
               label="Purpose"
-              type="purpose"
+              type="text"
               id="purpose"
             />
           )}
