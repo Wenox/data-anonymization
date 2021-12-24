@@ -10,7 +10,7 @@ import Container from '@mui/material/Container';
 import { FC, useContext, useState } from 'react';
 import { Alert, CircularProgress, Collapse, IconButton } from '@mui/material';
 import * as yup from 'yup';
-import { SubmitHandler, useForm, Controller } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Copyright } from '../components/copyright';
 import { toast } from 'react-toastify';
@@ -20,6 +20,7 @@ import AuthContext from '../context/auth-context';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '../constants/auth';
 import { getMe } from '../api/requests/me/me.requests';
 import { postLogin } from '../api/requests/auth/auth.requests';
+import { Role } from '../api/requests/shared.types';
 
 interface IFormInputs {
   email: string;
@@ -69,7 +70,20 @@ const Login: FC = () => {
             draggable: true,
             progress: undefined,
           });
-          navigate('/');
+          if (response.data?.role === Role.UNVERIFIED_USER) {
+            toast.success('Verify your account please.', {
+              position: 'top-right',
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+            navigate('/verify-mail-prompt', { state: { email: response.data?.email } });
+          } else {
+            navigate('/');
+          }
         });
       })
       .catch(() => {

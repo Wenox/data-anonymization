@@ -3,7 +3,11 @@ package com.wenox.anonymization.core.preloader;
 import com.wenox.anonymization.core.domain.Role;
 import com.wenox.anonymization.core.domain.User;
 import com.wenox.anonymization.core.domain.UserStatus;
+import com.wenox.anonymization.core.domain.VerifyMailToken;
 import com.wenox.anonymization.core.repository.UserRepository;
+import com.wenox.anonymization.core.repository.VerifyMailTokenRepository;
+import java.time.LocalDateTime;
+import java.util.UUID;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,7 +17,8 @@ public class DatabasePreloader {
 
   @Bean
   public CommandLineRunner loadDatabaseContent(UserRepository userRepository,
-                                               PasswordEncoder passwordEncoder) {
+                                               PasswordEncoder passwordEncoder,
+                                               VerifyMailTokenRepository verifyMailTokenRepository) {
     return args -> {
       User admin = new User();
       admin.setRole(Role.ADMIN);
@@ -72,6 +77,12 @@ public class DatabasePreloader {
       user3.setMarkedForRemoval(false);
       user3.setVerified(false);
       userRepository.save(user3);
+
+      VerifyMailToken verifyMailToken = new VerifyMailToken();
+      verifyMailToken.setToken(UUID.randomUUID().toString());
+      verifyMailToken.setExpirationDate(LocalDateTime.now().plusSeconds(60));
+      verifyMailToken.setUser(user3);
+      verifyMailTokenRepository.save(verifyMailToken);
     };
   }
 }
