@@ -5,7 +5,6 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import About from './pages/about';
 import Login from './pages/login';
 import Register from './pages/register';
-import Navigation from './components/navigation';
 import { Container, ThemeProvider } from '@mui/material';
 import PrivateRoute from './components/private-route';
 import { theme } from './styles/theme';
@@ -27,6 +26,7 @@ import UserAlreadyVerified from './pages/verify-mail/tokens/user-already-verifie
 import UserVerifySuccess from './pages/verify-mail/tokens/user-verify-success';
 import VerifyMailPrompt from './pages/verify-mail/verify-mail-prompt';
 import ResentVerifyToken from './pages/verify-mail/tokens/resent-verify-token';
+import MiniDrawer from './components/mini-drawer';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -58,7 +58,6 @@ const App: FC = () => {
               {!isLoading && (
                 <>
                   <CssBaseline />
-                  <Navigation />
                   <Routes>
                     <Route path="/" element={<PrivateRoute />}>
                       <Route path="/" element={<Main />} />
@@ -67,7 +66,14 @@ const App: FC = () => {
                       <Route path="/about" element={<About />} />
                     </Route>
                     <Route path="/users" element={<PrivateRoute />}>
-                      <Route path="/users" element={<Users />} />
+                      <Route
+                        path="/users"
+                        element={
+                          <MiniDrawer>
+                            <Users />
+                          </MiniDrawer>
+                        }
+                      />
                     </Route>
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
