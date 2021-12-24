@@ -20,15 +20,15 @@ public class SimpleMailService implements MailService {
   public void sendMail(MailDescription description) {
     SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
     simpleMailMessage.setFrom("data.anonymisation@gmail.com");
-    simpleMailMessage.setTo(description.getTo());
-    simpleMailMessage.setSubject(description.getSubject());
-    simpleMailMessage.setText(description.getText());
+    simpleMailMessage.setTo(description.to());
+    simpleMailMessage.setSubject(description.subject());
+    simpleMailMessage.setText(description.text());
 
     try {
       emailSender.send(simpleMailMessage);
-      log.info("Successfully sent mail to {}.", description.getTo());
+      log.info("Successfully sent mail to {}.", description.to());
     } catch (Exception ex) {
-      log.error("Failed to send mail '{}' to {} due to {}.", description.getSubject(), description.getTo(), ex.getMessage());
+      log.error("Failed to send mail '{}' to {} due to {}.", description.subject(), description.to(), ex.getMessage());
     }
   }
 }
