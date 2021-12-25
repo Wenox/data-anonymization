@@ -1,6 +1,6 @@
 import { styled } from '@mui/material/styles';
 
-const NavigationHeader = styled('div')(({ theme }) => ({
+const NavigationHeaderBase = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'flex-end',
@@ -8,4 +8,4 @@ const NavigationHeader = styled('div')(({ theme }) => ({
   ...theme.mixins.toolbar,
 }));
 
-export default NavigationHeader;
+export default NavigationHeaderBase;
