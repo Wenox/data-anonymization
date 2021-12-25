@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 import { CSSObject, Theme } from '@mui/material/styles';
-import { navigationWidth } from '../navigation/navigation.mixin';
+import { navigationWidth } from '../../navigation/navigation.mixin';
 
-export const appBarMixin = (theme: Theme, open: boolean | undefined): CSSObject => ({
+export const appBarBaseMixin = (theme: Theme, open: boolean | undefined): CSSObject => ({
   zIndex: theme.zIndex.drawer + 1,
   ...(open && {
     marginLeft: navigationWidth,
@@ -10,7 +10,7 @@ export const appBarMixin = (theme: Theme, open: boolean | undefined): CSSObject 
   }),
 });
 
-export const appBarMixinSmooth = (theme: Theme, open: boolean | undefined): CSSObject => ({
+export const appBarBaseMixinSmooth = (theme: Theme, open: boolean | undefined): CSSObject => ({
   zIndex: theme.zIndex.drawer + 1,
   transition: theme.transitions.create(['width', 'margin'], {
     duration: theme.transitions.duration.leavingScreen,
