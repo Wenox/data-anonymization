@@ -2,7 +2,6 @@ import Login from '../pages/login';
 import Register from '../pages/register';
 import About from '../pages/about';
 import Users from '../pages/users';
-import Main from '../pages/main';
 import ResetPassword from '../pages/reset-password/reset-password';
 import ChangePasswordLoading from '../pages/reset-password/change-password-loading';
 import ChangePasswordForm from '../pages/reset-password/change-password-form';
@@ -22,7 +21,6 @@ export const ROUTES = {
   LOGIN: '/login',
   REGISTER: '/register',
   USERS: '/users',
-  MAIN: '/',
   ABOUT: '/about',
   RESET_PASSWORD: '/reset-password',
   CHANGE_PASSWORD: '/change-password',
@@ -47,7 +45,7 @@ export interface RouteDescription {
   menu: boolean;
 }
 
-export const MAIN_ROUTES: RouteDescription[] = [
+export const APP_ROUTES: RouteDescription[] = [
   {
     path: ROUTES.LOGIN,
     element: Login,
@@ -71,12 +69,6 @@ export const MAIN_ROUTES: RouteDescription[] = [
     element: Users,
     authenticated: true,
     menu: true,
-  },
-  {
-    path: ROUTES.MAIN,
-    element: Main,
-    authenticated: true,
-    menu: false,
   },
   {
     path: ROUTES.RESET_PASSWORD,
