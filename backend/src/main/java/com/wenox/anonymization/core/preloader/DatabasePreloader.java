@@ -26,6 +26,9 @@ public class DatabasePreloader {
       admin.setPassword(passwordEncoder.encode("admin"));
       admin.setStatus(UserStatus.ACTIVE);
       admin.setVerified(true);
+      admin.setFirstName("Tadeusz");
+      admin.setLastName("Jankowski");
+      admin.setPurpose("Research and Development");
       userRepository.save(admin);
 
       User admin1 = new User();
@@ -50,6 +53,9 @@ public class DatabasePreloader {
       user.setPassword(passwordEncoder.encode("user"));
       user.setStatus(UserStatus.ACTIVE);
       user.setVerified(true);
+      user.setFirstName("Janina");
+      user.setLastName("Kowalska");
+      user.setPurpose("Scentific research");
       userRepository.save(user);
 
       User user1 = new User();
@@ -76,6 +82,9 @@ public class DatabasePreloader {
       user3.setStatus(UserStatus.ACTIVE);
       user3.setMarkedForRemoval(false);
       user3.setVerified(false);
+      user3.setFirstName("John");
+      user3.setLastName("Hoowder");
+      user3.setPurpose("GDPR compliance");
       userRepository.save(user3);
 
       VerifyMailToken verifyMailToken = new VerifyMailToken();

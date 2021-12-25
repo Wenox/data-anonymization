@@ -17,11 +17,13 @@ import UserAlreadyVerified from '../pages/verify-mail/tokens/user-already-verifi
 import ResentVerifyToken from '../pages/verify-mail/tokens/resent-verify-token';
 import React from 'react';
 import Logout from '../pages/logout';
+import UserProfile from '../pages/user/user-profile';
 
 export const ROUTES = {
   LOGIN: '/login',
   REGISTER: '/register',
   LOGOUT: '/logout',
+  USER_PROFILE: '/user-profile',
   USERS: '/users',
   ABOUT: '/about',
   RESET_PASSWORD: '/reset-password',
@@ -65,6 +67,12 @@ export const APP_ROUTES: RouteDescription[] = [
     element: Logout,
     authenticated: true,
     menu: false,
+  },
+  {
+    path: ROUTES.USER_PROFILE,
+    element: UserProfile,
+    authenticated: true,
+    menu: true,
   },
   {
     path: ROUTES.ABOUT,
