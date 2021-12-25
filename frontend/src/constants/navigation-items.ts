@@ -1,5 +1,5 @@
 import { Role } from '../api/requests/shared.types';
-import { Cached, Groups, SvgIconComponent } from '@mui/icons-material';
+import { Cached, Groups, Logout, SvgIconComponent } from '@mui/icons-material';
 
 export interface NavigationItemDescription {
   path: string;
@@ -20,5 +20,11 @@ export const NAVIGATION_ITEMS: NavigationItemDescription[] = [
     name: 'About',
     roles: [Role.VERIFIED_USER, Role.ADMIN],
     icon: Cached,
+  },
+  {
+    path: '/logout',
+    name: 'Logout',
+    roles: [Role.UNVERIFIED_USER, Role.VERIFIED_USER, Role.ADMIN],
+    icon: Logout,
   },
 ];

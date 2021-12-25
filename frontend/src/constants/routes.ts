@@ -16,10 +16,12 @@ import ExpiredVerifyToken from '../pages/verify-mail/tokens/expired-verify-token
 import UserAlreadyVerified from '../pages/verify-mail/tokens/user-already-verified';
 import ResentVerifyToken from '../pages/verify-mail/tokens/resent-verify-token';
 import React from 'react';
+import Logout from '../pages/logout';
 
 export const ROUTES = {
   LOGIN: '/login',
   REGISTER: '/register',
+  LOGOUT: '/logout',
   USERS: '/users',
   ABOUT: '/about',
   RESET_PASSWORD: '/reset-password',
@@ -56,6 +58,12 @@ export const APP_ROUTES: RouteDescription[] = [
     path: ROUTES.REGISTER,
     element: Register,
     authenticated: false,
+    menu: false,
+  },
+  {
+    path: ROUTES.LOGOUT,
+    element: Logout,
+    authenticated: true,
     menu: false,
   },
   {
