@@ -1,9 +1,38 @@
-import { FC } from 'react';
+import React, { FC, useContext, useEffect, useState } from 'react';
+import CssBaseline from '@mui/material/CssBaseline';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { APP_ROUTES } from '../constants/routes';
+import { Container } from '@mui/material';
+import { getMe } from '../api/requests/me/me.requests';
+import AuthContext from '../context/auth-context';
+import { getAppRoute } from '../components/route/app-route';
 
-const Main: FC = () => (
-  <>
-    <h1>Main page</h1>
-  </>
-);
+const Main: FC = () => {
+  const { setMe } = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    getMe()
+      .then((response) => {
+        setMe(response.data);
+        setIsLoading(false);
+      })
+      .catch(() => setIsLoading(false));
+  }, [setMe]);
+
+  return (
+    <Container maxWidth="xl" id="app-container">
+      {!isLoading && (
+        <>
+          <CssBaseline />
+          <Routes>
+            {APP_ROUTES.map((description) => getAppRoute(description))}
+            <Route path="*" element={<Navigate to="/login" />} />
+          </Routes>
+        </>
+      )}
+    </Container>
+  );
+};
 
 export default Main;
