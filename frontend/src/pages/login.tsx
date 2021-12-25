@@ -21,6 +21,7 @@ import { ACCESS_TOKEN, REFRESH_TOKEN } from '../constants/auth';
 import { getMe } from '../api/requests/me/me.requests';
 import { postLogin } from '../api/requests/auth/auth.requests';
 import { Role } from '../api/requests/shared.types';
+import { ROUTES } from '../constants/routes';
 
 interface IFormInputs {
   email: string;
@@ -80,9 +81,9 @@ const Login: FC = () => {
               draggable: true,
               progress: undefined,
             });
-            navigate('/verify-mail-prompt', { state: { email: response.data?.email } });
+            navigate(ROUTES.VERIFY_MAIL_PROMPT, { state: { email: response.data?.email } });
           } else {
-            navigate('/');
+            navigate(ROUTES.USERS);
           }
         });
       })
