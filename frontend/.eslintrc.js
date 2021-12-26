@@ -9,9 +9,7 @@ module.exports = {
     project: ['./tsconfig.json'],
     ecmaVersion: 2021,
   },
-  plugins: [
-    '@typescript-eslint',
-  ],
+  plugins: ['@typescript-eslint'],
   extends: [
     'eslint:recommended',
     'plugin:prettier/recommended',
@@ -21,5 +19,6 @@ module.exports = {
   ],
   rules: {
     'react/react-in-jsx-scope': 'off',
+    'no-unused-vars': 'off',
   },
 };
