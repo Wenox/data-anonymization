@@ -4,6 +4,7 @@ import com.wenox.anonymization.core.dto.ApiResponse;
 import com.wenox.anonymization.core.dto.EditMyProfileDto;
 import com.wenox.anonymization.core.dto.FullUserResponse;
 import com.wenox.anonymization.core.dto.MeResponse;
+import com.wenox.anonymization.core.dto.RemoveMyAccountDto;
 import com.wenox.anonymization.core.service.AuthService;
 import com.wenox.anonymization.core.service.UserService;
 import javax.validation.Valid;
@@ -42,5 +43,11 @@ public class MeController {
   @PreAuthorize("hasAnyAuthority('UNVERIFIED_USER', 'VERIFIED_USER', 'ADMIN')")
   public ResponseEntity<ApiResponse> editMyProfile(@Valid @RequestBody EditMyProfileDto dto, Authentication authentication) {
     return ResponseEntity.ok(userService.editMyProfile(dto, authentication));
+  }
+
+  @PutMapping("/api/v1/me/remove-account")
+  @PreAuthorize("hasAnyAuthority('UNVERIFIED_USER', 'VERIFIED_USER', 'ADMIN')")
+  public ResponseEntity<ApiResponse> removeMyAccount(@Valid @RequestBody RemoveMyAccountDto dto, Authentication authentication) {
+    return ResponseEntity.ok(userService.removeMyAccount(dto, authentication));
   }
 }

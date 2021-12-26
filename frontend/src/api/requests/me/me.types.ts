@@ -20,3 +20,7 @@ export interface EditMyProfileDto {
   lastName: string;
   purpose: string;
 }
+
+export interface RemoveMyAccountDto {
+  password: string;
+}

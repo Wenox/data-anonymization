@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import { EditMyProfileDto, MeResponse } from './me.types';
+import { EditMyProfileDto, MeResponse, RemoveMyAccountDto } from './me.types';
 import { User } from '../users/users.types';
 import { ApiResponse } from '../shared.types';
 
@@ -13,4 +13,8 @@ export const getMyProfile = (): Promise<AxiosResponse<User>> => {
 
 export const putEditMyProfile = (body: EditMyProfileDto): Promise<AxiosResponse<ApiResponse>> => {
   return axios.put<ApiResponse>('/api/v1/me/profile/edit', body);
+};
+
+export const putRemoveMyAccount = (body: RemoveMyAccountDto): Promise<AxiosResponse<ApiResponse>> => {
+  return axios.put<ApiResponse>('/api/v1/me/remove-account', body);
 };

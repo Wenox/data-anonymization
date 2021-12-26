@@ -10,6 +10,8 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import Button from '@mui/material/Button';
+import RemoveMyAccountDialog from '../../components/user/remove-my-account-dialog';
+import PasswordConfirmationDialog from '../../components/user/password-confirmation-dialog';
 
 interface IFormInputs {
   email: string;
@@ -37,6 +39,24 @@ const useStyles = makeStyles({
 const UserProfile: FC = () => {
   const [user, setUser] = useState<User>();
   const [isLoading, setIsLoading] = useState(true);
+  const [isRemoveAccountInitialDialogOpen, setIsRemoveAccountInitialDialogOpen] = useState(false);
+  const [isRemoveAccountFinalDialogOpen, setIsRemoveAccountFinalDialogOpen] = useState(false);
+
+  const handleOpenRemoveInitialAccountDialog = () => {
+    setIsRemoveAccountInitialDialogOpen(true);
+  };
+
+  const handleCloseRemoveInitialAccountDialog = () => {
+    setIsRemoveAccountInitialDialogOpen(false);
+  };
+
+  const handleOpenRemoveFinalAccountDialog = () => {
+    setIsRemoveAccountFinalDialogOpen(true);
+  };
+
+  const handleCloseRemoveFinalAccountDialog = () => {
+    setIsRemoveAccountFinalDialogOpen(false);
+  };
 
   const classes = useStyles();
 
@@ -112,12 +132,30 @@ const UserProfile: FC = () => {
         border: '1px solid #a30000',
         boxShadow: '6px 6px 0px #dd2c00',
         backgroundColor: 'white',
-        mt: 4,
+        mt: 6,
         display: 'flex',
         flexDirection: 'column',
       }}
       maxWidth="md"
     >
+      {isRemoveAccountInitialDialogOpen && (
+        <RemoveMyAccountDialog
+          open={isRemoveAccountInitialDialogOpen}
+          handleConfirm={() => {
+            handleOpenRemoveFinalAccountDialog();
+            handleCloseRemoveInitialAccountDialog();
+          }}
+          handleClose={handleCloseRemoveInitialAccountDialog}
+        />
+      )}
+
+      {isRemoveAccountFinalDialogOpen && (
+        <PasswordConfirmationDialog
+          open={isRemoveAccountFinalDialogOpen}
+          handleClose={handleCloseRemoveFinalAccountDialog}
+        />
+      )}
+
       <Typography sx={{ pt: 3, pb: 3 }} component="h3" variant="h3">
         User profile
       </Typography>
@@ -223,7 +261,13 @@ const UserProfile: FC = () => {
             </Button>
           </Grid>
           <Grid item xs={12}>
-            <Button type="submit" fullWidth variant="contained" className={classes.button} sx={{ mb: 4 }}>
+            <Button
+              onClick={handleOpenRemoveInitialAccountDialog}
+              fullWidth
+              variant="contained"
+              className={classes.button}
+              sx={{ mb: 4 }}
+            >
               Delete account
             </Button>
           </Grid>
