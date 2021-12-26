@@ -12,7 +12,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class IntegrationTestSetup {
+public class WebPostgreSQLSpecification extends PostgreSQLSpecification {
 
   @LocalServerPort
   private int serverPort;
