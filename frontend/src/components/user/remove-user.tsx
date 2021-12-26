@@ -11,7 +11,7 @@ interface RemoveUserProps {
 }
 
 const RemoveUser: FC<RemoveUserProps> = ({ status, markedForRemoval, forceRemoval, handleRemoveUser }) => {
-  const disabled = status === UserStatus.REMOVED || forceRemoval || markedForRemoval;
+  const disabled: boolean = status === UserStatus.REMOVED || forceRemoval || markedForRemoval;
 
   const icon = (() => {
     if (forceRemoval) return { tooltip: 'Pending admin requested removal', style: { color: 'gray' } };
@@ -21,7 +21,7 @@ const RemoveUser: FC<RemoveUserProps> = ({ status, markedForRemoval, forceRemova
   })();
 
   return (
-    <Tooltip title={icon.tooltip} followCursor={disabled} placement={'top'}>
+    <Tooltip title={icon.tooltip} placement={'top'}>
       <span>
         <IconButton disabled={disabled} onClick={() => handleRemoveUser()}>
           {forceRemoval || markedForRemoval ? (

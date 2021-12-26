@@ -15,7 +15,7 @@ const BlockUser: FC<BlockUserProps> = ({ status, forceRemoval, handleBlockUser }
   const disabled = status !== UserStatus.ACTIVE;
 
   return (
-    <Tooltip title={disabled ? 'Cannot block removed user' : 'Block'} followCursor={disabled} placement={'top'}>
+    <Tooltip title={disabled ? 'Cannot block removed user' : 'Block'} placement={'top'}>
       <span>
         <IconButton disabled={disabled} onClick={() => handleBlockUser()}>
           <LockOutlined fontSize="large" sx={style} />
