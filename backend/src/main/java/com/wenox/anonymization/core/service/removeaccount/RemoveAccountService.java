@@ -58,7 +58,7 @@ public class RemoveAccountService {
     userRepository.save(me);
 
     System.out.println("Restore your account until " + token.getExpirationDate() +
-        " by following: http://localhost:3000/change-password?token=" + token.getToken());
+        " by following: http://localhost:3000/restore-account?token=" + token.getToken());
 
     Executors.newSingleThreadExecutor()
         .execute(() -> mailService.sendMail(new MailDescription(me.getEmail(), "Your account was marked for removal",
@@ -78,7 +78,7 @@ public class RemoveAccountService {
       return "invalid-token";
     }
     if (tokenEntity.isExpired()) {
-      return "token-expired";
+      return "expired-token";
     }
     User user = tokenEntity.getUser();
     if (user.isForceRemoval() || user.getStatus() == UserStatus.REMOVED) {
