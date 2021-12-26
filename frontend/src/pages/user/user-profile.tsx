@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { FC, useEffect, useState } from 'react';
 import { User } from '../../api/requests/users/users.types';
 import { getMyProfile, putEditMyProfile } from '../../api/requests/me/me.requests';

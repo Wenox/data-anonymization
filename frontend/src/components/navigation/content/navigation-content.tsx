@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { NAVIGATION_ITEMS } from '../../../constants/navigation-items';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';

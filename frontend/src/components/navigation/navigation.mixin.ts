@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { CSSObject, Theme } from '@mui/material/styles';
 
 export const navigationWidth = 200;

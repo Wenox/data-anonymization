@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { CSSObject, Theme } from '@mui/material/styles';
 import { navigationWidth } from '../../navigation/navigation.mixin';
 
