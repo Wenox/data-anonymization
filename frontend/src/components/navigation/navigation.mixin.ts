@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { CSSObject, Theme } from '@mui/material/styles';
 
-export const navigationWidth = 240;
+export const navigationWidth = 200;
 
 export const navigationOpenedMixin = (theme: Theme): CSSObject => ({
   width: navigationWidth,
