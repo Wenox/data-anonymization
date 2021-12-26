@@ -1,8 +1,9 @@
+/* eslint-disable no-unused-vars */
 import { FC, useEffect, useState } from 'react';
 import { User } from '../../api/requests/users/users.types';
 import { getMyProfile, putEditMyProfile } from '../../api/requests/me/me.requests';
 import { toast } from 'react-toastify';
-import { Box, Container, Divider, Grid } from '@mui/material';
+import { Box, Container, Divider, Grid, Skeleton } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
@@ -79,7 +80,6 @@ const UserProfile: FC = () => {
   }, []);
 
   const formSubmitHandler: SubmitHandler<IFormInputs> = (data: IFormInputs) => {
-    console.log('edit my profile data: ', data);
     putEditMyProfile(data)
       .then((response) => {
         if (response.status === 200)
@@ -110,8 +110,8 @@ const UserProfile: FC = () => {
     <Container
       component="main"
       sx={{
-        border: '1px solid #000000',
-        boxShadow: '6px 6px 0px #00bfff',
+        border: '1px solid #a30000',
+        boxShadow: '6px 6px 0px #dd2c00',
         backgroundColor: 'white',
         mt: 4,
         display: 'flex',
@@ -125,96 +125,111 @@ const UserProfile: FC = () => {
 
       <Divider sx={{ mb: 3 }} />
 
-      {isLoading ? (
-        <h1>Loading...</h1>
-      ) : (
-        <Box component="form" onSubmit={handleSubmit(formSubmitHandler)} noValidate sx={{ mt: 1 }}>
-          <Grid container spacing={3}>
-            <Grid item xs={6}>
-              <Controller
-                name="firstName"
-                control={control}
-                defaultValue={user?.firstName}
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    fullWidth
-                    id="firstName"
-                    label="First name"
-                    error={!!errors.firstName}
-                    helperText={errors.firstName ? errors.firstName?.message : ''}
-                  />
-                )}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <Controller
-                name="lastName"
-                control={control}
-                defaultValue={user?.lastName}
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    fullWidth
-                    id="lastName"
-                    label="Last name"
-                    error={!!errors.lastName}
-                    helperText={errors.lastName ? errors.lastName?.message : ''}
-                  />
-                )}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Controller
-                name="email"
-                control={control}
-                defaultValue={user?.email}
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    fullWidth
-                    id="email"
-                    label="E-mail address"
-                    error={!!errors.email}
-                    helperText={errors.email ? errors.email?.message : ''}
-                  />
-                )}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Controller
-                name="purpose"
-                control={control}
-                defaultValue={user?.purpose}
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    multiline
-                    minRows={2}
-                    maxRows={2}
-                    fullWidth
-                    id="purpose"
-                    label="Purpose"
-                    error={!!errors.purpose}
-                    helperText={errors.purpose ? errors.purpose?.message : ''}
-                  />
-                )}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Divider />
-              <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: -1 }}>
-                Save changes
-              </Button>
-            </Grid>
-            <Grid item xs={12}>
-              <Button type="submit" fullWidth variant="contained" className={classes.button} sx={{ mb: 4 }}>
-                Delete account
-              </Button>
-            </Grid>
+      <Box component="form" onSubmit={handleSubmit(formSubmitHandler)} noValidate sx={{ mt: 1 }}>
+        <Grid container spacing={3}>
+          {isLoading ? (
+            <>
+              <Grid item xs={6}>
+                <Skeleton variant="rectangular" height={60} />
+              </Grid>
+              <Grid item xs={6}>
+                <Skeleton variant="rectangular" height={60} />
+              </Grid>
+              <Grid item xs={12}>
+                <Skeleton variant="rectangular" height={60} />
+              </Grid>
+              <Grid item xs={12}>
+                <Skeleton variant="rectangular" height={71} />
+              </Grid>
+            </>
+          ) : (
+            <>
+              <Grid item xs={6}>
+                <Controller
+                  name="firstName"
+                  control={control}
+                  defaultValue={user?.firstName}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      fullWidth
+                      id="firstName"
+                      label="First name"
+                      error={!!errors.firstName}
+                      helperText={errors.firstName ? errors.firstName?.message : ''}
+                    />
+                  )}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <Controller
+                  name="lastName"
+                  control={control}
+                  defaultValue={user?.lastName}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      fullWidth
+                      id="lastName"
+                      label="Last name"
+                      error={!!errors.lastName}
+                      helperText={errors.lastName ? errors.lastName?.message : ''}
+                    />
+                  )}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Controller
+                  name="email"
+                  control={control}
+                  defaultValue={user?.email}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      fullWidth
+                      id="email"
+                      label="E-mail address"
+                      error={!!errors.email}
+                      helperText={errors.email ? errors.email?.message : ''}
+                    />
+                  )}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Controller
+                  name="purpose"
+                  control={control}
+                  defaultValue={user?.purpose}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      multiline
+                      minRows={2}
+                      maxRows={2}
+                      fullWidth
+                      id="purpose"
+                      label="Purpose"
+                      error={!!errors.purpose}
+                      helperText={errors.purpose ? errors.purpose?.message : ''}
+                    />
+                  )}
+                />
+              </Grid>
+            </>
+          )}
+          <Grid item xs={12}>
+            <Divider />
+            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: -1 }}>
+              Save changes
+            </Button>
           </Grid>
-        </Box>
-      )}
+          <Grid item xs={12}>
+            <Button type="submit" fullWidth variant="contained" className={classes.button} sx={{ mb: 4 }}>
+              Delete account
+            </Button>
+          </Grid>
+        </Grid>
+      </Box>
     </Container>
   );
 };
