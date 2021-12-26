@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import { User } from '../../api/requests/users/users.types';
-import { getMyProfile } from '../../api/requests/me/me.requests';
+import { getMyProfile, putEditMyProfile } from '../../api/requests/me/me.requests';
 import { toast } from 'react-toastify';
 import { Box, Container, Divider, Grid } from '@mui/material';
 import { makeStyles } from '@mui/styles';
@@ -61,7 +61,7 @@ const UserProfile: FC = () => {
         });
       })
       .catch((err) => {
-        toast.success('Failed to load the profile.', {
+        toast.error('Failed to load the profile.', {
           position: 'top-right',
           autoClose: 3000,
           hideProgressBar: false,
@@ -80,31 +80,30 @@ const UserProfile: FC = () => {
 
   const formSubmitHandler: SubmitHandler<IFormInputs> = (data: IFormInputs) => {
     console.log('edit my profile data: ', data);
-    // postRegisterUser(data as RegisterUserRequest)
-    //   .then((response) => {
-    //     if (response.status === 200)
-    //       toast.success('Signed up successfully.', {
-    //         position: 'top-right',
-    //         autoClose: 5000,
-    //         hideProgressBar: false,
-    //         closeOnClick: true,
-    //         pauseOnHover: true,
-    //         draggable: true,
-    //         progress: undefined,
-    //       });
-    //     navigate('/verify-mail-prompt', { state: { email: data.email } });
-    //   })
-    //   .catch(() => {
-    //     toast.error('Failed to sign up.', {
-    //       position: 'top-right',
-    //       autoClose: 5000,
-    //       hideProgressBar: false,
-    //       closeOnClick: true,
-    //       pauseOnHover: true,
-    //       draggable: true,
-    //       progress: undefined,
-    //     });
-    //   });
+    putEditMyProfile(data)
+      .then((response) => {
+        if (response.status === 200)
+          toast.success(response.data.message, {
+            position: 'top-right',
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+      })
+      .catch(() => {
+        toast.error('Failed to edit the profile.', {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      });
   };
 
   return (
@@ -142,7 +141,6 @@ const UserProfile: FC = () => {
                     fullWidth
                     id="firstName"
                     label="First name"
-                    defaultValue={user?.firstName}
                     error={!!errors.firstName}
                     helperText={errors.firstName ? errors.firstName?.message : ''}
                   />
@@ -160,7 +158,6 @@ const UserProfile: FC = () => {
                     fullWidth
                     id="lastName"
                     label="Last name"
-                    defaultValue={user?.lastName}
                     error={!!errors.lastName}
                     helperText={errors.lastName ? errors.lastName?.message : ''}
                   />
@@ -178,7 +175,6 @@ const UserProfile: FC = () => {
                     fullWidth
                     id="email"
                     label="E-mail address"
-                    defaultValue={user?.email}
                     error={!!errors.email}
                     helperText={errors.email ? errors.email?.message : ''}
                   />
@@ -194,12 +190,11 @@ const UserProfile: FC = () => {
                   <TextField
                     {...field}
                     multiline
-                    rows={2}
+                    minRows={2}
                     maxRows={2}
                     fullWidth
                     id="purpose"
                     label="Purpose"
-                    defaultValue={user?.purpose}
                     error={!!errors.purpose}
                     helperText={errors.purpose ? errors.purpose?.message : ''}
                   />
