@@ -31,7 +31,7 @@ public class JwtUserDetailsService implements UserDetailsService {
         true,
         true,
         true,
-        user.getStatus() == UserStatus.ACTIVE,
+        user.getStatus() == UserStatus.ACTIVE && !user.isMarkedForRemoval() && !user.isForceRemoval(),
         List.of(new SimpleGrantedAuthority(user.getRole().name()))
     );
   }

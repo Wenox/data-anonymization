@@ -18,6 +18,11 @@ import ResentVerifyToken from '../pages/verify-mail/tokens/resent-verify-token';
 import React from 'react';
 import Logout from '../pages/logout';
 import UserProfile from '../pages/user/user-profile';
+import RestoreAccountLoading from '../pages/restore-account/restore-account-loading';
+import RestoreAccountSuccess from '../pages/restore-account/tokens/restore-account-success';
+import InvalidRestoreAccountToken from '../pages/restore-account/tokens/invalid-restore-account-token';
+import ExpiredRestoreAccountToken from '../pages/restore-account/tokens/expired-restore-account-token';
+import AccountAlreadyRemoved from '../pages/restore-account/tokens/account-already-removed';
 
 export const ROUTES = {
   LOGIN: '/login',
@@ -40,6 +45,11 @@ export const ROUTES = {
   VERIFY_MAIL_EXPIRED_TOKEN: '/verify-mail/expired-token',
   VERIFY_MAIL_ALREADY_VERIFIED: '/verify-mail/already-verified',
   VERIFY_MAIL_TOKEN_SENT_AGAIN: '/verify-mail/token-sent-again',
+  RESTORE_ACCOUNT: '/restore-account',
+  RESTORE_ACCOUNT_SUCCESS: '/restore-account/success',
+  RESTORE_ACCOUNT_ALREADY_REMOVED: '/restore-account/already-removed',
+  RESTORE_ACCOUNT_INVALID_TOKEN: '/restore-account/invalid-token',
+  RESTORE_ACCOUNT_EXPIRED_TOKEN: '/restore-account/expired-token',
 };
 
 export interface RouteDescription {
@@ -161,6 +171,36 @@ export const APP_ROUTES: RouteDescription[] = [
   {
     path: ROUTES.VERIFY_MAIL_TOKEN_SENT_AGAIN,
     element: ResentVerifyToken,
+    authenticated: false,
+    menu: false,
+  },
+  {
+    path: ROUTES.RESTORE_ACCOUNT,
+    element: RestoreAccountLoading,
+    authenticated: false,
+    menu: false,
+  },
+  {
+    path: ROUTES.RESTORE_ACCOUNT_SUCCESS,
+    element: RestoreAccountSuccess,
+    authenticated: false,
+    menu: false,
+  },
+  {
+    path: ROUTES.RESTORE_ACCOUNT_INVALID_TOKEN,
+    element: InvalidRestoreAccountToken,
+    authenticated: false,
+    menu: false,
+  },
+  {
+    path: ROUTES.RESTORE_ACCOUNT_EXPIRED_TOKEN,
+    element: ExpiredRestoreAccountToken,
+    authenticated: false,
+    menu: false,
+  },
+  {
+    path: ROUTES.RESTORE_ACCOUNT_ALREADY_REMOVED,
+    element: AccountAlreadyRemoved,
     authenticated: false,
     menu: false,
   },

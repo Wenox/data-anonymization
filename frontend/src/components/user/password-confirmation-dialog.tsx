@@ -17,6 +17,8 @@ import Button from '@mui/material/Button';
 import { putRemoveMyAccount } from '../../api/requests/me/me.requests';
 import { toast } from 'react-toastify';
 import { TransitionProps } from '@mui/material/transitions';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '../../constants/routes';
 
 export const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -36,6 +38,7 @@ const schemaFinalConfirmation = yup.object().shape({
 });
 
 const PasswordConfirmationDialog: FC<{ open: boolean; handleClose: () => void }> = ({ open, handleClose }) => {
+  const navigate = useNavigate();
   const {
     handleSubmit,
     control,
@@ -55,6 +58,7 @@ const PasswordConfirmationDialog: FC<{ open: boolean; handleClose: () => void }>
             progress: undefined,
           });
           handleClose();
+          navigate(ROUTES.LOGOUT);
         } else {
           toast.error(response.data.message, {
             position: 'top-right',
@@ -81,7 +85,7 @@ const PasswordConfirmationDialog: FC<{ open: boolean; handleClose: () => void }>
       });
   };
   return (
-    <Dialog open={open} onClose={handleClose} TransitionComponent={Transition}>
+    <Dialog fullWidth maxWidth="sm" open={open} onClose={handleClose} TransitionComponent={Transition}>
       <DialogTitle sx={{ color: ADMIN_COLOR_DARK }}>Deleting account</DialogTitle>
       <Box component="form" onSubmit={handleSubmit(formSubmitHandler)} noValidate sx={{ mt: 1 }}>
         <DialogContent>
