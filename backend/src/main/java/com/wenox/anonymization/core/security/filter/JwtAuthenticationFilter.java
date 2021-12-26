@@ -69,7 +69,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
   protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
                                             AuthenticationException failed) throws IOException, ServletException {
     log.error("Unsuccessful authentication");
-    log.error("failed: " + failed);
     super.unsuccessfulAuthentication(request, response, failed);
   }
 }
