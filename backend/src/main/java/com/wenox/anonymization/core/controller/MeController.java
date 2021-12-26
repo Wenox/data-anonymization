@@ -56,7 +56,6 @@ public class MeController {
   }
 
   @PutMapping("/api/v1/me/restore-account")
-  @PreAuthorize("hasAnyAuthority('UNVERIFIED_USER', 'VERIFIED_USER', 'ADMIN')")
   public ResponseEntity<String> restoreAccount(@RequestParam("token") String token) {
     return ResponseEntity.ok(removeAccountService.restoreMyAccount(token));
   }

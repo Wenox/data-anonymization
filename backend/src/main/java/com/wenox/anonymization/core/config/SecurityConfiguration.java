@@ -66,7 +66,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             "/api/v1/auth/**",
             "/api/v1/users/register/**",
             "/api/v1/users/verify-mail/**",
-            "/api/v1/reset-password/**"
+            "/api/v1/reset-password/**",
+            "/api/v1/me/restore-account/**"
         )
         .permitAll()
         .anyRequest()
