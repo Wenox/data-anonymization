@@ -13,11 +13,7 @@ const VerifyUser: FC<VerifyUserProps> = ({ removed, verified, handleVerifyUser }
   const { style } = enabled ? { style: { color: '#00cc00' } } : { style: { color: 'gray' } };
 
   return (
-    <Tooltip
-      title={enabled ? 'Confirm verification' : removed ? 'User removed' : 'Already verified'}
-      followCursor={!enabled}
-      placement={'top'}
-    >
+    <Tooltip title={enabled ? 'Confirm verification' : removed ? 'User removed' : 'Already verified'} placement={'top'}>
       <span>
         <IconButton disabled={!enabled} onClick={() => handleVerifyUser()}>
           <Verified fontSize="large" sx={style} />
