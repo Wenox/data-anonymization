@@ -4,12 +4,10 @@ import com.wenox.anonymization.core.domain.User;
 import com.wenox.anonymization.core.domain.UserStatus;
 import com.wenox.anonymization.core.dto.ApiResponse;
 import com.wenox.anonymization.core.dto.EditMyProfileDto;
-import com.wenox.anonymization.core.dto.RemoveMyAccountDto;
 import com.wenox.anonymization.core.repository.UserRepository;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,14 +15,11 @@ public class UserService {
 
   private final UserRepository userRepository;
   private final AuthService authService;
-  private final PasswordEncoder passwordEncoder;
 
   public UserService(UserRepository userRepository,
-                     AuthService authService,
-                     PasswordEncoder passwordEncoder) {
+                     AuthService authService) {
     this.userRepository = userRepository;
     this.authService = authService;
-    this.passwordEncoder = passwordEncoder;
   }
 
   public List<User> getAll() {
@@ -73,25 +68,5 @@ public class UserService {
     me.setPurpose(dto.getPurpose());
     userRepository.save(me);
     return ApiResponse.ofSuccess("Profile updated successfully.");
-  }
-
-  public ApiResponse removeMyAccount(RemoveMyAccountDto dto, Authentication auth) {
-    User me = authService.getMe(auth);
-
-    if (!passwordEncoder.matches(dto.getPassword(), me.getPassword())) {
-      return ApiResponse.ofError("Invalid password entered.");
-    }
-    if (me.isMarkedForRemoval()) {
-      return ApiResponse.ofError("Your account has already been marked for removal.");
-    }
-    if (me.getStatus() == UserStatus.REMOVED) {
-      return ApiResponse.ofError("This account had been removed.");
-    }
-
-    me.setMarkedForRemoval(true);
-    me.setRemovalRequestedDate(LocalDateTime.now());
-    userRepository.save(me);
-
-    return ApiResponse.ofSuccess("Successfully marked the account for removal.");
   }
 }

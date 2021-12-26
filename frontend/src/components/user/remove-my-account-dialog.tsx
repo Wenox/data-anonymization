@@ -29,17 +29,20 @@ const RemoveMyAccountDialog: FC<{ open: boolean; handleConfirm: () => void; hand
     handleConfirm();
   };
   return (
-    <Dialog open={open} onClose={handleClose} TransitionComponent={Transition}>
+    <Dialog fullWidth maxWidth="sm" open={open} onClose={handleClose} TransitionComponent={Transition}>
       <DialogTitle sx={{ color: ADMIN_COLOR_DARK }}>Deleting account</DialogTitle>
       <Box component="form" onSubmit={handleSubmit(formSubmitHandler)} noValidate sx={{ mt: 1 }}>
         <DialogContent>
           <DialogContentText>
-            By confirming you acknowledge that you want to delete your account. You will no longer be able to access it.
-            Your account will be automatically removed in the nearest future.
+            By confirming you acknowledge that you want to delete your account. You will no longer be to access the
+            account and the account will be automatically removed in the nearest future.
             <br />
             <br />
             You will be able to undo this action only for a limited time. An e-mail with a link to go to in case you
-            changed your mind and want to undo this action will be sent to your address.
+            changed your mind will be sent to your address.
+            <br />
+            <br />
+            You will be logged out immediately following the confirmation.
             <br />
             <br />
             <strong>

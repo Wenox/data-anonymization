@@ -18,3 +18,7 @@ export const putEditMyProfile = (body: EditMyProfileDto): Promise<AxiosResponse<
 export const putRemoveMyAccount = (body: RemoveMyAccountDto): Promise<AxiosResponse<ApiResponse>> => {
   return axios.put<ApiResponse>('/api/v1/me/remove-account', body);
 };
+
+export const putRestoreMyAccount = (token: string): Promise<AxiosResponse<string>> => {
+  return axios.put<string>(`/api/v1/me/restore-account?token=${token}`);
+};
