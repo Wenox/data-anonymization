@@ -37,14 +37,11 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
       throws AuthenticationException {
     try {
       LoginUserRequest dto = new ObjectMapper().readValue(request.getInputStream(), LoginUserRequest.class);
-      log.info("email: {}, password: {}", dto.getEmail(), dto.getPassword());
-      UsernamePasswordAuthenticationToken authenticationToken =
-          new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword());
+      log.info("Attempting authentication as: {}.", dto.getEmail());
+      UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword());
       return authenticationManager.authenticate(authenticationToken);
     } catch (Exception ex) {
-      log.error("Logging in failed.");
-      throw new AuthenticationException("Logging in failed") {
-      };
+      throw new AuthenticationException("Failed to authenticate.") {};
     }
   }
 
@@ -58,9 +55,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     String accessToken = jwtService.generateAccessTokenFor(user);
     String refreshToken = jwtService.generateRefreshTokenFor(user);
 
-    log.info("Generated accessToken: {}", accessToken);
-    log.info("Generated refreshToken: {}", refreshToken);
-
     response.setHeader("access_token", accessToken);
     response.setHeader("refresh_token", refreshToken);
   }
@@ -68,7 +62,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
   @Override
   protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
                                             AuthenticationException failed) throws IOException, ServletException {
-    log.error("Unsuccessful authentication");
     super.unsuccessfulAuthentication(request, response, failed);
   }
 }
