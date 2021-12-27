@@ -31,8 +31,8 @@ public class VerifyMailService {
     if (user.isVerified()) {
       return ApiResponse.ofError("This user is already verified.");
     }
-    if (user.getStatus() == UserStatus.REMOVED) {
-      return ApiResponse.ofError("Cannot confirm removed user's verification.");
+    if (user.getStatus() == UserStatus.REMOVED || user.isForceRemoval()) {
+      return ApiResponse.ofError("This user cannot be verified.");
     }
     user.setVerified(true);
     user.setRole(Role.VERIFIED_USER);
@@ -51,6 +51,9 @@ public class VerifyMailService {
       return "invalid-token";
     }
     User user = tokenEntity.getUser();
+    if (user.getStatus() == UserStatus.REMOVED || user.isForceRemoval()) {
+      return "invalid-token";
+    }
     if (user.isVerified()) {
       return "already-verified";
     }
@@ -70,6 +73,9 @@ public class VerifyMailService {
     }
 
     User user = tokenEntity.getUser();
+    if (user.getStatus() == UserStatus.REMOVED || user.isForceRemoval()) {
+      return "invalid-token";
+    }
     if (user.isVerified()) {
       return "already-verified";
     }
