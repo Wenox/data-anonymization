@@ -10,15 +10,17 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends CrudRepository<User, String> {
 
+  Optional<User> findByEmail(String email);
+
+  boolean existsByEmail(String email);
+
+  List<User> findAll();
+
   List<User> findAllByVerifiedFalseAndForceRemovalFalseAndStatusNot(UserStatus status);
 
   List<User> findAllByForceRemovalFalseAndStatusNot(UserStatus status);
 
   List<User> findAllByForceRemovalFalseAndMarkedForRemovalFalseAndStatus(UserStatus status);
 
-  Optional<User> findByEmail(String email);
-
-  boolean existsByEmail(String email);
-
-  List<User> findAll();
+  List<User> findAllByForceRemovalTrueOrMarkedForRemovalTrueAndStatusNot(UserStatus status);
 }

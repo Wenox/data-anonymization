@@ -32,7 +32,7 @@ public class NotifyExpiringAccountsCronService {
   }
 
   @Scheduled(cron = "${core.notifyExpiringAccounts.cron}")
-  public void notfyExpiringAccounts() {
+  public void notifyExpiringAccounts() {
     log.info("Started cron service: notifying expiring accounts...");
 
     List<User> candidates = userRepository.findAllByForceRemovalFalseAndMarkedForRemovalFalseAndStatus(UserStatus.ACTIVE);
