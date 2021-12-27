@@ -2,15 +2,52 @@ import { useQuery } from 'react-query';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import '../styles/users.scss';
 import { IconButton } from '@mui/material';
-import { Cancel, Check, CheckBox, Close, PlayCircleOutline, ToggleOff, ToggleOn } from '@mui/icons-material';
-import { getTasks } from '../api/requests/tasks/tasks.requests';
+import { Check, Close, PlayCircleOutline } from '@mui/icons-material';
+import { getTasks, postExecuteTask } from '../api/requests/tasks/tasks.requests';
 import { Task } from '../api/requests/tasks/tasks.types';
+import { toast } from 'react-toastify';
 
 const Tasks = () => {
-  const { data, isLoading, refetch, isRefetching } = useQuery('tasks', getTasks);
+  const { data, isLoading, isRefetching } = useQuery('tasks', getTasks);
   const tasks: Task[] = data?.data || [];
 
-  console.log('data: ', tasks);
+  const handleExecuteTask = (task: string) => {
+    postExecuteTask(task)
+      .then((response) => {
+        if (response.data.success) {
+          toast.success(response.data.message, {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        } else {
+          toast.error(response.data.message, {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        }
+      })
+      .catch(() =>
+        toast.error('Failed to execute the task.', {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        }),
+      );
+  };
 
   const columns: GridColDef[] = [
     { field: 'taskName', headerName: 'Code name', width: 275 },
@@ -60,13 +97,13 @@ const Tasks = () => {
       renderCell: ({ row }) =>
         row.executable ? (
           <div>
-            <IconButton onClick={() => {}}>
+            <IconButton onClick={() => handleExecuteTask(row.taskName)}>
               <PlayCircleOutline fontSize="large" sx={{ color: '#00cc00' }} />
             </IconButton>
           </div>
         ) : (
           <div>
-            <IconButton disabled onClick={() => {}}>
+            <IconButton disabled>
               <PlayCircleOutline fontSize="large" sx={{ color: 'gray' }} />
             </IconButton>
           </div>

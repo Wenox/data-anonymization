@@ -28,9 +28,9 @@ public class TaskController {
     return ResponseEntity.ok(taskService.getAll());
   }
 
-  @PostMapping("/{task}/run")
+  @PostMapping("/{task}/execute")
   @PreAuthorize("hasAuthority('ADMIN')")
-  public ResponseEntity<ApiResponse> run(@PathVariable("task") String task) {
+  public ResponseEntity<ApiResponse> execute(@PathVariable("task") String task) {
     return ResponseEntity.ok(taskService.execute(task));
   }
 }

@@ -28,7 +28,7 @@ public class TaskService {
         .findFirst()
         .orElseThrow();
 
-    if (cronService.isExecutable()) {
+    if (!cronService.isExecutable()) {
       return ApiResponse.ofError("This task cannot be manually executed.");
     }
 
