@@ -1,9 +1,8 @@
-package com.wenox.anonymization.core.service.verifymail;
+package com.wenox.anonymization.core.service.removeaccount.cron;
 
 import com.wenox.anonymization.core.domain.User;
 import com.wenox.anonymization.core.domain.UserStatus;
 import com.wenox.anonymization.core.repository.UserRepository;
-import com.wenox.anonymization.core.security.filter.JwtAuthenticationFilter;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,31 +13,31 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RemoveUnverifiedAccountsCronService {
+public class RemoveInactiveAccountsCronService {
 
-  private static final Logger log = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
+  private static final Logger log = LoggerFactory.getLogger(RemoveInactiveAccountsCronService.class);
 
-  @Value("${core.removeUnverifiedAccounts.removeAfterTimeInSeconds}")
+  @Value("${core.removeInactiveAccounts.removeAfterTimeInSeconds}")
   private Long removeAfter;
 
   private final UserRepository userRepository;
 
-  public RemoveUnverifiedAccountsCronService(UserRepository userRepository) {
+  public RemoveInactiveAccountsCronService(UserRepository userRepository) {
     this.userRepository = userRepository;
   }
 
-  @Scheduled(cron = "${core.removeUnverifiedAccounts.cron}")
+  @Scheduled(cron = "${core.removeInactiveAccounts.cron}")
   public void removeUnverifiedAccounts() {
-    log.info("Started removing unverified accounts...");
+    log.info("Started removing inactive accounts...");
 
-    List<User> candidates = userRepository.findAllByVerifiedFalseAndForceRemovalFalseAndStatusNot(UserStatus.REMOVED);
+    List<User> candidates = userRepository.findAllByForceRemovalFalseAndStatusNot(UserStatus.REMOVED);
     List<User> removedUsers = candidates
         .stream()
-        .filter(user -> user.getRegisteredDate().plusSeconds(removeAfter).isAfter(LocalDateTime.now()))
+        .filter(user -> user.getLastLoginDate().plusSeconds(removeAfter).isAfter(LocalDateTime.now()))
         .peek(user -> user.setForceRemoval(true))
         .collect(Collectors.toList());
     userRepository.saveAll(removedUsers);
 
-    log.info("Successfully removed {} unverified accounts.", removedUsers.size());
+    log.info("Successfully removed {} inactive accounts.", removedUsers.size());
   }
 }
