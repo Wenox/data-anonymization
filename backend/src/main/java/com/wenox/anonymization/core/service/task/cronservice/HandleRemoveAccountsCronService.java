@@ -1,4 +1,4 @@
-package com.wenox.anonymization.core.service.removeaccount.cron;
+package com.wenox.anonymization.core.service.task.cronservice;
 
 import com.wenox.anonymization.core.domain.User;
 import com.wenox.anonymization.core.domain.UserStatus;
@@ -16,12 +16,21 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 @Service
-public class HandleRemoveAccountsCronService {
+public class HandleRemoveAccountsCronService implements CronService {
 
   private static final Logger log = LoggerFactory.getLogger(HandleRemoveAccountsCronService.class);
 
   @Value("${core.handleRemoveAccounts.markedRemoveAfterTimeInSeconds}")
   private Long removeAfter;
+
+  @Value("${core.handleRemoveAccounts.scheduled}")
+  private boolean isScheduled;
+
+  @Value("${core.handleRemoveAccounts.executable}")
+  private boolean isExecutable;
+
+  @Value("${core.handleRemoveAccounts.description}")
+  private String description;
 
   private final UserRepository userRepository;
   private final MailService mailService;
@@ -31,8 +40,9 @@ public class HandleRemoveAccountsCronService {
     this.mailService = mailService;
   }
 
+  @Override
   @Scheduled(cron = "${core.handleRemoveAccounts.cron}")
-  public void handleRemoveAccounts() {
+  public void execute() {
     log.info("Started cron service: handling the removal of accounts...");
 
     List<User> candidates = userRepository.findAllByForceRemovalTrueOrMarkedForRemovalTrueAndStatusNot(UserStatus.REMOVED);
@@ -48,5 +58,17 @@ public class HandleRemoveAccountsCronService {
         "Dear user, your account was removed from our services.")));
 
     log.info("Successfully removed {} pending for removal accounts.", removedUsers.size());
+  }
+
+  public boolean isScheduled() {
+    return isScheduled;
+  }
+
+  public boolean isExecutable() {
+    return isExecutable;
+  }
+
+  public String getDescription() {
+    return description;
   }
 }

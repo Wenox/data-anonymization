@@ -1,4 +1,4 @@
-package com.wenox.anonymization.core.service.removeaccount.cron;
+package com.wenox.anonymization.core.service.task.cronservice;
 
 import com.wenox.anonymization.core.domain.User;
 import com.wenox.anonymization.core.domain.UserStatus;
@@ -14,12 +14,21 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RemoveInactiveAccountsCronService {
+public class RemoveInactiveAccountsCronService implements CronService {
 
   private static final Logger log = LoggerFactory.getLogger(RemoveInactiveAccountsCronService.class);
 
   @Value("${core.removeInactiveAccounts.removeAfterTimeInSeconds}")
   private Long removeAfter;
+
+  @Value("${core.removeInactiveAccounts.scheduled}")
+  private boolean isScheduled;
+
+  @Value("${core.removeInactiveAccounts.executable}")
+  private boolean isExecutable;
+
+  @Value("${core.removeInactiveAccounts.description}")
+  private String description;
 
   private final UserRepository userRepository;
 
@@ -27,8 +36,9 @@ public class RemoveInactiveAccountsCronService {
     this.userRepository = userRepository;
   }
 
+  @Override
   @Scheduled(cron = "${core.removeInactiveAccounts.cron}")
-  public void removeInactiveAccounts() {
+  public void execute() {
     log.info("Started removing inactive accounts...");
 
     List<User> candidates = userRepository.findAllByForceRemovalFalseAndStatusNot(UserStatus.REMOVED);
@@ -42,5 +52,17 @@ public class RemoveInactiveAccountsCronService {
     userRepository.saveAll(removedUsers);
 
     log.info("Successfully removed {} inactive accounts.", removedUsers.size());
+  }
+
+  public boolean isScheduled() {
+    return isScheduled;
+  }
+
+  public boolean isExecutable() {
+    return isExecutable;
+  }
+
+  public String getDescription() {
+    return description;
   }
 }

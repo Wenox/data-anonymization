@@ -1,4 +1,4 @@
-package com.wenox.anonymization.core.service.removeaccount.cron;
+package com.wenox.anonymization.core.service.task.cronservice;
 
 import com.wenox.anonymization.core.domain.User;
 import com.wenox.anonymization.core.domain.UserStatus;
@@ -16,12 +16,21 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 @Service
-public class NotifyExpiringAccountsCronService {
+public class NotifyExpiringAccountsCronService implements CronService {
 
   private static final Logger log = LoggerFactory.getLogger(NotifyExpiringAccountsCronService.class);
 
   @Value("${core.notifyExpiringAccounts.notifyAfterTimeInSeconds}")
   private Long notifyAfter;
+
+  @Value("${core.notifyExpiringAccounts.scheduled}")
+  private boolean isScheduled;
+
+  @Value("${core.notifyExpiringAccounts.executable}")
+  private boolean isExecutable;
+
+  @Value("${core.notifyExpiringAccounts.description}")
+  private String description;
 
   private final UserRepository userRepository;
   private final MailService mailService;
@@ -31,8 +40,9 @@ public class NotifyExpiringAccountsCronService {
     this.mailService = mailService;
   }
 
+  @Override
   @Scheduled(cron = "${core.notifyExpiringAccounts.cron}")
-  public void notifyExpiringAccounts() {
+  public void execute() {
     log.info("Started cron service: notifying expiring accounts...");
 
     List<User> candidates = userRepository.findAllByForceRemovalFalseAndMarkedForRemovalFalseAndStatus(UserStatus.ACTIVE);
@@ -48,5 +58,17 @@ public class NotifyExpiringAccountsCronService {
             "Dear user, due to inactivity on your account, it will be soon removed. Please login to prevent the removal.")));
 
     log.info("Successfully notified {} expiring accounts.", expiringUsers.size());
+  }
+
+  public boolean isScheduled() {
+    return isScheduled;
+  }
+
+  public boolean isExecutable() {
+    return isExecutable;
+  }
+
+  public String getDescription() {
+    return description;
   }
 }
