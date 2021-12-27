@@ -5,6 +5,7 @@ import com.wenox.anonymization.core.domain.UserStatus;
 import com.wenox.anonymization.core.repository.UserRepository;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +34,9 @@ public class RemoveUnverifiedAccountsCronService {
     List<User> candidates = userRepository.findAllByVerifiedFalseAndForceRemovalFalseAndStatusNot(UserStatus.REMOVED);
     List<User> removedUsers = candidates
         .stream()
-        .filter(user -> user.getRegisteredDate().plusSeconds(removeAfter).isAfter(LocalDateTime.now()))
+        .filter(user -> Optional.ofNullable(user.getRegisteredDate())
+            .map(date -> date.plusSeconds(removeAfter).isAfter(LocalDateTime.now()))
+            .orElse(false))
         .peek(user -> user.setForceRemoval(true))
         .collect(Collectors.toList());
     userRepository.saveAll(removedUsers);

@@ -14,6 +14,8 @@ public interface UserRepository extends CrudRepository<User, String> {
 
   List<User> findAllByForceRemovalFalseAndStatusNot(UserStatus status);
 
+  List<User> findAllByForceRemovalFalseAndMarkedForRemovalFalseAndStatus(UserStatus status);
+
   Optional<User> findByEmail(String email);
 
   boolean existsByEmail(String email);

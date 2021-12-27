@@ -5,6 +5,7 @@ import com.wenox.anonymization.core.domain.UserStatus;
 import com.wenox.anonymization.core.repository.UserRepository;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,13 +28,15 @@ public class RemoveInactiveAccountsCronService {
   }
 
   @Scheduled(cron = "${core.removeInactiveAccounts.cron}")
-  public void removeUnverifiedAccounts() {
+  public void removeInactiveAccounts() {
     log.info("Started removing inactive accounts...");
 
     List<User> candidates = userRepository.findAllByForceRemovalFalseAndStatusNot(UserStatus.REMOVED);
     List<User> removedUsers = candidates
         .stream()
-        .filter(user -> user.getLastLoginDate().plusSeconds(removeAfter).isAfter(LocalDateTime.now()))
+        .filter(user -> Optional.ofNullable(user.getLastLoginDate())
+            .map(date -> date.plusSeconds(removeAfter).isAfter(LocalDateTime.now()))
+            .orElse(false))
         .peek(user -> user.setForceRemoval(true))
         .collect(Collectors.toList());
     userRepository.saveAll(removedUsers);
