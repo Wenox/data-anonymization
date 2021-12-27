@@ -21,6 +21,9 @@ public class RemoveUnverifiedAccountsCronService implements CronService {
   @Value("${core.removeUnverifiedAccounts.removeAfterTimeInSeconds}")
   private Long removeAfter;
 
+  @Value("${core.removeUnverifiedAccounts.cron}")
+  private String cronExpression;
+
   @Value("${core.removeUnverifiedAccounts.scheduled}")
   private boolean isScheduled;
 
@@ -54,15 +57,23 @@ public class RemoveUnverifiedAccountsCronService implements CronService {
     log.info("Successfully removed {} unverified accounts.", removedUsers.size());
   }
 
+  @Override
   public boolean isScheduled() {
     return isScheduled;
   }
 
+  @Override
   public boolean isExecutable() {
     return isExecutable;
   }
 
+  @Override
   public String getDescription() {
     return description;
+  }
+
+  @Override
+  public String getCronExpression() {
+    return cronExpression;
   }
 }

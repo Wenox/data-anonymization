@@ -3,19 +3,17 @@ package com.wenox.anonymization.core.service.task;
 import com.wenox.anonymization.core.dto.ApiResponse;
 import com.wenox.anonymization.core.dto.TaskDto;
 import com.wenox.anonymization.core.service.task.cronservice.CronService;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.List;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 @Service
 public class TaskService {
 
-  private final Environment env;
   private final List<CronService> cronJobs;
 
-  public TaskService(Environment env,
-                     List<CronService> cronJobs) {
-    this.env = env;
+  public TaskService(List<CronService> cronJobs) {
     this.cronJobs = cronJobs;
   }
 
@@ -44,11 +42,17 @@ public class TaskService {
 
   private TaskDto toDto(CronService cronService) {
     final var dto = new TaskDto();
-    dto.setCronExpression(cronService.getCronExpression(env));
+    dto.setCronExpression(cronService.getCronExpression());
     dto.setTaskName(cronService.getTaskName());
     dto.setDescription(cronService.getDescription());
     dto.setScheduled(cronService.isScheduled());
     dto.setExecutable(cronService.isExecutable());
+    cronService
+        .nextScheduledExecution()
+        .ifPresentOrElse(
+            (value) -> dto.setNextScheduledExecution(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM).format(value)),
+            () -> dto.setNextScheduledExecution(null)
+        );
     return dto;
   }
 }

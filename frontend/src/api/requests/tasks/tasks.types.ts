@@ -4,4 +4,5 @@ export interface Task {
   description: string;
   scheduled: boolean;
   executable: boolean;
+  nextScheduledExecution: string | null;
 }

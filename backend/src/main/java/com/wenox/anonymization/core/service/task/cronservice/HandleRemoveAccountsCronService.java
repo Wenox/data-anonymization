@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.scheduling.support.CronExpression;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,6 +23,9 @@ public class HandleRemoveAccountsCronService implements CronService {
 
   @Value("${core.handleRemoveAccounts.markedRemoveAfterTimeInSeconds}")
   private Long removeAfter;
+
+  @Value("${core.handleRemoveAccounts.cron}")
+  private String cronExpression;
 
   @Value("${core.handleRemoveAccounts.scheduled}")
   private boolean isScheduled;
@@ -70,5 +74,10 @@ public class HandleRemoveAccountsCronService implements CronService {
 
   public String getDescription() {
     return description;
+  }
+
+  @Override
+  public String getCronExpression() {
+    return cronExpression;
   }
 }

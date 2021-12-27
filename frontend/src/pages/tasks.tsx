@@ -13,8 +13,8 @@ const Tasks = () => {
   console.log('data: ', tasks);
 
   const columns: GridColDef[] = [
-    { field: 'taskName', headerName: 'Code name', flex: 1 },
-    { field: 'description', headerName: 'Description', width: 345 },
+    { field: 'taskName', headerName: 'Code name', width: 275 },
+    { field: 'description', headerName: 'Description', flex: 1 },
     {
       field: 'scheduled',
       headerName: 'Scheduled',
@@ -45,8 +45,15 @@ const Tasks = () => {
     },
     { field: 'cronExpression', headerName: 'Cron expression', width: 160 },
     {
+      field: 'nextScheduledExecution',
+      headerName: 'Next scheduled execution',
+      width: 200,
+      renderCell: ({ row }) =>
+        row.nextScheduledExecution || <Close fontSize="large" sx={{ color: 'red', marginLeft: '40px' }} />,
+    },
+    {
       field: 'actions',
-      headerName: 'Actions',
+      headerName: 'Execute task',
       width: 130,
       sortable: false,
       filterable: false,

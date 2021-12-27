@@ -26,6 +26,9 @@ public class NotifyExpiringAccountsCronService implements CronService {
   @Value("${core.notifyExpiringAccounts.scheduled}")
   private boolean isScheduled;
 
+  @Value("${core.notifyExpiringAccounts.cron}")
+  private String cronExpression;
+
   @Value("${core.notifyExpiringAccounts.executable}")
   private boolean isExecutable;
 
@@ -60,15 +63,23 @@ public class NotifyExpiringAccountsCronService implements CronService {
     log.info("Successfully notified {} expiring accounts.", expiringUsers.size());
   }
 
+  @Override
   public boolean isScheduled() {
     return isScheduled;
   }
 
+  @Override
   public boolean isExecutable() {
     return isExecutable;
   }
 
+  @Override
   public String getDescription() {
     return description;
+  }
+
+  @Override
+  public String getCronExpression() {
+    return cronExpression;
   }
 }

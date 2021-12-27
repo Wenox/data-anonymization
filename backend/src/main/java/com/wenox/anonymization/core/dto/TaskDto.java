@@ -1,11 +1,15 @@
 package com.wenox.anonymization.core.dto;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class TaskDto {
   private String taskName;
   private String cronExpression;
   private String description;
   private boolean isScheduled;
   private boolean isExecutable;
+  private String nextScheduledExecution;
 
   public String getTaskName() {
     return taskName;
@@ -14,7 +18,7 @@ public class TaskDto {
   public void setTaskName(String taskName) {
     this.taskName = taskName;
   }
-  
+
   public String getCronExpression() {
     return cronExpression;
   }
@@ -45,5 +49,13 @@ public class TaskDto {
 
   public void setExecutable(boolean executable) {
     isExecutable = executable;
+  }
+
+  public String getNextScheduledExecution() {
+    return nextScheduledExecution;
+  }
+
+  public void setNextScheduledExecution(String nextExecution) {
+    this.nextScheduledExecution = nextExecution;
   }
 }

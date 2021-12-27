@@ -21,6 +21,9 @@ public class RemoveInactiveAccountsCronService implements CronService {
   @Value("${core.removeInactiveAccounts.removeAfterTimeInSeconds}")
   private Long removeAfter;
 
+  @Value("${core.removeInactiveAccounts.cron}")
+  private String cronExpression;
+
   @Value("${core.removeInactiveAccounts.scheduled}")
   private boolean isScheduled;
 
@@ -54,15 +57,23 @@ public class RemoveInactiveAccountsCronService implements CronService {
     log.info("Successfully removed {} inactive accounts.", removedUsers.size());
   }
 
+  @Override
   public boolean isScheduled() {
     return isScheduled;
   }
 
+  @Override
   public boolean isExecutable() {
     return isExecutable;
   }
 
+  @Override
   public String getDescription() {
     return description;
+  }
+
+  @Override
+  public String getCronExpression() {
+    return cronExpression;
   }
 }

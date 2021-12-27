@@ -1,11 +1,9 @@
 package com.wenox.anonymization.core.service.task.cronservice;
 
-import java.lang.reflect.Method;
-import java.util.Objects;
+import java.time.LocalDateTime;
+import java.util.Optional;
 import org.springframework.aop.framework.AopProxyUtils;
-import org.springframework.core.annotation.AnnotationUtils;
-import org.springframework.core.env.Environment;
-import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.scheduling.support.CronExpression;
 
 public interface CronService {
 
@@ -17,18 +15,16 @@ public interface CronService {
 
   String getDescription();
 
-  default String getTaskName() {
-    return AopProxyUtils.ultimateTargetClass(this).getSimpleName();
+  String getCronExpression();
+
+  default Optional<LocalDateTime> nextScheduledExecution() {
+    if (!isScheduled()) {
+      return Optional.empty();
+    }
+    return Optional.ofNullable(CronExpression.parse(getCronExpression()).next(LocalDateTime.now()));
   }
 
-  default String getCronExpression(Environment env) {
-    try {
-      Method executeMethod = AopProxyUtils.ultimateTargetClass(this).getMethod("execute");
-      String SPeL = Objects.requireNonNull(AnnotationUtils.getAnnotation(executeMethod, Scheduled.class)).cron();
-      String property = SPeL.substring(2, SPeL.length() - 1);
-      return env.getProperty(property);
-    } catch (NoSuchMethodException ex) {
-      return "Failed to retrieve the cron expression value";
-    }
+  default String getTaskName() {
+    return AopProxyUtils.ultimateTargetClass(this).getSimpleName();
   }
 }
