@@ -34,7 +34,7 @@ public class RemoveUnverifiedAccountsCronService {
     List<User> candidates = userRepository.findAllByVerifiedFalseAndForceRemovalFalseAndStatusNot(UserStatus.REMOVED);
     List<User> removedUsers = candidates
         .stream()
-        .filter(user -> user.getRegisteredDate().plusSeconds(removeAfter).isBefore(LocalDateTime.now()))
+        .filter(user -> user.getRegisteredDate().plusSeconds(removeAfter).isAfter(LocalDateTime.now()))
         .peek(user -> user.setForceRemoval(true))
         .collect(Collectors.toList());
     userRepository.saveAll(removedUsers);
