@@ -18,89 +18,77 @@ public class WebPostgreSQLSpecification extends PostgreSQLSpecification {
   private int serverPort;
 
   public RequestSpecification adminClient() {
-
-    String accessToken = given()
-        .basePath("/api/v1/auth/login")
-        .port(serverPort)
-        .contentType(MediaType.APPLICATION_JSON.toString())
-        .body(new AdminDetails())
-        .when()
-        .post()
-        .then()
-        .statusCode(200)
-        .extract()
-        .header("access_token");
-
-    return given()
-        .basePath("/api/v1")
-        .port(serverPort)
-        .header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
-        .accept(MediaType.APPLICATION_JSON.toString())
-        .contentType(MediaType.APPLICATION_JSON.toString());
+    return authenticatedClient(new AdminDetails());
   }
 
   public RequestSpecification verifiedUserClient() {
+    return authenticatedClient(new VerifiedUserDetails());
+  }
 
-    String accessToken = given()
-        .basePath("/api/v1/auth/login")
+  public RequestSpecification unverifiedUserClient() {
+    return authenticatedClient(new UnverifiedUserDetails());
+  }
+
+  public RequestSpecification authenticatedClient(AccountDetails details) {
+    String accessToken = authenticate(details);
+    return unauthenticatedClient()
+        .header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken);
+  }
+
+  public String authenticate(AccountDetails details) {
+    return unauthenticatedClient()
         .port(serverPort)
         .contentType(MediaType.APPLICATION_JSON.toString())
-        .body(new VerifiedUserDetails())
+        .body(details)
         .when()
-        .post()
+        .post("/auth/login")
         .then()
         .statusCode(200)
         .extract()
         .header("access_token");
+  }
 
+  public RequestSpecification unauthenticatedClient() {
     return given()
         .basePath("/api/v1")
         .port(serverPort)
-        .header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
         .accept(MediaType.APPLICATION_JSON.toString())
         .contentType(MediaType.APPLICATION_JSON.toString());
   }
 
-  static class AdminDetails {
-    private String email = "admin@admin.com";
-    private String password = "admin";
+  static class AccountDetails {
+    private final String email;
+    private final String password;
+
+    public AccountDetails(String email, String password) {
+      this.email = email;
+      this.password = password;
+    }
 
     public String getEmail() {
       return email;
     }
 
-    public void setEmail(String email) {
-      this.email = email;
-    }
-
     public String getPassword() {
       return password;
     }
+  }
 
-    public void setPassword(String password) {
-      this.password = password;
+  static class AdminDetails extends AccountDetails {
+    public AdminDetails() {
+      super("admin@admin.com", "admin");
     }
   }
 
-  static class VerifiedUserDetails {
-    private String email = "user@user.com";
-    private String password = "user";
-
-    public String getEmail() {
-      return email;
-    }
-
-    public void setEmail(String email) {
-      this.email = email;
-    }
-
-    public String getPassword() {
-      return password;
-    }
-
-    public void setPassword(String password) {
-      this.password = password;
+  static class VerifiedUserDetails extends AccountDetails {
+    public VerifiedUserDetails() {
+      super("user@user.com", "user");
     }
   }
 
+  static class UnverifiedUserDetails extends AccountDetails {
+    public UnverifiedUserDetails() {
+      super("unverified@unverified.com", "unverified");
+    }
+  }
 }
