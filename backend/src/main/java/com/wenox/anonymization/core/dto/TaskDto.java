@@ -1,19 +1,11 @@
 package com.wenox.anonymization.core.dto;
 
 public class TaskDto {
-  private String cronExpression;
   private String taskName;
+  private String cronExpression;
   private String description;
   private boolean isScheduled;
   private boolean isExecutable;
-
-  public String getCronExpression() {
-    return cronExpression;
-  }
-
-  public void setCronExpression(String cronExpression) {
-    this.cronExpression = cronExpression;
-  }
 
   public String getTaskName() {
     return taskName;
@@ -21,6 +13,14 @@ public class TaskDto {
 
   public void setTaskName(String taskName) {
     this.taskName = taskName;
+  }
+  
+  public String getCronExpression() {
+    return cronExpression;
+  }
+
+  public void setCronExpression(String cronExpression) {
+    this.cronExpression = cronExpression;
   }
 
   public String getDescription() {

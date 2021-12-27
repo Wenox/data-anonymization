@@ -23,12 +23,14 @@ import RestoreAccountSuccess from '../pages/restore-account/tokens/restore-accou
 import InvalidRestoreAccountToken from '../pages/restore-account/tokens/invalid-restore-account-token';
 import ExpiredRestoreAccountToken from '../pages/restore-account/tokens/expired-restore-account-token';
 import AccountAlreadyRemoved from '../pages/restore-account/tokens/account-already-removed';
+import Tasks from '../pages/tasks';
 
 export const ROUTES = {
   LOGIN: '/login',
   REGISTER: '/register',
   LOGOUT: '/logout',
   USER_PROFILE: '/user-profile',
+  TASKS: '/tasks',
   USERS: '/users',
   ABOUT: '/about',
   RESET_PASSWORD: '/reset-password',
@@ -81,6 +83,12 @@ export const APP_ROUTES: RouteDescription[] = [
   {
     path: ROUTES.USER_PROFILE,
     element: UserProfile,
+    authenticated: true,
+    menu: true,
+  },
+  {
+    path: ROUTES.TASKS,
+    element: Tasks,
     authenticated: true,
     menu: true,
   },
