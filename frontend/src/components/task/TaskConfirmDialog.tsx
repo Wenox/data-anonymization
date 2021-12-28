@@ -1,26 +1,17 @@
 import React, { FC, useState } from 'react';
-import {
-  CircularProgress,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  TextField,
-} from '@mui/material';
-import { ADMIN_COLOR_DARK } from '../../constants/colors';
+import { CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import Button from '@mui/material/Button';
 import { Transition } from '../user/password-confirmation-dialog';
 import { postExecuteTask } from '../../api/requests/tasks/tasks.requests';
 import { toast } from 'react-toastify';
 
-interface ConfirmDialogProps {
+interface TaskConfirmDialogProps {
   open: boolean;
   handleCancel: () => void;
   taskName: string;
 }
 
-const ConfirmDialog: FC<ConfirmDialogProps> = ({ open, handleCancel, taskName }) => {
+const TaskConfirmDialog: FC<TaskConfirmDialogProps> = ({ open, handleCancel, taskName }) => {
   const [isLoading, setIsLoading] = useState(false);
   const handleExecuteTask = () => {
     setIsLoading(true);
@@ -65,7 +56,7 @@ const ConfirmDialog: FC<ConfirmDialogProps> = ({ open, handleCancel, taskName })
       });
   };
   return (
-    <Dialog fullWidth maxWidth="sm" open={open} onClose={handleCancel} TransitionComponent={Transition}>
+    <Dialog fullWidth maxWidth="xs" open={open} onClose={handleCancel} TransitionComponent={Transition}>
       {isLoading && (
         <CircularProgress
           style={{
@@ -76,7 +67,7 @@ const ConfirmDialog: FC<ConfirmDialogProps> = ({ open, handleCancel, taskName })
           }}
         />
       )}
-      <DialogTitle sx={{ color: ADMIN_COLOR_DARK }}>Confirmation</DialogTitle>
+      <DialogTitle>Confirmation</DialogTitle>
       <DialogContent>
         <DialogContentText>
           <strong>Are you sure to execute this task?</strong>
@@ -84,10 +75,12 @@ const ConfirmDialog: FC<ConfirmDialogProps> = ({ open, handleCancel, taskName })
       </DialogContent>
       <DialogActions>
         <Button onClick={handleCancel}>Cancel</Button>
-        <Button onClick={handleExecuteTask}>Confirm</Button>
+        <Button color="secondary" onClick={handleExecuteTask}>
+          Confirm
+        </Button>
       </DialogActions>
     </Dialog>
   );
 };
 
-export default ConfirmDialog;
+export default TaskConfirmDialog;

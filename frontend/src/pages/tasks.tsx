@@ -5,7 +5,7 @@ import { Check, Close, PlayCircleOutline } from '@mui/icons-material';
 import { getTasks } from '../api/requests/tasks/tasks.requests';
 import { Task } from '../api/requests/tasks/tasks.types';
 import { useState } from 'react';
-import ConfirmDialog from '../components/task/ConfirmDialog';
+import TaskConfirmDialog from '../components/task/TaskConfirmDialog';
 import Typography from '@mui/material/Typography';
 import { theme } from '../styles/theme';
 
@@ -103,7 +103,7 @@ const Tasks = () => {
       <Typography color="secondary" variant="h2" sx={{ mb: 2 }}>
         Tasks
       </Typography>
-      {open && <ConfirmDialog open={open} handleCancel={handleCloseDialog} taskName={taskName} />}
+      {open && <TaskConfirmDialog open={open} handleCancel={handleCloseDialog} taskName={taskName} />}
       <DataGrid
         autoHeight
         columns={columns}
