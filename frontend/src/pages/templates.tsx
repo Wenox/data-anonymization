@@ -1,10 +1,11 @@
 import { ChangeEvent, FC, useState } from 'react';
-import { Box, Button, LinearProgress, Typography } from '@mui/material';
+import { Box, Button, IconButton, LinearProgress, Typography } from '@mui/material';
 import axios from 'axios';
-import { Check } from '@mui/icons-material';
+import { Cancel, Check } from '@mui/icons-material';
 
 const Templates: FC = () => {
   const [file, setFile] = useState<any>();
+  const [isFileSelected, setIsFileSelected] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -23,17 +24,24 @@ const Templates: FC = () => {
       })
       .then(function () {
         setTimeout(() => {
+          setFile(null);
           setProgress(0);
           setIsSuccess(true);
           setIsUploading(false);
+          setIsFileSelected(false);
         }, 500);
       });
   };
 
+  const handleFileCancel = () => {
+    setIsFileSelected(false);
+    setFile(null);
+  };
+
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    console.log('handleFileChange: ', event);
     if (event.target.files && event.target.files[0]) {
       setFile(event.target.files[0]);
+      setIsFileSelected(true);
       setProgress(0);
       setIsSuccess(false);
       setIsUploading(false);
@@ -41,7 +49,6 @@ const Templates: FC = () => {
   };
 
   const handleSubmit = async () => {
-    console.log('file: ', file);
     const formData = new FormData();
     formData.append('file', file);
     await postCreateTemplate(formData, 'PSQL');
@@ -55,8 +62,10 @@ const Templates: FC = () => {
       <br />
       <br />
 
-      <Box>
+      <Box id="upload-box">
         <Button
+          disabled={isFileSelected}
+          color="secondary"
           onDragOver={(e: any) => {
             e.preventDefault();
           }}
@@ -65,27 +74,39 @@ const Templates: FC = () => {
           }}
           variant="contained"
           component="label"
+          sx={{ pl: 6, pr: 6 }}
         >
-          {isUploading ? 'Uploading...' : 'Select file'}
+          Select file
           <input onChange={handleFileChange} type="file" hidden />
         </Button>
         {file && (
-          <h4>
+          <Typography color="success" variant="h6" sx={{ fontSize: '80%' }}>
             {file.name} ({Number(file.size / 1024 / 1024).toFixed(2)} MB)
-          </h4>
+            <span>
+              <IconButton disabled={isUploading} onClick={handleFileCancel} sx={{ ml: 0.5 }}>
+                <Cancel color={isUploading ? 'disabled' : 'error'} fontSize="small" />
+              </IconButton>
+            </span>
+          </Typography>
         )}
 
-        <Box maxWidth={'xs'} marginY={3}>
+        <Box width="180px">
           {isSuccess && (
-            <Box color="success.main" display="flex">
-              <Check color="success" />
-              <Typography>Upload success</Typography>
+            <Box color="success.main" display="flex" sx={{ alignItems: 'center' }}>
+              <Check color="success" fontSize="medium" />
+              <Typography color="success" variant="h6" sx={{ ml: 0.5 }}>
+                Success
+              </Typography>
             </Box>
           )}
-          {isUploading && <LinearProgress color="secondary" variant="determinate" value={progress} />}
+          {isUploading && (
+            <LinearProgress sx={{ height: '8px' }} color="secondary" variant="determinate" value={progress} />
+          )}
         </Box>
       </Box>
-      <Button onClick={handleSubmit}>Upload</Button>
+      <Button variant="contained" sx={{ mt: 20 }} onClick={handleSubmit}>
+        Fire
+      </Button>
     </>
   );
 };
