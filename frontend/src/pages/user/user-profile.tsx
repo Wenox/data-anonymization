@@ -134,7 +134,14 @@ const UserProfile: FC = () => {
   return (
     <Container
       component="main"
-      sx={{ backgroundColor: '#fff', border: '1px solid #212121', boxShadow: '6px 6px 0px #000000', pt: 2, pb: 3 }}
+      sx={{
+        backgroundColor: '#fff',
+        border: '1px solid #212121',
+        pt: 2,
+        pb: 3,
+        borderRadius: '2px',
+        boxShadow: '4px 4px 0px #000000',
+      }}
     >
       <Typography variant="h2" sx={{ color: '#dd2c00', mb: 2 }}>
         User Profile

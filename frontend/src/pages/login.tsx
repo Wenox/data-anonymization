@@ -8,7 +8,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { FC, useContext, useState } from 'react';
-import { Alert, CircularProgress, Collapse, IconButton } from '@mui/material';
+import { Alert, CircularProgress, Collapse, Divider, IconButton } from '@mui/material';
 import * as yup from 'yup';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -22,6 +22,7 @@ import { getMe } from '../api/requests/me/me.requests';
 import { postLogin } from '../api/requests/auth/auth.requests';
 import { Role } from '../api/requests/shared.types';
 import { ROUTES } from '../constants/routes';
+import { ExitToApp } from '@mui/icons-material';
 
 interface IFormInputs {
   email: string;
@@ -108,24 +109,31 @@ const Login: FC = () => {
     <Container
       component="main"
       sx={{
-        border: '1px solid #000000',
-        boxShadow: '6px 6px 0px #00bfff',
-        backgroundColor: 'white',
+        backgroundColor: '#fff',
+        border: '1px solid #212121',
+        borderRadius: '2px',
+        boxShadow: '4px 4px 0px #000000',
+        pt: 2,
+        pb: 3,
         mt: 20,
-        paddingTop: 12,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
       }}
       maxWidth="xs"
     >
-      <Avatar sx={{ m: 1, bgcolor: '#17bf00' }}>
-        <LockOutlinedIcon />
-      </Avatar>
-      <Typography component="h1" variant="h2">
-        Sign in
-      </Typography>
+      <Grid container spacing={2} alignItems="center">
+        <Grid sx={{ textAlign: 'right' }} item xs={7}>
+          <Typography variant="h2" sx={{ alignItems: 'left', color: '#dd2c00', mb: 2 }}>
+            Sign in
+          </Typography>
+        </Grid>
+        <Grid sx={{ textAlign: 'left' }} item xs={5}>
+          <ExitToApp style={{ fontWeight: 'lighter', fontSize: '600%', color: '#dd2c00' }} />
+        </Grid>
+      </Grid>
       <Box component="form" onSubmit={handleSubmit(formSubmitHandler)} noValidate sx={{ mt: 1 }}>
+        <Divider sx={{ mb: 3 }} />
         <Controller
           name="email"
           control={control}
@@ -169,6 +177,8 @@ const Login: FC = () => {
             />
           )}
         />
+
+        <Divider sx={{ mt: 3 }} />
 
         <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
           Login
