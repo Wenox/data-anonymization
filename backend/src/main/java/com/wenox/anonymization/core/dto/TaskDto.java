@@ -1,7 +1,5 @@
 package com.wenox.anonymization.core.dto;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class TaskDto {
   private String taskName;

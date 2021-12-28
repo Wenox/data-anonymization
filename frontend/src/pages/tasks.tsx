@@ -2,9 +2,8 @@ import { useQuery } from 'react-query';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { Container, IconButton } from '@mui/material';
 import { Check, Close, PlayCircleOutline } from '@mui/icons-material';
-import { getTasks, postExecuteTask } from '../api/requests/tasks/tasks.requests';
+import { getTasks } from '../api/requests/tasks/tasks.requests';
 import { Task } from '../api/requests/tasks/tasks.types';
-import { toast } from 'react-toastify';
 import { useState } from 'react';
 import ConfirmDialog from '../components/task/ConfirmDialog';
 import Typography from '@mui/material/Typography';
@@ -15,51 +14,15 @@ const Tasks = () => {
   const tasks: Task[] = data?.data || [];
 
   const [open, setOpen] = useState(false);
-  const [handleConfirm, setHandleConfirm] = useState<() => void>(() => {});
+  const [taskName, setTaskName] = useState('');
 
   const handleOpenDialog = (taskName: string) => {
     setOpen(true);
-    setHandleConfirm(() => handleExecuteTask(taskName));
+    setTaskName(taskName);
   };
 
-  const handleCloseDialog = () => setOpen(false);
-
-  const handleExecuteTask = (task: string) => {
-    postExecuteTask(task)
-      .then((response) => {
-        if (response.data.success) {
-          toast.success(response.data.message, {
-            position: 'top-right',
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
-        } else {
-          toast.error(response.data.message, {
-            position: 'top-right',
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
-        }
-      })
-      .catch(() =>
-        toast.error('Failed to execute the task.', {
-          position: 'top-right',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        }),
-      );
+  const handleCloseDialog = () => {
+    setOpen(false);
   };
 
   const columns: GridColDef[] = [
@@ -140,7 +103,7 @@ const Tasks = () => {
       <Typography color="secondary" variant="h2" sx={{ mb: 2 }}>
         Tasks
       </Typography>
-      {open && <ConfirmDialog open={open} handleCancel={handleCloseDialog} handleConfirm={handleConfirm} />}
+      {open && <ConfirmDialog open={open} handleCancel={handleCloseDialog} taskName={taskName} />}
       <DataGrid
         autoHeight
         columns={columns}

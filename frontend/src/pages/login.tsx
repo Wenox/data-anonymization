@@ -1,4 +1,3 @@
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
@@ -23,7 +22,6 @@ import { postLogin } from '../api/requests/auth/auth.requests';
 import { Role } from '../api/requests/shared.types';
 import { ROUTES } from '../constants/routes';
 import { ExitToApp } from '@mui/icons-material';
-import { useTheme } from '@mui/styles';
 import { theme } from '../styles/theme';
 
 interface IFormInputs {
@@ -37,8 +35,6 @@ const schema = yup.object().shape({
 });
 
 const Login: FC = () => {
-  const theme = useTheme;
-
   const { setMe } = useContext(AuthContext);
 
   const {
