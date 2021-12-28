@@ -1,6 +1,4 @@
-import { RegisterUserRequest } from '../users/users.types';
 import axios from 'axios';
-import { ApiResponse } from '../shared.types';
 
 export const postCreateTemplate = (formData: FormData, type: string) => {
   return axios
@@ -13,6 +11,6 @@ export const postCreateTemplate = (formData: FormData, type: string) => {
       console.log('SUCCESS!!');
     })
     .catch(function () {
-      console.log('FAILURE!!');
+      console.log('FAILURE!!!');
     });
 };
