@@ -20,9 +20,20 @@ const NavigationContent: FC<NavigationContentProps> = ({ role, color }) => {
       {NAVIGATION_ITEMS.filter(({ roles }) => roles.includes(role)).map(({ path, name, icon }) => {
         const Icon = icon;
         return (
-          <ListItem button key={path} onClick={(e) => navigate(path)}>
+          <ListItem
+            sx={{
+              '&:hover': {
+                '& .icon': {
+                  color: '#dd2c00',
+                },
+              },
+            }}
+            button
+            key={path}
+            onClick={(e) => navigate(path)}
+          >
             <ListItemIcon>
-              <Icon fontSize="large" sx={{ color: color }} />
+              <Icon className="icon" fontSize="large" sx={{ color: color }} />
             </ListItemIcon>
             <ListItemText primary={name} />
           </ListItem>

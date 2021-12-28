@@ -1,15 +1,27 @@
 import { useQuery } from 'react-query';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import '../styles/users.scss';
-import { IconButton } from '@mui/material';
+import { Container, IconButton } from '@mui/material';
 import { Check, Close, PlayCircleOutline } from '@mui/icons-material';
 import { getTasks, postExecuteTask } from '../api/requests/tasks/tasks.requests';
 import { Task } from '../api/requests/tasks/tasks.types';
 import { toast } from 'react-toastify';
+import { useState } from 'react';
+import ConfirmDialog from '../components/task/ConfirmDialog';
+import Typography from '@mui/material/Typography';
 
 const Tasks = () => {
   const { data, isLoading, isRefetching } = useQuery('tasks', getTasks);
   const tasks: Task[] = data?.data || [];
+
+  const [open, setOpen] = useState(false);
+  const [handleConfirm, setHandleConfirm] = useState<() => void>(() => {});
+
+  const handleOpenDialog = (taskName: string) => {
+    setOpen(true);
+    setHandleConfirm(() => handleExecuteTask(taskName));
+  };
+
+  const handleCloseDialog = () => setOpen(false);
 
   const handleExecuteTask = (task: string) => {
     postExecuteTask(task)
@@ -97,7 +109,7 @@ const Tasks = () => {
       renderCell: ({ row }) =>
         row.executable ? (
           <div>
-            <IconButton onClick={() => handleExecuteTask(row.taskName)}>
+            <IconButton onClick={() => handleOpenDialog(row.taskName)}>
               <PlayCircleOutline fontSize="large" sx={{ color: '#00cc00' }} />
             </IconButton>
           </div>
@@ -112,20 +124,25 @@ const Tasks = () => {
   ];
 
   return (
-    <>
-      <div id="tasks">
-        <h1>Tasks</h1>
-        <DataGrid
-          autoHeight
-          columns={columns}
-          rows={tasks.map((task) => ({
-            ...task,
-            id: task.taskName,
-          }))}
-          loading={isLoading || isRefetching}
-        />
-      </div>
-    </>
+    <Container
+      maxWidth={false}
+      component="main"
+      sx={{ backgroundColor: '#fff', border: '1px solid #212121', boxShadow: '6px 6px 0px #000000', pt: 2, pb: 3 }}
+    >
+      <Typography variant="h2" sx={{ color: '#dd2c00', mb: 2 }}>
+        Tasks
+      </Typography>
+      {open && <ConfirmDialog open={open} handleCancel={handleCloseDialog} handleConfirm={handleConfirm} />}
+      <DataGrid
+        autoHeight
+        columns={columns}
+        rows={tasks.map((task) => ({
+          ...task,
+          id: task.taskName,
+        }))}
+        loading={isLoading || isRefetching}
+      />
+    </Container>
   );
 };
 
