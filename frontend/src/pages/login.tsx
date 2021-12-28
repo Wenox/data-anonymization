@@ -23,6 +23,7 @@ import { postLogin } from '../api/requests/auth/auth.requests';
 import { Role } from '../api/requests/shared.types';
 import { ROUTES } from '../constants/routes';
 import { ExitToApp } from '@mui/icons-material';
+import { useTheme } from '@mui/styles';
 
 interface IFormInputs {
   email: string;
@@ -35,6 +36,8 @@ const schema = yup.object().shape({
 });
 
 const Login: FC = () => {
+  const theme = useTheme;
+
   const { setMe } = useContext(AuthContext);
 
   const {
@@ -124,12 +127,12 @@ const Login: FC = () => {
     >
       <Grid container spacing={2} alignItems="center">
         <Grid sx={{ textAlign: 'right' }} item xs={7}>
-          <Typography variant="h2" sx={{ alignItems: 'left', color: '#dd2c00', mb: 2 }}>
+          <Typography variant="h2" sx={{ alignItems: 'left', mb: 2 }}>
             Sign in
           </Typography>
         </Grid>
         <Grid sx={{ textAlign: 'left' }} item xs={5}>
-          <ExitToApp style={{ fontWeight: 'lighter', fontSize: '600%', color: '#dd2c00' }} />
+          <ExitToApp color="secondary" style={{ fontSize: '600%' }} />
         </Grid>
       </Grid>
       <Box component="form" onSubmit={handleSubmit(formSubmitHandler)} noValidate sx={{ mt: 1 }}>
@@ -180,7 +183,7 @@ const Login: FC = () => {
 
         <Divider sx={{ mt: 3 }} />
 
-        <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+        <Button color="secondary" type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
           Login
         </Button>
         <Collapse in={failedLogin}>
