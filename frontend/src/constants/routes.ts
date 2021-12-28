@@ -25,8 +25,10 @@ import ExpiredRestoreAccountToken from '../pages/restore-account/tokens/expired-
 import AccountAlreadyRemoved from '../pages/restore-account/tokens/account-already-removed';
 import Tasks from '../pages/tasks';
 import Templates from '../pages/templates';
+import Home from '../pages/home';
 
 export const ROUTES = {
+  HOME: '/home',
   LOGIN: '/login',
   REGISTER: '/register',
   LOGOUT: '/logout',
@@ -64,6 +66,12 @@ export interface RouteDescription {
 }
 
 export const APP_ROUTES: RouteDescription[] = [
+  {
+    path: ROUTES.HOME,
+    element: Home,
+    authenticated: true,
+    menu: true,
+  },
   {
     path: ROUTES.LOGIN,
     element: Login,

@@ -1,5 +1,14 @@
 import { Role } from '../api/requests/shared.types';
-import { AccountCircle, Cached, Groups, History, Logout, SvgIconComponent, UploadFile } from '@mui/icons-material';
+import {
+  AccountCircle,
+  Cached,
+  Groups,
+  History,
+  Home,
+  Logout,
+  SvgIconComponent,
+  UploadFile,
+} from '@mui/icons-material';
 import { ROUTES } from './routes';
 
 export interface NavigationItemDescription {
@@ -10,6 +19,12 @@ export interface NavigationItemDescription {
 }
 
 export const NAVIGATION_ITEMS: NavigationItemDescription[] = [
+  {
+    path: ROUTES.HOME,
+    name: 'Home',
+    roles: [Role.UNVERIFIED_USER, Role.VERIFIED_USER, Role.ADMIN],
+    icon: Home,
+  },
   {
     path: ROUTES.USER_PROFILE,
     name: 'Profile',
