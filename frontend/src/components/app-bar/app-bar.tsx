@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import * as React from 'react';
 import { FC } from 'react';
 import AppBarBase from './base/app-bar-base';
+import { theme } from '../../styles/theme';
 
 interface AppBarProps {
   header?: string;
@@ -26,9 +27,20 @@ const AppBar: FC<AppBarProps> = ({
         aria-label="open drawer"
         onClick={handleDrawerOpened}
         edge="start"
-        sx={{ marginRight: '36px', ...(opened && { display: 'none' }) }}
+        sx={{
+          marginLeft: '-9px',
+          marginRight: '36px',
+          ...(opened && { display: 'none' }),
+          pt: '12px',
+          pb: '12px',
+          '&:hover': {
+            '& .icon': {
+              color: theme.palette.secondary.main,
+            },
+          },
+        }}
       >
-        <MenuIcon fontSize="large" />
+        <MenuIcon sx={{ fontSize: '195%' }} className="icon" fontSize="large" />
       </IconButton>
       <Typography variant="h6" noWrap component="div">
         {header}

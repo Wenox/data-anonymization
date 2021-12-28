@@ -9,6 +9,7 @@ import { Role } from '../../../api/requests/shared.types';
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
 import { theme } from '../../../styles/theme';
+import Divider from '@mui/material/Divider';
 
 interface NavigationContentProps {
   role: Role;
@@ -18,30 +19,41 @@ interface NavigationContentProps {
 const NavigationContent: FC<NavigationContentProps> = ({ role, color }) => {
   const navigate = useNavigate();
 
-  console.log('theme: ' + JSON.stringify(theme, null, 2));
-
   return (
     <List>
       {NAVIGATION_ITEMS.filter(({ roles }) => roles.includes(role)).map(({ path, name, icon }) => {
         const Icon = icon;
         return (
-          <ListItem
-            sx={{
-              '&:hover': {
-                '& .icon': {
-                  color: theme.palette.secondary.main,
+          <>
+            <Divider />
+            <ListItem
+              sx={{
+                pt: '12px',
+                pb: '12px',
+                '&:hover': {
+                  '& .icon': {
+                    color: theme.palette.secondary.main,
+                  },
                 },
-              },
-            }}
-            button
-            key={path}
-            onClick={(e) => navigate(path)}
-          >
-            <ListItemIcon>
-              <Icon className="icon" fontSize="large" sx={{ color: color }} />
-            </ListItemIcon>
-            <ListItemText primary={name} />
-          </ListItem>
+              }}
+              button
+              key={path}
+              onClick={(e) => navigate(path)}
+            >
+              <ListItemIcon>
+                <Icon className="icon" sx={{ fontSize: '400%', color: color }} />
+              </ListItemIcon>
+              <ListItemText
+                sx={{ ml: '18px' }}
+                primaryTypographyProps={{
+                  style: {
+                    fontSize: '140%',
+                  },
+                }}
+                primary={name}
+              />
+            </ListItem>
+          </>
         );
       })}
     </List>

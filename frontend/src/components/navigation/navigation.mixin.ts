@@ -1,6 +1,6 @@
 import { CSSObject, Theme } from '@mui/material/styles';
 
-export const navigationWidth = 200;
+export const navigationWidth = 250;
 
 export const navigationOpenedMixin = (theme: Theme): CSSObject => ({
   width: navigationWidth,
@@ -8,9 +8,9 @@ export const navigationOpenedMixin = (theme: Theme): CSSObject => ({
 });
 
 export const navigationClosedMixin = (theme: Theme): CSSObject => ({
-  width: `calc(${theme.spacing(7)} + 1px)`,
+  width: `calc(${theme.spacing(7)} + 28px)`,
   [theme.breakpoints.up('sm')]: {
-    width: `calc(${theme.spacing(9)} + 1px)`,
+    width: `calc(${theme.spacing(9)} + 28px)`,
   },
   overflowX: 'hidden',
 });

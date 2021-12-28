@@ -1,29 +1,23 @@
 import { FC } from 'react';
 import IconButton from '@mui/material/IconButton';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NavigationHeaderBase from './navigation-header-base';
 import * as React from 'react';
-import { useTheme } from '@mui/material/styles';
+import { KeyboardDoubleArrowLeft } from '@mui/icons-material';
+import { theme } from '../../../styles/theme';
 
 const NavigationHeader: FC<{ handleDrawerClosed: () => void }> = ({ handleDrawerClosed }) => {
-  const theme = useTheme();
   return (
     <NavigationHeaderBase>
       <IconButton onClick={handleDrawerClosed}>
-        {theme.direction === 'rtl' ? (
-          <ChevronRightIcon fontSize="large" />
-        ) : (
-          <ChevronLeftIcon
-            fontSize="large"
-            sx={{
-              color: '#212121',
-              '&:hover': {
-                color: '#dd2c00',
-              },
-            }}
-          />
-        )}
+        <KeyboardDoubleArrowLeft
+          sx={{
+            fontSize: '200%',
+            color: theme.palette.primary.main,
+            '&:hover': {
+              color: theme.palette.secondary.main,
+            },
+          }}
+        />
       </IconButton>
     </NavigationHeaderBase>
   );

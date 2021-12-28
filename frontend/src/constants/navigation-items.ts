@@ -1,5 +1,5 @@
 import { Role } from '../api/requests/shared.types';
-import { AccountCircle, Cached, Groups, History, Logout, SvgIconComponent } from '@mui/icons-material';
+import { AccountCircle, Cached, Groups, History, Logout, SvgIconComponent, UploadFile } from '@mui/icons-material';
 import { ROUTES } from './routes';
 
 export interface NavigationItemDescription {
@@ -21,6 +21,12 @@ export const NAVIGATION_ITEMS: NavigationItemDescription[] = [
     name: 'Users',
     roles: [Role.ADMIN],
     icon: Groups,
+  },
+  {
+    path: ROUTES.TEMPLATES,
+    name: 'Templates',
+    roles: [Role.ADMIN, Role.VERIFIED_USER],
+    icon: UploadFile,
   },
   {
     path: ROUTES.TASKS,

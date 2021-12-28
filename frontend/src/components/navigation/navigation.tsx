@@ -29,7 +29,7 @@ const Navigation = ({ children }: React.PropsWithChildren<{}>) => {
       <NavigationBase variant="permanent" open={opened}>
         <NavigationHeader handleDrawerClosed={handleDrawerClosed} />
         <NavigationContent role={me!.role} color={color} />
-        <Divider />
+        <Divider sx={{ mt: '-8px' }} />
       </NavigationBase>
       <Box
         component="main"
