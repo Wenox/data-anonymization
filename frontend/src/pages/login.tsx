@@ -24,6 +24,7 @@ import { Role } from '../api/requests/shared.types';
 import { ROUTES } from '../constants/routes';
 import { ExitToApp } from '@mui/icons-material';
 import { useTheme } from '@mui/styles';
+import { theme } from '../styles/theme';
 
 interface IFormInputs {
   email: string;
@@ -113,9 +114,9 @@ const Login: FC = () => {
       component="main"
       sx={{
         backgroundColor: '#fff',
-        border: '1px solid #212121',
+        border: `1px solid ${theme.palette.primary.main}`,
+        boxShadow: `4px 4px 0px ${theme.palette.primary.dark}`,
         borderRadius: '2px',
-        boxShadow: '4px 4px 0px #000000',
         pt: 2,
         pb: 3,
         mt: 20,

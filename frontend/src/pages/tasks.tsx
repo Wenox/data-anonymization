@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import { useState } from 'react';
 import ConfirmDialog from '../components/task/ConfirmDialog';
 import Typography from '@mui/material/Typography';
+import { theme } from '../styles/theme';
 
 const Tasks = () => {
   const { data, isLoading, isRefetching } = useQuery('tasks', getTasks);
@@ -129,14 +130,14 @@ const Tasks = () => {
       component="main"
       sx={{
         backgroundColor: '#fff',
-        border: '1px solid #212121',
+        border: `1px solid ${theme.palette.primary.main}`,
+        boxShadow: `4px 4px 0px ${theme.palette.primary.dark}`,
         pt: 2,
         pb: 3,
         borderRadius: '2px',
-        boxShadow: '4px 4px 0px #000000',
       }}
     >
-      <Typography variant="h2" sx={{ color: '#dd2c00', mb: 2 }}>
+      <Typography color="secondary" variant="h2" sx={{ mb: 2 }}>
         Tasks
       </Typography>
       {open && <ConfirmDialog open={open} handleCancel={handleCloseDialog} handleConfirm={handleConfirm} />}

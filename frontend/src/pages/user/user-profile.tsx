@@ -143,7 +143,7 @@ const UserProfile: FC = () => {
         boxShadow: '4px 4px 0px #000000',
       }}
     >
-      <Typography variant="h2" sx={{ color: '#dd2c00', mb: 2 }}>
+      <Typography color="secondary" variant="h2" sx={{ mb: 2 }}>
         User Profile
       </Typography>
       {isRemoveAccountInitialDialogOpen && (

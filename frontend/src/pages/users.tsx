@@ -12,6 +12,7 @@ import RemoveUser from '../components/user/remove-user';
 import VerifyUser from '../components/user/verify-user';
 import { postConfirmVerifyMail } from '../api/requests/verify-mail/verify-mail.requests';
 import Typography from '@mui/material/Typography';
+import { theme } from '../styles/theme';
 
 const Users = () => {
   const { data, isLoading, refetch, isRefetching } = useQuery('users', getUsers);
@@ -224,14 +225,14 @@ const Users = () => {
       component="main"
       sx={{
         backgroundColor: '#fff',
-        border: '1px solid #212121',
+        border: `1px solid ${theme.palette.primary.main}`,
+        boxShadow: `4px 4px 0px ${theme.palette.primary.dark}`,
         borderRadius: '2px',
-        boxShadow: '4px 4px 0px #000000',
         pt: 2,
         pb: 3,
       }}
     >
-      <Typography variant="h2" sx={{ color: '#dd2c00', mb: 2 }}>
+      <Typography color="secondary" variant="h2" sx={{ mb: 2 }}>
         Users
       </Typography>
       <DataGrid autoHeight columns={columns} rows={users} loading={isLoading || isRefetching} />
