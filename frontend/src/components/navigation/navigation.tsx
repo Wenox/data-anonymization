@@ -35,7 +35,7 @@ const Navigation = ({ children }: React.PropsWithChildren<{}>) => {
         component="main"
         sx={{
           flexGrow: 1,
-          mt: 12,
+          mt: 13,
           ml: '32px',
           mr: '32px',
         }}
