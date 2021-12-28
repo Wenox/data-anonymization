@@ -21,7 +21,7 @@ const Main: FC = () => {
   }, [setMe]);
 
   return (
-    <Container maxWidth="xl" id="app-container">
+    <>
       {!isLoading && (
         <>
           <CssBaseline />
@@ -31,7 +31,7 @@ const Main: FC = () => {
           </Routes>
         </>
       )}
-    </Container>
+    </>
   );
 };
 

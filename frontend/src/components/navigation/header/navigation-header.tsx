@@ -11,7 +11,19 @@ const NavigationHeader: FC<{ handleDrawerClosed: () => void }> = ({ handleDrawer
   return (
     <NavigationHeaderBase>
       <IconButton onClick={handleDrawerClosed}>
-        {theme.direction === 'rtl' ? <ChevronRightIcon fontSize="large" /> : <ChevronLeftIcon fontSize="large" />}
+        {theme.direction === 'rtl' ? (
+          <ChevronRightIcon fontSize="large" />
+        ) : (
+          <ChevronLeftIcon
+            fontSize="large"
+            sx={{
+              color: '#212121',
+              '&:hover': {
+                color: '#dd2c00',
+              },
+            }}
+          />
+        )}
       </IconButton>
     </NavigationHeaderBase>
   );

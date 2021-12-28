@@ -34,6 +34,12 @@ const useStyles = makeStyles({
       backgroundColor: '#dd0000',
     },
   },
+  buttonDark: {
+    backgroundColor: '#212121',
+    '&:hover': {
+      backgroundColor: '#000000',
+    },
+  },
 });
 
 const UserProfile: FC = () => {
@@ -129,15 +135,17 @@ const UserProfile: FC = () => {
     <Container
       component="main"
       sx={{
-        border: '1px solid #a30000',
-        boxShadow: '6px 6px 0px #dd2c00',
-        backgroundColor: 'white',
-        mt: 6,
-        display: 'flex',
-        flexDirection: 'column',
+        backgroundColor: '#fff',
+        border: '1px solid #212121',
+        pt: 2,
+        pb: 3,
+        borderRadius: '2px',
+        boxShadow: '4px 4px 0px #000000',
       }}
-      maxWidth="md"
     >
+      <Typography color="secondary" variant="h2" sx={{ mb: 2 }}>
+        User Profile
+      </Typography>
       {isRemoveAccountInitialDialogOpen && (
         <RemoveMyAccountDialog
           open={isRemoveAccountInitialDialogOpen}
@@ -155,10 +163,6 @@ const UserProfile: FC = () => {
           handleClose={handleCloseRemoveFinalAccountDialog}
         />
       )}
-
-      <Typography sx={{ pt: 3, pb: 3 }} component="h3" variant="h3">
-        User profile
-      </Typography>
 
       <Divider sx={{ mb: 3 }} />
 
@@ -256,7 +260,7 @@ const UserProfile: FC = () => {
           )}
           <Grid item xs={12}>
             <Divider />
-            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: -1 }}>
+            <Button type="submit" className={classes.buttonDark} fullWidth variant="contained" sx={{ mt: 3, mb: -1 }}>
               Save changes
             </Button>
           </Grid>
@@ -266,7 +270,6 @@ const UserProfile: FC = () => {
               fullWidth
               variant="contained"
               className={classes.button}
-              sx={{ mb: 4 }}
             >
               Delete account
             </Button>

@@ -7,6 +7,8 @@ import * as React from 'react';
 import { FC } from 'react';
 import { Role } from '../../../api/requests/shared.types';
 import { useNavigate } from 'react-router-dom';
+import { useTheme } from '@mui/material/styles';
+import { theme } from '../../../styles/theme';
 
 interface NavigationContentProps {
   role: Role;
@@ -15,14 +17,28 @@ interface NavigationContentProps {
 
 const NavigationContent: FC<NavigationContentProps> = ({ role, color }) => {
   const navigate = useNavigate();
+
+  console.log('theme: ' + JSON.stringify(theme, null, 2));
+
   return (
     <List>
       {NAVIGATION_ITEMS.filter(({ roles }) => roles.includes(role)).map(({ path, name, icon }) => {
         const Icon = icon;
         return (
-          <ListItem button key={path} onClick={(e) => navigate(path)}>
+          <ListItem
+            sx={{
+              '&:hover': {
+                '& .icon': {
+                  color: theme.palette.secondary.main,
+                },
+              },
+            }}
+            button
+            key={path}
+            onClick={(e) => navigate(path)}
+          >
             <ListItemIcon>
-              <Icon fontSize="large" sx={{ color: color }} />
+              <Icon className="icon" fontSize="large" sx={{ color: color }} />
             </ListItemIcon>
             <ListItemText primary={name} />
           </ListItem>

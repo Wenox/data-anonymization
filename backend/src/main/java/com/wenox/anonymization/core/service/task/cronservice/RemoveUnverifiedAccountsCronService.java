@@ -1,4 +1,4 @@
-package com.wenox.anonymization.core.service.removeaccount.cron;
+package com.wenox.anonymization.core.service.task.cronservice;
 
 import com.wenox.anonymization.core.domain.User;
 import com.wenox.anonymization.core.domain.UserStatus;
@@ -14,12 +14,24 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RemoveUnverifiedAccountsCronService {
+public class RemoveUnverifiedAccountsCronService implements CronService {
 
   private static final Logger log = LoggerFactory.getLogger(RemoveUnverifiedAccountsCronService.class);
 
   @Value("${core.removeUnverifiedAccounts.removeAfterTimeInSeconds}")
   private Long removeAfter;
+
+  @Value("${core.removeUnverifiedAccounts.cron}")
+  private String cronExpression;
+
+  @Value("${core.removeUnverifiedAccounts.scheduled}")
+  private boolean isScheduled;
+
+  @Value("${core.removeUnverifiedAccounts.executable}")
+  private boolean isExecutable;
+
+  @Value("${core.removeUnverifiedAccounts.description}")
+  private String description;
 
   private final UserRepository userRepository;
 
@@ -27,8 +39,9 @@ public class RemoveUnverifiedAccountsCronService {
     this.userRepository = userRepository;
   }
 
+  @Override
   @Scheduled(cron = "${core.removeUnverifiedAccounts.cron}")
-  public void removeUnverifiedAccounts() {
+  public void execute() {
     log.info("Started removing unverified accounts...");
 
     List<User> candidates = userRepository.findAllByVerifiedFalseAndForceRemovalFalseAndStatusNot(UserStatus.REMOVED);
@@ -42,5 +55,25 @@ public class RemoveUnverifiedAccountsCronService {
     userRepository.saveAll(removedUsers);
 
     log.info("Successfully removed {} unverified accounts.", removedUsers.size());
+  }
+
+  @Override
+  public boolean isScheduled() {
+    return isScheduled;
+  }
+
+  @Override
+  public boolean isExecutable() {
+    return isExecutable;
+  }
+
+  @Override
+  public String getDescription() {
+    return description;
+  }
+
+  @Override
+  public String getCronExpression() {
+    return cronExpression;
   }
 }

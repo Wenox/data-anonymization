@@ -31,7 +31,15 @@ const Navigation = ({ children }: React.PropsWithChildren<{}>) => {
         <NavigationContent role={me!.role} color={color} />
         <Divider />
       </NavigationBase>
-      <Box component="main" sx={{ flexGrow: 1, pt: 6 }}>
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          mt: 12,
+          ml: '32px',
+          mr: '32px',
+        }}
+      >
         {children}
       </Box>
     </Box>

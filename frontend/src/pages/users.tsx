@@ -1,7 +1,6 @@
 import { useQuery } from 'react-query';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import '../styles/users.scss';
-import { IconButton } from '@mui/material';
+import { Container, IconButton } from '@mui/material';
 import { Edit } from '@mui/icons-material';
 import { User } from '../api/requests/users/users.types';
 import { getUsers, putBlockUser, putForceUserRemoval, putUnblockUser } from '../api/requests/users/users.requests';
@@ -12,6 +11,8 @@ import { toast } from 'react-toastify';
 import RemoveUser from '../components/user/remove-user';
 import VerifyUser from '../components/user/verify-user';
 import { postConfirmVerifyMail } from '../api/requests/verify-mail/verify-mail.requests';
+import Typography from '@mui/material/Typography';
+import { theme } from '../styles/theme';
 
 const Users = () => {
   const { data, isLoading, refetch, isRefetching } = useQuery('users', getUsers);
@@ -219,12 +220,23 @@ const Users = () => {
   ];
 
   return (
-    <>
-      <div id="user-registration">
-        <h1>Users</h1>
-        <DataGrid autoHeight columns={columns} rows={users} loading={isLoading || isRefetching} />
-      </div>
-    </>
+    <Container
+      maxWidth={false}
+      component="main"
+      sx={{
+        backgroundColor: '#fff',
+        border: `1px solid ${theme.palette.primary.main}`,
+        boxShadow: `4px 4px 0px ${theme.palette.primary.dark}`,
+        borderRadius: '2px',
+        pt: 2,
+        pb: 3,
+      }}
+    >
+      <Typography color="secondary" variant="h2" sx={{ mb: 2 }}>
+        Users
+      </Typography>
+      <DataGrid autoHeight columns={columns} rows={users} loading={isLoading || isRefetching} />
+    </Container>
   );
 };
 
