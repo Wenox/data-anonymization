@@ -1,5 +1,5 @@
 import { ChangeEvent, FC, useState } from 'react';
-import { Box, Button, Container, IconButton, LinearProgress, Typography } from '@mui/material';
+import { Box, Button, Container, Divider, IconButton, LinearProgress, MenuItem, Typography } from '@mui/material';
 import { Cancel, Check, Error } from '@mui/icons-material';
 import { postCreateTemplate } from '../api/requests/templates/templates.requests';
 import * as yup from 'yup';
@@ -8,16 +8,19 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import TextField from '@mui/material/TextField';
 import { theme } from '../styles/theme';
 import { toast } from 'react-toastify';
+import { MAX_FILE_SIZE } from '../constants/file';
 
 interface IFormInputs {
   title: string;
+  type: string;
 }
 
 const schema = yup.object().shape({
   title: yup.string().required('Title is required'),
+  type: yup.string().required('Type is required'),
 });
 
-interface FileError {
+export interface FileError {
   display: boolean;
   message: string;
 }
@@ -29,6 +32,7 @@ const Templates: FC = () => {
   const [isUploading, setIsUploading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [saveDisabled, setSaveDisabled] = useState(false);
 
   const {
     handleSubmit,
@@ -40,7 +44,7 @@ const Templates: FC = () => {
     if (file == null) {
       setFileError({ display: true, message: 'You must select a template file!' });
       return;
-    } else if (file.size > 1024 * 1024 * 10) {
+    } else if (file.size > MAX_FILE_SIZE) {
       setFileError({ display: true, message: 'File must not be larger than 10 MB!' });
       setIsFileSelected(false);
       setFile(null);
@@ -51,8 +55,11 @@ const Templates: FC = () => {
 
     const formData = new FormData();
     formData.append('file', file);
+    Object.entries(data).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
 
-    handlePostCreateTemplate(formData, 'PSQL');
+    handlePostCreateTemplate(formData);
   };
 
   const handleFileCancel = () => {
@@ -73,11 +80,11 @@ const Templates: FC = () => {
 
   const handleUploadProgress = (progressEvent?: any) => setProgress((progressEvent.loaded / progressEvent.total) * 100);
 
-  const handlePostCreateTemplate = (formData: FormData, type: string) => {
+  const handlePostCreateTemplate = (formData: FormData) => {
     setIsSuccess(false);
     setIsUploading(true);
 
-    postCreateTemplate(formData, type, 'title', handleUploadProgress)
+    postCreateTemplate(formData, handleUploadProgress)
       .then((response) => {
         if (response.status === 202) {
           setTimeout(() => {
@@ -86,6 +93,7 @@ const Templates: FC = () => {
             setIsSuccess(true);
             setIsUploading(false);
             setIsFileSelected(false);
+            setSaveDisabled(true);
           }, 500);
           toast.success('Success.', {
             position: 'top-right',
@@ -129,7 +137,9 @@ const Templates: FC = () => {
           New template
         </Typography>
 
-        <Box component="form" onSubmit={handleSubmit(formSubmitHandler)} noValidate sx={{ mt: 1 }}>
+        <Divider sx={{ mt: 2, mb: 2 }} />
+
+        <Box component="form" onSubmit={handleSubmit(formSubmitHandler)} noValidate>
           <Controller
             name="title"
             control={control}
@@ -151,7 +161,37 @@ const Templates: FC = () => {
             )}
           />
 
-          <Box sx={{ height: '120px' }}>
+          <Controller
+            name="type"
+            control={control}
+            defaultValue="PSQL"
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label="Type"
+                select
+                variant="outlined"
+                error={!!errors.type}
+                helperText={errors.type ? errors.type?.message : ''}
+                margin="normal"
+                required
+                fullWidth
+                id="type"
+                name="type"
+                autoComplete="type"
+              >
+                <MenuItem key={'PSQL'} value={'PSQL'}>
+                  PostgreSQL
+                </MenuItem>
+                <MenuItem key={'MYSQL'} value={'MYSQL'}>
+                  MySQL
+                </MenuItem>
+              </TextField>
+            )}
+          />
+
+          <Divider sx={{ mt: 2, mb: 2 }} />
+          <Box sx={{ mt: 4, height: '120px' }}>
             <Button
               disabled={isFileSelected}
               color="primary"
@@ -201,7 +241,7 @@ const Templates: FC = () => {
               )}
             </Box>
           </Box>
-          <Button color="secondary" type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
+          <Button disabled={saveDisabled} color="secondary" type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
             Save
           </Button>
         </Box>

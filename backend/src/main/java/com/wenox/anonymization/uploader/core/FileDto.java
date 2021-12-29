@@ -3,20 +3,20 @@ package com.wenox.anonymization.uploader.core;
 import java.io.IOException;
 import org.springframework.web.multipart.MultipartFile;
 
-public class FileDTO {
+public class FileDto {
 
   private byte[] bytes;
   private String originalFileName;
   private String contentType;
 
-  private FileDTO(byte[] bytes, String originalFileName, String contentType) {
+  private FileDto(byte[] bytes, String originalFileName, String contentType) {
     this.bytes = bytes;
     this.originalFileName = originalFileName;
     this.contentType = contentType;
   }
 
-  public static FileDTO from(MultipartFile multipartFile) throws IOException {
-    return new FileDTO(multipartFile.getBytes(), multipartFile.getOriginalFilename(), multipartFile.getContentType());
+  public static FileDto from(MultipartFile multipartFile) throws IOException {
+    return new FileDto(multipartFile.getBytes(), multipartFile.getOriginalFilename(), multipartFile.getContentType());
   }
 
   public byte[] getBytes() {

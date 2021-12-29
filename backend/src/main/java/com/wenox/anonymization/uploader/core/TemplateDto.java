@@ -1,0 +1,42 @@
+package com.wenox.anonymization.uploader.core;
+
+import com.wenox.anonymization.core.domain.FileType;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import org.springframework.web.multipart.MultipartFile;
+
+class TemplateDto {
+
+  @NotNull
+  private MultipartFile file;
+
+  @NotNull
+  private FileType type;
+
+  @NotEmpty
+  private String title;
+
+  public MultipartFile getFile() {
+    return file;
+  }
+
+  public void setFile(MultipartFile file) {
+    this.file = file;
+  }
+
+  public FileType getType() {
+    return type;
+  }
+
+  public void setType(FileType type) {
+    this.type = type;
+  }
+
+  public String getTitle() {
+    return title;
+  }
+
+  public void setTitle(String title) {
+    this.title = title;
+  }
+}
