@@ -62,7 +62,7 @@ const Templates: FC = () => {
       <br />
       <br />
 
-      <Box id="upload-box">
+      <Box sx={{ height: '85px' }}>
         <Button
           disabled={isFileSelected}
           color="secondary"
