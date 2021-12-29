@@ -122,7 +122,7 @@ const Templates: FC = () => {
   return (
     <>
       <Container
-        maxWidth={false}
+        maxWidth={'lg'}
         component="main"
         sx={{
           backgroundColor: '#fff',
@@ -191,7 +191,7 @@ const Templates: FC = () => {
           />
 
           <Divider sx={{ mt: 2, mb: 2 }} />
-          <Box sx={{ mt: 4, height: '120px' }}>
+          <Box sx={{ mt: 4, height: '90px' }}>
             <Button
               disabled={isFileSelected}
               color="primary"
@@ -241,7 +241,7 @@ const Templates: FC = () => {
               )}
             </Box>
           </Box>
-          <Button disabled={saveDisabled} color="secondary" type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
+          <Button disabled={saveDisabled} color="secondary" type="submit" variant="contained" sx={{ mt: 3 }}>
             Save
           </Button>
         </Box>
