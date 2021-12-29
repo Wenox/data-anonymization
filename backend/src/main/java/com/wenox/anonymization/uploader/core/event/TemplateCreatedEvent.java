@@ -1,14 +1,14 @@
 package com.wenox.anonymization.uploader.core.event;
 
-import com.wenox.anonymization.uploader.core.FileDTO;
+import com.wenox.anonymization.uploader.core.FileDto;
 import com.wenox.anonymization.uploader.core.Template;
 
 public class TemplateCreatedEvent {
 
   private final Template template;
-  private final FileDTO fileDTO;
+  private final FileDto fileDTO;
 
-  public TemplateCreatedEvent(Template template, FileDTO fileDTO) {
+  public TemplateCreatedEvent(Template template, FileDto fileDTO) {
     this.template = template;
     this.fileDTO = fileDTO;
   }
@@ -17,7 +17,7 @@ public class TemplateCreatedEvent {
     return template;
   }
 
-  public FileDTO getFileDTO() {
+  public FileDto getFileDTO() {
     return fileDTO;
   }
 }

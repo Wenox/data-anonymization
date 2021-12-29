@@ -39,6 +39,8 @@ public class Template {
   @Column(columnDefinition = "jsonb")
   private TemplateMetadata metadata;
 
+  private String title;
+
   private String databaseName;
 
   private String description;
@@ -113,5 +115,13 @@ public class Template {
 
   public void setCreatedDate(LocalDateTime createdDate) {
     this.createdDate = createdDate;
+  }
+
+  public String getTitle() {
+    return title;
+  }
+
+  public void setTitle(String title) {
+    this.title = title;
   }
 }
