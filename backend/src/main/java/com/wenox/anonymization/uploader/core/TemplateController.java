@@ -5,6 +5,7 @@ import com.wenox.anonymization.uploader.extractor.metadata.TemplateMetadata;
 import java.io.IOException;
 import java.util.UUID;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,8 +26,10 @@ public class TemplateController {
 
   @PostMapping
   public ResponseEntity<UUID> create(@RequestParam("file") MultipartFile multipartFile,
-                                     @RequestParam("type") FileType type) throws IOException {
-    final UUID uuid = templateService.createFrom(FileDTO.from(multipartFile), type);
+                                     @RequestParam("type") FileType type,
+                                     @RequestParam("title") String title,
+                                     Authentication auth) throws IOException {
+    final UUID uuid = templateService.createFrom(FileDTO.from(multipartFile), type, title, auth);
     return ResponseEntity.accepted().body(uuid);
   }
 
