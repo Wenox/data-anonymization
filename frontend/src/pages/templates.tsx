@@ -10,7 +10,8 @@ import { theme } from '../styles/theme';
 import { toast } from 'react-toastify';
 import { MAX_FILE_SIZE } from '../constants/file';
 import { useNavigate } from 'react-router-dom';
-import { FILE_UPLOADER_TIMEOUT, SHOW_TEMPLATE_PROCESSING_TIMEOUT } from '../constants/timeouts';
+import { FILE_UPLOADER_TIMEOUT, SHOW_TEMPLATE_GENERATION_STEPS_TIMEOUT } from '../constants/timeouts';
+import { ROUTES } from '../constants/routes';
 
 interface IFormInputs {
   title: string;
@@ -108,8 +109,8 @@ const Templates: FC = () => {
             progress: undefined,
           });
           setTimeout(
-            () => navigate(`/templates/processing/new?template_id=${response.data}`),
-            SHOW_TEMPLATE_PROCESSING_TIMEOUT,
+            () => navigate(`${ROUTES.TEMPLATES_GENERATING_NEW}?template_id=${response.data}`),
+            SHOW_TEMPLATE_GENERATION_STEPS_TIMEOUT,
           );
         }
       })

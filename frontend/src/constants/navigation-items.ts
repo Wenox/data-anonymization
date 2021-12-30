@@ -38,8 +38,8 @@ export const NAVIGATION_ITEMS: NavigationItemDescription[] = [
     icon: Groups,
   },
   {
-    path: ROUTES.TEMPLATES,
-    name: 'Templates',
+    path: ROUTES.TEMPLATES_GENERATE,
+    name: 'New template',
     roles: [Role.ADMIN, Role.VERIFIED_USER],
     icon: UploadFile,
   },

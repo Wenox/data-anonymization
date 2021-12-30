@@ -1,45 +1,46 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useCallback, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { getTemplateStatus } from '../../../api/requests/templates/templates.requests';
 import TemplateGenerationBase from '../../../components/template/template-generation-base';
-import { TEMPLATE_PROCESSING_STEP_TIMEOUT } from '../../../constants/timeouts';
+import { TEMPLATE_GENERATION_STEP_TIMEOUT } from '../../../constants/timeouts';
 import { TemplateGenerationStatus } from '../../../components/template/template-generation-base.types';
+import { ROUTES } from '../../../constants/routes';
 
 const TemplateGenerationNew: FC = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const id: string = searchParams.get('template_id') ?? '';
 
-  const refetch = () => {
+  const refetch = useCallback(() => {
     getTemplateStatus(id).then((response) => {
       const status = response.data;
       if (status === 'NEW') {
         setTimeout(() => {
           refetch();
-        }, TEMPLATE_PROCESSING_STEP_TIMEOUT);
+        }, TEMPLATE_GENERATION_STEP_TIMEOUT);
       } else if (status === 'UPLOAD_FAILURE') {
         setTimeout(() => {
-          navigate(`/templates/processing/error?error_id=upload_failure&template_id=${id}`);
-        }, TEMPLATE_PROCESSING_STEP_TIMEOUT);
+          navigate(`${ROUTES.TEMPLATES_GENERATING_ERROR}?error_id=upload_failure&template_id=${id}`);
+        }, TEMPLATE_GENERATION_STEP_TIMEOUT);
       } else if (status === 'RESTORE_FAILURE') {
         setTimeout(() => {
-          navigate(`/templates/processing/error?error_id=restore_failure&template_id=${id}`);
-        }, TEMPLATE_PROCESSING_STEP_TIMEOUT);
+          navigate(`${ROUTES.TEMPLATES_GENERATING_ERROR}?error_id=restore_failure&template_id=${id}`);
+        }, TEMPLATE_GENERATION_STEP_TIMEOUT);
       } else if (status === 'METADATA_FAILURE') {
         setTimeout(() => {
-          navigate(`/templates/processing/error?error_id=metadata_failure&template_id=${id}`);
-        }, TEMPLATE_PROCESSING_STEP_TIMEOUT);
+          navigate(`${ROUTES.TEMPLATES_GENERATING_ERROR}?error_id=metadata_failure&template_id=${id}`);
+        }, TEMPLATE_GENERATION_STEP_TIMEOUT);
       } else {
         setTimeout(() => {
-          navigate(`/templates/processing/upload-success?template_id=${id}`);
-        }, TEMPLATE_PROCESSING_STEP_TIMEOUT);
+          navigate(`${ROUTES.TEMPLATES_GENERATING_UPLOAD_SUCCESS}?template_id=${id}`);
+        }, TEMPLATE_GENERATION_STEP_TIMEOUT);
       }
     });
-  };
+  }, [id, navigate]);
 
   useEffect(() => {
     refetch();
-  }, [id]);
+  }, [id, refetch]);
 
   return (
     <TemplateGenerationBase
