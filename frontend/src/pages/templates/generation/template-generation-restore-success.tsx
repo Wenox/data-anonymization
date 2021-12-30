@@ -1,10 +1,11 @@
 import React, { FC, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { getTemplateStatus } from '../../../api/requests/templates/templates.requests';
-import TemplateProcessingBase from '../../../components/template/template-processing-base';
+import TemplateGenerationBase from '../../../components/template/template-generation-base';
 import { TEMPLATE_PROCESSING_STEP_TIMEOUT } from '../../../constants/timeouts';
+import { TemplateGenerationStatus } from '../../../components/template/template-generation-base.types';
 
-const TemplateProcessingUploadSuccess: FC = () => {
+const TemplateGenerationRestoreSuccess: FC = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const id: string = searchParams.get('template_id') ?? '';
@@ -13,8 +14,9 @@ const TemplateProcessingUploadSuccess: FC = () => {
     getTemplateStatus(id).then((response) => {
       const status = response.data;
       console.log('status: ', status);
-      if (status === 'UPLOAD_SUCCESS') {
+      if (status === 'RESTORE_SUCCESS') {
         setTimeout(() => {
+          console.log('refetch in 1000ms because still RESTORE_SUCCESS');
           refetch();
         }, TEMPLATE_PROCESSING_STEP_TIMEOUT);
       } else if (status === 'UPLOAD_FAILURE') {
@@ -31,7 +33,7 @@ const TemplateProcessingUploadSuccess: FC = () => {
         }, TEMPLATE_PROCESSING_STEP_TIMEOUT);
       } else {
         setTimeout(() => {
-          navigate(`/templates/processing/restore-success?template_id=${id}`);
+          navigate(`/templates/processing/success?template_id=${id}`);
         }, TEMPLATE_PROCESSING_STEP_TIMEOUT);
       }
     });
@@ -41,7 +43,15 @@ const TemplateProcessingUploadSuccess: FC = () => {
     refetch();
   }, [id]);
 
-  return <TemplateProcessingBase step1={'success'} step2={'inprogress'} step3={'waiting'} />;
+  return (
+    <TemplateGenerationBase
+      steps={{
+        step1: TemplateGenerationStatus.SUCCESS,
+        step2: TemplateGenerationStatus.SUCCESS,
+        step3: TemplateGenerationStatus.PROGRESS,
+      }}
+    />
+  );
 };
 
-export default TemplateProcessingUploadSuccess;
+export default TemplateGenerationRestoreSuccess;

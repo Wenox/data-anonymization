@@ -1,64 +1,21 @@
-import React, { FC, useEffect, useState } from 'react';
-import { CircularProgress, Container, Divider, Grid, IconButton } from '@mui/material';
+import React, { FC } from 'react';
+import { Container, Divider, Grid } from '@mui/material';
 import { theme } from '../../styles/theme';
 import Typography from '@mui/material/Typography';
-import { useSearchParams } from 'react-router-dom';
-import { getTemplateStatus } from '../../api/requests/templates/templates.requests';
-import { toast } from 'react-toastify';
-import {
-  Block,
-  Cancel,
-  Check,
-  CheckCircle,
-  CheckCircleOutline,
-  DoneOutline,
-  ErrorOutline,
-  ErrorOutlineOutlined,
-  HourglassTopOutlined,
-} from '@mui/icons-material';
 import Button from '@mui/material/Button';
+import { getStepIconFromStatus, getStepMessageFromStatus } from './template-generation-base.utils';
+import { Steps, TemplateGenerationStatus } from './template-generation-base.types';
 
-interface TemplateProcessingBaseProps {
+interface TemplateGenerationBaseProps {
   header?: string;
-  step1: string;
-  step2: string;
-  step3: string;
+  steps: Steps;
 }
 
-const getIconFromStatus = (status: string) => {
-  if (status === 'inprogress') {
-    return <CircularProgress color="secondary" size="6rem" sx={{ animationDuration: '0.8s' }} />;
-  } else if (status === 'success') {
-    return <CheckCircleOutline color="success" sx={{ fontSize: '600%' }} />;
-  } else if (status === 'error') {
-    return <ErrorOutlineOutlined color="error" sx={{ fontSize: '600%' }} />;
-  } else if (status === 'waiting') {
-    return <HourglassTopOutlined color={'disabled'} sx={{ fontSize: '600%' }} />;
-  } else if (status === 'cancelled') {
-    return <Block color="secondary" sx={{ fontSize: '600%' }} />;
-  }
-};
-
-const getMessageFromStatus = (status: string) => {
-  if (status === 'inprogress') {
-    return 'Loading...';
-  } else if (status === 'success') {
-    return 'Success';
-  } else if (status === 'error') {
-    return 'Error';
-  } else if (status === 'waiting') {
-    return 'Waiting';
-  } else if (status === 'cancelled') {
-    return 'Cancelled';
-  }
-};
-
-const TemplateProcessingBase: FC<TemplateProcessingBaseProps> = ({
+const TemplateGenerationBase: FC<TemplateGenerationBaseProps> = ({
   header = 'Generating template',
-  step1,
-  step2,
-  step3,
-}: TemplateProcessingBaseProps) => {
+  steps,
+}: TemplateGenerationBaseProps) => {
+  const { step1, step2, step3 } = steps;
   return (
     <Container
       maxWidth={'lg'}
@@ -87,10 +44,10 @@ const TemplateProcessingBase: FC<TemplateProcessingBaseProps> = ({
               <h2 style={{ color: theme.palette.primary.main }}>Persist dump file</h2>
             </Grid>
             <Grid item xs={12} textAlign="center">
-              {getIconFromStatus(step1)}
+              {getStepIconFromStatus(step1)}
             </Grid>
             <Grid item xs={12} textAlign="center">
-              <h2>{getMessageFromStatus(step1)}</h2>
+              <h2>{getStepMessageFromStatus(step1)}</h2>
             </Grid>
           </Grid>
         </Grid>
@@ -111,10 +68,10 @@ const TemplateProcessingBase: FC<TemplateProcessingBaseProps> = ({
               <h2 style={{ color: theme.palette.primary.main }}>Restore database</h2>
             </Grid>
             <Grid item xs={12} textAlign="center">
-              {getIconFromStatus(step2)}
+              {getStepIconFromStatus(step2)}
             </Grid>
             <Grid item xs={12} textAlign="center">
-              <h2>{getMessageFromStatus(step2)}</h2>
+              <h2>{getStepMessageFromStatus(step2)}</h2>
             </Grid>
           </Grid>
         </Grid>
@@ -128,10 +85,10 @@ const TemplateProcessingBase: FC<TemplateProcessingBaseProps> = ({
               <h2 style={{ color: theme.palette.primary.main }}>Extract metadata</h2>
             </Grid>
             <Grid item xs={12} textAlign="center">
-              {getIconFromStatus(step3)}
+              {getStepIconFromStatus(step3)}
             </Grid>
             <Grid item xs={12} textAlign="center">
-              <h2>{getMessageFromStatus(step3)}</h2>
+              <h2>{getStepMessageFromStatus(step3)}</h2>
             </Grid>
           </Grid>
         </Grid>
@@ -139,7 +96,13 @@ const TemplateProcessingBase: FC<TemplateProcessingBaseProps> = ({
       <Divider sx={{ mt: 2 }} />
       <Grid container spacing={2} marginY={1}>
         <Grid item xs={6} textAlign="center">
-          <Button disabled={step3 !== 'success'} color="secondary" onClick={() => {}} variant="contained" fullWidth>
+          <Button
+            disabled={step3 !== TemplateGenerationStatus.SUCCESS}
+            color="secondary"
+            onClick={() => {}}
+            variant="contained"
+            fullWidth
+          >
             Produce new worksheet
           </Button>
         </Grid>
@@ -158,4 +121,4 @@ const TemplateProcessingBase: FC<TemplateProcessingBaseProps> = ({
   );
 };
 
-export default TemplateProcessingBase;
+export default TemplateGenerationBase;

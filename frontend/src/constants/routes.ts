@@ -26,12 +26,12 @@ import AccountAlreadyRemoved from '../pages/restore-account/tokens/account-alrea
 import Tasks from '../pages/tasks';
 import Templates from '../pages/templates';
 import Home from '../pages/home';
-import TemplateProcessingNew from '../pages/templates/processing/template-processing-new';
-import TemplateProcessingUploadSuccess from '../pages/templates/processing/template-processing-upload-success';
-import TemplateProcessingRestoreSuccess from '../pages/templates/processing/template-processing-restore-success';
-import TemplateProcessingSuccess from '../pages/templates/processing/template-processing-success';
-import TemplateProcessingError from '../pages/templates/processing/template-processing-error';
-import TemplateProcessingBase from '../components/template/template-processing-base';
+import TemplateGenerationNew from '../pages/templates/generation/template-generation-new';
+import TemplateGenerationUploadSuccess from '../pages/templates/generation/template-generation-upload-success';
+import TemplateGenerationRestoreSuccess from '../pages/templates/generation/template-generation-restore-success';
+import TemplateGenerationSuccess from '../pages/templates/generation/template-generation-success';
+import TemplateGenerationError from '../pages/templates/generation/template-generation-error';
+import TemplateGenerationBase from '../components/template/template-generation-base';
 
 export const ROUTES = {
   HOME: '/home',
@@ -85,7 +85,7 @@ export const APP_ROUTES: RouteDescription[] = [
   },
   {
     path: '/base',
-    element: TemplateProcessingBase,
+    element: TemplateGenerationBase,
     authenticated: true,
     menu: true,
   },
@@ -127,31 +127,31 @@ export const APP_ROUTES: RouteDescription[] = [
   },
   {
     path: ROUTES.TEMPLATES_PROCESSING_NEW,
-    element: TemplateProcessingNew,
+    element: TemplateGenerationNew,
     authenticated: true,
     menu: true,
   },
   {
     path: ROUTES.TEMPLATES_PROCESSING_UPLOAD_SUCCESS,
-    element: TemplateProcessingUploadSuccess,
+    element: TemplateGenerationUploadSuccess,
     authenticated: true,
     menu: true,
   },
   {
     path: ROUTES.TEMPLATES_PROCESSING_RESTORE_SUCCESS,
-    element: TemplateProcessingRestoreSuccess,
+    element: TemplateGenerationRestoreSuccess,
     authenticated: true,
     menu: true,
   },
   {
     path: ROUTES.TEMPLATES_PROCESSING_SUCCESS,
-    element: TemplateProcessingSuccess,
+    element: TemplateGenerationSuccess,
     authenticated: true,
     menu: true,
   },
   {
     path: ROUTES.TEMPLATES_PROCESSING_ERROR,
-    element: TemplateProcessingError,
+    element: TemplateGenerationError,
     authenticated: true,
     menu: true,
   },

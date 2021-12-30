@@ -1,15 +1,43 @@
 import React, { FC, useEffect } from 'react';
-import TemplateProcessingBase from '../../../components/template/template-processing-base';
+import TemplateGenerationBase from '../../../components/template/template-generation-base';
 import { useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { TemplateGenerationStatus } from '../../../components/template/template-generation-base.types';
 
-const getTemplateProcessingBaseFromErrorId = (errorId: string | null) => {
+const getTemplateGenerationBaseFromErrorId = (errorId: string | null) => {
   if (errorId === 'upload_failure') {
-    return <TemplateProcessingBase step1={'error'} step2={'cancelled'} step3={'cancelled'} />;
+    return (
+      <TemplateGenerationBase
+        header="Error"
+        steps={{
+          step1: TemplateGenerationStatus.ERROR,
+          step2: TemplateGenerationStatus.CANCELLED,
+          step3: TemplateGenerationStatus.CANCELLED,
+        }}
+      />
+    );
   } else if (errorId === 'restore_failure') {
-    return <TemplateProcessingBase step1={'success'} step2={'error'} step3={'cancelled'} />;
+    return (
+      <TemplateGenerationBase
+        header="Error"
+        steps={{
+          step1: TemplateGenerationStatus.SUCCESS,
+          step2: TemplateGenerationStatus.ERROR,
+          step3: TemplateGenerationStatus.CANCELLED,
+        }}
+      />
+    );
   } else if (errorId === 'metadata_failure') {
-    return <TemplateProcessingBase step1={'success'} step2={'success'} step3={'error'} />;
+    return (
+      <TemplateGenerationBase
+        header="Error"
+        steps={{
+          step1: TemplateGenerationStatus.SUCCESS,
+          step2: TemplateGenerationStatus.SUCCESS,
+          step3: TemplateGenerationStatus.ERROR,
+        }}
+      />
+    );
   } else {
     return <h1>No such error</h1>;
   }
@@ -27,7 +55,7 @@ const getToastMessageFromErrorId = (errorId: string | null) => {
   }
 };
 
-const TemplateProcessingError: FC = () => {
+const TemplateGenerationError: FC = () => {
   const [searchParams] = useSearchParams();
   const errorId = searchParams.get('error_id');
 
@@ -44,7 +72,7 @@ const TemplateProcessingError: FC = () => {
     });
   });
 
-  return getTemplateProcessingBaseFromErrorId(errorId);
+  return getTemplateGenerationBaseFromErrorId(errorId);
 };
 
-export default TemplateProcessingError;
+export default TemplateGenerationError;

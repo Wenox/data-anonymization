@@ -1,23 +1,20 @@
 import React, { FC, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { getTemplateStatus } from '../../../api/requests/templates/templates.requests';
-import TemplateProcessingBase from '../../../components/template/template-processing-base';
+import TemplateGenerationBase from '../../../components/template/template-generation-base';
 import { TEMPLATE_PROCESSING_STEP_TIMEOUT } from '../../../constants/timeouts';
+import { TemplateGenerationStatus } from '../../../components/template/template-generation-base.types';
 
-const TemplateProcessingNew: FC = () => {
+const TemplateGenerationNew: FC = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const id: string = searchParams.get('template_id') ?? '';
 
-  console.log('extracted id: ', id);
-
   const refetch = () => {
     getTemplateStatus(id).then((response) => {
       const status = response.data;
-      console.log('status: ', status);
       if (status === 'NEW') {
         setTimeout(() => {
-          console.log('refetch in 1000ms because still NEW');
           refetch();
         }, TEMPLATE_PROCESSING_STEP_TIMEOUT);
       } else if (status === 'UPLOAD_FAILURE') {
@@ -44,7 +41,15 @@ const TemplateProcessingNew: FC = () => {
     refetch();
   }, [id]);
 
-  return <TemplateProcessingBase step1={'inprogress'} step2={'waiting'} step3={'waiting'} />;
+  return (
+    <TemplateGenerationBase
+      steps={{
+        step1: TemplateGenerationStatus.PROGRESS,
+        step2: TemplateGenerationStatus.WAITING,
+        step3: TemplateGenerationStatus.WAITING,
+      }}
+    />
+  );
 };
 
-export default TemplateProcessingNew;
+export default TemplateGenerationNew;
