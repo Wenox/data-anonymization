@@ -97,7 +97,7 @@ const Templates: FC = () => {
             setIsFileSelected(false);
             setSaveDisabled(true);
           }, 500);
-          toast.success('Success.', {
+          toast.success('Generating a new template.', {
             position: 'top-right',
             autoClose: 5000,
             hideProgressBar: false,

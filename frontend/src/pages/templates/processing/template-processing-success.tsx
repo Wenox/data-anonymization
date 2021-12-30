@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 const TemplateProcessingSuccess: FC = () => {
   useEffect(() => {
-    toast.success('Template ready to use. You can produce a new worksheet with now.', {
+    toast.success('The template is ready to produce new worksheets.', {
       position: 'top-right',
       autoClose: 5000,
       hideProgressBar: false,

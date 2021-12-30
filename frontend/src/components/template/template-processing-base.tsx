@@ -54,7 +54,7 @@ const getMessageFromStatus = (status: string) => {
 };
 
 const TemplateProcessingBase: FC<TemplateProcessingBaseProps> = ({
-  header = 'Processing new template',
+  header = 'Generating new template',
   step1,
   step2,
   step3,
@@ -145,7 +145,7 @@ const TemplateProcessingBase: FC<TemplateProcessingBaseProps> = ({
         </Grid>
         <Grid item xs={6} textAlign="center">
           <Button color="primary" onClick={() => {}} variant="contained" fullWidth>
-            Generate new template
+            Generate another template
           </Button>
         </Grid>
         <Grid item xs={12}>
