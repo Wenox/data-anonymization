@@ -4,7 +4,7 @@ import { useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { TemplateGenerationStatus } from '../../../components/template/template-generation-base.types';
 
-const getTemplateGenerationBaseFromErrorId = (errorId: string | null) => {
+const getTemplateGenerationBaseFromErrorId = (errorId: string) => {
   if (errorId === 'upload_failure') {
     return (
       <TemplateGenerationBase
@@ -43,7 +43,7 @@ const getTemplateGenerationBaseFromErrorId = (errorId: string | null) => {
   }
 };
 
-const getToastMessageFromErrorId = (errorId: string | null) => {
+const getToastMessageFromErrorId = (errorId: string) => {
   if (errorId === 'upload_failure') {
     return 'Failed to generate a new template.\n\nCould not store the dump file on a server.';
   } else if (errorId === 'restore_failure') {
@@ -57,7 +57,7 @@ const getToastMessageFromErrorId = (errorId: string | null) => {
 
 const TemplateGenerationError: FC = () => {
   const [searchParams] = useSearchParams();
-  const errorId = searchParams.get('error_id');
+  const errorId = searchParams.get('error_id') ?? '';
 
   useEffect(() => {
     toast.error(getToastMessageFromErrorId(errorId), {

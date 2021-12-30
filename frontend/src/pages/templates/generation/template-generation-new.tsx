@@ -11,36 +11,37 @@ const TemplateGenerationNew: FC = () => {
   const [searchParams] = useSearchParams();
   const id: string = searchParams.get('template_id') ?? '';
 
-  const refetch = useCallback(() => {
+  const handleNextState = (status: string) =>
+    setTimeout(() => {
+      switch (status) {
+        case 'NEW':
+          handleFetch();
+          break;
+        case 'UPLOAD_FAILURE':
+          navigate(`${ROUTES.TEMPLATES_GENERATING_ERROR}?error_id=upload_failure&template_id=${id}`);
+          break;
+        case 'RESTORE_FAILURE':
+          navigate(`${ROUTES.TEMPLATES_GENERATING_ERROR}?error_id=restore_failure&template_id=${id}`);
+          break;
+        case 'METADATA_FAILURE':
+          navigate(`${ROUTES.TEMPLATES_GENERATING_ERROR}?error_id=metadata_failure&template_id=${id}`);
+          break;
+        default:
+          navigate(`${ROUTES.TEMPLATES_GENERATING_UPLOAD_SUCCESS}?template_id=${id}`);
+          break;
+      }
+    }, TEMPLATE_GENERATION_STEP_TIMEOUT);
+
+  const handleFetch = useCallback(() => {
     getTemplateStatus(id).then((response) => {
       const status = response.data;
-      if (status === 'NEW') {
-        setTimeout(() => {
-          refetch();
-        }, TEMPLATE_GENERATION_STEP_TIMEOUT);
-      } else if (status === 'UPLOAD_FAILURE') {
-        setTimeout(() => {
-          navigate(`${ROUTES.TEMPLATES_GENERATING_ERROR}?error_id=upload_failure&template_id=${id}`);
-        }, TEMPLATE_GENERATION_STEP_TIMEOUT);
-      } else if (status === 'RESTORE_FAILURE') {
-        setTimeout(() => {
-          navigate(`${ROUTES.TEMPLATES_GENERATING_ERROR}?error_id=restore_failure&template_id=${id}`);
-        }, TEMPLATE_GENERATION_STEP_TIMEOUT);
-      } else if (status === 'METADATA_FAILURE') {
-        setTimeout(() => {
-          navigate(`${ROUTES.TEMPLATES_GENERATING_ERROR}?error_id=metadata_failure&template_id=${id}`);
-        }, TEMPLATE_GENERATION_STEP_TIMEOUT);
-      } else {
-        setTimeout(() => {
-          navigate(`${ROUTES.TEMPLATES_GENERATING_UPLOAD_SUCCESS}?template_id=${id}`);
-        }, TEMPLATE_GENERATION_STEP_TIMEOUT);
-      }
+      handleNextState(status);
     });
   }, [id, navigate]);
 
   useEffect(() => {
-    refetch();
-  }, [id, refetch]);
+    handleFetch();
+  }, [id, handleFetch]);
 
   return (
     <TemplateGenerationBase

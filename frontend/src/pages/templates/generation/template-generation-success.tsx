@@ -15,6 +15,7 @@ const TemplateGenerationSuccess: FC = () => {
       progress: undefined,
     });
   });
+
   return (
     <TemplateGenerationBase
       header="Template ready to use"
