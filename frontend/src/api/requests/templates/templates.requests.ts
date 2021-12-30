@@ -8,3 +8,7 @@ export const postCreateTemplate = (formData: FormData, handleUploadProgress: (pr
     onUploadProgress: handleUploadProgress,
   });
 };
+
+export const getTemplateStatus = (id: string) => {
+  return axios.get<string>(`/api/v1/templates/${id}/status`);
+};

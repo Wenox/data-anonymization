@@ -9,6 +9,7 @@ import TextField from '@mui/material/TextField';
 import { theme } from '../styles/theme';
 import { toast } from 'react-toastify';
 import { MAX_FILE_SIZE } from '../constants/file';
+import { useNavigate } from 'react-router-dom';
 
 interface IFormInputs {
   title: string;
@@ -26,6 +27,7 @@ export interface FileError {
 }
 
 const Templates: FC = () => {
+  const navigate = useNavigate();
   const [file, setFile] = useState<any>();
   const [fileError, setFileError] = useState<FileError>({ display: false, message: '' });
   const [isFileSelected, setIsFileSelected] = useState(false);
@@ -104,6 +106,8 @@ const Templates: FC = () => {
             draggable: true,
             progress: undefined,
           });
+          console.log('response: ', response);
+          setTimeout(() => navigate(`/templates/processing/new?template_id=${response.data}`), 1000);
         }
       })
       .catch((err) =>
@@ -138,8 +142,9 @@ const Templates: FC = () => {
         </Typography>
 
         <Divider sx={{ mt: 2, mb: 2 }} />
+        <h3 style={{ color: `${theme.palette.primary.light}` }}>Description</h3>
 
-        <Box component="form" onSubmit={handleSubmit(formSubmitHandler)} noValidate>
+        <Box component="form" onSubmit={handleSubmit(formSubmitHandler)} noValidate sx={{ mt: -2 }}>
           <Controller
             name="title"
             control={control}
@@ -191,7 +196,9 @@ const Templates: FC = () => {
           />
 
           <Divider sx={{ mt: 2, mb: 2 }} />
-          <Box sx={{ mt: 4, height: '90px' }}>
+          <h3 style={{ color: `${theme.palette.primary.light}` }}>Dump</h3>
+
+          <Box sx={{ mt: 2, height: '90px' }}>
             <Button
               disabled={isFileSelected}
               color="primary"
@@ -205,7 +212,7 @@ const Templates: FC = () => {
               component="label"
               sx={{ pl: 6, pr: 6 }}
             >
-              Select file
+              Choose database dump file
               <input onChange={handleFileChange} type="file" hidden />
             </Button>
             {file && (
@@ -235,14 +242,15 @@ const Templates: FC = () => {
                 </Typography>
               </Box>
             )}
-            <Box width="180px">
+            <Box width="306px">
               {isUploading && (
                 <LinearProgress sx={{ height: '8px' }} color="primary" variant="determinate" value={progress} />
               )}
             </Box>
           </Box>
-          <Button disabled={saveDisabled} color="secondary" type="submit" variant="contained" sx={{ mt: 3 }}>
-            Save
+          <Divider sx={{ mt: 2 }} />
+          <Button disabled={saveDisabled} color="secondary" type="submit" variant="contained" fullWidth sx={{ mt: 3 }}>
+            Generate template
           </Button>
         </Box>
       </Container>

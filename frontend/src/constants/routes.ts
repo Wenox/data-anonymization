@@ -26,6 +26,12 @@ import AccountAlreadyRemoved from '../pages/restore-account/tokens/account-alrea
 import Tasks from '../pages/tasks';
 import Templates from '../pages/templates';
 import Home from '../pages/home';
+import TemplateProcessingNew from '../pages/templates/processing/template-processing-new';
+import TemplateProcessingUploadSuccess from '../pages/templates/processing/template-processing-upload-success';
+import TemplateProcessingRestoreSuccess from '../pages/templates/processing/template-processing-restore-success';
+import TemplateProcessingSuccess from '../pages/templates/processing/template-processing-success';
+import TemplateProcessingError from '../pages/templates/processing/template-processing-error';
+import TemplateProcessingBase from '../components/template/template-processing-base';
 
 export const ROUTES = {
   HOME: '/home',
@@ -35,6 +41,11 @@ export const ROUTES = {
   USER_PROFILE: '/user-profile',
   TASKS: '/tasks',
   TEMPLATES: '/templates',
+  TEMPLATES_PROCESSING_NEW: '/templates/processing/new',
+  TEMPLATES_PROCESSING_UPLOAD_SUCCESS: '/templates/processing/upload-success',
+  TEMPLATES_PROCESSING_RESTORE_SUCCESS: '/templates/processing/restore-success',
+  TEMPLATES_PROCESSING_SUCCESS: '/templates/processing/success',
+  TEMPLATES_PROCESSING_ERROR: '/templates/processing/error',
   USERS: '/users',
   ABOUT: '/about',
   RESET_PASSWORD: '/reset-password',
@@ -60,7 +71,7 @@ export const ROUTES = {
 
 export interface RouteDescription {
   path: string;
-  element: React.FunctionComponent;
+  element: React.FunctionComponent | any;
   authenticated: boolean;
   menu: boolean;
 }
@@ -69,6 +80,12 @@ export const APP_ROUTES: RouteDescription[] = [
   {
     path: ROUTES.HOME,
     element: Home,
+    authenticated: true,
+    menu: true,
+  },
+  {
+    path: '/base',
+    element: TemplateProcessingBase,
     authenticated: true,
     menu: true,
   },
@@ -105,6 +122,36 @@ export const APP_ROUTES: RouteDescription[] = [
   {
     path: ROUTES.TEMPLATES,
     element: Templates,
+    authenticated: true,
+    menu: true,
+  },
+  {
+    path: ROUTES.TEMPLATES_PROCESSING_NEW,
+    element: TemplateProcessingNew,
+    authenticated: true,
+    menu: true,
+  },
+  {
+    path: ROUTES.TEMPLATES_PROCESSING_UPLOAD_SUCCESS,
+    element: TemplateProcessingUploadSuccess,
+    authenticated: true,
+    menu: true,
+  },
+  {
+    path: ROUTES.TEMPLATES_PROCESSING_RESTORE_SUCCESS,
+    element: TemplateProcessingRestoreSuccess,
+    authenticated: true,
+    menu: true,
+  },
+  {
+    path: ROUTES.TEMPLATES_PROCESSING_SUCCESS,
+    element: TemplateProcessingSuccess,
+    authenticated: true,
+    menu: true,
+  },
+  {
+    path: ROUTES.TEMPLATES_PROCESSING_ERROR,
+    element: TemplateProcessingError,
     authenticated: true,
     menu: true,
   },
