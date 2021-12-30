@@ -25,9 +25,9 @@ export const navigationOpenedMixinSmooth = (theme: Theme): CSSObject => ({
 });
 
 export const navigationClosedMixinSmooth = (theme: Theme): CSSObject => ({
-  width: `calc(${theme.spacing(7)} + 1px)`,
+  width: `calc(${theme.spacing(7)} + 28px)`,
   [theme.breakpoints.up('sm')]: {
-    width: `calc(${theme.spacing(9)} + 1px)`,
+    width: `calc(${theme.spacing(9)} + 28px)`,
   },
   overflowX: 'hidden',
   transition: theme.transitions.create('width', {
