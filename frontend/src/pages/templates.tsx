@@ -212,7 +212,7 @@ const Templates: FC = () => {
               component="label"
               sx={{ pl: 6, pr: 6 }}
             >
-              Choose database dump file
+              Select database file
               <input onChange={handleFileChange} type="file" hidden />
             </Button>
             {file && (
