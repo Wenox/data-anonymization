@@ -40,7 +40,7 @@ const AppBar: FC<AppBarProps> = ({
           },
         }}
       >
-        <MenuIcon sx={{ fontSize: '195%' }} className="icon" fontSize="large" />
+        <MenuIcon sx={{ fontSize: '160%' }} className="icon" fontSize="large" />
       </IconButton>
       <Typography variant="h6" noWrap component="div">
         {header}

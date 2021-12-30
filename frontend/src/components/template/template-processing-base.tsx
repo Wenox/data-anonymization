@@ -27,7 +27,7 @@ interface TemplateProcessingBaseProps {
 
 const getIconFromStatus = (status: string) => {
   if (status === 'inprogress') {
-    return <CircularProgress color="secondary" size="6rem" />;
+    return <CircularProgress color="secondary" size="6rem" sx={{ animationDuration: '0.8s' }} />;
   } else if (status === 'success') {
     return <CheckCircleOutline color="success" sx={{ fontSize: '600%' }} />;
   } else if (status === 'error') {
