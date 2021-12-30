@@ -12,6 +12,7 @@ import * as yup from 'yup';
 import Button from '@mui/material/Button';
 import RemoveMyAccountDialog from '../../components/user/remove-my-account-dialog';
 import PasswordConfirmationDialog from '../../components/user/password-confirmation-dialog';
+import { SKELETON_TIMEOUT } from '../../constants/timeouts';
 
 interface IFormInputs {
   email: string;
@@ -75,16 +76,19 @@ const UserProfile: FC = () => {
   const fetchData = () => {
     getMyProfile()
       .then((response) => {
-        setUser(response.data);
-        toast.success('Profile loaded successfully.', {
-          position: 'top-right',
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+        setTimeout(() => {
+          setUser(response.data);
+          setIsLoading(false);
+          toast.success('Profile loaded successfully.', {
+            position: 'top-right',
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        }, SKELETON_TIMEOUT);
       })
       .catch((err) => {
         toast.error('Failed to load the profile.', {
@@ -96,8 +100,8 @@ const UserProfile: FC = () => {
           draggable: true,
           progress: undefined,
         });
-      })
-      .finally(() => setIsLoading(false));
+        setIsLoading(false);
+      });
   };
 
   useEffect(() => {
@@ -171,16 +175,16 @@ const UserProfile: FC = () => {
           {isLoading ? (
             <>
               <Grid item xs={6}>
-                <Skeleton variant="rectangular" height={60} />
+                <Skeleton variant="rectangular" height={60} sx={{ animationDuration: '0.6s', animationDelay: '0s' }} />
               </Grid>
               <Grid item xs={6}>
-                <Skeleton variant="rectangular" height={60} />
+                <Skeleton variant="rectangular" height={60} sx={{ animationDuration: '0.6s', animationDelay: '0s' }} />
               </Grid>
               <Grid item xs={12}>
-                <Skeleton variant="rectangular" height={60} />
+                <Skeleton variant="rectangular" height={60} sx={{ animationDuration: '0.6s', animationDelay: '0s' }} />
               </Grid>
               <Grid item xs={12}>
-                <Skeleton variant="rectangular" height={71} />
+                <Skeleton variant="rectangular" height={68} sx={{ animationDuration: '0.6s', animationDelay: '0s' }} />
               </Grid>
             </>
           ) : (
