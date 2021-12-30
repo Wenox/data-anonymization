@@ -33,7 +33,7 @@ const getIconFromStatus = (status: string) => {
   } else if (status === 'error') {
     return <ErrorOutlineOutlined color="error" sx={{ fontSize: '600%' }} />;
   } else if (status === 'waiting') {
-    return <HourglassTopOutlined color="secondary" sx={{ fontSize: '600%' }} />;
+    return <HourglassTopOutlined color={'disabled'} sx={{ fontSize: '600%' }} />;
   } else if (status === 'cancelled') {
     return <Block color="secondary" sx={{ fontSize: '600%' }} />;
   }
@@ -54,7 +54,7 @@ const getMessageFromStatus = (status: string) => {
 };
 
 const TemplateProcessingBase: FC<TemplateProcessingBaseProps> = ({
-  header = 'Generating new template',
+  header = 'Generating template',
   step1,
   step2,
   step3,
@@ -84,7 +84,7 @@ const TemplateProcessingBase: FC<TemplateProcessingBaseProps> = ({
               <Divider />
             </Grid>
             <Grid item xs={12} textAlign="center">
-              <h2 style={{ color: theme.palette.primary.main }}>Store template</h2>
+              <h2 style={{ color: theme.palette.primary.main }}>Persist dump file</h2>
             </Grid>
             <Grid item xs={12} textAlign="center">
               {getIconFromStatus(step1)}

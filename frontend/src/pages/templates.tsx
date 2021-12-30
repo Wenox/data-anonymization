@@ -10,6 +10,7 @@ import { theme } from '../styles/theme';
 import { toast } from 'react-toastify';
 import { MAX_FILE_SIZE } from '../constants/file';
 import { useNavigate } from 'react-router-dom';
+import { FILE_UPLOADER_TIMEOUT, SHOW_TEMPLATE_PROCESSING_TIMEOUT } from '../constants/timeouts';
 
 interface IFormInputs {
   title: string;
@@ -96,8 +97,8 @@ const Templates: FC = () => {
             setIsUploading(false);
             setIsFileSelected(false);
             setSaveDisabled(true);
-          }, 500);
-          toast.success('Generating a new template.', {
+          }, FILE_UPLOADER_TIMEOUT);
+          toast.success('Successfully started to generate a new template.', {
             position: 'top-right',
             autoClose: 5000,
             hideProgressBar: false,
@@ -106,8 +107,10 @@ const Templates: FC = () => {
             draggable: true,
             progress: undefined,
           });
-          console.log('response: ', response);
-          setTimeout(() => navigate(`/templates/processing/new?template_id=${response.data}`), 1000);
+          setTimeout(
+            () => navigate(`/templates/processing/new?template_id=${response.data}`),
+            SHOW_TEMPLATE_PROCESSING_TIMEOUT,
+          );
         }
       })
       .catch((err) =>
@@ -242,7 +245,7 @@ const Templates: FC = () => {
                 </Typography>
               </Box>
             )}
-            <Box width="306px">
+            <Box width="256px">
               {isUploading && (
                 <LinearProgress sx={{ height: '8px' }} color="primary" variant="determinate" value={progress} />
               )}
