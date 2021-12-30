@@ -139,12 +139,12 @@ const TemplateProcessingBase: FC<TemplateProcessingBaseProps> = ({
       <Divider sx={{ mt: 2 }} />
       <Grid container spacing={2} marginY={1}>
         <Grid item xs={6} textAlign="center">
-          <Button color="primary" onClick={() => {}} variant="contained" fullWidth>
+          <Button disabled={step3 !== 'success'} color="secondary" onClick={() => {}} variant="contained" fullWidth>
             Produce new worksheet
           </Button>
         </Grid>
         <Grid item xs={6} textAlign="center">
-          <Button color="secondary" onClick={() => {}} variant="contained" fullWidth>
+          <Button color="primary" onClick={() => {}} variant="contained" fullWidth>
             Generate new template
           </Button>
         </Grid>
