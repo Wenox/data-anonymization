@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from 'react';
 import TemplateGenerationBase from '../../../components/template/template-generation-base';
 import { toast } from 'react-toastify';
-import { TemplateGenerationStatus } from '../../../components/template/template-generation-base.types';
+import { TemplateGenerationStepStatus } from '../../../components/template/template-generation-base.types';
 
 const TemplateGenerationSuccess: FC = () => {
   useEffect(() => {
@@ -20,9 +20,9 @@ const TemplateGenerationSuccess: FC = () => {
     <TemplateGenerationBase
       header="Template ready to use"
       steps={{
-        step1: TemplateGenerationStatus.SUCCESS,
-        step2: TemplateGenerationStatus.SUCCESS,
-        step3: TemplateGenerationStatus.SUCCESS,
+        step1: TemplateGenerationStepStatus.SUCCESS,
+        step2: TemplateGenerationStepStatus.SUCCESS,
+        step3: TemplateGenerationStepStatus.SUCCESS,
       }}
     />
   );

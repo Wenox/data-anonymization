@@ -3,8 +3,8 @@ import { Container, Divider, Grid } from '@mui/material';
 import { theme } from '../../styles/theme';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import { getStepIconFromStatus, getStepMessageFromStatus } from './template-generation-base.utils';
-import { Steps, TemplateGenerationStatus } from './template-generation-base.types';
+import { getStepIconFromStepStatus, getStepMessageFromStepStatus } from './template-generation-base.utils';
+import { Steps, TemplateGenerationStepStatus } from './template-generation-base.types';
 
 interface TemplateGenerationBaseProps {
   header?: string;
@@ -44,10 +44,10 @@ const TemplateGenerationBase: FC<TemplateGenerationBaseProps> = ({
               <h2 style={{ color: theme.palette.primary.main }}>Persist dump file</h2>
             </Grid>
             <Grid item xs={12} textAlign="center">
-              {getStepIconFromStatus(step1)}
+              {getStepIconFromStepStatus(step1)}
             </Grid>
             <Grid item xs={12} textAlign="center">
-              <h2>{getStepMessageFromStatus(step1)}</h2>
+              <h2>{getStepMessageFromStepStatus(step1)}</h2>
             </Grid>
           </Grid>
         </Grid>
@@ -68,10 +68,10 @@ const TemplateGenerationBase: FC<TemplateGenerationBaseProps> = ({
               <h2 style={{ color: theme.palette.primary.main }}>Restore database</h2>
             </Grid>
             <Grid item xs={12} textAlign="center">
-              {getStepIconFromStatus(step2)}
+              {getStepIconFromStepStatus(step2)}
             </Grid>
             <Grid item xs={12} textAlign="center">
-              <h2>{getStepMessageFromStatus(step2)}</h2>
+              <h2>{getStepMessageFromStepStatus(step2)}</h2>
             </Grid>
           </Grid>
         </Grid>
@@ -85,10 +85,10 @@ const TemplateGenerationBase: FC<TemplateGenerationBaseProps> = ({
               <h2 style={{ color: theme.palette.primary.main }}>Extract metadata</h2>
             </Grid>
             <Grid item xs={12} textAlign="center">
-              {getStepIconFromStatus(step3)}
+              {getStepIconFromStepStatus(step3)}
             </Grid>
             <Grid item xs={12} textAlign="center">
-              <h2>{getStepMessageFromStatus(step3)}</h2>
+              <h2>{getStepMessageFromStepStatus(step3)}</h2>
             </Grid>
           </Grid>
         </Grid>
@@ -97,7 +97,7 @@ const TemplateGenerationBase: FC<TemplateGenerationBaseProps> = ({
       <Grid container spacing={2} marginY={1}>
         <Grid item xs={6} textAlign="center">
           <Button
-            disabled={step3 !== TemplateGenerationStatus.SUCCESS}
+            disabled={step3 !== TemplateGenerationStepStatus.SUCCESS}
             color="secondary"
             onClick={() => {}}
             variant="contained"

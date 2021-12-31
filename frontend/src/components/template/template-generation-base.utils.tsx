@@ -1,35 +1,35 @@
 import { CircularProgress } from '@mui/material';
 import { Block, CheckCircleOutline, ErrorOutlineOutlined, HourglassTopOutlined } from '@mui/icons-material';
 import React from 'react';
-import { TemplateGenerationStatus } from './template-generation-base.types';
+import { TemplateGenerationStepStatus } from './template-generation-base.types';
 import { sxStepIcon, sxStepProgress } from './template-generation-base.styles';
 
-export const getStepIconFromStatus = (status: TemplateGenerationStatus) => {
+export const getStepIconFromStepStatus = (status: TemplateGenerationStepStatus) => {
   switch (status) {
-    case TemplateGenerationStatus.PROGRESS:
+    case TemplateGenerationStepStatus.PROGRESS:
       return <CircularProgress color="secondary" size="6rem" sx={sxStepProgress} />;
-    case TemplateGenerationStatus.SUCCESS:
+    case TemplateGenerationStepStatus.SUCCESS:
       return <CheckCircleOutline color="success" sx={sxStepIcon} />;
-    case TemplateGenerationStatus.ERROR:
+    case TemplateGenerationStepStatus.ERROR:
       return <ErrorOutlineOutlined color="error" sx={sxStepIcon} />;
-    case TemplateGenerationStatus.WAITING:
+    case TemplateGenerationStepStatus.WAITING:
       return <HourglassTopOutlined color={'disabled'} sx={sxStepIcon} />;
-    case TemplateGenerationStatus.CANCELLED:
+    case TemplateGenerationStepStatus.CANCELLED:
       return <Block color="secondary" sx={sxStepIcon} />;
   }
 };
 
-export const getStepMessageFromStatus = (status: TemplateGenerationStatus) => {
+export const getStepMessageFromStepStatus = (status: TemplateGenerationStepStatus) => {
   switch (status) {
-    case TemplateGenerationStatus.PROGRESS:
+    case TemplateGenerationStepStatus.PROGRESS:
       return 'Loading...';
-    case TemplateGenerationStatus.SUCCESS:
+    case TemplateGenerationStepStatus.SUCCESS:
       return 'Success';
-    case TemplateGenerationStatus.ERROR:
+    case TemplateGenerationStepStatus.ERROR:
       return 'Error';
-    case TemplateGenerationStatus.WAITING:
+    case TemplateGenerationStepStatus.WAITING:
       return 'Waiting';
-    case TemplateGenerationStatus.CANCELLED:
+    case TemplateGenerationStepStatus.CANCELLED:
       return 'Cancelled';
   }
 };
