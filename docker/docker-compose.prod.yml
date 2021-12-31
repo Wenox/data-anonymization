@@ -11,7 +11,6 @@ services:
       POSTGRES_PASSWORD: postgres
     volumes:
       - psql_data:/var/lib/postgresql/data
-    restart: always
     tty: true
 
   anonymisation_server:
@@ -23,8 +22,8 @@ services:
     depends_on:
       - anonymisation_postgres_db
     environment:
+      SPRING_PROFILES_ACTIVE: prod
       SPRING_DATASOURCE_URL: jdbc:postgresql://anonymisation_postgres_db:5432/anonymisation_db
-    restart: always
     tty: true
 
   anonymisation_client:

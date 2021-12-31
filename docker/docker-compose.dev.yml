@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+  anonymisation_postgres_db:
+    image: postgres:14.1
+    ports:
+      - '5000:5432'
+    environment:
+      POSTGRES_DB: anonymisation_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - psql_data:/var/lib/postgresql/data
+    tty: true
+
+  anonymisation_server:
+    image: anonymisation_server
+    ports:
+      - '8080:8080'
+    build:
+      context: ../backend
+    depends_on:
+      - anonymisation_postgres_db
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      SPRING_DATASOURCE_URL: jdbc:postgresql://anonymisation_postgres_db:5432/anonymisation_db
+    tty: true
+    profiles: ["server"]
+
+volumes:
+  psql_data:
