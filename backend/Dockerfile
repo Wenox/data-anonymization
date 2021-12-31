@@ -1,5 +1,5 @@
 FROM openjdk:17.0.1-slim
-COPY ../../backend /usr/src/anonymisation_backend
+COPY . /usr/src/anonymisation_backend
 RUN apt-get update --no-install-recommends \
     && apt-get install -y postgresql-client --no-install-recommends \
     && apt-get clean \

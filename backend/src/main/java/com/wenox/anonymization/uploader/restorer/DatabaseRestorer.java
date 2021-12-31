@@ -15,7 +15,7 @@ public class DatabaseRestorer {
   public void restorePostgresDatabase(final String templateName, final String dbName)
       throws IOException, InterruptedException, TimeoutException {
 
-    final String dbPath = templatesPath + templateName;
+    final String dbPath = templatesPath + "/" + templateName;
 
     ProcessExecutorFactory.newProcess("createdb", "-h", "anonymisation_postgres_db", "-U", "postgres", "--no-password", "-T", "template0", dbName).execute();
     ProcessExecutorFactory.newProcess("pg_restore",  "-h", "anonymisation_postgres_db", "-U", "postgres", "--no-password", "-d", dbName, "-v", dbPath).execute();
