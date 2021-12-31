@@ -15,6 +15,7 @@ services:
     tty: true
 
   anonymisation_server:
+    image: anonymisation_server
     ports:
       - '8080:8080'
     build:
@@ -25,6 +26,15 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://anonymisation_postgres_db:5432/anonymisation_db
     restart: always
     tty: true
+
+  anonymisation_client:
+    image: anonymisation_client
+    ports:
+      - 3000:3000
+    build:
+      context: ../frontend
+    depends_on:
+      - anonymisation_server
 
 volumes:
   psql_data:
