@@ -59,12 +59,12 @@ const MyTemplates = () => {
         );
       },
     },
-    { field: 'activeWorksheets', headerName: 'Active worksheets', width: 145 },
     { field: 'title', headerName: 'Title', flex: 1 },
     { field: 'description', headerName: 'Description', flex: 1 },
     { field: 'originalFileName', headerName: 'Dump name', flex: 1 },
-    { field: 'type', headerName: 'Dump type', flex: 1 },
-    { field: 'status', headerName: 'Template status', flex: 1 },
+    { field: 'type', headerName: 'Dump type', width: 95 },
+    { field: 'status', headerName: 'Template status', width: 160 },
+    { field: 'activeWorksheets', headerName: 'Active worksheets', flex: 1 },
     { field: 'createdDate', headerName: 'Created date', width: 160 },
     {
       field: 'metadata',
