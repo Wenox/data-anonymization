@@ -37,9 +37,9 @@ const Tasks = () => {
       headerAlign: 'center',
       renderCell: ({ row }) =>
         row.scheduled ? (
-          <Check fontSize="large" sx={{ color: '#00cc00', marginLeft: '40px' }} />
+          <Check fontSize="large" sx={{ color: '#00ad17', marginLeft: '40px' }} />
         ) : (
-          <Close fontSize="large" sx={{ color: 'red', marginLeft: '40px' }} />
+          <Close fontSize="large" sx={{ color: '#e00000', marginLeft: '40px' }} />
         ),
     },
     {
@@ -51,9 +51,9 @@ const Tasks = () => {
       headerAlign: 'center',
       renderCell: ({ row }) =>
         row.executable ? (
-          <Check fontSize="large" sx={{ color: '#00cc00', marginLeft: '40px' }} />
+          <Check fontSize="large" sx={{ color: '#00ad17', marginLeft: '40px' }} />
         ) : (
-          <Close fontSize="large" sx={{ color: 'red', marginLeft: '40px' }} />
+          <Close fontSize="large" sx={{ color: '#e00000', marginLeft: '40px' }} />
         ),
     },
     { field: 'cronExpression', headerName: 'Cron expression', width: 160 },
@@ -62,7 +62,7 @@ const Tasks = () => {
       headerName: 'Next scheduled execution',
       width: 200,
       renderCell: ({ row }) =>
-        row.nextScheduledExecution || <Close fontSize="large" sx={{ color: 'red', marginLeft: '40px' }} />,
+        row.nextScheduledExecution || <Close fontSize="large" sx={{ color: '#e00000', marginLeft: '40px' }} />,
     },
     {
       field: 'actions',
@@ -74,13 +74,13 @@ const Tasks = () => {
         row.executable ? (
           <div>
             <IconButton onClick={() => handleOpenDialog(row.taskName)}>
-              <PlayCircleOutline fontSize="large" sx={{ color: '#00cc00' }} />
+              <PlayCircleOutline fontSize="large" sx={{ color: '#00ad17' }} />
             </IconButton>
           </div>
         ) : (
           <div>
             <IconButton disabled>
-              <PlayCircleOutline fontSize="large" sx={{ color: 'gray' }} />
+              <PlayCircleOutline fontSize="large" sx={{ color: 'disabled' }} />
             </IconButton>
           </div>
         ),

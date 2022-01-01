@@ -29,6 +29,9 @@ const MyTemplates = () => {
     {
       field: 'worksheet',
       headerName: 'Worksheet actions',
+      headerAlign: 'center',
+      align: 'center',
+      headerClassName: 'data-grid-header',
       width: 360,
       sortable: false,
       filterable: false,
@@ -59,16 +62,74 @@ const MyTemplates = () => {
         );
       },
     },
-    { field: 'title', headerName: 'Title', flex: 1 },
-    { field: 'description', headerName: 'Description', flex: 1 },
-    { field: 'originalFileName', headerName: 'Dump name', flex: 1 },
-    { field: 'type', headerName: 'Dump type', width: 95 },
-    { field: 'status', headerName: 'Template status', width: 160 },
-    { field: 'activeWorksheets', headerName: 'Active worksheets', flex: 1 },
-    { field: 'createdDate', headerName: 'Created date', width: 160 },
     {
+      field: 'title',
+      headerName: 'Title',
+      headerAlign: 'center',
+      align: 'center',
+      headerClassName: 'data-grid-header',
+      flex: 1,
+    },
+    {
+      field: 'description',
+      headerName: 'Description',
+      headerAlign: 'center',
+      align: 'center',
+
+      headerClassName: 'data-grid-header',
+      flex: 1,
+    },
+    {
+      headerClassName: 'data-grid-header',
+      field: 'originalFileName',
+      headerName: 'Dump name',
+      headerAlign: 'center',
+      align: 'center',
+
+      flex: 1,
+    },
+    {
+      headerClassName: 'data-grid-header',
+      field: 'type',
+      headerName: 'Dump type',
+      headerAlign: 'center',
+      align: 'center',
+      width: 95,
+    },
+    {
+      headerClassName: 'data-grid-header',
+      field: 'status',
+      headerName: 'Template status',
+      headerAlign: 'center',
+      align: 'center',
+
+      width: 160,
+    },
+    {
+      headerClassName: 'data-grid-header',
+      field: 'activeWorksheets',
+      headerName: 'Active worksheets',
+      headerAlign: 'center',
+      align: 'center',
+
+      flex: 1,
+    },
+    {
+      headerClassName: 'data-grid-header',
+      field: 'createdDate',
+      headerName: 'Created date',
+      headerAlign: 'center',
+      align: 'center',
+
+      width: 160,
+    },
+    {
+      headerClassName: 'data-grid-header',
       field: 'metadata',
       headerName: 'Metadata',
+      headerAlign: 'center',
+      align: 'center',
+
       width: 240,
       sortable: false,
       filterable: false,
@@ -94,8 +155,11 @@ const MyTemplates = () => {
       },
     },
     {
+      headerClassName: 'data-grid-header',
       field: 'actions',
       headerName: 'Actions',
+      align: 'center',
+
       width: 120,
       sortable: false,
       filterable: false,
@@ -103,10 +167,10 @@ const MyTemplates = () => {
         return (
           <div>
             <IconButton onClick={() => {}}>
-              <Edit fontSize="large" sx={{ color: 'blue' }} />
+              <Edit fontSize="large" sx={{ color: '#7f00b5' }} />
             </IconButton>
             <IconButton onClick={() => {}}>
-              <Delete fontSize="large" sx={{ color: 'red' }} />
+              <Delete fontSize="large" sx={{ color: '#e00000' }} />
             </IconButton>
           </div>
         );

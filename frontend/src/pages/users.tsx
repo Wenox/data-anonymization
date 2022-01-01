@@ -188,7 +188,7 @@ const Users = () => {
         return (
           <div>
             <IconButton onClick={() => {}}>
-              <Edit fontSize="large" sx={{ color: 'blue' }} />
+              <Edit fontSize="large" sx={{ color: '#7f00b5' }} />
             </IconButton>
 
             <VerifyUser
