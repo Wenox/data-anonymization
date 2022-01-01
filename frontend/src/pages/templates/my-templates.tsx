@@ -11,6 +11,7 @@ import MetadataDownloadButton from '../../components/metadata/metadata-download-
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../constants/routes';
 import { Delete, Edit } from '@mui/icons-material';
+import { centeredColumn } from '../../styles/data-table';
 
 const MyTemplates = () => {
   const navigate = useNavigate();
@@ -29,12 +30,10 @@ const MyTemplates = () => {
     {
       field: 'worksheet',
       headerName: 'Worksheet actions',
-      headerAlign: 'center',
-      align: 'center',
-      headerClassName: 'data-grid-header',
       width: 360,
       sortable: false,
       filterable: false,
+      ...centeredColumn(),
       renderCell: ({ row }) => {
         return (
           <>
@@ -65,74 +64,52 @@ const MyTemplates = () => {
     {
       field: 'title',
       headerName: 'Title',
-      headerAlign: 'center',
-      align: 'center',
-      headerClassName: 'data-grid-header',
       flex: 1,
+      ...centeredColumn(),
     },
     {
       field: 'description',
       headerName: 'Description',
-      headerAlign: 'center',
-      align: 'center',
-
-      headerClassName: 'data-grid-header',
       flex: 1,
+      ...centeredColumn(),
     },
     {
-      headerClassName: 'data-grid-header',
       field: 'originalFileName',
       headerName: 'Dump name',
-      headerAlign: 'center',
-      align: 'center',
-
       flex: 1,
+      ...centeredColumn(),
     },
     {
-      headerClassName: 'data-grid-header',
       field: 'type',
       headerName: 'Dump type',
-      headerAlign: 'center',
-      align: 'center',
       width: 95,
+      ...centeredColumn(),
     },
     {
-      headerClassName: 'data-grid-header',
       field: 'status',
       headerName: 'Template status',
-      headerAlign: 'center',
-      align: 'center',
-
       width: 160,
+      ...centeredColumn(),
     },
     {
-      headerClassName: 'data-grid-header',
       field: 'activeWorksheets',
       headerName: 'Active worksheets',
-      headerAlign: 'center',
-      align: 'center',
-
       flex: 1,
+      ...centeredColumn(),
     },
     {
-      headerClassName: 'data-grid-header',
       field: 'createdDate',
       headerName: 'Created date',
-      headerAlign: 'center',
-      align: 'center',
-
       width: 160,
+      ...centeredColumn(),
     },
     {
-      headerClassName: 'data-grid-header',
       field: 'metadata',
       headerName: 'Metadata',
-      headerAlign: 'center',
-      align: 'center',
-
       width: 240,
       sortable: false,
       filterable: false,
+      ...centeredColumn(),
       renderCell: ({ row }) => {
         return (
           <>
@@ -155,14 +132,13 @@ const MyTemplates = () => {
       },
     },
     {
-      headerClassName: 'data-grid-header',
       field: 'actions',
       headerName: 'Actions',
-      align: 'center',
-
       width: 120,
       sortable: false,
       filterable: false,
+      ...centeredColumn(),
+      headerAlign: 'left',
       renderCell: ({ row }) => {
         return (
           <div>

@@ -4,7 +4,7 @@ body {
     'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: url('styles/background.jpg');
+  background-image: url('background.jpg');
 }
 
 code {
@@ -14,10 +14,3 @@ code {
 .Toastify__toast-body {
   white-space: pre-line;
 }
-
-
-.data-grid-header {
-  background: rgba(0, 0, 0, 0.05);
-  font-size: 120%;
-}
-
