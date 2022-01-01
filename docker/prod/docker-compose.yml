@@ -1,0 +1,40 @@
+version: '3.9'
+
+services:
+  anonymisation_postgres_db:
+    image: postgres:${POSTGRES_TAG}
+    ports:
+      - '${POSTGRES_PORTS_MAPPING}'
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:${POSTGRES_DATA_PATH}
+    tty: true
+
+  anonymisation_server:
+    image: anonymisation_server
+    ports:
+      - '${SERVER_PORTS_MAPPING}'
+    build:
+      context: ../../backend
+    depends_on:
+      - anonymisation_postgres_db
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      POSTGRES_IP_ADDRESS: anonymisation_postgres_db
+      SPRING_DATASOURCE_URL: jdbc:postgresql://anonymisation_postgres_db:${POSTGRES_CONTAINER_PORT}/${POSTGRES_DB}
+    tty: true
+
+  anonymisation_client:
+    image: anonymisation_client
+    ports:
+      - '${CLIENT_PORTS_MAPPING}'
+    build:
+      context: ../../frontend
+    depends_on:
+      - anonymisation_server
+
+volumes:
+  postgres_data:

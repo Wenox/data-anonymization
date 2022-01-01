@@ -3,7 +3,14 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/wenox/data-anonymization/badge?s=d2c8e01307501061b8e2190f75b70ecd6b686ecd)](https://www.codefactor.io/repository/github/wenox/data-anonymization)
 
 ## Prerequisites
-- Docker installed
+- Docker installed (production environment only)
+
+## Environments
+- Production
+- Development
+- Local
+
+Environments are configured from `docker/<env>/.env` and `backend/src/main/resources/application-<env>.properties`.
 
 ## Installation
 
@@ -11,18 +18,18 @@
 
 - Start up everything at once:
 ```shell
-cd docker
-docker compose -f docker-compose.prod.yml up
+cd docker/prod
+docker compose up
 ```
 
 This should take at least few minutes.
 
 ### Development environment
 
-- Docker compose for development will start only the PostgreSQL container by default:
+- Docker compose for development environment will start only the PostgreSQL container by default:
 ```shell
-cd docker
-docker compose -f docker-compose.dev.yml up
+cd docker/dev
+docker compose up
 ```
 
 - Start server - this requires JDK 17 to be installed, verify with `java --version`:
@@ -31,10 +38,10 @@ cd backend
 ./mvnw spring-boot:run
 ```
 
-- Alternatively - the server could be run by specifying `server` profile:
+- *Alternatively* - the server can be run by specifying `server` profile:
 ```shell
-cd docker
-docker compose --profile server -f docker-compose.dev.yml up
+cd docker/dev
+docker compose --profile server up
 ```
 
 - Start client - this requires node and yarn to be installed, verify with `node -v` and `yarn -v`:

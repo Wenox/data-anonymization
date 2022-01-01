@@ -8,12 +8,16 @@ import com.wenox.anonymization.uploader.extractor.MetadataExtractor;
 import com.wenox.anonymization.uploader.extractor.metadata.TemplateMetadata;
 import com.wenox.anonymization.uploader.restorer.event.DatabaseRestoreFailureEvent;
 import com.wenox.anonymization.uploader.restorer.event.DatabaseRestoreSuccessEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 @Component
 public class DatabaseRestoredListener {
+
+  private static final Logger log = LoggerFactory.getLogger(DatabaseRestoredListener.class);
 
   private final MetadataExtractor metadataExtractor;
   private final ApplicationEventPublisher publisher;
@@ -38,9 +42,11 @@ public class DatabaseRestoredListener {
     final var template = event.getTemplate();
 
     try {
+      log.info("Starting to extract metadata...");
       final TemplateMetadata metadata = metadataExtractor.extractMetadata(connectionDetails);
       template.setStatus(TemplateStatus.METADATA_READY);
       template.setMetadata(metadata);
+      log.info("Metadata extracted successfully!");
     } catch (final Exception ex) {
       template.setStatus(TemplateStatus.METADATA_FAILURE);
       template.setMetadata(null);
