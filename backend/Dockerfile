@@ -8,4 +8,5 @@ RUN apt-get update --no-install-recommends \
     && chmod 0600 .pgpass
 COPY . /usr/src/anonymisation_backend
 WORKDIR /usr/src/anonymisation_backend
+RUN chmod +x mvnw
 CMD ["./mvnw", "spring-boot:run"]
