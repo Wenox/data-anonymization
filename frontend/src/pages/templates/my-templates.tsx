@@ -1,14 +1,23 @@
 import { useQuery } from 'react-query';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { Container } from '@mui/material';
+import { Button, Container } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { getAllMyTemplates } from '../../api/requests/templates/templates.requests';
 import { MyTemplate } from '../../api/requests/templates/templates.types';
 import { theme } from '../../styles/theme';
+import { useState } from 'react';
+import MetadataDialog from '../../components/metadata/metadata-dialog';
 
 const MyTemplates = () => {
   const { data, isLoading, isRefetching } = useQuery('myTemplates', getAllMyTemplates);
-  const templates: MyTemplate[] = data?.data || [];
+  const templates: MyTemplate[] =
+    data?.data.map((template) => ({
+      ...template,
+      metadata: JSON.stringify(template.metadata, null, 4),
+    })) || [];
+
+  const [isMetadataDialogOpen, setIsMetadataDialogOpen] = useState(false);
+  const [metadata, setMetadata] = useState<any>({});
 
   const columns: GridColDef[] = [
     { field: 'title', headerName: 'Title', flex: 1 },
@@ -17,6 +26,23 @@ const MyTemplates = () => {
     { field: 'status', headerName: 'Template status', flex: 1 },
     { field: 'description', headerName: 'Description', flex: 1 },
     { field: 'createdDate', headerName: 'Created date', flex: 1 },
+    {
+      field: 'metadata',
+      headerName: 'Metadata',
+      flex: 1,
+      renderCell: ({ row }) => {
+        return (
+          <Button
+            onClick={() => {
+              setIsMetadataDialogOpen(true);
+              setMetadata({ content: row.metadata, fileName: row.originalFileName });
+            }}
+          >
+            Show
+          </Button>
+        );
+      },
+    },
   ];
 
   return (
@@ -32,6 +58,13 @@ const MyTemplates = () => {
         borderRadius: '2px',
       }}
     >
+      {isMetadataDialogOpen && (
+        <MetadataDialog
+          metadata={metadata}
+          open={isMetadataDialogOpen}
+          handleClose={() => setIsMetadataDialogOpen(false)}
+        />
+      )}
       <Typography color="secondary" variant="h2" sx={{ mb: 2 }}>
         My templates
       </Typography>
