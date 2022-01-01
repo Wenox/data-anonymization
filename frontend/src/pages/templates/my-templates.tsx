@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { Button, Container } from '@mui/material';
+import { Button, Container, Divider } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { getAllMyTemplates } from '../../api/requests/templates/templates.requests';
 import { MyTemplate } from '../../api/requests/templates/templates.types';
@@ -8,8 +8,11 @@ import { theme } from '../../styles/theme';
 import { useState } from 'react';
 import MetadataDialog from '../../components/metadata/metadata-dialog';
 import MetadataDownloadButton from '../../components/metadata/metadata-download-button';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '../../constants/routes';
 
 const MyTemplates = () => {
+  const navigate = useNavigate();
   const { data, isLoading, isRefetching } = useQuery('myTemplates', getAllMyTemplates);
   const templates: MyTemplate[] =
     data?.data.map((template) => ({
@@ -63,7 +66,7 @@ const MyTemplates = () => {
         border: `1px solid ${theme.palette.primary.main}`,
         boxShadow: `4px 4px 0px ${theme.palette.primary.dark}`,
         pt: 2,
-        pb: 3,
+        pb: 2,
         borderRadius: '2px',
       }}
     >
@@ -78,6 +81,15 @@ const MyTemplates = () => {
         My templates
       </Typography>
       <DataGrid autoHeight columns={columns} rows={templates} loading={isLoading || isRefetching} />
+      <Button
+        sx={{ mt: 2 }}
+        fullWidth
+        color="primary"
+        variant="contained"
+        onClick={() => navigate(ROUTES.TEMPLATES_GENERATE)}
+      >
+        Generate new template
+      </Button>
     </Container>
   );
 };

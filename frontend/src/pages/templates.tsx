@@ -205,7 +205,7 @@ const Templates: FC = () => {
           <Box sx={{ mt: 2, height: '90px' }}>
             <Button
               disabled={isFileSelected}
-              color="primary"
+              color="secondary"
               onDragOver={(e: any) => {
                 e.preventDefault();
               }}
@@ -253,7 +253,7 @@ const Templates: FC = () => {
             </Box>
           </Box>
           <Divider sx={{ mt: 2 }} />
-          <Button disabled={saveDisabled} color="secondary" type="submit" variant="contained" fullWidth sx={{ mt: 3 }}>
+          <Button disabled={saveDisabled} color="primary" type="submit" variant="contained" fullWidth sx={{ mt: 3 }}>
             Generate template
           </Button>
         </Box>
