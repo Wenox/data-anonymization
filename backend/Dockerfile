@@ -1,5 +1,4 @@
 FROM openjdk:17.0.1-slim
-COPY . /usr/src/anonymisation_backend
 RUN apt-get update --no-install-recommends \
     && apt-get install -y postgresql-client --no-install-recommends \
     && apt-get clean \
@@ -7,5 +6,6 @@ RUN apt-get update --no-install-recommends \
     && cd ~ \
     && echo *:*:*:*:postgres > .pgpass \
     && chmod 0600 .pgpass
+COPY . /usr/src/anonymisation_backend
 WORKDIR /usr/src/anonymisation_backend
 CMD ["./mvnw", "spring-boot:run"]

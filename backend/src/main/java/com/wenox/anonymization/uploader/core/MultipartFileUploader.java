@@ -15,9 +15,10 @@ public class MultipartFileUploader implements FileUploader {
   private final FileNameGenerator fileNameGenerator;
   private final FileRepository fileRepository;
 
-  public MultipartFileUploader(final FileNameGenerator fileNameGenerator,
+  public MultipartFileUploader(final TemplateFileStorage fileStorage,
+                               final FileNameGenerator fileNameGenerator,
                                final FileRepository fileRepository) {
-    this.fileStorage = new TemplateFileStorage();
+    this.fileStorage = fileStorage;
     this.fileNameGenerator = fileNameGenerator;
     this.fileRepository = fileRepository;
   }
