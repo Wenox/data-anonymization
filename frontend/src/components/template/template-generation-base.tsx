@@ -5,6 +5,8 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { getStepIconFromStepStatus, getStepMessageFromStepStatus } from './template-generation-base.utils';
 import { Steps, TemplateGenerationStepStatus } from './template-generation-base.types';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '../../constants/routes';
 
 interface TemplateGenerationBaseProps {
   header?: string;
@@ -16,6 +18,7 @@ const TemplateGenerationBase: FC<TemplateGenerationBaseProps> = ({
   steps,
 }: TemplateGenerationBaseProps) => {
   const { step1, step2, step3 } = steps;
+  const navigate = useNavigate();
   return (
     <Container
       maxWidth={'lg'}
@@ -107,13 +110,19 @@ const TemplateGenerationBase: FC<TemplateGenerationBaseProps> = ({
           </Button>
         </Grid>
         <Grid item xs={6} textAlign="center">
-          <Button color="primary" onClick={() => {}} variant="contained" fullWidth>
+          <Button color="primary" onClick={() => navigate(ROUTES.TEMPLATES_GENERATE)} variant="contained" fullWidth>
             Generate another template
           </Button>
         </Grid>
         <Grid item xs={12}>
-          <Button color="primary" onClick={() => {}} fullWidth variant="outlined" sx={{ mt: 0 }}>
-            View all templates
+          <Button
+            color="primary"
+            onClick={() => navigate(ROUTES.MY_TEMPLATES)}
+            fullWidth
+            variant="outlined"
+            sx={{ mt: 0 }}
+          >
+            View my templates
           </Button>
         </Grid>
       </Grid>
