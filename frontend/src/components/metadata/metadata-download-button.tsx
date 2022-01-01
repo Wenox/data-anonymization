@@ -9,7 +9,7 @@ interface MetadataDownloadButtonProps {
 const MetadataDownloadButton: FC<MetadataDownloadButtonProps> = ({ metadata }) => {
   return (
     <Button
-      disabled={metadata == null}
+      disabled={metadata?.content == null}
       sx={{ ml: 0.5 }}
       fullWidth
       type="button"

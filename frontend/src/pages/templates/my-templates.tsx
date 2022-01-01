@@ -22,11 +22,11 @@ const MyTemplates = () => {
 
   const columns: GridColDef[] = [
     { field: 'title', headerName: 'Title', flex: 1 },
+    { field: 'description', headerName: 'Description', flex: 1 },
     { field: 'originalFileName', headerName: 'Dump name', flex: 1 },
     { field: 'type', headerName: 'Dump type', flex: 1 },
     { field: 'status', headerName: 'Template status', flex: 1 },
-    { field: 'description', headerName: 'Description', flex: 1 },
-    { field: 'createdDate', headerName: 'Created date', flex: 1 },
+    { field: 'createdDate', headerName: 'Created date', width: 160 },
     {
       field: 'metadata',
       headerName: 'Metadata',
@@ -47,7 +47,7 @@ const MyTemplates = () => {
             >
               View
             </Button>
-            <MetadataDownloadButton metadata={row.metadata} />
+            <MetadataDownloadButton metadata={{ content: row.metadata, fileName: row.originalFileName }} />
           </>
         );
       },
