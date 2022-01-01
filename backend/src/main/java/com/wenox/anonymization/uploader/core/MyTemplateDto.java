@@ -2,18 +2,19 @@ package com.wenox.anonymization.uploader.core;
 
 import com.wenox.anonymization.core.domain.FileType;
 import com.wenox.anonymization.uploader.extractor.metadata.TemplateMetadata;
-import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.Optional;
 
 public class MyTemplateDto {
 
   private String id;
-  private String originalName;
+  private String originalFileName;
   private TemplateStatus status;
   private FileType type;
   private String title;
   private String description;
-  private LocalDateTime createdDate;
+  private String createdDate;
   private TemplateMetadata metadata;
 
   public static MyTemplateDto from(Template template) {
@@ -24,9 +25,9 @@ public class MyTemplateDto {
     dto.setMetadata(template.getMetadata());
     dto.setTitle(template.getTitle());
     dto.setDescription(template.getDescription());
-    dto.setCreatedDate(template.getCreatedDate());
-    dto.setOriginalName(Optional.ofNullable(template.getTemplateFile())
-        .map(FileEntity::getOriginalName)
+    dto.setCreatedDate(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM).format(template.getCreatedDate()));
+    dto.setOriginalFileName(Optional.ofNullable(template.getTemplateFile())
+        .map(FileEntity::getOriginalFileName)
         .orElse("")
     );
     return dto;
@@ -80,19 +81,19 @@ public class MyTemplateDto {
     this.description = description;
   }
 
-  public LocalDateTime getCreatedDate() {
+  public String getCreatedDate() {
     return createdDate;
   }
 
-  public void setCreatedDate(LocalDateTime createdDate) {
+  public void setCreatedDate(String createdDate) {
     this.createdDate = createdDate;
   }
 
-  public String getOriginalName() {
-    return originalName;
+  public String getOriginalFileName() {
+    return originalFileName;
   }
 
-  public void setOriginalName(String originalName) {
-    this.originalName = originalName;
+  public void setOriginalFileName(String originalFileName) {
+    this.originalFileName = originalFileName;
   }
 }

@@ -42,9 +42,15 @@ public class TemplateController {
     return ResponseEntity.ok(templateService.getMetadata(id));
   }
 
-  @GetMapping
+  @GetMapping("/me")
   @PreAuthorize("hasAnyAuthority('VERIFIED_USER', 'ADMIN')")
   public ResponseEntity<List<MyTemplateDto>> getAllMyTemplates(Authentication auth) {
+    return ResponseEntity.ok(templateService.getAllMyTemplates(auth).stream().map(MyTemplateDto::from).toList());
+  }
+
+  @GetMapping("/me/valid")
+  @PreAuthorize("hasAnyAuthority('VERIFIED_USER', 'ADMIN')")
+  public ResponseEntity<List<MyTemplateDto>> getAllMyValidTemplates(Authentication auth) {
     return ResponseEntity.ok(templateService.getAllMyTemplates(auth).stream().map(MyTemplateDto::from).toList());
   }
 }

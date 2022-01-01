@@ -18,11 +18,11 @@ public class FileEntity {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
-  @Column(name = "saved_name", nullable = false)
-  private String savedName;
+  @Column(name = "saved_file_name", nullable = false)
+  private String savedFileName;
 
-  @Column(name = "original_name")
-  private String originalName;
+  @Column(name = "original_file_name")
+  private String originalFileName;
 
   @Enumerated(EnumType.STRING)
   @Column(name = "type", nullable = true)
@@ -32,20 +32,20 @@ public class FileEntity {
     return id;
   }
 
-  public String getSavedName() {
-    return savedName;
+  public String getSavedFileName() {
+    return savedFileName;
   }
 
-  public void setSavedName(String savedName) {
-    this.savedName = savedName;
+  public void setSavedFileName(String savedFileName) {
+    this.savedFileName = savedFileName;
   }
 
-  public String getOriginalName() {
-    return originalName;
+  public String getOriginalFileName() {
+    return originalFileName;
   }
 
-  public void setOriginalName(String originalName) {
-    this.originalName = originalName;
+  public void setOriginalFileName(String originalFileName) {
+    this.originalFileName = originalFileName;
   }
 
   public FileType getType() {

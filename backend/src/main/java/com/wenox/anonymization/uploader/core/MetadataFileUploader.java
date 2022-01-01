@@ -28,8 +28,8 @@ public class MetadataFileUploader implements FileUploader {
     fileStorage.store(fileData);
 
     final var file = new FileEntity();
-    file.setOriginalName(null);
-    file.setSavedName(metadataFileData.getSavedFileName());
+    file.setOriginalFileName(null);
+    file.setSavedFileName(metadataFileData.getSavedFileName());
     file.setType(null); // todo: consider not null
     return fileRepository.save(file);
   }

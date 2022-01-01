@@ -14,3 +14,8 @@ export interface ApiResponse {
   message: string;
   success: boolean;
 }
+
+export enum FileType {
+  PSQL = 'PSQL',
+  MYSQL = 'MYSQL',
+}

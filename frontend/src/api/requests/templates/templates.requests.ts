@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { MyTemplate } from './templates.types';
 
 export const postCreateTemplate = (formData: FormData, handleUploadProgress: (progressEvent: any) => void) => {
   return axios.post<string>(`/api/v1/templates`, formData, {
@@ -11,4 +12,8 @@ export const postCreateTemplate = (formData: FormData, handleUploadProgress: (pr
 
 export const getTemplateStatus = (id: string) => {
   return axios.get<string>(`/api/v1/templates/${id}/status`);
+};
+
+export const getAllMyTemplates = () => {
+  return axios.get<MyTemplate[]>('/api/v1/templates/me');
 };
