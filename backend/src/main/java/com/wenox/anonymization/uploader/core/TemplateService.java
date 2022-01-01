@@ -50,14 +50,14 @@ public class TemplateService {
     return template.getId();
   }
 
-  public TemplateStatus getStatus(UUID uuid) {
-    return templateRepository.findById(uuid)
+  public TemplateStatus getStatus(String id) {
+    return templateRepository.findById(id)
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND))
         .getStatus();
   }
 
-  public TemplateMetadata getMetadata(UUID uuid) {
-    return templateRepository.findById(uuid)
+  public TemplateMetadata getMetadata(String id) {
+    return templateRepository.findById(id)
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND))
         .getMetadata();
   }
