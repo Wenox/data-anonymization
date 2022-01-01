@@ -1,8 +1,12 @@
 package com.wenox.anonymization.uploader.storage;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
@@ -20,5 +24,11 @@ public class TemplateFileStorage implements FileStorage {
     final var fileDTO = templateFileData.getFileDTO();
 
     FileCopyUtils.copy(fileDTO.getBytes(), directory.resolve(templateFileData.getSavedFileName()).toFile());
+  }
+
+  public byte[] retrieve(String savedFileName) throws IOException {
+    Path path = Paths.get(templatesPath, savedFileName);
+    InputStream reader = Files.newInputStream(path);
+    return reader.readAllBytes();
   }
 }

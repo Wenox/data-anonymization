@@ -2,7 +2,7 @@ import { useQuery } from 'react-query';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { Button, Container, Divider, IconButton } from '@mui/material';
 import Typography from '@mui/material/Typography';
-import { getAllMyTemplates } from '../../api/requests/templates/templates.requests';
+import { getAllMyTemplates, getDownloadDump } from '../../api/requests/templates/templates.requests';
 import { MyTemplate } from '../../api/requests/templates/templates.types';
 import { theme } from '../../styles/theme';
 import { useState } from 'react';
@@ -10,8 +10,9 @@ import MetadataDialog from '../../components/metadata/metadata-dialog';
 import MetadataDownloadButton from '../../components/metadata/metadata-download-button';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../constants/routes';
-import { Delete, Edit } from '@mui/icons-material';
+import { CloudDownload, Delete, Download, Edit } from '@mui/icons-material';
 import { centeredColumn } from '../../styles/data-table';
+import { toast } from 'react-toastify';
 
 const MyTemplates = () => {
   const navigate = useNavigate();
@@ -22,6 +23,38 @@ const MyTemplates = () => {
       metadata: template.metadata ? JSON.stringify(template.metadata, null, 4) : null,
       activeWorksheets: 0,
     })) || [];
+
+  const handleDownloadDump = (templateId: string, originalFileName: string) => {
+    getDownloadDump(templateId)
+      .then((response) => {
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', originalFileName);
+        document.body.appendChild(link);
+        link.click();
+        toast.success('Successfully downloaded dump file.', {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      })
+      .catch((err) => {
+        toast.success('Failed to downloaded the dump file.', {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      });
+  };
 
   const [isMetadataDialogOpen, setIsMetadataDialogOpen] = useState(false);
   const [metadata, setMetadata] = useState<any>({});
@@ -58,6 +91,21 @@ const MyTemplates = () => {
               View worksheets
             </Button>
           </>
+        );
+      },
+    },
+    {
+      field: 'dump',
+      headerName: 'Dump',
+      width: 75,
+      sortable: false,
+      filterable: false,
+      ...centeredColumn(),
+      renderCell: ({ row }) => {
+        return (
+          <IconButton onClick={() => handleDownloadDump(row.id, row.originalFileName)}>
+            <CloudDownload fontSize="large" sx={{ color: '#7f00b5' }} />
+          </IconButton>
         );
       },
     },
