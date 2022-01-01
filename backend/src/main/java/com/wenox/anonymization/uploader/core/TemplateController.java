@@ -4,6 +4,8 @@ import com.wenox.anonymization.uploader.extractor.metadata.TemplateMetadata;
 import java.io.IOException;
 import java.util.List;
 import javax.validation.Valid;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -28,6 +30,12 @@ public class TemplateController {
   public ResponseEntity<String> createTemplate(@Valid CreateTemplateDto createTemplateDto, Authentication auth) throws IOException {
     final String id = templateService.createTemplate(createTemplateDto, auth);
     return ResponseEntity.accepted().body(id);
+  }
+
+  @GetMapping("/{id}/dump")
+  @PreAuthorize("hasAnyAuthority('VERIFIED_USER', 'ADMIN')")
+  public ResponseEntity<byte[]> downloadDump(@PathVariable("id") String id) throws IOException {
+    return ResponseEntity.ok(templateService.downloadDump(id));
   }
 
   @GetMapping("/{id}/status")

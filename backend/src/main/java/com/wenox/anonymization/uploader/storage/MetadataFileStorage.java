@@ -2,6 +2,7 @@ package com.wenox.anonymization.uploader.storage;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
+import java.io.IOException;
 
 @Deprecated
 public class MetadataFileStorage implements FileStorage {
@@ -15,4 +16,6 @@ public class MetadataFileStorage implements FileStorage {
       ex.printStackTrace();
     }
   }
+
+  public byte[] retrieve(String savedFileName) throws IOException { return null; }
 }

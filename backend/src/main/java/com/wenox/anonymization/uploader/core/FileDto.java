@@ -16,6 +16,7 @@ public class FileDto {
   }
 
   public static FileDto from(MultipartFile multipartFile) throws IOException {
+    System.out.println("Content type: " + multipartFile.getContentType());
     return new FileDto(multipartFile.getBytes(), multipartFile.getOriginalFilename(), multipartFile.getContentType());
   }
 

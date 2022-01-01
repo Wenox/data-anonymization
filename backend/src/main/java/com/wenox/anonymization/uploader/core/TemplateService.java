@@ -3,6 +3,8 @@ package com.wenox.anonymization.uploader.core;
 import com.wenox.anonymization.core.service.AuthService;
 import com.wenox.anonymization.uploader.core.event.TemplateCreatedEvent;
 import com.wenox.anonymization.uploader.extractor.metadata.TemplateMetadata;
+import com.wenox.anonymization.uploader.storage.FileStorage;
+import com.wenox.anonymization.uploader.storage.TemplateFileStorage;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -11,6 +13,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.server.ResponseStatusException;
 
 @Service
@@ -19,13 +22,16 @@ public class TemplateService {
   private final TemplateRepository templateRepository;
   private final ApplicationEventPublisher publisher;
   private final AuthService authService;
+  private final FileStorage fileStorage;
 
   public TemplateService(TemplateRepository templateRepository,
                          ApplicationEventPublisher publisher,
-                         AuthService authService) {
+                         AuthService authService,
+                         TemplateFileStorage fileStorage) {
     this.templateRepository = templateRepository;
     this.publisher = publisher;
     this.authService = authService;
+    this.fileStorage = fileStorage;
   }
 
   public String createTemplate(CreateTemplateDto dto, Authentication auth) throws IOException {
@@ -65,5 +71,15 @@ public class TemplateService {
   public List<Template> getAllMyTemplates(Authentication auth) {
     final var me = authService.getMe(auth);
     return me.getTemplates();
+  }
+
+  public byte[] downloadDump(String id) throws IOException {
+    var template = templateRepository.findById(id).orElseThrow();
+    var dump = template.getTemplateFile();
+    if (dump == null) {
+      throw new RuntimeException("No dump file associated with this template!");
+    }
+    var savedFileName = dump.getSavedFileName();
+    return fileStorage.retrieve(savedFileName);
   }
 }

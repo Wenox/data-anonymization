@@ -7,4 +7,5 @@ import org.springframework.stereotype.Service;
 public interface FileStorage {
 
   void store(FileData fileData) throws IOException;
+  byte[] retrieve(String savedFileName) throws IOException;
 }
