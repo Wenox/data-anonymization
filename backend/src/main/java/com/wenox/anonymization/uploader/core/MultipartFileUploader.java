@@ -28,8 +28,8 @@ public class MultipartFileUploader implements FileUploader {
     fileStorage.store(fileData);
 
     final var file = new FileEntity();
-    file.setOriginalName(templateFileData.getFileDTO().getOriginalFileName());
-    file.setSavedName(templateFileData.getSavedFileName());
+    file.setOriginalFileName(templateFileData.getFileDTO().getOriginalFileName());
+    file.setSavedFileName(templateFileData.getSavedFileName());
     file.setType(templateFileData.getFileType());
     return fileRepository.save(file);
   }

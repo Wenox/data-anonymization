@@ -8,6 +8,7 @@ import {
   Logout,
   SvgIconComponent,
   UploadFile,
+  UploadFileOutlined,
 } from '@mui/icons-material';
 import { ROUTES } from './routes';
 
@@ -36,6 +37,12 @@ export const NAVIGATION_ITEMS: NavigationItemDescription[] = [
     name: 'Users',
     roles: [Role.ADMIN],
     icon: Groups,
+  },
+  {
+    path: ROUTES.MY_TEMPLATES,
+    name: 'My templates',
+    roles: [Role.ADMIN, Role.VERIFIED_USER],
+    icon: UploadFileOutlined,
   },
   {
     path: ROUTES.TEMPLATES_GENERATE,

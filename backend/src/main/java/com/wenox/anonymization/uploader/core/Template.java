@@ -2,14 +2,18 @@ package com.wenox.anonymization.uploader.core;
 
 import com.vladmihalcea.hibernate.type.json.JsonType;
 import com.wenox.anonymization.core.domain.FileType;
+import com.wenox.anonymization.core.domain.User;
 import com.wenox.anonymization.uploader.extractor.metadata.TemplateMetadata;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.Type;
@@ -24,33 +28,65 @@ import org.hibernate.annotations.TypeDefs;
 public class Template {
 
   @Id
-  private UUID uuid = UUID.randomUUID();
+  private final String id = UUID.randomUUID().toString();
 
-  @Enumerated(EnumType.STRING)
-  private TemplateStatus status;
-
-  @Enumerated(EnumType.STRING)
-  private FileType type;
+  @ManyToOne(fetch = FetchType.LAZY)
+  private User user;
 
   @OneToOne
   private FileEntity templateFile;
 
+  @Enumerated(EnumType.STRING)
+  @Column(name = "status")
+  private TemplateStatus status;
+
+  @Enumerated(EnumType.STRING)
+  @Column(name = "type")
+  private FileType type;
+
   @Type(type = "json")
-  @Column(columnDefinition = "jsonb")
+  @Column(columnDefinition = "jsonb", name = "metadata")
   private TemplateMetadata metadata;
 
+  @Column(name = "title")
   private String title;
 
+  @Column(name = "database_name")
   private String databaseName;
 
+  @Column(name = "description")
   private String description;
 
-  private String author; // todo: User
-
+  @Column(name = "created_date")
   private LocalDateTime createdDate;
 
-  public UUID getUuid() {
-    return uuid;
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Template template = (Template) o;
+    return id.equals(template.id);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id);
+  }
+
+  public String getId() {
+    return id;
+  }
+
+  public User getUser() {
+    return user;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
   }
 
   public FileType getType() {
@@ -91,14 +127,6 @@ public class Template {
 
   public void setDescription(String description) {
     this.description = description;
-  }
-
-  public String getAuthor() {
-    return author;
-  }
-
-  public void setAuthor(String author) {
-    this.author = author;
   }
 
   public TemplateStatus getStatus() {

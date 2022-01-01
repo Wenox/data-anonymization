@@ -31,7 +31,7 @@ import TemplateGenerationUploadSuccess from '../pages/templates/generation/templ
 import TemplateGenerationRestoreSuccess from '../pages/templates/generation/template-generation-restore-success';
 import TemplateGenerationSuccess from '../pages/templates/generation/template-generation-success';
 import TemplateGenerationError from '../pages/templates/generation/template-generation-error';
-import TemplateGenerationBase from '../components/template/template-generation-base';
+import MyTemplates from '../pages/templates/my-templates';
 
 export const ROUTES = {
   HOME: '/home',
@@ -41,6 +41,7 @@ export const ROUTES = {
   USER_PROFILE: '/user-profile',
   TASKS: '/tasks',
   TEMPLATES: '/templates',
+  MY_TEMPLATES: '/my-templates',
   TEMPLATES_GENERATE: '/templates/generate',
   TEMPLATES_GENERATING_NEW: '/templates/generating/new',
   TEMPLATES_GENERATING_UPLOAD_SUCCESS: '/templates/generating/upload-success',
@@ -85,12 +86,6 @@ export const APP_ROUTES: RouteDescription[] = [
     menu: true,
   },
   {
-    path: '/base',
-    element: TemplateGenerationBase,
-    authenticated: true,
-    menu: true,
-  },
-  {
     path: ROUTES.LOGIN,
     element: Login,
     authenticated: false,
@@ -117,6 +112,12 @@ export const APP_ROUTES: RouteDescription[] = [
   {
     path: ROUTES.TASKS,
     element: Tasks,
+    authenticated: true,
+    menu: true,
+  },
+  {
+    path: ROUTES.MY_TEMPLATES,
+    element: MyTemplates,
     authenticated: true,
     menu: true,
   },
