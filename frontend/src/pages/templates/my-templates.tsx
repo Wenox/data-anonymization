@@ -51,7 +51,7 @@ const MyTemplates = () => {
               color="primary"
               variant="contained"
               onClick={() => {}}
-              sx={{ mr: 0.5 }}
+              sx={{ ml: 0.5 }}
             >
               View worksheets
             </Button>
