@@ -47,6 +47,7 @@ docker compose --profile server up
 - Start client - this requires node and yarn to be installed, verify with `node -v` and `yarn -v`:
 ```shell
 cd frontend
+yarn install
 yarn start
 ```
 
