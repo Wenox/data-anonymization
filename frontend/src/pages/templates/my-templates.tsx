@@ -7,13 +7,14 @@ import { MyTemplate } from '../../api/requests/templates/templates.types';
 import { theme } from '../../styles/theme';
 import { useState } from 'react';
 import MetadataDialog from '../../components/metadata/metadata-dialog';
+import MetadataDownloadButton from '../../components/metadata/metadata-download-button';
 
 const MyTemplates = () => {
   const { data, isLoading, isRefetching } = useQuery('myTemplates', getAllMyTemplates);
   const templates: MyTemplate[] =
     data?.data.map((template) => ({
       ...template,
-      metadata: JSON.stringify(template.metadata, null, 4),
+      metadata: template.metadata ? JSON.stringify(template.metadata, null, 4) : null,
     })) || [];
 
   const [isMetadataDialogOpen, setIsMetadataDialogOpen] = useState(false);
@@ -29,17 +30,25 @@ const MyTemplates = () => {
     {
       field: 'metadata',
       headerName: 'Metadata',
-      flex: 1,
+      width: 240,
       renderCell: ({ row }) => {
         return (
-          <Button
-            onClick={() => {
-              setIsMetadataDialogOpen(true);
-              setMetadata({ content: row.metadata, fileName: row.originalFileName });
-            }}
-          >
-            Show
-          </Button>
+          <>
+            <Button
+              disabled={row.metadata == null}
+              fullWidth
+              color="secondary"
+              variant="contained"
+              onClick={() => {
+                setIsMetadataDialogOpen(true);
+                setMetadata({ content: row.metadata, fileName: row.originalFileName });
+              }}
+              sx={{ mr: 0.5 }}
+            >
+              View
+            </Button>
+            <MetadataDownloadButton metadata={row.metadata} />
+          </>
         );
       },
     },

@@ -9,15 +9,16 @@ interface MetadataDownloadButtonProps {
 const MetadataDownloadButton: FC<MetadataDownloadButtonProps> = ({ metadata }) => {
   return (
     <Button
+      disabled={metadata == null}
       sx={{ ml: 0.5 }}
       fullWidth
       type="button"
-      href={computeHrefDownloadUrl(metadata.content)}
-      download={`${metadata.fileName}-metadata.json`}
+      href={computeHrefDownloadUrl(metadata?.content)}
+      download={`${metadata?.fileName}-metadata.json`}
       color="primary"
       variant="contained"
     >
-      Download JSON
+      Download
     </Button>
   );
 };
