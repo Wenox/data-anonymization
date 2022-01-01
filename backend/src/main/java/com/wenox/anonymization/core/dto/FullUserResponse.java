@@ -3,7 +3,7 @@ package com.wenox.anonymization.core.dto;
 import com.wenox.anonymization.core.domain.Role;
 import com.wenox.anonymization.core.domain.User;
 import com.wenox.anonymization.core.domain.UserStatus;
-import java.time.LocalDateTime;
+import com.wenox.anonymization.core.service.FormatDate;
 import java.util.Objects;
 
 /** Password and relations are not returned. */
@@ -21,11 +21,11 @@ public class FullUserResponse {
     dto.setVerified(user.isVerified());
     dto.setMarkedForRemoval(user.isMarkedForRemoval());
     dto.setForceRemoval(user.isForceRemoval());
-    dto.setRemovalRequestedDate(user.getRemovalRequestedDate());
-    dto.setRemovedDate(user.getRemovedDate());
-    dto.setBlockedDate(user.getBlockedDate());
-    dto.setRegisteredDate(user.getRegisteredDate());
-    dto.setLastLoginDate(user.getLastLoginDate());
+    dto.setRemovalRequestedDate(FormatDate.toString(user.getRemovalRequestedDate()));
+    dto.setRemovedDate(FormatDate.toString(user.getRemovedDate()));
+    dto.setBlockedDate(FormatDate.toString(user.getBlockedDate()));
+    dto.setRegisteredDate(FormatDate.toString(user.getRegisteredDate()));
+    dto.setLastLoginDate(FormatDate.toString(user.getLastLoginDate()));
     return dto;
   }
 
@@ -49,15 +49,15 @@ public class FullUserResponse {
 
   private boolean forceRemoval;
 
-  private LocalDateTime removalRequestedDate;
+  private String removalRequestedDate;
 
-  private LocalDateTime removedDate;
+  private String removedDate;
 
-  private LocalDateTime blockedDate;
+  private String blockedDate;
 
-  private LocalDateTime registeredDate;
+  private String registeredDate;
 
-  private LocalDateTime lastLoginDate;
+  private String lastLoginDate;
 
   @Override
   public boolean equals(Object o) {
@@ -156,43 +156,43 @@ public class FullUserResponse {
     this.forceRemoval = forceRemoval;
   }
 
-  public LocalDateTime getRemovalRequestedDate() {
+  public String getRemovalRequestedDate() {
     return removalRequestedDate;
   }
 
-  public void setRemovalRequestedDate(LocalDateTime removalRequestedDate) {
+  public void setRemovalRequestedDate(String removalRequestedDate) {
     this.removalRequestedDate = removalRequestedDate;
   }
 
-  public LocalDateTime getRemovedDate() {
+  public String getRemovedDate() {
     return removedDate;
   }
 
-  public void setRemovedDate(LocalDateTime removedDate) {
+  public void setRemovedDate(String removedDate) {
     this.removedDate = removedDate;
   }
 
-  public LocalDateTime getBlockedDate() {
+  public String getBlockedDate() {
     return blockedDate;
   }
 
-  public void setBlockedDate(LocalDateTime blockedDate) {
+  public void setBlockedDate(String blockedDate) {
     this.blockedDate = blockedDate;
   }
 
-  public LocalDateTime getRegisteredDate() {
+  public String getRegisteredDate() {
     return registeredDate;
   }
 
-  public void setRegisteredDate(LocalDateTime registeredDate) {
+  public void setRegisteredDate(String registeredDate) {
     this.registeredDate = registeredDate;
   }
 
-  public LocalDateTime getLastLoginDate() {
+  public String getLastLoginDate() {
     return lastLoginDate;
   }
 
-  public void setLastLoginDate(LocalDateTime lastLoginDate) {
+  public void setLastLoginDate(String lastLoginDate) {
     this.lastLoginDate = lastLoginDate;
   }
 }
