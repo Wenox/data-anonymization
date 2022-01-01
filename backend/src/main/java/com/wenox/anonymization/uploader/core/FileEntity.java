@@ -18,14 +18,14 @@ public class FileEntity {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
-  @Column(nullable = false)
+  @Column(name = "saved_name", nullable = false)
   private String savedName;
 
-  @Column(nullable = true)
+  @Column(name = "original_name")
   private String originalName;
 
   @Enumerated(EnumType.STRING)
-  @Column(nullable = true)
+  @Column(name = "type", nullable = true)
   private FileType type;
 
   public Long getId() {

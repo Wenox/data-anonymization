@@ -1,13 +1,19 @@
 package com.wenox.anonymization.core.domain;
 
+import com.wenox.anonymization.uploader.core.Template;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -16,6 +22,9 @@ public class User {
 
   @Id
   private final String id = UUID.randomUUID().toString();
+
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<Template> templates = new ArrayList<>();
 
   @Column(name = "email")
   private String email;
@@ -63,6 +72,16 @@ public class User {
   @Column(name = "last_login_date")
   private LocalDateTime lastLoginDate;
 
+  public void addTemplate(Template template) {
+    templates.add(template);
+    template.setUser(this);
+  }
+
+  public void removeTemplate(Template template) {
+    templates.remove(template);
+    template.setUser(null);
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -78,6 +97,14 @@ public class User {
   @Override
   public int hashCode() {
     return Objects.hash(id);
+  }
+
+  public List<Template> getTemplates() {
+    return templates != null ? templates : new ArrayList<>();
+  }
+
+  public void setTemplates(List<Template> templates) {
+    this.templates = templates;
   }
 
   public String getId() {

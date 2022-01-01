@@ -5,7 +5,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import org.springframework.web.multipart.MultipartFile;
 
-class TemplateDto {
+class CreateTemplateDto {
 
   @NotNull
   private MultipartFile file;
