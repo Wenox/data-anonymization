@@ -10,7 +10,7 @@ interface VerifyUserProps {
 
 const VerifyUser: FC<VerifyUserProps> = ({ removed, verified, handleVerifyUser }) => {
   const enabled = !verified && !removed;
-  const { style } = enabled ? { style: { color: '#00cc00' } } : { style: { color: 'gray' } };
+  const { style } = enabled ? { style: { color: '#00ad17' } } : { style: { color: 'disabled' } };
 
   return (
     <Tooltip title={enabled ? 'Confirm verification' : removed ? 'User removed' : 'Already verified'} placement={'top'}>

@@ -11,7 +11,7 @@ interface BlockUserProps {
 
 const BlockUser: FC<BlockUserProps> = ({ status, forceRemoval, handleBlockUser }) => {
   const { style } =
-    forceRemoval || status !== UserStatus.ACTIVE ? { style: { color: 'gray' } } : { style: { color: 'red' } };
+    forceRemoval || status !== UserStatus.ACTIVE ? { style: { color: 'disabled' } } : { style: { color: '#e00000' } };
   const disabled = status !== UserStatus.ACTIVE;
 
   return (

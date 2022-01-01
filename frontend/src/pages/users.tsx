@@ -13,6 +13,7 @@ import VerifyUser from '../components/user/verify-user';
 import { postConfirmVerifyMail } from '../api/requests/verify-mail/verify-mail.requests';
 import Typography from '@mui/material/Typography';
 import { theme } from '../styles/theme';
+import { centeredColumn } from '../styles/data-table';
 
 const Users = () => {
   const { data, isLoading, refetch, isRefetching } = useQuery('users', getUsers);
@@ -175,20 +176,26 @@ const Users = () => {
   };
 
   const columns: GridColDef[] = [
-    { field: 'email', headerName: 'E-mail address', flex: 1 },
-    { field: 'status', headerName: 'User status', flex: 1 },
-    { field: 'role', headerName: 'Role', flex: 1 },
+    { field: 'email', headerName: 'E-mail address', flex: 1, ...centeredColumn() },
+    { field: 'firstName', headerName: 'Name', flex: 1, ...centeredColumn() },
+    { field: 'lastName', headerName: 'Surname', flex: 1, ...centeredColumn() },
+    { field: 'purpose', headerName: 'Purpose', flex: 1, ...centeredColumn() },
+    { field: 'status', headerName: 'Status', flex: 1, ...centeredColumn() },
+    { field: 'role', headerName: 'Role', flex: 1, ...centeredColumn() },
+    { field: 'registeredDate', headerName: 'Registered', flex: 1, ...centeredColumn() },
+    { field: 'lastLoginDate', headerName: 'Last login', flex: 1, ...centeredColumn() },
     {
       field: 'actions',
       headerName: 'Actions',
       width: 225,
       sortable: false,
       filterable: false,
+      ...centeredColumn(),
       renderCell: ({ row }) => {
         return (
           <div>
             <IconButton onClick={() => {}}>
-              <Edit fontSize="large" sx={{ color: 'blue' }} />
+              <Edit fontSize="large" sx={{ color: '#7f00b5' }} />
             </IconButton>
 
             <VerifyUser

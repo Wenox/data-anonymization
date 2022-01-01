@@ -11,6 +11,7 @@ import MetadataDownloadButton from '../../components/metadata/metadata-download-
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../constants/routes';
 import { Delete, Edit } from '@mui/icons-material';
+import { centeredColumn } from '../../styles/data-table';
 
 const MyTemplates = () => {
   const navigate = useNavigate();
@@ -32,6 +33,7 @@ const MyTemplates = () => {
       width: 360,
       sortable: false,
       filterable: false,
+      ...centeredColumn(),
       renderCell: ({ row }) => {
         return (
           <>
@@ -59,19 +61,55 @@ const MyTemplates = () => {
         );
       },
     },
-    { field: 'title', headerName: 'Title', flex: 1 },
-    { field: 'description', headerName: 'Description', flex: 1 },
-    { field: 'originalFileName', headerName: 'Dump name', flex: 1 },
-    { field: 'type', headerName: 'Dump type', width: 95 },
-    { field: 'status', headerName: 'Template status', width: 160 },
-    { field: 'activeWorksheets', headerName: 'Active worksheets', flex: 1 },
-    { field: 'createdDate', headerName: 'Created date', width: 160 },
+    {
+      field: 'title',
+      headerName: 'Title',
+      flex: 1,
+      ...centeredColumn(),
+    },
+    {
+      field: 'description',
+      headerName: 'Description',
+      flex: 1,
+      ...centeredColumn(),
+    },
+    {
+      field: 'originalFileName',
+      headerName: 'Dump name',
+      flex: 1,
+      ...centeredColumn(),
+    },
+    {
+      field: 'type',
+      headerName: 'Dump type',
+      width: 95,
+      ...centeredColumn(),
+    },
+    {
+      field: 'status',
+      headerName: 'Template status',
+      width: 160,
+      ...centeredColumn(),
+    },
+    {
+      field: 'activeWorksheets',
+      headerName: 'Active worksheets',
+      flex: 1,
+      ...centeredColumn(),
+    },
+    {
+      field: 'createdDate',
+      headerName: 'Created date',
+      width: 160,
+      ...centeredColumn(),
+    },
     {
       field: 'metadata',
       headerName: 'Metadata',
       width: 240,
       sortable: false,
       filterable: false,
+      ...centeredColumn(),
       renderCell: ({ row }) => {
         return (
           <>
@@ -99,14 +137,16 @@ const MyTemplates = () => {
       width: 120,
       sortable: false,
       filterable: false,
+      ...centeredColumn(),
+      headerAlign: 'left',
       renderCell: ({ row }) => {
         return (
           <div>
             <IconButton onClick={() => {}}>
-              <Edit fontSize="large" sx={{ color: 'blue' }} />
+              <Edit fontSize="large" sx={{ color: '#7f00b5' }} />
             </IconButton>
             <IconButton onClick={() => {}}>
-              <Delete fontSize="large" sx={{ color: 'red' }} />
+              <Delete fontSize="large" sx={{ color: '#e00000' }} />
             </IconButton>
           </div>
         );

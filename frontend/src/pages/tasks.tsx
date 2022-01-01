@@ -8,6 +8,7 @@ import { useState } from 'react';
 import TaskConfirmDialog from '../components/task/TaskConfirmDialog';
 import Typography from '@mui/material/Typography';
 import { theme } from '../styles/theme';
+import { centeredColumn } from '../styles/data-table';
 
 const Tasks = () => {
   const { data, isLoading, isRefetching } = useQuery('tasks', getTasks);
@@ -26,20 +27,20 @@ const Tasks = () => {
   };
 
   const columns: GridColDef[] = [
-    { field: 'taskName', headerName: 'Code name', width: 275 },
-    { field: 'description', headerName: 'Description', flex: 1 },
+    { field: 'taskName', headerName: 'Code name', width: 275, ...centeredColumn() },
+    { field: 'description', headerName: 'Description', flex: 1, headerClassName: 'data-grid-header' },
     {
       field: 'scheduled',
       headerName: 'Scheduled',
       width: 130,
       sortable: false,
       filterable: false,
-      headerAlign: 'center',
+      ...centeredColumn(),
       renderCell: ({ row }) =>
         row.scheduled ? (
-          <Check fontSize="large" sx={{ color: '#00cc00', marginLeft: '40px' }} />
+          <Check fontSize="large" sx={{ color: '#00ad17' }} />
         ) : (
-          <Close fontSize="large" sx={{ color: 'red', marginLeft: '40px' }} />
+          <Close fontSize="large" sx={{ color: '#e00000' }} />
         ),
     },
     {
@@ -48,21 +49,21 @@ const Tasks = () => {
       width: 130,
       sortable: false,
       filterable: false,
-      headerAlign: 'center',
+      ...centeredColumn(),
       renderCell: ({ row }) =>
         row.executable ? (
-          <Check fontSize="large" sx={{ color: '#00cc00', marginLeft: '40px' }} />
+          <Check fontSize="large" sx={{ color: '#00ad17' }} />
         ) : (
-          <Close fontSize="large" sx={{ color: 'red', marginLeft: '40px' }} />
+          <Close fontSize="large" sx={{ color: '#e00000' }} />
         ),
     },
-    { field: 'cronExpression', headerName: 'Cron expression', width: 160 },
+    { field: 'cronExpression', headerName: 'Cron expression', width: 160, ...centeredColumn() },
     {
       field: 'nextScheduledExecution',
       headerName: 'Next scheduled execution',
-      width: 200,
-      renderCell: ({ row }) =>
-        row.nextScheduledExecution || <Close fontSize="large" sx={{ color: 'red', marginLeft: '40px' }} />,
+      width: 240,
+      ...centeredColumn(),
+      renderCell: ({ row }) => row.nextScheduledExecution || <Close fontSize="large" sx={{ color: '#e00000' }} />,
     },
     {
       field: 'actions',
@@ -70,17 +71,18 @@ const Tasks = () => {
       width: 130,
       sortable: false,
       filterable: false,
+      ...centeredColumn(),
       renderCell: ({ row }) =>
         row.executable ? (
           <div>
             <IconButton onClick={() => handleOpenDialog(row.taskName)}>
-              <PlayCircleOutline fontSize="large" sx={{ color: '#00cc00' }} />
+              <PlayCircleOutline fontSize="large" sx={{ color: '#00ad17' }} />
             </IconButton>
           </div>
         ) : (
           <div>
             <IconButton disabled>
-              <PlayCircleOutline fontSize="large" sx={{ color: 'gray' }} />
+              <PlayCircleOutline fontSize="large" sx={{ color: 'disabled' }} />
             </IconButton>
           </div>
         ),

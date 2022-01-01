@@ -7,6 +7,7 @@ import AuthContext from './context/auth-context';
 import { MeResponse } from './api/requests/me/me.types';
 import Main from './pages/main';
 import { queryClient } from './api/query.config';
+import './styles/app.scss';
 
 const App: FC = () => {
   const [me, setMe] = useState<MeResponse | null>(null);
