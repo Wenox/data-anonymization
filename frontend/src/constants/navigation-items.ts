@@ -3,7 +3,7 @@ import {
   AccountCircle,
   Cached,
   Groups,
-  History,
+  History as HistoryIcon,
   Home,
   Logout,
   SvgIconComponent,
@@ -54,7 +54,7 @@ export const NAVIGATION_ITEMS: NavigationItemDescription[] = [
     path: ROUTES.TASKS,
     name: 'Tasks',
     roles: [Role.ADMIN],
-    icon: History,
+    icon: HistoryIcon,
   },
   {
     path: ROUTES.ABOUT,
