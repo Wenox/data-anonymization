@@ -1,12 +1,17 @@
 package com.wenox.uploading.template.domain;
 
 import com.vladmihalcea.hibernate.type.json.JsonType;
+import com.wenox.anonymisation.domain.Operation;
+import com.wenox.anonymisation.domain.Worksheet;
 import com.wenox.users.domain.FileType;
 import com.wenox.users.domain.User;
 import com.wenox.uploading.extractor.domain.metadata.TemplateMetadata;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -14,6 +19,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.Type;
@@ -32,6 +38,9 @@ public class Template {
 
   @ManyToOne(fetch = FetchType.LAZY)
   private User user;
+
+  @OneToMany(mappedBy = "template", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<Worksheet> worksheets = new ArrayList<>();
 
   @OneToOne
   private FileEntity templateFile;
@@ -60,6 +69,16 @@ public class Template {
   @Column(name = "created_date")
   private LocalDateTime createdDate;
 
+  public void addWorksheet(Worksheet worksheet) {
+    worksheets.add(worksheet);
+    worksheet.setTemplate(this);
+  }
+
+  public void removeWorksheet(Worksheet worksheet) {
+    worksheets.remove(worksheet);
+    worksheet.setTemplate(null);
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -75,6 +94,14 @@ public class Template {
   @Override
   public int hashCode() {
     return Objects.hash(id);
+  }
+
+  public List<Worksheet> getWorksheets() {
+    return worksheets;
+  }
+
+  public void setWorksheets(List<Worksheet> worksheets) {
+    this.worksheets = worksheets;
   }
 
   public String getId() {
