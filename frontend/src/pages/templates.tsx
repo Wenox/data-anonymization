@@ -1,5 +1,5 @@
 import { ChangeEvent, FC, useState } from 'react';
-import { Box, Button, Container, Divider, IconButton, LinearProgress, MenuItem, Typography } from '@mui/material';
+import { Box, Button, Container, Divider, Grid, IconButton, LinearProgress, MenuItem, Typography } from '@mui/material';
 import { Cancel, Check, Error } from '@mui/icons-material';
 import { postCreateTemplate } from '../api/requests/templates/templates.requests';
 import * as yup from 'yup';
@@ -16,11 +16,13 @@ import { ROUTES } from '../constants/routes';
 interface IFormInputs {
   title: string;
   type: string;
+  description: string;
 }
 
 const schema = yup.object().shape({
   title: yup.string().required('Title is required'),
   type: yup.string().required('Type is required'),
+  description: yup.string(),
 });
 
 export interface FileError {
@@ -149,55 +151,85 @@ const Templates: FC = () => {
         <h3 style={{ color: `${theme.palette.primary.light}` }}>Description</h3>
 
         <Box component="form" onSubmit={handleSubmit(formSubmitHandler)} noValidate sx={{ mt: -2 }}>
-          <Controller
-            name="title"
-            control={control}
-            defaultValue=""
-            render={({ field }) => (
-              <TextField
-                {...field}
-                label="Title"
-                variant="outlined"
-                error={!!errors.title}
-                helperText={errors.title ? errors.title?.message : ''}
-                margin="normal"
-                required
-                fullWidth
-                id="title"
+          <Grid container columnSpacing={2}>
+            <Grid item xs={6}>
+              <Controller
                 name="title"
-                autoComplete="title"
+                control={control}
+                defaultValue=""
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    label="Title"
+                    variant="outlined"
+                    error={!!errors.title}
+                    helperText={errors.title ? errors.title?.message : ''}
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="title"
+                    name="title"
+                    autoComplete="title"
+                  />
+                )}
               />
-            )}
-          />
-
-          <Controller
-            name="type"
-            control={control}
-            defaultValue="PSQL"
-            render={({ field }) => (
-              <TextField
-                {...field}
-                label="Type"
-                select
-                variant="outlined"
-                error={!!errors.type}
-                helperText={errors.type ? errors.type?.message : ''}
-                margin="normal"
-                required
-                fullWidth
-                id="type"
+            </Grid>
+            <Grid item xs={6}>
+              <Controller
                 name="type"
-                autoComplete="type"
-              >
-                <MenuItem key={'PSQL'} value={'PSQL'}>
-                  PostgreSQL
-                </MenuItem>
-                <MenuItem key={'MYSQL'} value={'MYSQL'}>
-                  MySQL
-                </MenuItem>
-              </TextField>
-            )}
-          />
+                control={control}
+                defaultValue="PSQL"
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    label="Type"
+                    select
+                    variant="outlined"
+                    error={!!errors.type}
+                    helperText={errors.type ? errors.type?.message : ''}
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="type"
+                    name="type"
+                    autoComplete="type"
+                  >
+                    <MenuItem key={'PSQL'} value={'PSQL'}>
+                      PostgreSQL
+                    </MenuItem>
+                    <MenuItem key={'MYSQL'} value={'MYSQL'}>
+                      MySQL
+                    </MenuItem>
+                  </TextField>
+                )}
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <Controller
+                name="description"
+                control={control}
+                defaultValue=""
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    multiline
+                    minRows={2}
+                    maxRows={2}
+                    label="Description"
+                    variant="outlined"
+                    error={!!errors.description}
+                    helperText={errors.description ? errors.description?.message : ''}
+                    margin="normal"
+                    fullWidth
+                    id="description"
+                    name="description"
+                    autoComplete="description"
+                  />
+                )}
+              />
+            </Grid>
+          </Grid>
 
           <Divider sx={{ mt: 2, mb: 2 }} />
           <h3 style={{ color: `${theme.palette.primary.light}` }}>Dump</h3>

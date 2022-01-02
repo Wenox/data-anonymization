@@ -44,8 +44,8 @@ public class TemplateService {
     template.setDatabaseName("db-" + UUID.randomUUID());
     template.setTitle(dto.getTitle());
     template.setType(dto.getType());
+    template.setDescription(dto.getDescription());
     template.setStatus(TemplateStatus.NEW);
-    template.setDescription(me.getPurpose());
     template.setMetadata(null);
     template.setTemplateFile(null);
     template.setCreatedDate(LocalDateTime.now());
