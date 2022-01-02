@@ -2,6 +2,7 @@
 
 [![CodeFactor](https://www.codefactor.io/repository/github/wenox/data-anonymization/badge?s=d2c8e01307501061b8e2190f75b70ecd6b686ecd)](https://www.codefactor.io/repository/github/wenox/data-anonymization)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=anonymisation_client&metric=alert_status)](https://sonarcloud.io/dashboard?id=anonymisation_client)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=anonymisation_server&metric=alert_status)](https://sonarcloud.io/dashboard?id=anonymisation_server)
 
 ## Prerequisites
 - Docker installed (production environment only)
