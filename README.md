@@ -1,7 +1,8 @@
 # Anonymisation platform
 
 ![Test](https://github.com/wenox/data-anonymization/actions/workflows/test.yml/badge.svg)
-![Code Quality](https://github.com/wenox/data-anonymization/actions/workflows/quality.yml/badge.svg)
+![CodeQL Security](https://github.com/wenox/data-anonymization/actions/workflows/security.yml/badge.svg)
+![Sonar Code Quality](https://github.com/wenox/data-anonymization/actions/workflows/quality.yml/badge.svg)
 [![CodeFactor](https://www.codefactor.io/repository/github/wenox/data-anonymization/badge?s=d2c8e01307501061b8e2190f75b70ecd6b686ecd)](https://www.codefactor.io/repository/github/wenox/data-anonymization)
 [![Sonar - Frontend](https://sonarcloud.io/api/project_badges/measure?project=anonymisation_client&metric=alert_status)](https://sonarcloud.io/dashboard?id=anonymisation_client)
 [![Sonar - Backend](https://sonarcloud.io/api/project_badges/measure?project=anonymisation_server&metric=alert_status)](https://sonarcloud.io/dashboard?id=anonymisation_server)
