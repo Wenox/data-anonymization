@@ -2,6 +2,7 @@ package com.wenox.anonymization.core.controller;
 
 import com.wenox.anonymization.core.dto.ApiResponse;
 import com.wenox.anonymization.core.service.verifymail.VerifyMailService;
+import java.util.Optional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,10 +27,10 @@ public class VerifyMailController {
   @PostMapping("/api/v1/users/verify-mail/send-again")
   public ResponseEntity<String> resend(@RequestParam(value = "token", required = false) String token,
                                        @RequestParam(value = "email", required = false) String email) {
-    if (token == null) {
-      return ResponseEntity.ok(verifyMailService.resendGivenEmail(email));
-    }
-    return ResponseEntity.ok(verifyMailService.resendGivenToken(token));
+    return Optional.ofNullable(token)
+        .map(v -> ResponseEntity.ok(verifyMailService.resendGivenToken(v)))
+        .orElse(ResponseEntity.ok(verifyMailService.resendGivenEmail(email)));
+
   }
 
   @PostMapping("/api/v1/users/{id}/confirm-mail-verification")

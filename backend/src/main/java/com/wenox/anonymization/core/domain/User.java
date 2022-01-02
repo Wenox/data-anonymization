@@ -3,7 +3,6 @@ package com.wenox.anonymization.core.domain;
 import com.wenox.anonymization.uploader.core.Template;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;

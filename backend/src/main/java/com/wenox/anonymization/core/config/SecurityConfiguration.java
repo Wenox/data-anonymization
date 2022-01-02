@@ -5,7 +5,6 @@ import com.wenox.anonymization.core.security.filter.JwtAuthorizationFilter;
 import com.wenox.anonymization.core.security.service.JwtService;
 import com.wenox.anonymization.core.security.service.JwtUserDetailsService;
 import com.wenox.anonymization.core.security.filter.RequestLoggingFilter;
-import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

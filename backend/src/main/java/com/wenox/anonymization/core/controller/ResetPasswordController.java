@@ -31,8 +31,7 @@ public class ResetPasswordController {
 
   @GetMapping("/show-change-password-form")
   public ResponseEntity<String> showChangePasswordForm(@RequestParam("token") String token) {
-    final var result = resetPasswordService.getChangePasswordPageForToken(token);
-    return ResponseEntity.ok(result);
+    return ResponseEntity.ok(resetPasswordService.getChangePasswordPageForToken(token));
   }
 
   @PostMapping("/change-password")
