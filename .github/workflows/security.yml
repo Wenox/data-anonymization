@@ -1,4 +1,4 @@
-name: CodeQL Security
+name: Security
 on:
   schedule:
     - cron: '0 20 * * *' # daily at 20:00 UTC
@@ -9,7 +9,7 @@ on:
     types: [opened, synchronize, reopened]
 jobs:
   analyze-security:
-    name: Analyze security
+    name: CodeQL
     runs-on: ubuntu-20.04
     strategy:
       fail-fast: false
