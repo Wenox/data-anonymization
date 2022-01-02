@@ -3,7 +3,7 @@ package com.wenox.anonymization;
 import static org.hamcrest.Matchers.equalTo;
 
 
-import com.wenox.anonymization.core.WebPostgreSQLSpecification;
+import com.wenox.users.WebPostgreSQLSpecification;
 import org.junit.jupiter.api.Test;
 
 //@Sql(scripts = "/scripts/users.sql")
