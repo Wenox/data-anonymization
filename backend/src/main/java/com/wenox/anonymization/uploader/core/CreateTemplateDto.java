@@ -16,6 +16,8 @@ class CreateTemplateDto {
   @NotEmpty
   private String title;
 
+  private String description;
+
   public MultipartFile getFile() {
     return file;
   }
@@ -38,5 +40,13 @@ class CreateTemplateDto {
 
   public void setTitle(String title) {
     this.title = title;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
   }
 }
