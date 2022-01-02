@@ -1,5 +1,7 @@
 name: Test
 on:
+  schedule:
+    - cron: '30 20 * * *' # daily at 20:30 UTC
   push:
     branches:
       - master

@@ -1,5 +1,7 @@
 name: Code Quality
 on:
+  schedule:
+    - cron: '15 20 * * *' # daily at 20:15 UTC
   push:
     branches:
       - master
