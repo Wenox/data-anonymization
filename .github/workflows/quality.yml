@@ -34,7 +34,7 @@ jobs:
       - name: Run linter
         run: yarn lint
         working-directory: ./frontend
-        
+
   sonarcloud-frontend:
     name: Sonar Cloud - Frontend
     runs-on: ubuntu-latest
