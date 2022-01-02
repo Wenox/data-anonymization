@@ -3,6 +3,7 @@ package com.wenox.anonymization.uploader.core;
 import com.wenox.anonymization.uploader.extractor.metadata.TemplateMetadata;
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.validation.Valid;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -53,12 +54,13 @@ public class TemplateController {
   @GetMapping("/me")
   @PreAuthorize("hasAnyAuthority('VERIFIED_USER', 'ADMIN')")
   public ResponseEntity<List<MyTemplateDto>> getAllMyTemplates(Authentication auth) {
-    return ResponseEntity.ok(templateService.getAllMyTemplates(auth).stream().map(MyTemplateDto::from).toList());
+    return ResponseEntity.ok(templateService.getAllMyTemplates(auth).stream().map(MyTemplateDto::from).collect(
+        Collectors.toList()));
   }
 
   @GetMapping("/me/valid")
   @PreAuthorize("hasAnyAuthority('VERIFIED_USER', 'ADMIN')")
   public ResponseEntity<List<MyTemplateDto>> getAllMyValidTemplates(Authentication auth) {
-    return ResponseEntity.ok(templateService.getAllMyTemplates(auth).stream().map(MyTemplateDto::from).toList());
+    return ResponseEntity.ok(templateService.getAllMyTemplates(auth).stream().map(MyTemplateDto::from).collect(Collectors.toList()));
   }
 }

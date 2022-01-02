@@ -1,6 +1,6 @@
 import { ChangeEvent, FC, useState } from 'react';
 import { Box, Button, Container, Divider, Grid, IconButton, LinearProgress, MenuItem, Typography } from '@mui/material';
-import { Cancel, Check, Error } from '@mui/icons-material';
+import { Cancel, Check, Error as ErrorIcon } from '@mui/icons-material';
 import { postCreateTemplate } from '../api/requests/templates/templates.requests';
 import * as yup from 'yup';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
@@ -272,7 +272,7 @@ const Templates: FC = () => {
             )}
             {fileError.display && (
               <Box color="error.main" display="flex" sx={{ alignItems: 'center', mt: 1 }}>
-                <Error color="error" fontSize="medium" />
+                <ErrorIcon color="error" fontSize="medium" />
                 <Typography color="success" variant="subtitle2" sx={{ ml: 0.5 }}>
                   {fileError.message}
                 </Typography>

@@ -6,6 +6,7 @@ import com.wenox.anonymization.core.service.task.cronservice.CronService;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,7 +19,7 @@ public class TaskService {
   }
 
   public List<TaskDto> getAll() {
-    return cronJobs.stream().map(this::toDto).toList();
+    return cronJobs.stream().map(this::toDto).collect(Collectors.toList());
   }
 
   public ApiResponse execute(String task) {
