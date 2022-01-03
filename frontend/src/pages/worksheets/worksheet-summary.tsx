@@ -22,8 +22,9 @@ import { toast } from 'react-toastify';
 import { WorksheetSummary } from '../../api/requests/worksheets/worksheet.types';
 import { getDownloadDump } from '../../api/requests/templates/templates.requests';
 import MetadataDialog from '../../components/metadata/metadata-dialog';
+import { handleDownloadDump } from '../../utils/download-dump';
 
-const Worksheet: FC = () => {
+const WorksheetSummary: FC = () => {
   const [searchParams] = useSearchParams();
   const id: string = searchParams.get('worksheet_id') ?? '';
 
@@ -61,38 +62,6 @@ const Worksheet: FC = () => {
       })
       .finally(() => setIsLoading(false));
   }, []);
-
-  const handleDownloadDump = (templateId: string, originalFileName: string) => {
-    getDownloadDump(templateId)
-      .then((response) => {
-        const url = window.URL.createObjectURL(new Blob([response.data]));
-        const link = document.createElement('a');
-        link.href = url;
-        link.setAttribute('download', originalFileName);
-        document.body.appendChild(link);
-        link.click();
-        toast.success('Successfully downloaded dump file.', {
-          position: 'top-right',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-      })
-      .catch((err) => {
-        toast.success('Failed to downloaded the dump file.', {
-          position: 'top-right',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-      });
-  };
 
   return (
     <Container
@@ -331,4 +300,4 @@ const Worksheet: FC = () => {
   );
 };
 
-export default Worksheet;
+export default WorksheetSummary;

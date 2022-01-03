@@ -32,7 +32,7 @@ import TemplateGenerationRestoreSuccess from '../pages/templates/generation/temp
 import TemplateGenerationSuccess from '../pages/templates/generation/template-generation-success';
 import TemplateGenerationError from '../pages/templates/generation/template-generation-error';
 import MyTemplates from '../pages/templates/my-templates';
-import Worksheet from '../pages/worksheets/worksheet';
+import WorksheetSummary from '../pages/worksheets/worksheet-summary';
 
 export const ROUTES = {
   HOME: '/home',
@@ -50,7 +50,7 @@ export const ROUTES = {
   TEMPLATES_GENERATING_SUCCESS: '/templates/generating/success',
   TEMPLATES_GENERATING_ERROR: '/templates/generating/error',
   MY_WORKSHEETS: '/my-worksheets',
-  WORKSHEET: '/my-worksheets/summary',
+  WORKSHEET_SUMMARY: '/my-worksheets/summary',
   USERS: '/users',
   ABOUT: '/about',
   RESET_PASSWORD: '/reset-password',
@@ -162,13 +162,13 @@ export const APP_ROUTES: RouteDescription[] = [
   },
   {
     path: ROUTES.MY_WORKSHEETS,
-    element: Worksheet,
+    element: WorksheetSummary,
     authenticated: true,
     menu: true,
   },
   {
-    path: ROUTES.WORKSHEET,
-    element: Worksheet,
+    path: ROUTES.WORKSHEET_SUMMARY,
+    element: WorksheetSummary,
     authenticated: true,
     menu: true,
   },

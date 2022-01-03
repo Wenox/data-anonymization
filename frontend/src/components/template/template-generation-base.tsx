@@ -121,7 +121,7 @@ const TemplateGenerationBase: FC<TemplateGenerationBaseProps> = ({
                       draggable: true,
                       progress: undefined,
                     });
-                  navigate(`${ROUTES.WORKSHEET}?worksheet_id=${response.data.id}`);
+                  navigate(`${ROUTES.WORKSHEET_SUMMARY}?worksheet_id=${response.data.id}`);
                 })
                 .catch(() => {
                   toast.error('Failed to produce a new worksheet.', {
