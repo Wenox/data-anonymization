@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
-import Avatar from '@mui/material/Avatar';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
@@ -19,7 +18,7 @@ import { RegisterUserRequest } from '../api/requests/users/users.types';
 import { Alert, Collapse, Divider, IconButton } from '@mui/material';
 import { ROUTES } from '../constants/routes';
 import { theme } from '../styles/theme';
-import { AccessibleForward, AppRegistration, ExitToApp, PersonAddAlt } from '@mui/icons-material';
+import { AppRegistration } from '@mui/icons-material';
 
 interface IFormInputs {
   email: string;

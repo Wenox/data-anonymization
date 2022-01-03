@@ -1,5 +1,4 @@
 import { Box, Container, Divider } from '@mui/material';
-import Avatar from '@mui/material/Avatar';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -7,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { theme } from '../styles/theme';
 import { ROUTES } from '../constants/routes';
 import Grid from '@mui/material/Grid';
-import { GppBad, GppMaybe, LockReset, Mail, MarkEmailRead, VerifiedUser } from '@mui/icons-material';
+import { GppBad, GppMaybe, Mail, MarkEmailRead, VerifiedUser } from '@mui/icons-material';
 
 interface Props {
   title: string;
@@ -41,12 +40,15 @@ const TokenResult = ({
       case 'MAIL_ALREADY_VERIFIED':
         return <VerifiedUser color="success" style={{ fontSize: '600%' }} />;
       case 'MAIL_INVALID_TOKEN':
+      case 'MAIL_EXPIRED_TOKEN':
         return <GppBad color="error" style={{ fontSize: '600%' }} />;
       case 'PASSWORD_INVALID_TOKEN':
       case 'PASSWORD_EXPIRED_TOKEN':
         return <GppBad color="error" style={{ fontSize: '800%' }} />;
       case 'PASSWORD_CONSUMED_TOKEN':
         return <GppMaybe color="error" style={{ fontSize: '800%' }} />;
+      default:
+        return <LockOutlinedIcon color="error" style={{ fontSize: '600%' }} />;
     }
   };
 

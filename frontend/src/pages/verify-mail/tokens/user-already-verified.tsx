@@ -6,7 +6,7 @@ const UserAlreadyVerified: FC = () => (
     smaller
     type="MAIL_ALREADY_VERIFIED"
     title="Verified"
-    content="This e-mail address has already been verified."
+    content="This account's e-mail address has already been verified before."
   />
 );
 

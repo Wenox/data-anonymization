@@ -6,7 +6,7 @@ const UserVerifySuccess: FC = () => (
     smaller
     type="MAIL_SUCCESS"
     title="Success"
-    content="This e-mail address has been successfully verified."
+    content="The account e-mail address has been successfully verified."
   />
 );
 
