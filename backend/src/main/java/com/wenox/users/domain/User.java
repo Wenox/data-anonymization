@@ -1,5 +1,6 @@
 package com.wenox.users.domain;
 
+import com.wenox.anonymisation.domain.Worksheet;
 import com.wenox.uploading.template.domain.Template;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -24,6 +25,9 @@ public class User {
 
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Template> templates = new ArrayList<>();
+
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<Worksheet> worksheets = new ArrayList<>();
 
   @Column(name = "email")
   private String email;
@@ -81,6 +85,16 @@ public class User {
     template.setUser(null);
   }
 
+  public void addWorksheet(Worksheet worksheet) {
+    worksheets.add(worksheet);
+    worksheet.setUser(this);
+  }
+
+  public void removeWorksheet(Worksheet worksheet) {
+    worksheets.remove(worksheet);
+    worksheet.setUser(null);
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -104,6 +118,14 @@ public class User {
 
   public void setTemplates(List<Template> templates) {
     this.templates = templates;
+  }
+
+  public List<Worksheet> getWorksheets() {
+    return worksheets;
+  }
+
+  public void setWorksheets(List<Worksheet> worksheets) {
+    this.worksheets = worksheets;
   }
 
   public String getId() {
