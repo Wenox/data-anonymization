@@ -5,6 +5,7 @@ import { Accordion, AccordionDetails, AccordionSummary, Button, Container, Divid
 import TextField from '@mui/material/TextField';
 import MetadataDownloadButton from '../../components/metadata/metadata-download-button';
 import { CloudDownload, ExpandMore } from '@mui/icons-material';
+import { DataGrid } from '@mui/x-data-grid';
 
 const Worksheet: FC = () => {
   const [isMetadataDialogOpen, setIsMetadataDialogOpen] = useState(false);
@@ -172,7 +173,9 @@ const Worksheet: FC = () => {
         </AccordionSummary>
 
         <AccordionDetails>
-          <Grid container spacing={2}></Grid>
+          <Grid container spacing={2}>
+            <DataGrid autoHeight columns={[]} rows={[]} />
+          </Grid>
         </AccordionDetails>
       </Accordion>
 
@@ -191,7 +194,9 @@ const Worksheet: FC = () => {
         </AccordionSummary>
 
         <AccordionDetails>
-          <Grid container spacing={2}></Grid>
+          <Grid container spacing={2}>
+            <DataGrid autoHeight columns={[]} rows={[]} />
+          </Grid>
         </AccordionDetails>
       </Accordion>
 
@@ -209,7 +214,9 @@ const Worksheet: FC = () => {
         </AccordionSummary>
 
         <AccordionDetails>
-          <Grid container spacing={2}></Grid>
+          <Grid container spacing={2}>
+            <DataGrid autoHeight columns={[]} rows={[]} />
+          </Grid>
         </AccordionDetails>
       </Accordion>
     </Container>
