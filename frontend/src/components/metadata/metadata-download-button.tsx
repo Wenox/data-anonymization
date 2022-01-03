@@ -4,10 +4,9 @@ import { computeHrefDownloadUrl } from './metadata-download-button.util';
 
 interface MetadataDownloadButtonProps {
   metadata: any;
-  buttonText?: string;
 }
 
-const MetadataDownloadButton: FC<MetadataDownloadButtonProps> = ({ metadata, buttonText = 'Download' }) => {
+const MetadataDownloadButton: FC<MetadataDownloadButtonProps> = ({ metadata }) => {
   return (
     <Button
       disabled={metadata?.content == null}
@@ -18,7 +17,7 @@ const MetadataDownloadButton: FC<MetadataDownloadButtonProps> = ({ metadata, but
       color="primary"
       variant="contained"
     >
-      {buttonText}
+      Download
     </Button>
   );
 };

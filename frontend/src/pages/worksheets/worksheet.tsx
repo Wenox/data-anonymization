@@ -1,14 +1,64 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { theme } from '../../styles/theme';
 import Typography from '@mui/material/Typography';
-import { Accordion, AccordionDetails, AccordionSummary, Button, Container, Divider, Grid } from '@mui/material';
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Button,
+  CircularProgress,
+  Container,
+  Divider,
+  Grid,
+} from '@mui/material';
 import TextField from '@mui/material/TextField';
 import MetadataDownloadButton from '../../components/metadata/metadata-download-button';
 import { CloudDownload, ExpandMore } from '@mui/icons-material';
 import { DataGrid } from '@mui/x-data-grid';
+import { getMyWorksheetSummary } from '../../api/requests/worksheets/worksheet.requests';
+import { useSearchParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { WorksheetSummary } from '../../api/requests/worksheets/worksheet.types';
+import { computeHrefDownloadUrl } from '../../components/metadata/metadata-download-button.util';
 
 const Worksheet: FC = () => {
+  const [searchParams] = useSearchParams();
+  const id: string = searchParams.get('worksheet_id') ?? '';
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [summary, setSummary] = useState<WorksheetSummary>();
   const [isMetadataDialogOpen, setIsMetadataDialogOpen] = useState(false);
+
+  useEffect(() => {
+    getMyWorksheetSummary(id)
+      .then((response) => {
+        if (response.status === 200) {
+          toast.success('Worksheet summary loaded.', {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+          setSummary(response.data);
+          console.log('summary: ', summary);
+        }
+      })
+      .catch((err) => {
+        toast.error('Failed to load the worksheet summary.', {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      })
+      .finally(() => setIsLoading(false));
+  }, []);
 
   return (
     <Container
@@ -27,6 +77,19 @@ const Worksheet: FC = () => {
         Worksheet summary
       </Typography>
       <Divider sx={{ mb: 3 }} />
+
+      {isLoading && (
+        <CircularProgress
+          size="10rem"
+          color="secondary"
+          style={{
+            position: 'absolute',
+            left: '50%',
+            top: '50%',
+            transform: 'translate(-50%, -50%)',
+          }}
+        />
+      )}
 
       <Accordion
         sx={{
@@ -57,7 +120,8 @@ const Worksheet: FC = () => {
             <Grid item xs={6}>
               <TextField
                 label="Title"
-                defaultValue="Music"
+                value={summary?.template.title}
+                defaultValue={'Title'}
                 variant="outlined"
                 fullWidth
                 InputProps={{
@@ -69,7 +133,8 @@ const Worksheet: FC = () => {
             <Grid item xs={6}>
               <TextField
                 label="Type"
-                defaultValue="PostgreSQL"
+                value={summary?.template.type}
+                defaultValue={'Type'}
                 variant="outlined"
                 fullWidth
                 InputProps={{
@@ -82,7 +147,8 @@ const Worksheet: FC = () => {
             <Grid item xs={12}>
               <TextField
                 label="Description"
-                defaultValue="Longer description of this template goes here."
+                value={summary?.template.description}
+                defaultValue={'No description'}
                 multiline
                 minRows={2}
                 maxRows={2}
@@ -119,10 +185,11 @@ const Worksheet: FC = () => {
                 fullWidth
                 color="primary"
                 variant="outlined"
-                onClick={() => {
-                  setIsMetadataDialogOpen(true);
-                }}
-                sx={{ height: '100%', fontSize: '120%', backgroundColor: '#fff' }}
+                href={computeHrefDownloadUrl(JSON.stringify(summary?.template.metadata, null, 4))}
+                download={`${summary?.template.originalFileName}-metadata.json`}
+                disabled={summary?.template.metadata == null}
+                type="button"
+                sx={{ height: '100%', backgroundColor: '#fff', fontSize: '120%' }}
               >
                 <CloudDownload fontSize="large" sx={{ color: '#7f00b5', mr: 1 }} />
                 Download
@@ -152,7 +219,7 @@ const Worksheet: FC = () => {
               </Button>
             </Grid>
             <Grid item xs={6}>
-              <MetadataDownloadButton buttonText="Download" metadata={{ content: '', fileName: '' }} />
+              <MetadataDownloadButton metadata={{ content: '', fileName: '' }} />
             </Grid>
           </Grid>
         </AccordionDetails>
