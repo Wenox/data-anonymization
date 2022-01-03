@@ -21,6 +21,7 @@ import { useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { WorksheetSummary } from '../../api/requests/worksheets/worksheet.types';
 import { getDownloadDump } from '../../api/requests/templates/templates.requests';
+import MetadataDialog from '../../components/metadata/metadata-dialog';
 
 const Worksheet: FC = () => {
   const [searchParams] = useSearchParams();
@@ -121,6 +122,17 @@ const Worksheet: FC = () => {
             top: '50%',
             transform: 'translate(-50%, -50%)',
           }}
+        />
+      )}
+
+      {isMetadataDialogOpen && (
+        <MetadataDialog
+          metadata={{
+            content: JSON.stringify(summary?.template.metadata, null, 4),
+            fileName: summary?.template.originalFileName,
+          }}
+          open={isMetadataDialogOpen}
+          handleClose={() => setIsMetadataDialogOpen(false)}
         />
       )}
 
