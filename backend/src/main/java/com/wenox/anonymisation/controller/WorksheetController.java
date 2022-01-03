@@ -33,7 +33,8 @@ public class WorksheetController {
 
   @PostMapping
   @PreAuthorize("hasAnyAuthority('VERIFIED_USER', 'ADMIN')")
-  public ResponseEntity<WorksheetCreatedResponse> createMyWorksheet(@Valid @RequestBody CreateWorksheetRequest dto, Authentication auth) {
+  public ResponseEntity<WorksheetCreatedResponse> createMyWorksheet(@Valid @RequestBody CreateWorksheetRequest dto,
+                                                                    Authentication auth) {
     return ResponseEntity.ok(WorksheetCreatedResponse.from(worksheetService.createMyWorksheet(dto, auth)));
   }
 }
