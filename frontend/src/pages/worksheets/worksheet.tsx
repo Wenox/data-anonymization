@@ -10,6 +10,7 @@ import {
   Container,
   Divider,
   Grid,
+  IconButton,
 } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import MetadataDownloadButton from '../../components/metadata/metadata-download-button';
@@ -19,7 +20,7 @@ import { getMyWorksheetSummary } from '../../api/requests/worksheets/worksheet.r
 import { useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { WorksheetSummary } from '../../api/requests/worksheets/worksheet.types';
-import { computeHrefDownloadUrl } from '../../components/metadata/metadata-download-button.util';
+import { getDownloadDump } from '../../api/requests/templates/templates.requests';
 
 const Worksheet: FC = () => {
   const [searchParams] = useSearchParams();
@@ -59,6 +60,38 @@ const Worksheet: FC = () => {
       })
       .finally(() => setIsLoading(false));
   }, []);
+
+  const handleDownloadDump = (templateId: string, originalFileName: string) => {
+    getDownloadDump(templateId)
+      .then((response) => {
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', originalFileName);
+        document.body.appendChild(link);
+        link.click();
+        toast.success('Successfully downloaded dump file.', {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      })
+      .catch((err) => {
+        toast.success('Failed to downloaded the dump file.', {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      });
+  };
 
   return (
     <Container
@@ -181,19 +214,10 @@ const Worksheet: FC = () => {
               />
             </Grid>
             <Grid item xs={6}>
-              <Button
-                fullWidth
-                color="primary"
-                variant="outlined"
-                href={computeHrefDownloadUrl(JSON.stringify(summary?.template.metadata, null, 4))}
-                download={`${summary?.template.originalFileName}-metadata.json`}
-                disabled={summary?.template.metadata == null}
-                type="button"
-                sx={{ height: '100%', backgroundColor: '#fff', fontSize: '120%' }}
-              >
+              <IconButton onClick={() => handleDownloadDump(summary!.template.id, summary!.template.originalFileName)}>
                 <CloudDownload fontSize="large" sx={{ color: '#7f00b5', mr: 1 }} />
-                Download
-              </Button>
+                Download{' '}
+              </IconButton>
             </Grid>
 
             <Grid item xs={12}>
@@ -219,7 +243,12 @@ const Worksheet: FC = () => {
               </Button>
             </Grid>
             <Grid item xs={6}>
-              <MetadataDownloadButton metadata={{ content: '', fileName: '' }} />
+              <MetadataDownloadButton
+                metadata={{
+                  content: JSON.stringify(summary?.template.metadata, null, 4),
+                  fileName: summary?.template.originalFileName,
+                }}
+              />
             </Grid>
           </Grid>
         </AccordionDetails>
