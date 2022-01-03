@@ -1,7 +1,7 @@
 package com.wenox.anonymisation.service;
 
 import com.wenox.anonymisation.domain.Worksheet;
-import com.wenox.anonymisation.dto.CreateMyWorksheetDto;
+import com.wenox.anonymisation.dto.CreateWorksheetRequest;
 import com.wenox.anonymisation.repository.OperationRepository;
 import com.wenox.anonymisation.repository.WorksheetRepository;
 import com.wenox.uploading.template.domain.Template;
@@ -30,7 +30,7 @@ public class WorksheetService {
     this.authService = authService;
   }
 
-  public Worksheet createMyWorksheet(CreateMyWorksheetDto dto, Authentication auth) {
+  public Worksheet createMyWorksheet(CreateWorksheetRequest dto, Authentication auth) {
     User me = authService.getMe(auth);
     Template template = templateRepository.findById(dto.getTemplateId()).orElseThrow();
 
@@ -38,7 +38,7 @@ public class WorksheetService {
     worksheet.setUser(me);
     worksheet.setTemplate(template);
     worksheetRepository.save(worksheet);
-    
+
     return worksheet;
   }
 

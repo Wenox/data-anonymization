@@ -1,7 +1,8 @@
 package com.wenox.anonymisation.controller;
 
 import com.wenox.anonymisation.domain.Worksheet;
-import com.wenox.anonymisation.dto.CreateMyWorksheetDto;
+import com.wenox.anonymisation.dto.CreateWorksheetRequest;
+import com.wenox.anonymisation.dto.WorksheetCreatedResponse;
 import com.wenox.anonymisation.service.WorksheetService;
 import java.util.List;
 import javax.validation.Valid;
@@ -32,7 +33,7 @@ public class WorksheetController {
 
   @PostMapping
   @PreAuthorize("hasAnyAuthority('VERIFIED_USER', 'ADMIN')")
-  public ResponseEntity<Worksheet> createMyWorksheet(@Valid @RequestBody CreateMyWorksheetDto dto, Authentication auth) {
-    return ResponseEntity.ok(worksheetService.createMyWorksheet(dto, auth));
+  public ResponseEntity<WorksheetCreatedResponse> createMyWorksheet(@Valid @RequestBody CreateWorksheetRequest dto, Authentication auth) {
+    return ResponseEntity.ok(WorksheetCreatedResponse.from(worksheetService.createMyWorksheet(dto, auth)));
   }
 }

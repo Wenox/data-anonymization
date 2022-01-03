@@ -2,7 +2,7 @@ package com.wenox.anonymisation.dto;
 
 import javax.validation.constraints.NotNull;
 
-public class CreateMyWorksheetDto {
+public class CreateWorksheetRequest {
 
   @NotNull
   String templateId;

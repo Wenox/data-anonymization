@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { Button, Container, Divider, IconButton } from '@mui/material';
+import { Button, CircularProgress, Container, Divider, IconButton } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { getAllMyTemplates, getDownloadDump } from '../../api/requests/templates/templates.requests';
 import { MyTemplate } from '../../api/requests/templates/templates.types';
@@ -13,6 +13,7 @@ import { ROUTES } from '../../constants/routes';
 import { CloudDownload, Delete, Download, Edit } from '@mui/icons-material';
 import { centeredColumn } from '../../styles/data-table';
 import { toast } from 'react-toastify';
+import { postCreateMyWorksheet } from '../../api/requests/worksheets/worksheet.requests';
 
 const MyTemplates = () => {
   const navigate = useNavigate();
@@ -23,6 +24,8 @@ const MyTemplates = () => {
       metadata: template.metadata ? JSON.stringify(template.metadata, null, 4) : null,
       activeWorksheets: 0,
     })) || [];
+
+  const [isCreatingWorksheet, setIsCreatingWorksheet] = useState(false);
 
   const handleDownloadDump = (templateId: string, originalFileName: string) => {
     getDownloadDump(templateId)
@@ -75,8 +78,36 @@ const MyTemplates = () => {
               size="medium"
               color="primary"
               variant="contained"
-              onClick={() => {}}
               sx={{ mr: 0.5 }}
+              onClick={() => {
+                setIsCreatingWorksheet(true);
+                postCreateMyWorksheet({ templateId: row.id })
+                  .then((response) => {
+                    if (response.status === 200)
+                      toast.success('Successfully started a new worksheet.', {
+                        position: 'top-right',
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                      });
+                    navigate('/');
+                  })
+                  .catch(() => {
+                    toast.error('Failed to start a new worksheet.', {
+                      position: 'top-right',
+                      autoClose: 5000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                    });
+                  })
+                  .finally(() => setIsCreatingWorksheet(false));
+              }}
             >
               Start worksheet
             </Button>
@@ -215,6 +246,12 @@ const MyTemplates = () => {
         borderRadius: '2px',
       }}
     >
+      {isCreatingWorksheet && (
+        <CircularProgress
+          sx={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }}
+          size="8rem"
+        />
+      )}
       {isMetadataDialogOpen && (
         <MetadataDialog
           metadata={metadata}
