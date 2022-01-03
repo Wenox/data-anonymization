@@ -5,8 +5,10 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { getStepIconFromStepStatus, getStepMessageFromStepStatus } from './template-generation-base.utils';
 import { Steps, TemplateGenerationStepStatus } from './template-generation-base.types';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ROUTES } from '../../constants/routes';
+import { postCreateMyWorksheet } from '../../api/requests/worksheets/worksheet.requests';
+import { toast } from 'react-toastify';
 
 interface TemplateGenerationBaseProps {
   header?: string;
@@ -19,6 +21,10 @@ const TemplateGenerationBase: FC<TemplateGenerationBaseProps> = ({
 }: TemplateGenerationBaseProps) => {
   const { step1, step2, step3 } = steps;
   const navigate = useNavigate();
+
+  const [searchParams] = useSearchParams();
+  const id: string = searchParams.get('template_id') ?? '';
+
   return (
     <Container
       maxWidth={'lg'}
@@ -102,7 +108,33 @@ const TemplateGenerationBase: FC<TemplateGenerationBaseProps> = ({
           <Button
             disabled={step3 !== TemplateGenerationStepStatus.SUCCESS}
             color="secondary"
-            onClick={() => {}}
+            onClick={() => {
+              postCreateMyWorksheet({ templateId: id })
+                .then((response) => {
+                  if (response.status === 200)
+                    toast.success('Successfully started a new worksheet.', {
+                      position: 'top-right',
+                      autoClose: 5000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                    });
+                  navigate('/');
+                })
+                .catch(() => {
+                  toast.error('Failed to start a new worksheet.', {
+                    position: 'top-right',
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                  });
+                });
+            }}
             variant="contained"
             fullWidth
           >
