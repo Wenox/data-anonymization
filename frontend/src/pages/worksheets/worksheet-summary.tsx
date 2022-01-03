@@ -14,7 +14,15 @@ import {
 } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import MetadataDownloadButton from '../../components/metadata/metadata-download-button';
-import { CloudDownload, ExpandMore } from '@mui/icons-material';
+import {
+  CloudDownload,
+  DeveloperBoard,
+  ExpandMore,
+  ListAlt,
+  SnippetFolder,
+  Storage,
+  Upload,
+} from '@mui/icons-material';
 import { DataGrid } from '@mui/x-data-grid';
 import { getMyWorksheetSummary } from '../../api/requests/worksheets/worksheet.requests';
 import { useSearchParams } from 'react-router-dom';
@@ -113,9 +121,16 @@ const WorksheetSummary: FC = () => {
         }}
       >
         <AccordionSummary expandIcon={<ExpandMore />} aria-controls="panel1a-content" id="panel1a-header">
-          <Typography fontWeight={'300'} color="primary" variant="h4">
-            Template
-          </Typography>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+            }}
+          >
+            <SnippetFolder sx={{ fontSize: '180%', mr: 2 }} />
+            <h1 style={{ lineHeight: '12px', color: `${theme.palette.primary.main}` }}>Template</h1>
+          </div>
         </AccordionSummary>
 
         <AccordionDetails>
@@ -242,9 +257,16 @@ const WorksheetSummary: FC = () => {
         }}
       >
         <AccordionSummary expandIcon={<ExpandMore />} aria-controls="panel1a-content" id="panel1a-header">
-          <Typography fontWeight={'300'} color="primary" variant="h4">
-            Tables
-          </Typography>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+            }}
+          >
+            <ListAlt sx={{ fontSize: '180%', mr: 2 }} />
+            <h1 style={{ lineHeight: '12px', color: `${theme.palette.primary.main}` }}>Tables</h1>
+          </div>
         </AccordionSummary>
 
         <AccordionDetails>
@@ -263,9 +285,16 @@ const WorksheetSummary: FC = () => {
         }}
       >
         <AccordionSummary expandIcon={<ExpandMore />} aria-controls="panel1a-content" id="panel1a-header">
-          <Typography fontWeight={'300'} color="primary" variant="h4">
-            Operations
-          </Typography>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+            }}
+          >
+            <DeveloperBoard sx={{ fontSize: '180%', mr: 2 }} />
+            <h1 style={{ lineHeight: '12px', color: `${theme.palette.primary.main}` }}>Operations</h1>
+          </div>
         </AccordionSummary>
 
         <AccordionDetails>
@@ -283,9 +312,16 @@ const WorksheetSummary: FC = () => {
         }}
       >
         <AccordionSummary expandIcon={<ExpandMore />} aria-controls="panel1a-content" id="panel1a-header">
-          <Typography fontWeight={'300'} color="primary" variant="h4">
-            Outcomes
-          </Typography>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+            }}
+          >
+            <Storage sx={{ fontSize: '180%', mr: 2 }} />
+            <h1 style={{ lineHeight: '12px', color: `${theme.palette.primary.main}` }}>Outcomes</h1>
+          </div>
         </AccordionSummary>
 
         <AccordionDetails>
