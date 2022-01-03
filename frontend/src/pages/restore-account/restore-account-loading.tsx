@@ -1,10 +1,10 @@
 import { FC, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { postVerifyMail } from '../../api/requests/verify-mail/verify-mail.requests';
 import { CircularProgress, Container } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { putRestoreMyAccount } from '../../api/requests/me/me.requests';
+import { theme } from '../../styles/theme';
 
 const RestoreAccountLoading: FC = () => {
   const navigate = useNavigate();
@@ -13,30 +13,32 @@ const RestoreAccountLoading: FC = () => {
   const token: string = searchParams.get('token') ?? '';
 
   useEffect(() => {
-    putRestoreMyAccount(token).then((response) => {
-      navigate(`/restore-account/${response.data}`);
-    });
+    setTimeout(
+      () =>
+        putRestoreMyAccount(token).then((response) => {
+          navigate(`/restore-account/${response.data}`);
+        }),
+      1000,
+    );
   });
 
   return (
     <Container
       component="main"
       sx={{
-        border: '1px solid #000000',
-        boxShadow: '6px 6px 0px #00bfff',
-        backgroundColor: 'white',
+        backgroundColor: '#fff',
+        border: `1px solid ${theme.palette.primary.main}`,
+        boxShadow: `4px 4px 0px ${theme.palette.primary.dark}`,
+        borderRadius: '2px',
+        pt: 2,
+        pb: 3,
         mt: 20,
-        paddingTop: 8,
-        paddingBottom: 2,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
       }}
-      maxWidth="xs"
+      maxWidth="sm"
     >
-      <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
-        <LockOutlinedIcon />
-      </Avatar>
       <CircularProgress size="8rem" />
     </Container>
   );

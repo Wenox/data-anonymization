@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
-import Avatar from '@mui/material/Avatar';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
@@ -16,7 +15,10 @@ import Link from '@mui/material/Link';
 import { Copyright } from '../components/copyright';
 import { postRegisterUser } from '../api/requests/users/users.requests';
 import { RegisterUserRequest } from '../api/requests/users/users.types';
-import { Alert, Collapse, IconButton } from '@mui/material';
+import { Alert, Collapse, Divider, IconButton } from '@mui/material';
+import { ROUTES } from '../constants/routes';
+import { theme } from '../styles/theme';
+import { AppRegistration } from '@mui/icons-material';
 
 interface IFormInputs {
   email: string;
@@ -82,24 +84,31 @@ const Register: FC = () => {
     <Container
       component="main"
       sx={{
-        border: '1px solid #000000',
-        boxShadow: '6px 6px 0px #00bfff',
-        backgroundColor: 'white',
+        backgroundColor: '#fff',
+        border: `1px solid ${theme.palette.primary.main}`,
+        boxShadow: `4px 4px 0px ${theme.palette.primary.dark}`,
+        borderRadius: '2px',
         mt: 4,
-        paddingTop: 8,
+        pt: 3,
+        pb: 2,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
       }}
-      maxWidth="xs"
+      maxWidth={'sm'}
     >
-      <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-        <LockOutlinedIcon />
-      </Avatar>
-      <Typography component="h5" variant="h4">
-        Create a new account
-      </Typography>
+      <Grid container spacing={2} alignItems="center">
+        <Grid sx={{ textAlign: 'right' }} item xs={7}>
+          <Typography variant="h2" sx={{ alignItems: 'left', mb: 2 }}>
+            Sign up
+          </Typography>
+        </Grid>
+        <Grid sx={{ textAlign: 'left' }} item xs={5}>
+          <AppRegistration color="secondary" style={{ fontSize: '600%' }} />
+        </Grid>
+      </Grid>
       <Box component="form" onSubmit={handleSubmit(formSubmitHandler)} noValidate sx={{ mt: 1 }}>
+        <Divider sx={{ mb: 3 }} />
         <Controller
           name="email"
           control={control}
@@ -228,8 +237,9 @@ const Register: FC = () => {
             />
           )}
         />
+        <Divider sx={{ mt: 3 }} />
 
-        <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+        <Button type="submit" fullWidth color="secondary" variant="contained" sx={{ mt: 3, mb: 2 }}>
           Sign up
         </Button>
         <Collapse in={failedLogin}>
@@ -253,7 +263,7 @@ const Register: FC = () => {
         </Collapse>
         <Grid container>
           <Grid item>
-            <Link onClick={() => navigate('/login')} variant="body2">
+            <Link onClick={() => navigate(ROUTES.LOGIN)} variant="body2">
               {'Already have an account? Sign In'}
             </Link>
           </Grid>

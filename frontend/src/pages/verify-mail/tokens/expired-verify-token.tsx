@@ -41,8 +41,9 @@ const ExpiredVerifyToken: FC = () => {
 
   return (
     <TokenResult
+      type="MAIL_EXPIRED_TOKEN"
       title="Cannot verify account"
-      content="This token has already expired."
+      content="Unfortunately this e-mail address could not be verified as the token had already expired."
       buttonTitle="Send new verification token"
       customOnClick
       handleOnClick={handleResendVerificationMail}

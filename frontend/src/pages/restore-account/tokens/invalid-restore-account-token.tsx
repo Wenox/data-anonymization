@@ -8,8 +8,9 @@ const InvalidRestoreAccountToken: FC = () => {
 
   return (
     <TokenResult
-      title="Cannot restore account"
-      content="This token is not a valid account restoration token"
+      type="RESTORE_INVALID_TOKEN"
+      title="Restore error"
+      content="The account could not be restored as this restoration token is not a valid token."
       buttonTitle="Create new account"
       customOnClick
       handleOnClick={() => navigate(ROUTES.REGISTER)}

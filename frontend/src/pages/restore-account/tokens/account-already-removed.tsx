@@ -8,8 +8,9 @@ const AccountAlreadyRemoved: FC = () => {
 
   return (
     <TokenResult
-      title="Account already removed"
-      content="Unfortunately this account has already been removed and can no longer be restored."
+      type="RESTORE_ALREADY_REMOVED"
+      title="Restore error"
+      content="Unfortunately this account had already been removed and there can no longer be restored."
       buttonTitle="Create new account"
       customOnClick
       handleOnClick={() => navigate(ROUTES.REGISTER)}

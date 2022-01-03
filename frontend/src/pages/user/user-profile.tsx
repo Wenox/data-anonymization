@@ -236,6 +236,9 @@ const UserProfile: FC = () => {
                       label="E-mail address"
                       error={!!errors.email}
                       helperText={errors.email ? errors.email?.message : ''}
+                      InputProps={{
+                        readOnly: true,
+                      }}
                     />
                   )}
                 />

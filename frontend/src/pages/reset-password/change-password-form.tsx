@@ -6,15 +6,15 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
-import Avatar from '@mui/material/Avatar';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
-import Link from '@mui/material/Link';
-import { Copyright } from '../../components/copyright';
 import { postChangePassword } from '../../api/requests/reset-password/reset-password.requests';
+import { theme } from '../../styles/theme';
+import { Password } from '@mui/icons-material';
+import { Divider } from '@mui/material';
+import { ROUTES } from '../../constants/routes';
 
 interface IFormInputs {
   password: string;
@@ -53,7 +53,7 @@ const ChangePasswordForm: FC = () => {
               draggable: true,
               progress: undefined,
             });
-            navigate('/login');
+            navigate(ROUTES.LOGIN);
           } else {
             toast.error('Failed to change password.', {
               position: 'top-right',
@@ -78,7 +78,7 @@ const ChangePasswordForm: FC = () => {
           draggable: true,
           progress: undefined,
         });
-        navigate('/login');
+        navigate(ROUTES.LOGIN);
       });
   };
 
@@ -86,24 +86,31 @@ const ChangePasswordForm: FC = () => {
     <Container
       component="main"
       sx={{
-        border: '1px solid #000000',
-        boxShadow: '6px 6px 0px #00bfff',
-        backgroundColor: 'white',
+        backgroundColor: '#fff',
+        border: `1px solid ${theme.palette.primary.main}`,
+        boxShadow: `4px 4px 0px ${theme.palette.primary.dark}`,
+        borderRadius: '2px',
+        pt: 2,
+        pb: 3,
         mt: 20,
-        paddingTop: 8,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
       }}
       maxWidth="xs"
     >
-      <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-        <LockOutlinedIcon />
-      </Avatar>
-      <Typography component="h5" variant="h4">
-        Set new password
-      </Typography>
+      <Grid container spacing={2} alignItems="center">
+        <Grid sx={{ textAlign: 'right' }} item xs={7}>
+          <Typography color="primary" fontWeight={'300'} variant="h3" sx={{ alignItems: 'left', mb: 2 }}>
+            Set new password
+          </Typography>
+        </Grid>
+        <Grid sx={{ textAlign: 'left' }} item xs={5}>
+          <Password color="secondary" style={{ fontSize: '600%' }} />
+        </Grid>
+      </Grid>
       <Box component="form" onSubmit={handleSubmit(formSubmitHandler)} noValidate sx={{ mt: 1 }}>
+        <Divider sx={{ mb: 3 }} />
         <Controller
           name="password"
           control={control}
@@ -141,25 +148,22 @@ const ChangePasswordForm: FC = () => {
               fullWidth
               name="confirmPassword"
               label="Confirm Password"
-              type="confirmPassword"
+              type="type"
               id="confirmPassword"
               autoComplete="current-password"
             />
           )}
         />
 
-        <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+        <Divider sx={{ mt: 3 }} />
+
+        <Button color="secondary" type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 0.5 }}>
           Confirm
         </Button>
-        <Grid container>
-          <Grid item>
-            <Link href="login" variant="body2">
-              {'Return to login'}
-            </Link>
-          </Grid>
-        </Grid>
+        <Button color="primary" fullWidth variant="outlined" sx={{ mt: 1 }} onClick={() => navigate(ROUTES.LOGIN)}>
+          Return to login
+        </Button>
       </Box>
-      <Copyright />
     </Container>
   );
 };

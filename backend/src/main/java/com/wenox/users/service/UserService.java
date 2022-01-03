@@ -62,7 +62,6 @@ public class UserService {
 
   public ApiResponse editMyProfile(EditMyProfileDto dto, Authentication auth) {
     User me = authService.getMe(auth);
-    me.setEmail(dto.getEmail());
     me.setFirstName(dto.getFirstName());
     me.setLastName(dto.getLastName());
     me.setPurpose(dto.getPurpose());
