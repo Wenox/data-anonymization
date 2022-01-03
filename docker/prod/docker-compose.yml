@@ -14,7 +14,6 @@ services:
     tty: true
 
   anonymisation_server:
-    image: anonymisation_server
     ports:
       - '${SERVER_PORTS_MAPPING}'
     build:
@@ -28,7 +27,6 @@ services:
     tty: true
 
   anonymisation_client:
-    image: anonymisation_client
     ports:
       - '${CLIENT_PORTS_MAPPING}'
     build:
