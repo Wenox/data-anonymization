@@ -121,10 +121,10 @@ const TemplateGenerationBase: FC<TemplateGenerationBaseProps> = ({
                       draggable: true,
                       progress: undefined,
                     });
-                  navigate('/');
+                  navigate(`${ROUTES.WORKSHEET}?worksheet_id=${id}`);
                 })
                 .catch(() => {
-                  toast.error('Failed to start a new worksheet.', {
+                  toast.error('Failed to produce a new worksheet.', {
                     position: 'top-right',
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -138,7 +138,7 @@ const TemplateGenerationBase: FC<TemplateGenerationBaseProps> = ({
             variant="contained"
             fullWidth
           >
-            Produce new worksheet
+            Produce worksheet
           </Button>
         </Grid>
         <Grid item xs={6} textAlign="center">

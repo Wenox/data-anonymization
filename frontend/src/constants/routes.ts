@@ -32,6 +32,7 @@ import TemplateGenerationRestoreSuccess from '../pages/templates/generation/temp
 import TemplateGenerationSuccess from '../pages/templates/generation/template-generation-success';
 import TemplateGenerationError from '../pages/templates/generation/template-generation-error';
 import MyTemplates from '../pages/templates/my-templates';
+import Worksheet from '../pages/worksheets/worksheet';
 
 export const ROUTES = {
   HOME: '/home',
@@ -48,6 +49,8 @@ export const ROUTES = {
   TEMPLATES_GENERATING_RESTORE_SUCCESS: '/templates/generating/restore-success',
   TEMPLATES_GENERATING_SUCCESS: '/templates/generating/success',
   TEMPLATES_GENERATING_ERROR: '/templates/generating/error',
+  MY_WORKSHEETS: '/my-worksheets',
+  WORKSHEET: '/my-worksheets/summary',
   USERS: '/users',
   ABOUT: '/about',
   RESET_PASSWORD: '/reset-password',
@@ -154,6 +157,18 @@ export const APP_ROUTES: RouteDescription[] = [
   {
     path: ROUTES.TEMPLATES_GENERATING_ERROR,
     element: TemplateGenerationError,
+    authenticated: true,
+    menu: true,
+  },
+  {
+    path: ROUTES.MY_WORKSHEETS,
+    element: Worksheet,
+    authenticated: true,
+    menu: true,
+  },
+  {
+    path: ROUTES.WORKSHEET,
+    element: Worksheet,
     authenticated: true,
     menu: true,
   },
