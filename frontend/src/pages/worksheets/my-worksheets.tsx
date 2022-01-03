@@ -22,6 +22,8 @@ const MyWorksheets: FC = () => {
       field: 'worksheetSummary',
       headerName: 'Summary',
       width: 180,
+      sortable: false,
+      filterable: false,
       ...centeredColumn(),
       renderCell: ({ row }) => (
         <Button

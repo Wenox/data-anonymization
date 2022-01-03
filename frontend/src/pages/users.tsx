@@ -13,7 +13,7 @@ import VerifyUser from '../components/user/verify-user';
 import { postConfirmVerifyMail } from '../api/requests/verify-mail/verify-mail.requests';
 import Typography from '@mui/material/Typography';
 import { theme } from '../styles/theme';
-import { centeredColumn } from '../styles/data-table';
+import { centeredColumn, centeredHeader } from '../styles/data-table';
 
 const Users = () => {
   const { data, isLoading, refetch, isRefetching } = useQuery('users', getUsers);
@@ -176,10 +176,10 @@ const Users = () => {
   };
 
   const columns: GridColDef[] = [
-    { field: 'email', headerName: 'E-mail address', flex: 1, ...centeredColumn() },
-    { field: 'firstName', headerName: 'Name', flex: 1, ...centeredColumn() },
-    { field: 'lastName', headerName: 'Surname', flex: 1, ...centeredColumn() },
-    { field: 'purpose', headerName: 'Purpose', flex: 1, ...centeredColumn() },
+    { field: 'email', headerName: 'E-mail address', flex: 1, ...centeredHeader() },
+    { field: 'firstName', headerName: 'Name', flex: 1, ...centeredHeader() },
+    { field: 'lastName', headerName: 'Surname', flex: 1, ...centeredHeader() },
+    { field: 'purpose', headerName: 'Purpose', flex: 1, ...centeredHeader() },
     { field: 'status', headerName: 'Status', flex: 1, ...centeredColumn() },
     { field: 'role', headerName: 'Role', flex: 1, ...centeredColumn() },
     { field: 'registeredDate', headerName: 'Registered', flex: 1, ...centeredColumn() },
