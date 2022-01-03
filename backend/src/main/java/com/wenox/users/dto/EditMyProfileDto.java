@@ -1,15 +1,9 @@
 package com.wenox.users.dto;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 public class EditMyProfileDto {
-
-  @Email
-  @NotBlank
-  @Size(max = 40)
-  private String email;
 
   @NotBlank
   @Size(min = 2, max = 40)
@@ -22,14 +16,6 @@ public class EditMyProfileDto {
   @NotBlank
   @Size(min = 2, max = 1000)
   private String purpose;
-
-  public String getEmail() {
-    return email;
-  }
-
-  public void setEmail(String email) {
-    this.email = email;
-  }
 
   public String getFirstName() {
     return firstName;
