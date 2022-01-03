@@ -22,21 +22,22 @@ const Worksheet: FC = () => {
         borderRadius: '2px',
       }}
     >
-      <Typography color="secondary" variant="h4" sx={{ mb: 2 }}>
+      <Typography fontWeight={'300'} color="primary" variant="h3" sx={{ mb: 2 }}>
         Worksheet summary
       </Typography>
-      <Divider sx={{ mb: 2 }} />
+      <Divider sx={{ mb: 3 }} />
 
       <Accordion
         sx={{
-          backgroundColor: '#fafafa',
+          backgroundColor: '#f9f9f9',
           border: `1px dashed #c4c4c4`,
-          borderRadius: '20px',
           boxShadow: 0,
+          mt: 3,
+          mb: 2,
         }}
       >
         <AccordionSummary expandIcon={<ExpandMore />} aria-controls="panel1a-content" id="panel1a-header">
-          <Typography fontWeight={'700'} color="primary" variant="h4">
+          <Typography fontWeight={'300'} color="secondary" variant="h4">
             Template
           </Typography>
         </AccordionSummary>
@@ -156,18 +157,61 @@ const Worksheet: FC = () => {
         </AccordionDetails>
       </Accordion>
 
-      <Divider sx={{ mb: 2 }} />
-      <Typography color="secondary" variant="h5" sx={{ mb: 2 }}>
-        Tables
-      </Typography>
-      <Divider sx={{ mb: 2 }} />
-      <Typography color="secondary" variant="h5" sx={{ mb: 2 }}>
-        Operations
-      </Typography>
-      <Divider sx={{ mb: 2 }} />
-      <Typography color="secondary" variant="h5" sx={{ mb: 2 }}>
-        Outcomes
-      </Typography>
+      <Accordion
+        sx={{
+          backgroundColor: '#f9f9f9',
+          border: `1px dashed #c4c4c4`,
+          boxShadow: 0,
+          mb: 2,
+        }}
+      >
+        <AccordionSummary expandIcon={<ExpandMore />} aria-controls="panel1a-content" id="panel1a-header">
+          <Typography fontWeight={'300'} color="secondary" variant="h4">
+            Tables
+          </Typography>
+        </AccordionSummary>
+
+        <AccordionDetails>
+          <Grid container spacing={2}></Grid>
+        </AccordionDetails>
+      </Accordion>
+
+      <Accordion
+        sx={{
+          backgroundColor: '#f9f9f9',
+          border: `1px dashed #c4c4c4`,
+          boxShadow: 0,
+          mb: 2,
+        }}
+      >
+        <AccordionSummary expandIcon={<ExpandMore />} aria-controls="panel1a-content" id="panel1a-header">
+          <Typography fontWeight={'300'} color="secondary" variant="h4">
+            Operations
+          </Typography>
+        </AccordionSummary>
+
+        <AccordionDetails>
+          <Grid container spacing={2}></Grid>
+        </AccordionDetails>
+      </Accordion>
+
+      <Accordion
+        sx={{
+          backgroundColor: '#f9f9f9',
+          border: `1px dashed #c4c4c4`,
+          boxShadow: 0,
+        }}
+      >
+        <AccordionSummary expandIcon={<ExpandMore />} aria-controls="panel1a-content" id="panel1a-header">
+          <Typography fontWeight={'300'} color="secondary" variant="h4">
+            Outcomes
+          </Typography>
+        </AccordionSummary>
+
+        <AccordionDetails>
+          <Grid container spacing={2}></Grid>
+        </AccordionDetails>
+      </Accordion>
     </Container>
   );
 };
