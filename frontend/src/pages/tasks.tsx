@@ -57,7 +57,7 @@ const Tasks = () => {
           <Close fontSize="large" sx={{ color: '#e00000' }} />
         ),
     },
-    { field: 'cronExpression', headerName: 'Cron expression', width: 160, ...centeredColumn() },
+    { field: 'cronExpression', headerName: 'Cron expression', width: 160, sortable: false, ...centeredColumn() },
     {
       field: 'nextScheduledExecution',
       headerName: 'Next scheduled execution',

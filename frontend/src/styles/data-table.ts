@@ -13,3 +13,10 @@ export function centeredColumn(): CenteredColumnInterface {
     align: 'center',
   };
 }
+
+export function centeredHeader(): CenteredColumnInterface {
+  return {
+    headerClassName: 'data-grid-header',
+    headerAlign: 'center',
+  };
+}
