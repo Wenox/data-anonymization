@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { Container, IconButton } from '@mui/material';
+import { Container, Divider, IconButton } from '@mui/material';
 import { Edit } from '@mui/icons-material';
 import { User } from '../api/requests/users/users.types';
 import { getUsers, putBlockUser, putForceUserRemoval, putUnblockUser } from '../api/requests/users/users.requests';
@@ -239,9 +239,10 @@ const Users = () => {
         pb: 3,
       }}
     >
-      <Typography color="secondary" variant="h2" sx={{ mb: 2 }}>
+      <Typography color="secondary" variant="h4" sx={{ mb: 2 }}>
         Users
       </Typography>
+      <Divider sx={{ mb: 3 }} />
       <DataGrid autoHeight columns={columns} rows={users} loading={isLoading || isRefetching} />
     </Container>
   );

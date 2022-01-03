@@ -143,7 +143,7 @@ const Templates: FC = () => {
           pb: 3,
         }}
       >
-        <Typography color="secondary" variant="h2" sx={{ mb: 2 }}>
+        <Typography color="secondary" variant="h4" sx={{ mb: 2 }}>
           New template
         </Typography>
 

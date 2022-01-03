@@ -74,7 +74,7 @@ const WorksheetSummary: FC = () => {
         borderRadius: '2px',
       }}
     >
-      <Typography fontWeight={'300'} color="primary" variant="h3" sx={{ mb: 2 }}>
+      <Typography color="secondary" variant="h4" sx={{ mb: 2 }}>
         Worksheet summary
       </Typography>
       <Divider sx={{ mb: 3 }} />
@@ -113,7 +113,7 @@ const WorksheetSummary: FC = () => {
         }}
       >
         <AccordionSummary expandIcon={<ExpandMore />} aria-controls="panel1a-content" id="panel1a-header">
-          <Typography fontWeight={'300'} color="secondary" variant="h4">
+          <Typography fontWeight={'300'} color="primary" variant="h4">
             Template
           </Typography>
         </AccordionSummary>
@@ -242,7 +242,7 @@ const WorksheetSummary: FC = () => {
         }}
       >
         <AccordionSummary expandIcon={<ExpandMore />} aria-controls="panel1a-content" id="panel1a-header">
-          <Typography fontWeight={'300'} color="secondary" variant="h4">
+          <Typography fontWeight={'300'} color="primary" variant="h4">
             Tables
           </Typography>
         </AccordionSummary>
@@ -263,7 +263,7 @@ const WorksheetSummary: FC = () => {
         }}
       >
         <AccordionSummary expandIcon={<ExpandMore />} aria-controls="panel1a-content" id="panel1a-header">
-          <Typography fontWeight={'300'} color="secondary" variant="h4">
+          <Typography fontWeight={'300'} color="primary" variant="h4">
             Operations
           </Typography>
         </AccordionSummary>
@@ -283,7 +283,7 @@ const WorksheetSummary: FC = () => {
         }}
       >
         <AccordionSummary expandIcon={<ExpandMore />} aria-controls="panel1a-content" id="panel1a-header">
-          <Typography fontWeight={'300'} color="secondary" variant="h4">
+          <Typography fontWeight={'300'} color="primary" variant="h4">
             Outcomes
           </Typography>
         </AccordionSummary>

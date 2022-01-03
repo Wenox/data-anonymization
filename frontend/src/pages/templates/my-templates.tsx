@@ -62,7 +62,7 @@ const MyTemplates = () => {
                         draggable: true,
                         progress: undefined,
                       });
-                    navigate(`${ROUTES.WORKSHEET_SUMMARY}?worksheet_id=${row.id}`);
+                    navigate(`${ROUTES.WORKSHEET_SUMMARY}?worksheet_id=${response.data.id}`);
                   })
                   .catch(() => {
                     toast.error('Failed to produce a new worksheet.', {
@@ -228,9 +228,10 @@ const MyTemplates = () => {
           handleClose={() => setIsMetadataDialogOpen(false)}
         />
       )}
-      <Typography color="secondary" variant="h2" sx={{ mb: 2 }}>
+      <Typography color="secondary" variant="h4" sx={{ mb: 2 }}>
         Templates
       </Typography>
+      <Divider sx={{ mb: 3 }} />
       <DataGrid autoHeight columns={columns} rows={templates} loading={isLoading || isRefetching} />
       <Button
         sx={{ mt: 2 }}
