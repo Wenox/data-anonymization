@@ -3,8 +3,9 @@ import { FC } from 'react';
 
 const ConsumedPasswordToken: FC = () => (
   <TokenResult
+    type="PASSWORD_CONSUMED_TOKEN"
     title="Cannot change password"
-    content="This reset password token cannot be used as it was already consumed before."
+    content="The password cannot not be changed because this token had already been used before."
   />
 );
 
