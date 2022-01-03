@@ -4,6 +4,7 @@ import Avatar from '@mui/material/Avatar';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { CircularProgress, Container } from '@mui/material';
 import { postVerifyMail } from '../../api/requests/verify-mail/verify-mail.requests';
+import { theme } from '../../styles/theme';
 
 const VerifyMailLoading: FC = () => {
   const navigate = useNavigate();
@@ -12,30 +13,32 @@ const VerifyMailLoading: FC = () => {
   const token: string = searchParams.get('token') ?? '';
 
   useEffect(() => {
-    postVerifyMail(token).then((response) => {
-      navigate(`/verify-mail/${response.data}?token=${token}`);
-    });
+    setTimeout(
+      () =>
+        postVerifyMail(token).then((response) => {
+          navigate(`/verify-mail/${response.data}?token=${token}`);
+        }),
+      1000,
+    );
   });
 
   return (
     <Container
       component="main"
       sx={{
-        border: '1px solid #000000',
-        boxShadow: '6px 6px 0px #00bfff',
-        backgroundColor: 'white',
+        backgroundColor: '#fff',
+        border: `1px solid ${theme.palette.primary.main}`,
+        boxShadow: `4px 4px 0px ${theme.palette.primary.dark}`,
+        borderRadius: '2px',
+        pt: 2,
+        pb: 3,
         mt: 20,
-        paddingTop: 8,
-        paddingBottom: 2,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
       }}
-      maxWidth="xs"
+      maxWidth="sm"
     >
-      <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
-        <LockOutlinedIcon />
-      </Avatar>
       <CircularProgress size="8rem" />
     </Container>
   );
