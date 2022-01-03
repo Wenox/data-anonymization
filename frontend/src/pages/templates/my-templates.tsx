@@ -93,10 +93,10 @@ const MyTemplates = () => {
                         draggable: true,
                         progress: undefined,
                       });
-                    navigate('/');
+                    navigate(`${ROUTES.WORKSHEET}?worksheet_id=${row.id}`);
                   })
                   .catch(() => {
-                    toast.error('Failed to start a new worksheet.', {
+                    toast.error('Failed to produce a new worksheet.', {
                       position: 'top-right',
                       autoClose: 5000,
                       hideProgressBar: false,
@@ -109,7 +109,7 @@ const MyTemplates = () => {
                   .finally(() => setIsCreatingWorksheet(false));
               }}
             >
-              Start worksheet
+              Produce worksheet
             </Button>
             <Button
               disabled={row.metadata == null}

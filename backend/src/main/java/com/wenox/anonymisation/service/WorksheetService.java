@@ -45,4 +45,9 @@ public class WorksheetService {
   public List<Worksheet> getAllMyWorksheets() {
     return null;
   }
+
+  public Worksheet getMyWorksheetSummary(String id, Authentication auth) {
+    Worksheet worksheet = worksheetRepository.findById(id).orElseThrow();
+    return worksheet;
+  }
 }

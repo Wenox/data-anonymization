@@ -10,7 +10,6 @@ const MetadataDownloadButton: FC<MetadataDownloadButtonProps> = ({ metadata }) =
   return (
     <Button
       disabled={metadata?.content == null}
-      sx={{ ml: 0.5 }}
       fullWidth
       type="button"
       href={computeHrefDownloadUrl(metadata?.content)}
