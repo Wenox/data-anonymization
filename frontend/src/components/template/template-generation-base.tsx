@@ -154,7 +154,7 @@ const TemplateGenerationBase: FC<TemplateGenerationBaseProps> = ({
             variant="outlined"
             sx={{ mt: 0 }}
           >
-            View my templates
+            View templates
           </Button>
         </Grid>
       </Grid>

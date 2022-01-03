@@ -229,7 +229,7 @@ const MyTemplates = () => {
         />
       )}
       <Typography color="secondary" variant="h2" sx={{ mb: 2 }}>
-        My templates
+        Templates
       </Typography>
       <DataGrid autoHeight columns={columns} rows={templates} loading={isLoading || isRefetching} />
       <Button

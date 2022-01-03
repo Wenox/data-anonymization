@@ -47,7 +47,7 @@ const NavigationContent: FC<NavigationContentProps> = ({ role, color }) => {
                 sx={{ ml: '18px' }}
                 primaryTypographyProps={{
                   style: {
-                    fontSize: '140%',
+                    fontSize: '125%',
                   },
                 }}
                 primary={name}

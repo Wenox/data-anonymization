@@ -1,7 +1,6 @@
 import { Role } from '../api/requests/shared.types';
 import {
   AccountCircle,
-  Cached,
   Groups,
   HelpOutline,
   History as HistoryIcon,
@@ -12,7 +11,6 @@ import {
   SvgIconComponent,
   TableView,
   UploadFile,
-  UploadFileOutlined,
 } from '@mui/icons-material';
 import { ROUTES } from './routes';
 
@@ -50,25 +48,25 @@ export const NAVIGATION_ITEMS: NavigationItemDescription[] = [
   },
   {
     path: ROUTES.MY_TEMPLATES,
-    name: 'My templates',
+    name: 'Templates',
     roles: [Role.ADMIN, Role.VERIFIED_USER],
     icon: SnippetFolder,
   },
   {
     path: ROUTES.MY_WORKSHEETS,
-    name: 'My worksheets',
+    name: 'Worksheets',
     roles: [Role.ADMIN, Role.VERIFIED_USER],
     icon: TableView,
   },
   {
     path: ROUTES.MY_OUTCOMES,
-    name: 'My outcomes',
+    name: 'Outcomes',
     roles: [Role.ADMIN, Role.VERIFIED_USER],
     icon: Storage,
   },
   {
     path: ROUTES.TASKS,
-    name: 'Tasks',
+    name: 'Scheduling',
     roles: [Role.ADMIN],
     icon: HistoryIcon,
   },
