@@ -41,13 +41,13 @@ const NavigationContent: FC<NavigationContentProps> = ({ role, color }) => {
               onClick={(e) => navigate(path)}
             >
               <ListItemIcon>
-                <Icon className="icon" sx={{ fontSize: '400%', color: color }} />
+                <Icon className="icon" sx={{ fontSize: '335%', color: color }} />
               </ListItemIcon>
               <ListItemText
                 sx={{ ml: '18px' }}
                 primaryTypographyProps={{
                   style: {
-                    fontSize: '140%',
+                    fontSize: '125%',
                   },
                 }}
                 primary={name}

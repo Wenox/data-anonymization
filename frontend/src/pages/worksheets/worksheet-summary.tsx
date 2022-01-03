@@ -14,21 +14,29 @@ import {
 } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import MetadataDownloadButton from '../../components/metadata/metadata-download-button';
-import { CloudDownload, ExpandMore } from '@mui/icons-material';
+import {
+  CloudDownload,
+  DeveloperBoard,
+  ExpandMore,
+  ListAlt,
+  SnippetFolder,
+  Storage,
+  Upload,
+} from '@mui/icons-material';
 import { DataGrid } from '@mui/x-data-grid';
 import { getMyWorksheetSummary } from '../../api/requests/worksheets/worksheet.requests';
 import { useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { WorksheetSummary } from '../../api/requests/worksheets/worksheet.types';
-import { getDownloadDump } from '../../api/requests/templates/templates.requests';
+import { WorksheetSummaryResponse } from '../../api/requests/worksheets/worksheet.types';
 import MetadataDialog from '../../components/metadata/metadata-dialog';
+import { handleDownloadDump } from '../../utils/download-dump';
 
-const Worksheet: FC = () => {
+const WorksheetSummary: FC = () => {
   const [searchParams] = useSearchParams();
   const id: string = searchParams.get('worksheet_id') ?? '';
 
   const [isLoading, setIsLoading] = useState(true);
-  const [summary, setSummary] = useState<WorksheetSummary>();
+  const [summary, setSummary] = useState<WorksheetSummaryResponse>();
   const [isMetadataDialogOpen, setIsMetadataDialogOpen] = useState(false);
 
   useEffect(() => {
@@ -45,7 +53,6 @@ const Worksheet: FC = () => {
             progress: undefined,
           });
           setSummary(response.data);
-          console.log('summary: ', summary);
         }
       })
       .catch((err) => {
@@ -62,38 +69,6 @@ const Worksheet: FC = () => {
       .finally(() => setIsLoading(false));
   }, []);
 
-  const handleDownloadDump = (templateId: string, originalFileName: string) => {
-    getDownloadDump(templateId)
-      .then((response) => {
-        const url = window.URL.createObjectURL(new Blob([response.data]));
-        const link = document.createElement('a');
-        link.href = url;
-        link.setAttribute('download', originalFileName);
-        document.body.appendChild(link);
-        link.click();
-        toast.success('Successfully downloaded dump file.', {
-          position: 'top-right',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-      })
-      .catch((err) => {
-        toast.success('Failed to downloaded the dump file.', {
-          position: 'top-right',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-      });
-  };
-
   return (
     <Container
       maxWidth={'xl'}
@@ -107,7 +82,7 @@ const Worksheet: FC = () => {
         borderRadius: '2px',
       }}
     >
-      <Typography fontWeight={'300'} color="primary" variant="h3" sx={{ mb: 2 }}>
+      <Typography color="secondary" variant="h4" sx={{ mb: 2 }}>
         Worksheet summary
       </Typography>
       <Divider sx={{ mb: 3 }} />
@@ -146,9 +121,16 @@ const Worksheet: FC = () => {
         }}
       >
         <AccordionSummary expandIcon={<ExpandMore />} aria-controls="panel1a-content" id="panel1a-header">
-          <Typography fontWeight={'300'} color="secondary" variant="h4">
-            Template
-          </Typography>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+            }}
+          >
+            <SnippetFolder sx={{ fontSize: '180%', mr: 2 }} />
+            <h1 style={{ lineHeight: '12px', color: `${theme.palette.primary.main}` }}>Template</h1>
+          </div>
         </AccordionSummary>
 
         <AccordionDetails>
@@ -275,9 +257,16 @@ const Worksheet: FC = () => {
         }}
       >
         <AccordionSummary expandIcon={<ExpandMore />} aria-controls="panel1a-content" id="panel1a-header">
-          <Typography fontWeight={'300'} color="secondary" variant="h4">
-            Tables
-          </Typography>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+            }}
+          >
+            <ListAlt sx={{ fontSize: '180%', mr: 2 }} />
+            <h1 style={{ lineHeight: '12px', color: `${theme.palette.primary.main}` }}>Tables</h1>
+          </div>
         </AccordionSummary>
 
         <AccordionDetails>
@@ -296,9 +285,16 @@ const Worksheet: FC = () => {
         }}
       >
         <AccordionSummary expandIcon={<ExpandMore />} aria-controls="panel1a-content" id="panel1a-header">
-          <Typography fontWeight={'300'} color="secondary" variant="h4">
-            Operations
-          </Typography>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+            }}
+          >
+            <DeveloperBoard sx={{ fontSize: '180%', mr: 2 }} />
+            <h1 style={{ lineHeight: '12px', color: `${theme.palette.primary.main}` }}>Operations</h1>
+          </div>
         </AccordionSummary>
 
         <AccordionDetails>
@@ -316,9 +312,16 @@ const Worksheet: FC = () => {
         }}
       >
         <AccordionSummary expandIcon={<ExpandMore />} aria-controls="panel1a-content" id="panel1a-header">
-          <Typography fontWeight={'300'} color="secondary" variant="h4">
-            Outcomes
-          </Typography>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+            }}
+          >
+            <Storage sx={{ fontSize: '180%', mr: 2 }} />
+            <h1 style={{ lineHeight: '12px', color: `${theme.palette.primary.main}` }}>Outcomes</h1>
+          </div>
         </AccordionSummary>
 
         <AccordionDetails>
@@ -331,4 +334,4 @@ const Worksheet: FC = () => {
   );
 };
 
-export default Worksheet;
+export default WorksheetSummary;

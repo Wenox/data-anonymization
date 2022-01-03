@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { Container, IconButton } from '@mui/material';
+import { Container, Divider, IconButton } from '@mui/material';
 import { Check, Close, PlayCircleOutline } from '@mui/icons-material';
 import { getTasks } from '../api/requests/tasks/tasks.requests';
 import { Task } from '../api/requests/tasks/tasks.types';
@@ -102,9 +102,10 @@ const Tasks = () => {
         borderRadius: '2px',
       }}
     >
-      <Typography color="secondary" variant="h2" sx={{ mb: 2 }}>
-        Tasks
+      <Typography color="secondary" variant="h4" sx={{ mb: 2 }}>
+        Scheduling
       </Typography>
+      <Divider sx={{ mb: 3 }} />
       {open && <TaskConfirmDialog open={open} handleCancel={handleCloseDialog} taskName={taskName} />}
       <DataGrid
         autoHeight

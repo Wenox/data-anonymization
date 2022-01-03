@@ -18,7 +18,7 @@ const TemplateGenerationSuccess: FC = () => {
 
   return (
     <TemplateGenerationBase
-      header="Template ready to use"
+      header="Template ready to produce worksheets"
       steps={{
         step1: TemplateGenerationStepStatus.SUCCESS,
         step2: TemplateGenerationStepStatus.SUCCESS,

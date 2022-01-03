@@ -14,6 +14,7 @@ import { CloudDownload, Delete, Download, Edit } from '@mui/icons-material';
 import { centeredColumn } from '../../styles/data-table';
 import { toast } from 'react-toastify';
 import { postCreateMyWorksheet } from '../../api/requests/worksheets/worksheet.requests';
+import { handleDownloadDump } from '../../utils/download-dump';
 
 const MyTemplates = () => {
   const navigate = useNavigate();
@@ -26,38 +27,6 @@ const MyTemplates = () => {
     })) || [];
 
   const [isCreatingWorksheet, setIsCreatingWorksheet] = useState(false);
-
-  const handleDownloadDump = (templateId: string, originalFileName: string) => {
-    getDownloadDump(templateId)
-      .then((response) => {
-        const url = window.URL.createObjectURL(new Blob([response.data]));
-        const link = document.createElement('a');
-        link.href = url;
-        link.setAttribute('download', originalFileName);
-        document.body.appendChild(link);
-        link.click();
-        toast.success('Successfully downloaded dump file.', {
-          position: 'top-right',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-      })
-      .catch((err) => {
-        toast.success('Failed to downloaded the dump file.', {
-          position: 'top-right',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-      });
-  };
 
   const [isMetadataDialogOpen, setIsMetadataDialogOpen] = useState(false);
   const [metadata, setMetadata] = useState<any>({});
@@ -93,7 +62,7 @@ const MyTemplates = () => {
                         draggable: true,
                         progress: undefined,
                       });
-                    navigate(`${ROUTES.WORKSHEET}?worksheet_id=${row.id}`);
+                    navigate(`${ROUTES.WORKSHEET_SUMMARY}?worksheet_id=${response.data.id}`);
                   })
                   .catch(() => {
                     toast.error('Failed to produce a new worksheet.', {
@@ -259,9 +228,10 @@ const MyTemplates = () => {
           handleClose={() => setIsMetadataDialogOpen(false)}
         />
       )}
-      <Typography color="secondary" variant="h2" sx={{ mb: 2 }}>
-        My templates
+      <Typography color="secondary" variant="h4" sx={{ mb: 2 }}>
+        Templates
       </Typography>
+      <Divider sx={{ mb: 3 }} />
       <DataGrid autoHeight columns={columns} rows={templates} loading={isLoading || isRefetching} />
       <Button
         sx={{ mt: 2 }}

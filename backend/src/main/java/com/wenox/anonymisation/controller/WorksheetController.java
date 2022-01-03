@@ -30,8 +30,8 @@ public class WorksheetController {
 
   @GetMapping("/me")
   @PreAuthorize("hasAnyAuthority('VERIFIED_USER', 'ADMIN')")
-  public ResponseEntity<List<Worksheet>> getAllMyWorksheets() {
-    return ResponseEntity.ok(worksheetService.getAllMyWorksheets());
+  public ResponseEntity<List<WorksheetSummaryResponse>> getAllMyWorksheets(Authentication auth) {
+    return ResponseEntity.ok(worksheetService.getAllMyWorksheets(auth).stream().map(WorksheetSummaryResponse::from).toList());
   }
 
   @GetMapping("/me/{id}/summary")

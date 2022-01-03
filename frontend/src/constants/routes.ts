@@ -1,6 +1,6 @@
 import Login from '../pages/login';
 import Register from '../pages/register';
-import About from '../pages/about';
+import Help from '../pages/help';
 import Users from '../pages/users';
 import ResetPassword from '../pages/reset-password/reset-password';
 import ChangePasswordLoading from '../pages/reset-password/change-password-loading';
@@ -32,7 +32,9 @@ import TemplateGenerationRestoreSuccess from '../pages/templates/generation/temp
 import TemplateGenerationSuccess from '../pages/templates/generation/template-generation-success';
 import TemplateGenerationError from '../pages/templates/generation/template-generation-error';
 import MyTemplates from '../pages/templates/my-templates';
-import Worksheet from '../pages/worksheets/worksheet';
+import WorksheetSummary from '../pages/worksheets/worksheet-summary';
+import MyWorksheets from '../pages/worksheets/my-worksheets';
+import MyOutcomes from '../pages/outcomes/my-outcomes';
 
 export const ROUTES = {
   HOME: '/home',
@@ -50,9 +52,10 @@ export const ROUTES = {
   TEMPLATES_GENERATING_SUCCESS: '/templates/generating/success',
   TEMPLATES_GENERATING_ERROR: '/templates/generating/error',
   MY_WORKSHEETS: '/my-worksheets',
-  WORKSHEET: '/my-worksheets/summary',
+  WORKSHEET_SUMMARY: '/my-worksheets/summary',
+  MY_OUTCOMES: '/my-outcomes',
   USERS: '/users',
-  ABOUT: '/about',
+  HELP: '/help',
   RESET_PASSWORD: '/reset-password',
   CHANGE_PASSWORD: '/change-password',
   CHANGE_PASSWORD_FORM: '/change-password/form',
@@ -162,19 +165,25 @@ export const APP_ROUTES: RouteDescription[] = [
   },
   {
     path: ROUTES.MY_WORKSHEETS,
-    element: Worksheet,
+    element: MyWorksheets,
     authenticated: true,
     menu: true,
   },
   {
-    path: ROUTES.WORKSHEET,
-    element: Worksheet,
+    path: ROUTES.WORKSHEET_SUMMARY,
+    element: WorksheetSummary,
     authenticated: true,
     menu: true,
   },
   {
-    path: ROUTES.ABOUT,
-    element: About,
+    path: ROUTES.MY_OUTCOMES,
+    element: MyOutcomes,
+    authenticated: true,
+    menu: true,
+  },
+  {
+    path: ROUTES.HELP,
+    element: Help,
     authenticated: false,
     menu: true,
   },
