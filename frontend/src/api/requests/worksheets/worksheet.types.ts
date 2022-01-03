@@ -10,6 +10,6 @@ export interface WorksheetCreated {
   userId: string;
 }
 
-export interface WorksheetSummary {
+export interface WorksheetSummaryResponse {
   template: MyTemplate;
 }

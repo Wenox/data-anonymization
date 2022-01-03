@@ -19,8 +19,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import { getMyWorksheetSummary } from '../../api/requests/worksheets/worksheet.requests';
 import { useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { WorksheetSummary } from '../../api/requests/worksheets/worksheet.types';
-import { getDownloadDump } from '../../api/requests/templates/templates.requests';
+import { WorksheetSummaryResponse } from '../../api/requests/worksheets/worksheet.types';
 import MetadataDialog from '../../components/metadata/metadata-dialog';
 import { handleDownloadDump } from '../../utils/download-dump';
 
@@ -29,7 +28,7 @@ const WorksheetSummary: FC = () => {
   const id: string = searchParams.get('worksheet_id') ?? '';
 
   const [isLoading, setIsLoading] = useState(true);
-  const [summary, setSummary] = useState<WorksheetSummary>();
+  const [summary, setSummary] = useState<WorksheetSummaryResponse>();
   const [isMetadataDialogOpen, setIsMetadataDialogOpen] = useState(false);
 
   useEffect(() => {
@@ -46,7 +45,6 @@ const WorksheetSummary: FC = () => {
             progress: undefined,
           });
           setSummary(response.data);
-          console.log('summary: ', summary);
         }
       })
       .catch((err) => {

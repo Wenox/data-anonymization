@@ -3,10 +3,14 @@ import {
   AccountCircle,
   Cached,
   Groups,
+  HelpOutline,
   History as HistoryIcon,
   Home,
   Logout,
+  SnippetFolder,
+  Storage,
   SvgIconComponent,
+  TableView,
   UploadFile,
   UploadFileOutlined,
 } from '@mui/icons-material';
@@ -39,16 +43,28 @@ export const NAVIGATION_ITEMS: NavigationItemDescription[] = [
     icon: Groups,
   },
   {
-    path: ROUTES.MY_TEMPLATES,
-    name: 'My templates',
-    roles: [Role.ADMIN, Role.VERIFIED_USER],
-    icon: UploadFileOutlined,
-  },
-  {
     path: ROUTES.TEMPLATES_GENERATE,
     name: 'New template',
     roles: [Role.ADMIN, Role.VERIFIED_USER],
     icon: UploadFile,
+  },
+  {
+    path: ROUTES.MY_TEMPLATES,
+    name: 'My templates',
+    roles: [Role.ADMIN, Role.VERIFIED_USER],
+    icon: SnippetFolder,
+  },
+  {
+    path: ROUTES.MY_WORKSHEETS,
+    name: 'My worksheets',
+    roles: [Role.ADMIN, Role.VERIFIED_USER],
+    icon: TableView,
+  },
+  {
+    path: ROUTES.MY_OUTCOMES,
+    name: 'My outcomes',
+    roles: [Role.ADMIN, Role.VERIFIED_USER],
+    icon: Storage,
   },
   {
     path: ROUTES.TASKS,
@@ -57,10 +73,10 @@ export const NAVIGATION_ITEMS: NavigationItemDescription[] = [
     icon: HistoryIcon,
   },
   {
-    path: ROUTES.ABOUT,
-    name: 'About',
+    path: ROUTES.HELP,
+    name: 'Help',
     roles: [Role.VERIFIED_USER, Role.ADMIN],
-    icon: Cached,
+    icon: HelpOutline,
   },
   {
     path: ROUTES.LOGOUT,
