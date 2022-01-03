@@ -8,8 +8,9 @@ const ExpiredRestoreAccountToken: FC = () => {
 
   return (
     <TokenResult
-      title="Cannot restore account"
-      content="Unfortunately this account restoration token had already expired."
+      type="RESTORE_EXPIRED_TOKEN"
+      title="Restore error"
+      content="The account could not be restored as this restoration token had already expired."
       buttonTitle="Create new account"
       customOnClick
       handleOnClick={() => navigate(ROUTES.REGISTER)}

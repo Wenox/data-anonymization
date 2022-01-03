@@ -44,6 +44,9 @@ const TokenResult = ({
         return <GppBad color="error" style={{ fontSize: '600%' }} />;
       case 'PASSWORD_INVALID_TOKEN':
       case 'PASSWORD_EXPIRED_TOKEN':
+      case 'RESTORE_INVALID_TOKEN':
+      case 'RESTORE_EXPIRED_TOKEN':
+      case 'RESTORE_ALREADY_REMOVED':
         return <GppBad color="error" style={{ fontSize: '800%' }} />;
       case 'PASSWORD_CONSUMED_TOKEN':
         return <GppMaybe color="error" style={{ fontSize: '800%' }} />;
