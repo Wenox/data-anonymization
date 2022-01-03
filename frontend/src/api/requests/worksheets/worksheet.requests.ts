@@ -10,7 +10,7 @@ export const postCreateMyWorksheet = (dto: CreateWorksheet) => {
 };
 
 export const getMyWorksheets = () => {
-  return axios.get<any>(`/api/v1/worksheets/me`);
+  return axios.get<WorksheetSummaryResponse[]>(`/api/v1/worksheets/me`);
 };
 
 export const getMyWorksheetSummary = (id: string) => {

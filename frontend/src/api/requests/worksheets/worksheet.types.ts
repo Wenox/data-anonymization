@@ -11,5 +11,8 @@ export interface WorksheetCreated {
 }
 
 export interface WorksheetSummaryResponse {
+  id: string;
   template: MyTemplate;
 }
+
+export type Worksheet = WorksheetSummaryResponse;

@@ -9,11 +9,17 @@ import com.wenox.uploading.template.repository.TemplateRepository;
 import com.wenox.users.domain.User;
 import com.wenox.users.service.AuthService;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class WorksheetService {
+
+  private static final Logger log = LoggerFactory.getLogger(WorksheetService.class);
 
   private final WorksheetRepository worksheetRepository;
   private final OperationRepository operationRepository;
@@ -39,15 +45,27 @@ public class WorksheetService {
     worksheet.setTemplate(template);
     worksheetRepository.save(worksheet);
 
+    System.out.println("Created worksheet: " + worksheet);
+
     return worksheet;
   }
 
-  public List<Worksheet> getAllMyWorksheets() {
-    return null;
+  public List<Worksheet> getAllMyWorksheets(Authentication auth) {
+    User me = authService.getMe(auth);
+    final var all = worksheetRepository.findAll();
+    System.out.println("all size: " + all.size());
+    final var worksheets = worksheetRepository.findAllByUser(me);
+    log.info("Retrieving {} worksheets for {}.", worksheets.size(), me.getEmail());
+    return worksheets;
   }
 
   public Worksheet getMyWorksheetSummary(String id, Authentication auth) {
+    User me = authService.getMe(auth);
     Worksheet worksheet = worksheetRepository.findById(id).orElseThrow();
+    if (!me.getId().equals(worksheet.getUser().getId())) {
+      log.warn("{} trying to read worksheet {} that belongs to {}.", me.getEmail(), id, worksheet.getUser().getEmail());
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+    }
     return worksheet;
   }
 }
