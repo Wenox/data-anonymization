@@ -1,31 +1,35 @@
 package com.wenox.uploading.extractor.domain.metadata;
 
 public class Column {
-  private String columnName;
-  private String type; // todo: enum
-  private String nullable;
+
+  private final String columnName;
+  private final String type; // todo: enum
+  private final boolean isNullable;
+
+  public Column(String columnName, String type, String isNullable) {
+    this.columnName = columnName;
+    this.type = type;
+    this.isNullable = "YES".equals(isNullable);
+    System.out.println("Created" + this);
+  }
 
   public String getColumnName() {
     return columnName;
-  }
-
-  public void setColumnName(String columnName) {
-    this.columnName = columnName;
   }
 
   public String getType() {
     return type;
   }
 
-  public void setType(String type) {
-    this.type = type;
+  public boolean getIsNullable() {
+    return isNullable;
   }
 
-  public String isNullable() {
-    return nullable;
-  }
-
-  public void setNullable(String nullable) {
-    this.nullable = nullable;
+  @Override
+  public String toString() {
+    return "Column{" + "columnName='" + columnName + '\'' +
+        ", type='" + type + '\'' +
+        ", isNullable=" + isNullable +
+        '}';
   }
 }

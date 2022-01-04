@@ -4,24 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TemplateMetadata {
-  private Map<String, Schema> schemas = new HashMap<>();
-  private int numberOfSchemas;
-  private int numberOfTables;
 
-  public Map<String, Schema> getSchemas() {
-    return schemas;
-  }
+  private int numberOfTables = 0;
+  private final Map<String, Table> tables = new HashMap<>();
 
-  public void setSchemas(Map<String, Schema> schemas) {
-    this.schemas = schemas;
-  }
-
-  public int getNumberOfSchemas() {
-    return numberOfSchemas;
-  }
-
-  public void setNumberOfSchemas(int numberOfSchemas) {
-    this.numberOfSchemas = numberOfSchemas;
+  public void insertTable(Table table) {
+    tables.put(table.getTableName(), table);
+    numberOfTables++;
   }
 
   public int getNumberOfTables() {
@@ -30,5 +19,9 @@ public class TemplateMetadata {
 
   public void setNumberOfTables(int numberOfTables) {
     this.numberOfTables = numberOfTables;
+  }
+
+  public Map<String, Table> getTables() {
+    return tables;
   }
 }
