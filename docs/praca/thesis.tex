@@ -96,7 +96,7 @@ escapeinside={@*}{*@},%
 {#1}\par} \makeatother
 
 
-\newcommand{\remark}[1]{%
+\newcommand{\ksremark}[1]{%
 {%\marginpar{\textdbend}
 {\color{brickred}{[#1]}}}%
 \addcontentsline{rks}{uwagas}{\protect{#1}}%
@@ -156,6 +156,8 @@ escapeinside={@*}{*@},%
 
 
 \begin{document} 
+\kslistofremarks
+\cleardoublepage
 	
 %%%%%%%%%%%%%%%%%%  Title page %%%%%%%%%%%%%%%%%%% 
 \pagestyle{empty}
@@ -314,6 +316,8 @@ Gliwice, dnia {\selectlanguage{polish}\today}
 
 \chapter{Introduction}
 
+\ksremark{Proszę zaktualizować szablon pracy wg szablonu z repozytorium \url{https://github.com/ksiminski/polsl-aei-theses}.}
+
 \begin{itemize}
 \item introduction into the problem domain
 \item settling of the problem in the domain
@@ -323,9 +327,12 @@ Gliwice, dnia {\selectlanguage{polish}\today}
 \item clear description of contribution of the thesis's author – in case of more authors table with enumeration of contribution of authors
 \end{itemize}
 
-\chapter{[Problem analysis]}
+\chapter{Data anonymisation}
 
 \begin{itemize}
+	\item definicja anonimizacji
+	\item rodzaje animonimizacji (od razu odnośniki do literatury (bibliografia))
+	\item metody, narzędzia
 \item  problem analysis
 \item state of the art, problem statement
 \item  literature research (all sources in the thesis have to be referenced \cite{bib:article,bib:book,bib:conference,bib:internet})
@@ -333,9 +340,11 @@ Gliwice, dnia {\selectlanguage{polish}\today}
 \end{itemize}
 
 
-
+\ksremark{state of the art dla aplikacji sieciowych}
 
 \chapter{Requirements and tools}
+
+\ksremark{Dlaczego aplikacja webowa?}
 
 \begin{itemize}
 \item functional and nonfunctional requirements
