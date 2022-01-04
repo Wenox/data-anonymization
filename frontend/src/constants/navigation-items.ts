@@ -7,7 +7,7 @@ import {
   Home,
   Logout,
   SnippetFolder,
-  Storage,
+  Storage as StorageIcon,
   SvgIconComponent,
   TableView,
   UploadFile,
@@ -62,7 +62,7 @@ export const NAVIGATION_ITEMS: NavigationItemDescription[] = [
     path: ROUTES.MY_OUTCOMES,
     name: 'Outcomes',
     roles: [Role.ADMIN, Role.VERIFIED_USER],
-    icon: Storage,
+    icon: StorageIcon,
   },
   {
     path: ROUTES.TASKS,

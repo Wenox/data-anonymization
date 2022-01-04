@@ -4,12 +4,12 @@ public class Column {
 
   private final String columnName;
   private final String type; // todo: enum
-  private final boolean isNullable;
+  private final boolean nullable;
 
-  public Column(String columnName, String type, String isNullable) {
+  public Column(String columnName, String type, String nullable) {
     this.columnName = columnName;
     this.type = type;
-    this.isNullable = "YES".equals(isNullable);
+    this.nullable = "YES".equals(nullable);
     System.out.println("Created" + this);
   }
 
@@ -21,15 +21,15 @@ public class Column {
     return type;
   }
 
-  public boolean getIsNullable() {
-    return isNullable;
+  public boolean isNullable() {
+    return nullable;
   }
 
   @Override
   public String toString() {
     return "Column{" + "columnName='" + columnName + '\'' +
         ", type='" + type + '\'' +
-        ", isNullable=" + isNullable +
+        ", isNullable=" + nullable +
         '}';
   }
 }

@@ -1,19 +1,20 @@
 import Button from '@mui/material/Button';
 import React, { FC } from 'react';
-import { computeHrefDownloadUrl } from './metadata-download-button.util';
+import { computeHrefDownloadUrl, formatMetadata } from './metadata-download-button.util';
+import { TemplateMetadataWithFile } from '../../pages/templates/my-templates';
 
 interface MetadataDownloadButtonProps {
-  metadata: any;
+  metadataWithFile?: TemplateMetadataWithFile;
 }
 
-const MetadataDownloadButton: FC<MetadataDownloadButtonProps> = ({ metadata }) => {
+const MetadataDownloadButton: FC<MetadataDownloadButtonProps> = ({ metadataWithFile }) => {
   return (
     <Button
-      disabled={metadata?.content == null}
+      disabled={metadataWithFile?.metadata == null}
       fullWidth
       type="button"
-      href={computeHrefDownloadUrl(metadata?.content)}
-      download={`${metadata?.fileName}-metadata.json`}
+      href={computeHrefDownloadUrl(formatMetadata(metadataWithFile?.metadata))}
+      download={`${metadataWithFile?.originalFileName}-metadata.json`}
       color="primary"
       variant="contained"
     >

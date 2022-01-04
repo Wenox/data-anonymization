@@ -3,7 +3,7 @@ import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { Button, CircularProgress, Container, Divider, IconButton } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { getAllMyTemplates, getDownloadDump } from '../../api/requests/templates/templates.requests';
-import { MyTemplate } from '../../api/requests/templates/templates.types';
+import { MyTemplate, TemplateMetadata } from '../../api/requests/templates/templates.types';
 import { theme } from '../../styles/theme';
 import { useState } from 'react';
 import MetadataDialog from '../../components/metadata/metadata-dialog';
@@ -16,20 +16,26 @@ import { toast } from 'react-toastify';
 import { postCreateMyWorksheet } from '../../api/requests/worksheets/worksheet.requests';
 import { handleDownloadDump } from '../../utils/download-dump';
 
+export interface TemplateMetadataWithFile {
+  metadata?: TemplateMetadata;
+  originalFileName?: string;
+}
+
 const MyTemplates = () => {
   const navigate = useNavigate();
   const { data, isLoading, isRefetching } = useQuery('myTemplates', getAllMyTemplates);
   const templates: MyTemplate[] =
     data?.data.map((template) => ({
       ...template,
-      metadata: template.metadata ? JSON.stringify(template.metadata, null, 4) : null,
       activeWorksheets: 0,
     })) || [];
 
   const [isCreatingWorksheet, setIsCreatingWorksheet] = useState(false);
 
   const [isMetadataDialogOpen, setIsMetadataDialogOpen] = useState(false);
-  const [metadata, setMetadata] = useState<any>({});
+  const [metadataWithFile, setMetadataWithFile] = useState<TemplateMetadataWithFile>();
+
+  console.log('tempates: ', templates);
 
   const columns: GridColDef[] = [
     {
@@ -168,13 +174,15 @@ const MyTemplates = () => {
               variant="contained"
               onClick={() => {
                 setIsMetadataDialogOpen(true);
-                setMetadata({ content: row.metadata, fileName: row.originalFileName });
+                setMetadataWithFile({ metadata: row.metadata, originalFileName: row.originalFileName });
               }}
               sx={{ mr: 0.5 }}
             >
               View
             </Button>
-            <MetadataDownloadButton metadata={{ content: row.metadata, fileName: row.originalFileName }} />
+            <MetadataDownloadButton
+              metadataWithFile={{ metadata: row.metadata, originalFileName: row.originalFileName }}
+            />
           </>
         );
       },
@@ -223,7 +231,7 @@ const MyTemplates = () => {
       )}
       {isMetadataDialogOpen && (
         <MetadataDialog
-          metadata={metadata}
+          metadataWithFile={metadataWithFile}
           open={isMetadataDialogOpen}
           handleClose={() => setIsMetadataDialogOpen(false)}
         />

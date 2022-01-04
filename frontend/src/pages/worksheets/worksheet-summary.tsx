@@ -20,16 +20,18 @@ import {
   ExpandMore,
   ListAlt,
   SnippetFolder,
-  Storage,
+  Storage as StorageIcon,
   Upload,
 } from '@mui/icons-material';
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { getMyWorksheetSummary } from '../../api/requests/worksheets/worksheet.requests';
 import { useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { WorksheetSummaryResponse } from '../../api/requests/worksheets/worksheet.types';
 import MetadataDialog from '../../components/metadata/metadata-dialog';
 import { handleDownloadDump } from '../../utils/download-dump';
+import { Table } from '../../api/requests/templates/templates.types';
+import { centeredHeader } from '../../styles/data-table';
 
 const WorksheetSummary: FC = () => {
   const [searchParams] = useSearchParams();
@@ -38,6 +40,7 @@ const WorksheetSummary: FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [summary, setSummary] = useState<WorksheetSummaryResponse>();
   const [isMetadataDialogOpen, setIsMetadataDialogOpen] = useState(false);
+  const [tables, setTables] = useState<Table[]>([]);
 
   useEffect(() => {
     getMyWorksheetSummary(id)
@@ -53,6 +56,7 @@ const WorksheetSummary: FC = () => {
             progress: undefined,
           });
           setSummary(response.data);
+          setTables(Object.values(response.data.template.metadata.tables));
         }
       })
       .catch((err) => {
@@ -67,7 +71,13 @@ const WorksheetSummary: FC = () => {
         });
       })
       .finally(() => setIsLoading(false));
-  }, []);
+  }, [id]);
+
+  const tablesColumns: GridColDef[] = [
+    { field: 'tableName', headerName: 'Table name', flex: 1, ...centeredHeader() },
+    { field: 'numberOfRows', headerName: 'Number of rows', flex: 1, ...centeredHeader() },
+    { field: 'numberOfColumns', headerName: 'Number of columns', flex: 1, ...centeredHeader() },
+  ];
 
   return (
     <Container
@@ -102,9 +112,9 @@ const WorksheetSummary: FC = () => {
 
       {isMetadataDialogOpen && (
         <MetadataDialog
-          metadata={{
-            content: JSON.stringify(summary?.template.metadata, null, 4),
-            fileName: summary?.template.originalFileName,
+          metadataWithFile={{
+            metadata: summary?.template.metadata,
+            originalFileName: summary?.template.originalFileName,
           }}
           open={isMetadataDialogOpen}
           handleClose={() => setIsMetadataDialogOpen(false)}
@@ -238,9 +248,9 @@ const WorksheetSummary: FC = () => {
             </Grid>
             <Grid item xs={6}>
               <MetadataDownloadButton
-                metadata={{
-                  content: JSON.stringify(summary?.template.metadata, null, 4),
-                  fileName: summary?.template.originalFileName,
+                metadataWithFile={{
+                  metadata: summary?.template.metadata,
+                  originalFileName: summary?.template.originalFileName,
                 }}
               />
             </Grid>
@@ -271,7 +281,7 @@ const WorksheetSummary: FC = () => {
 
         <AccordionDetails>
           <Grid container spacing={2}>
-            <DataGrid autoHeight columns={[]} rows={[]} />
+            <DataGrid autoHeight columns={tablesColumns} rows={tables} />
           </Grid>
         </AccordionDetails>
       </Accordion>
@@ -319,7 +329,7 @@ const WorksheetSummary: FC = () => {
               flexWrap: 'wrap',
             }}
           >
-            <Storage sx={{ fontSize: '180%', mr: 2 }} />
+            <StorageIcon sx={{ fontSize: '180%', mr: 2 }} />
             <h1 style={{ lineHeight: '12px', color: `${theme.palette.primary.main}` }}>Outcomes</h1>
           </div>
         </AccordionSummary>

@@ -9,5 +9,23 @@ export interface MyTemplate {
   title: string;
   description: string;
   createdDate: string;
-  metadata: any;
+  metadata: TemplateMetadata;
+}
+
+export interface TemplateMetadata {
+  numberOfTables: number;
+  tables: Record<string, Table>;
+}
+
+export interface Table {
+  tableName: string;
+  numberOfRows: number;
+  numberOfColumns: number;
+  columns: Record<string, Column>;
+}
+
+export interface Column {
+  columnName: string;
+  type: string;
+  nullable: boolean;
 }
