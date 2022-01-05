@@ -3,6 +3,7 @@ import TokenResult from '../../../components/token-result';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { postVerifyMailSendAgainGivenToken } from '../../../api/requests/verify-mail/verify-mail.requests';
 import { toast } from 'react-toastify';
+import { ROUTES } from '../../../constants/routes';
 
 const ExpiredVerifyToken: FC = () => {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ const ExpiredVerifyToken: FC = () => {
             draggable: true,
             progress: undefined,
           });
-        navigate('/verify-mail/token-sent-again');
+        navigate(ROUTES.VERIFY_MAIL_TOKEN_SENT_AGAIN);
       })
       .catch(() => {
         toast.error('Failed to re-send the verification mail.', {
@@ -35,7 +36,7 @@ const ExpiredVerifyToken: FC = () => {
           draggable: true,
           progress: undefined,
         });
-        navigate('/login');
+        navigate(ROUTES.LOGIN);
       });
   };
 

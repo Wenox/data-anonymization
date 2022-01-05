@@ -35,6 +35,7 @@ import MyTemplates from '../pages/templates/my-templates';
 import WorksheetSummary from '../pages/worksheets/worksheet-summary';
 import MyWorksheets from '../pages/worksheets/my-worksheets';
 import MyOutcomes from '../pages/outcomes/my-outcomes';
+import Operations from '../pages/operations/operations';
 
 export const ROUTES = {
   HOME: '/home',
@@ -53,6 +54,7 @@ export const ROUTES = {
   TEMPLATES_GENERATING_ERROR: '/templates/generating/error',
   MY_WORKSHEETS: '/my-worksheets',
   WORKSHEET_SUMMARY: '/my-worksheets/summary',
+  OPERATIONS: '/my-operations',
   MY_OUTCOMES: '/my-outcomes',
   USERS: '/users',
   HELP: '/help',
@@ -172,6 +174,12 @@ export const APP_ROUTES: RouteDescription[] = [
   {
     path: ROUTES.WORKSHEET_SUMMARY,
     element: WorksheetSummary,
+    authenticated: true,
+    menu: true,
+  },
+  {
+    path: ROUTES.OPERATIONS,
+    element: Operations,
     authenticated: true,
     menu: true,
   },

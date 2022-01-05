@@ -25,13 +25,14 @@ import {
 } from '@mui/icons-material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { getMyWorksheetSummary } from '../../api/requests/worksheets/worksheet.requests';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { WorksheetSummaryResponse } from '../../api/requests/worksheets/worksheet.types';
 import MetadataDialog from '../../components/metadata/metadata-dialog';
 import { handleDownloadDump } from '../../utils/download-dump';
 import { Table } from '../../api/requests/templates/templates.types';
 import { centeredHeader } from '../../styles/data-table';
+import { ROUTES } from '../../constants/routes';
 
 const WorksheetSummary: FC = () => {
   const [searchParams] = useSearchParams();
@@ -41,6 +42,8 @@ const WorksheetSummary: FC = () => {
   const [summary, setSummary] = useState<WorksheetSummaryResponse>();
   const [isMetadataDialogOpen, setIsMetadataDialogOpen] = useState(false);
   const [tables, setTables] = useState<Table[]>([]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     getMyWorksheetSummary(id)
@@ -79,6 +82,24 @@ const WorksheetSummary: FC = () => {
   }, [id]);
 
   const tablesColumns: GridColDef[] = [
+    {
+      field: 'actions',
+      headerName: 'Actions',
+      width: 170,
+      ...centeredHeader(),
+      renderCell: ({ row }) => (
+        <Button
+          size="large"
+          color="secondary"
+          variant="contained"
+          fullWidth
+          onClick={() => navigate(`${ROUTES.OPERATIONS}?worksheet_id=${id}&table_name=${row.tableName}`)}
+        >
+          <DeveloperBoard sx={{ fontSize: '200%', mr: 1 }} />
+          Anonymise
+        </Button>
+      ),
+    },
     { field: 'tableName', headerName: 'Table name', flex: 1, ...centeredHeader() },
     { field: 'numberOfRows', headerName: 'Number of rows', flex: 1, ...centeredHeader() },
     { field: 'numberOfColumns', headerName: 'Number of columns', flex: 1, ...centeredHeader() },
@@ -125,6 +146,13 @@ const WorksheetSummary: FC = () => {
           handleClose={() => setIsMetadataDialogOpen(false)}
         />
       )}
+
+      {/*Template*/}
+      {/*Template*/}
+      {/*Template*/}
+      {/*Template*/}
+      {/*Template*/}
+      {/*Template*/}
 
       <Accordion
         sx={{
@@ -263,6 +291,14 @@ const WorksheetSummary: FC = () => {
         </AccordionDetails>
       </Accordion>
 
+      {/*Tables*/}
+      {/*Tables*/}
+      {/*Tables*/}
+      {/*Tables*/}
+      {/*Tables*/}
+      {/*Tables*/}
+      {/*Tables*/}
+
       <Accordion
         sx={{
           backgroundColor: '#f9f9f9',
@@ -291,6 +327,14 @@ const WorksheetSummary: FC = () => {
         </AccordionDetails>
       </Accordion>
 
+      {/*Operations*/}
+      {/*Operations*/}
+      {/*Operations*/}
+      {/*Operations*/}
+      {/*Operations*/}
+      {/*Operations*/}
+      {/*Operations*/}
+
       <Accordion
         sx={{
           backgroundColor: '#f9f9f9',
@@ -318,6 +362,14 @@ const WorksheetSummary: FC = () => {
           </Grid>
         </AccordionDetails>
       </Accordion>
+
+      {/*Outcomes*/}
+      {/*Outcomes*/}
+      {/*Outcomes*/}
+      {/*Outcomes*/}
+      {/*Outcomes*/}
+      {/*Outcomes*/}
+      {/*Outcomes*/}
 
       <Accordion
         sx={{

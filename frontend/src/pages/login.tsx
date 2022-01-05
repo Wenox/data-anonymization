@@ -204,12 +204,12 @@ const Login: FC = () => {
         </Collapse>
         <Grid container>
           <Grid item xs>
-            <Link onClick={() => navigate('/reset-password')} variant="body2">
+            <Link onClick={() => navigate(ROUTES.RESET_PASSWORD)} variant="body2">
               Forgot password?
             </Link>
           </Grid>
           <Grid item>
-            <Link onClick={() => navigate('/register')} variant="body2">
+            <Link onClick={() => navigate(ROUTES.REGISTER)} variant="body2">
               {"Don't have an account? Sign Up"}
             </Link>
           </Grid>
