@@ -21,6 +21,8 @@ public class Operation {
 
   private String columnName;
 
+  private String operationName;
+
   public String getId() {
     return id;
   }
@@ -47,5 +49,13 @@ public class Operation {
 
   public void setColumnName(String columnName) {
     this.columnName = columnName;
+  }
+
+  public String getOperationName() {
+    return operationName;
+  }
+
+  public void setOperationName(String operationName) {
+    this.operationName = operationName;
   }
 }

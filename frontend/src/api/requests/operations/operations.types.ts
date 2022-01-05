@@ -17,3 +17,9 @@ export interface Operation {
   tableName: string;
   columnName: string;
 }
+
+export interface AddOperation {
+  tableName: string;
+  columnName: string;
+  operationName: string;
+}
