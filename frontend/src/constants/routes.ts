@@ -35,7 +35,7 @@ import MyTemplates from '../pages/templates/my-templates';
 import WorksheetSummary from '../pages/worksheets/worksheet-summary';
 import MyWorksheets from '../pages/worksheets/my-worksheets';
 import MyOutcomes from '../pages/outcomes/my-outcomes';
-import OperationsInTable from '../pages/operations/operationsInTable';
+import OperationsInTable from '../pages/operations/operations-in-table';
 
 export const ROUTES = {
   HOME: '/home',
