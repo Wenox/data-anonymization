@@ -18,7 +18,7 @@ public class DatabaseRestorer {
   @Value("${server.environment.cloud}")
   private Boolean isRunningOnCloud;
 
-  @Value("${POSTGRES_HOST_PORT:5000}")
+  @Value("${POSTGRES_HOST_PORT:5007}")
   private String postgresHostPort;
 
   public void restorePostgresDatabase(final String templateName, final String dbName)

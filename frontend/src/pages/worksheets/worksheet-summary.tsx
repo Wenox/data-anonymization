@@ -56,7 +56,12 @@ const WorksheetSummary: FC = () => {
             progress: undefined,
           });
           setSummary(response.data);
-          setTables(Object.values(response.data.template.metadata.tables));
+          setTables(
+            Object.values(response.data.template.metadata.tables).map((value) => ({
+              ...value,
+              id: value.tableName,
+            })),
+          );
         }
       })
       .catch((err) => {

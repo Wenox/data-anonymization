@@ -14,7 +14,7 @@ public class DataSourceFactory {
   @Value("${server.environment.cloud}")
   private Boolean isRunningOnCloud;
 
-  @Value("${POSTGRES_HOST_PORT:5000}")
+  @Value("${POSTGRES_HOST_PORT:5007}")
   private String postgresHostPort;
 
   @Value("${POSTGRES_CONTAINER_PORT:5432}")
