@@ -30,7 +30,7 @@ const VerifyMailPrompt: FC = () => {
             draggable: true,
             progress: undefined,
           });
-        navigate('/verify-mail/token-sent-again');
+        navigate(ROUTES.VERIFY_MAIL_TOKEN_SENT_AGAIN);
       })
       .catch(() => {
         toast.error('Failed to re-send the verification mail.', {
@@ -42,7 +42,7 @@ const VerifyMailPrompt: FC = () => {
           draggable: true,
           progress: undefined,
         });
-        navigate('/login');
+        navigate(ROUTES.LOGIN);
       });
   };
 
