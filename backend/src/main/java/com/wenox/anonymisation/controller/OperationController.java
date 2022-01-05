@@ -1,6 +1,7 @@
 package com.wenox.anonymisation.controller;
 
-import com.wenox.anonymisation.dto.ColumnOperationsResponse;
+import com.wenox.anonymisation.dto.operations.ColumnOperations;
+import com.wenox.anonymisation.dto.operations.ColumnOperationsForTableResponse;
 import com.wenox.anonymisation.service.OperationService;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
@@ -22,9 +23,10 @@ public class OperationController {
 
   @PreAuthorize("hasAnyAuthority('VERIFIED_USER', 'ADMIN')")
   @GetMapping("/api/v1/worksheet/{id}/operations")
-  public ResponseEntity<List<ColumnOperationsResponse>> getOperationsForWorksheet(@PathVariable("id") String id,
-                                                                                  @RequestParam("table") String table,
-                                                                                  Authentication auth) {
+  public ResponseEntity<ColumnOperationsForTableResponse> getColumnOperationsForTableInWorksheet(
+      @PathVariable("id") String id,
+      @RequestParam("table") String table,
+      Authentication auth) {
     return ResponseEntity.ok(operationService.getOperationsForWorksheet(id, table, auth));
   }
 }

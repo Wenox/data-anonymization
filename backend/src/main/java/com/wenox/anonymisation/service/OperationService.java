@@ -1,11 +1,13 @@
 package com.wenox.anonymisation.service;
 
 import com.wenox.anonymisation.domain.Operation;
-import com.wenox.anonymisation.dto.ColumnOperationsResponse;
-import com.wenox.anonymisation.dto.OperationResponse;
+import com.wenox.anonymisation.dto.operations.ColumnOperations;
+import com.wenox.anonymisation.dto.operations.ColumnOperationsForTableResponse;
+import com.wenox.anonymisation.dto.operations.OperationDto;
 import com.wenox.anonymisation.repository.OperationRepository;
 import com.wenox.anonymisation.repository.WorksheetRepository;
 import com.wenox.uploading.extractor.domain.metadata.Column;
+import com.wenox.uploading.extractor.domain.metadata.Table;
 import com.wenox.users.service.AuthService;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +30,7 @@ public class OperationService {
     this.operationRepository = operationRepository;
   }
 
-  public List<ColumnOperationsResponse> getOperationsForWorksheet(String id, String table, Authentication auth) {
+  public ColumnOperationsForTableResponse getOperationsForWorksheet(String id, String tableName, Authentication auth) {
     final var me = authService.getMe(auth);
     final var worksheet = worksheetRepository.findById(id).orElseThrow();
     if (!me.getId().equals(worksheet.getUser().getId())) {
@@ -36,28 +38,28 @@ public class OperationService {
     }
     final var metadata = worksheet.getTemplate().getMetadata();
 
-    final List<Column> columns = metadata.getColumnsByTable(table);
-    columns.forEach(c -> System.out.println(c.getColumnName()));
+    final Table table = metadata.getTable(tableName);
+    final List<Column> columns = table.getColumns().values().stream().toList();
 
-    final List<Operation> operations = operationRepository.findAllByWorksheetAndTableName(worksheet, table);
+    final List<Operation> operations = operationRepository.findAllByWorksheetAndTableName(worksheet, tableName);
 
 
     final Map<String, List<Operation>> operationsByColumn =
         operations.stream().collect(Collectors.groupingBy(Operation::getColumnName));
 
 
-    List<ColumnOperationsResponse> dto = new ArrayList<>();
+    List<ColumnOperations> columnOperations = new ArrayList<>();
     for (var column : columns) {
-      var item = new ColumnOperationsResponse();
+      var item = new ColumnOperations();
       item.setColumn(column);
       item.setOperations(operationsByColumn
           .getOrDefault(column.getColumnName(), List.of())
           .stream()
-          .map(OperationResponse::from)
+          .map(OperationDto::from)
           .toList());
-      dto.add(item);
+      columnOperations.add(item);
     }
 
-    return dto;
+    return new ColumnOperationsForTableResponse(table.getTableName(), table.getNumberOfRows(), columnOperations);
   }
 }

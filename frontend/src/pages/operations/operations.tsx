@@ -5,11 +5,13 @@ import { theme } from '../../styles/theme';
 import Typography from '@mui/material/Typography';
 import { centeredColumn } from '../../styles/data-table';
 import { ColumnOperations } from '../../api/requests/operations/operations.types';
-import { getOperationsForTable } from '../../api/requests/operations/operations.requests';
+import { getOperationsForTableInWorksheet } from '../../api/requests/operations/operations.requests';
 import { useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 const Operations: FC = () => {
+  const [tableName, setTableName] = useState<string>('');
+  const [numberOfRows, setNumberOfRows] = useState<number>(0);
   const [operations, setOperations] = useState<ColumnOperations[]>([]);
 
   const [searchParams] = useSearchParams();
@@ -17,7 +19,7 @@ const Operations: FC = () => {
   const table: string = searchParams.get('table') ?? '';
 
   useEffect(() => {
-    getOperationsForTable(worksheetId, table)
+    getOperationsForTableInWorksheet(table, worksheetId)
       .then((response) => {
         if (response.status === 200) {
           toast.success('Operations loaded successfully.', {
@@ -29,8 +31,10 @@ const Operations: FC = () => {
             draggable: true,
             progress: undefined,
           });
+          setTableName(response.data.tableName);
+          setNumberOfRows(response.data.numberOfRows);
           setOperations(
-            response.data.map((operation) => ({
+            response.data.columnOperations.map((operation) => ({
               ...operation,
               id: operation.column.columnName,
             })),
@@ -94,10 +98,16 @@ const Operations: FC = () => {
         pb: 3,
       }}
     >
-      <Typography color="secondary" variant="h4" sx={{ mb: 2 }}>
-        Operations
+      <Typography color="primary" variant="h4" sx={{ mb: 2 }}>
+        Operations for table{' '}
+        <span style={{ color: `${theme.palette.secondary.main}` }}>
+          <strong>{tableName}</strong>
+        </span>
       </Typography>
       <Divider sx={{ mb: 3 }} />
+      <p>
+        <strong>Rows count in {tableName}:</strong> {numberOfRows}
+      </p>
       <DataGrid autoHeight columns={columns} rows={operations} loading={false} />
     </Container>
   );

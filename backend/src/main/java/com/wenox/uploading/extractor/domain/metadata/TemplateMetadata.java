@@ -15,9 +15,8 @@ public class TemplateMetadata {
     numberOfTables++;
   }
 
-  public List<Column> getColumnsByTable(String table) {
-    System.out.println("getting for table: " + table);
-    return tables.get(table).getColumns().values().stream().toList();
+  public Table getTable(String table) {
+    return tables.get(table);
   }
 
   public int getNumberOfTables() {

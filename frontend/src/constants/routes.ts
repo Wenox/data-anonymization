@@ -54,7 +54,7 @@ export const ROUTES = {
   TEMPLATES_GENERATING_ERROR: '/templates/generating/error',
   MY_WORKSHEETS: '/my-worksheets',
   WORKSHEET_SUMMARY: '/my-worksheets/summary',
-  OPERATIONS: '/my-operations',
+  OPERATIONS_IN_TABLE: '/operations-in-table',
   MY_OUTCOMES: '/my-outcomes',
   USERS: '/users',
   HELP: '/help',
@@ -178,7 +178,7 @@ export const APP_ROUTES: RouteDescription[] = [
     menu: true,
   },
   {
-    path: ROUTES.OPERATIONS,
+    path: ROUTES.OPERATIONS_IN_TABLE,
     element: Operations,
     authenticated: true,
     menu: true,

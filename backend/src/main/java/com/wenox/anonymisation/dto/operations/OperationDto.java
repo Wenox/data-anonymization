@@ -1,16 +1,14 @@
-package com.wenox.anonymisation.dto;
+package com.wenox.anonymisation.dto.operations;
 
-import com.wenox.anonymisation.domain.Operation;
-
-public class OperationResponse {
+public class OperationDto {
 
   private String id;
   private final String operationName = "Generalisation";
   private String tableName;
   private String columnName;
 
-  public static OperationResponse from(Operation operation) {
-    var dto = new OperationResponse();
+  public static OperationDto from(com.wenox.anonymisation.domain.Operation operation) {
+    var dto = new OperationDto();
     dto.setId(operation.getId());
     dto.setTableName(operation.getTableName());
     dto.setColumnName(operation.getColumnName());
