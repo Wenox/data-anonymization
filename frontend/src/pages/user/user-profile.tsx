@@ -3,7 +3,6 @@ import { User } from '../../api/requests/users/users.types';
 import { getMyProfile, putEditMyProfile } from '../../api/requests/me/me.requests';
 import { toast } from 'react-toastify';
 import { Box, Container, Divider, Grid, Skeleton } from '@mui/material';
-import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
@@ -28,21 +27,6 @@ const schema = yup.object().shape({
   purpose: yup.string().required('Please explain the purpose'),
 });
 
-const useStyles = makeStyles({
-  button: {
-    backgroundColor: 'red',
-    '&:hover': {
-      backgroundColor: '#dd0000',
-    },
-  },
-  buttonDark: {
-    backgroundColor: '#212121',
-    '&:hover': {
-      backgroundColor: '#000000',
-    },
-  },
-});
-
 const UserProfile: FC = () => {
   const [user, setUser] = useState<User>();
   const [isLoading, setIsLoading] = useState(true);
@@ -64,8 +48,6 @@ const UserProfile: FC = () => {
   const handleCloseRemoveFinalAccountDialog = () => {
     setIsRemoveAccountFinalDialogOpen(false);
   };
-
-  const classes = useStyles();
 
   const {
     handleSubmit,
@@ -267,17 +249,12 @@ const UserProfile: FC = () => {
           )}
           <Grid item xs={12}>
             <Divider />
-            <Button type="submit" className={classes.buttonDark} fullWidth variant="contained" sx={{ mt: 3, mb: -1 }}>
+            <Button fullWidth type="submit" color="primary" variant="contained" sx={{ mt: 3, mb: -1.5 }}>
               Save changes
             </Button>
           </Grid>
           <Grid item xs={12}>
-            <Button
-              onClick={handleOpenRemoveInitialAccountDialog}
-              fullWidth
-              variant="contained"
-              className={classes.button}
-            >
+            <Button onClick={handleOpenRemoveInitialAccountDialog} fullWidth variant="contained" color="error">
               Delete account
             </Button>
           </Grid>

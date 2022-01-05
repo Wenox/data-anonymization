@@ -171,7 +171,7 @@ const WorksheetSummary: FC = () => {
               flexWrap: 'wrap',
             }}
           >
-            <SnippetFolder sx={{ fontSize: '180%', mr: 2 }} />
+            <SnippetFolder sx={{ fontSize: '180%', mr: 2, color: `${theme.palette.secondary.main}` }} />
             <h1 style={{ lineHeight: '12px', color: `${theme.palette.primary.main}` }}>Template</h1>
           </div>
         </AccordionSummary>
@@ -315,7 +315,7 @@ const WorksheetSummary: FC = () => {
               flexWrap: 'wrap',
             }}
           >
-            <ListAlt sx={{ fontSize: '180%', mr: 2 }} />
+            <ListAlt sx={{ fontSize: '180%', mr: 2, color: `${theme.palette.secondary.main}` }} />
             <h1 style={{ lineHeight: '12px', color: `${theme.palette.primary.main}` }}>Tables</h1>
           </div>
         </AccordionSummary>
@@ -351,7 +351,7 @@ const WorksheetSummary: FC = () => {
               flexWrap: 'wrap',
             }}
           >
-            <DeveloperBoard sx={{ fontSize: '180%', mr: 2 }} />
+            <DeveloperBoard sx={{ fontSize: '180%', mr: 2, color: `${theme.palette.secondary.main}` }} />
             <h1 style={{ lineHeight: '12px', color: `${theme.palette.primary.main}` }}>Operations</h1>
           </div>
         </AccordionSummary>
@@ -386,7 +386,7 @@ const WorksheetSummary: FC = () => {
               flexWrap: 'wrap',
             }}
           >
-            <StorageIcon sx={{ fontSize: '180%', mr: 2 }} />
+            <StorageIcon sx={{ fontSize: '180%', mr: 2, color: `${theme.palette.secondary.main}` }} />
             <h1 style={{ lineHeight: '12px', color: `${theme.palette.primary.main}` }}>Outcomes</h1>
           </div>
         </AccordionSummary>

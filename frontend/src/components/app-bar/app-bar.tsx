@@ -11,16 +11,10 @@ interface AppBarProps {
   header?: string;
   handleDrawerOpened: () => void;
   opened: boolean;
-  color: string;
 }
 
-const AppBar: FC<AppBarProps> = ({
-  header = 'Data Anonymisation — Web Platform',
-  handleDrawerOpened,
-  opened,
-  color,
-}) => (
-  <AppBarBase position="fixed" sx={{ backgroundColor: color }} open={opened}>
+const AppBar: FC<AppBarProps> = ({ header = 'Data Anonymisation — Web Platform', handleDrawerOpened, opened }) => (
+  <AppBarBase position="fixed" sx={{ backgroundColor: `${theme.palette.primary.main}` }} open={opened}>
     <Toolbar>
       <IconButton
         color="inherit"
