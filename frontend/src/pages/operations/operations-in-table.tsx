@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { Button, Container, Divider } from '@mui/material';
+import { Button, Container, Divider, Grid, IconButton } from '@mui/material';
 import { theme } from '../../styles/theme';
 import Typography from '@mui/material/Typography';
 import { centeredColumn } from '../../styles/data-table';
@@ -9,6 +9,7 @@ import { getOperationsForTableInWorksheet } from '../../api/requests/operations/
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { ROUTES } from '../../constants/routes';
+import { Add, Edit } from '@mui/icons-material';
 
 const OperationsInTable: FC = () => {
   const [tableName, setTableName] = useState<string>('');
@@ -58,6 +59,32 @@ const OperationsInTable: FC = () => {
   }, [table, worksheetId]);
 
   const columns: GridColDef[] = [
+    {
+      field: 'actions',
+      headerName: 'Actions',
+      width: 200,
+      ...centeredColumn(),
+      renderCell: ({ row }) => (
+        <Button size="large" color="success" variant="contained" fullWidth onClick={() => {}}>
+          <Add sx={{ fontSize: '200%', mr: 1 }} />
+          Add operation
+        </Button>
+      ),
+    },
+    {
+      field: 'accumulatedOperations',
+      headerName: 'Accumulated operations',
+      width: 240,
+      ...centeredColumn(),
+      renderCell: ({ row }) => {
+        return (
+          <Button size="large" color="secondary" variant="contained" fullWidth onClick={() => {}}>
+            <Edit sx={{ fontSize: '200%', mr: 1 }} />
+            Generalisation
+          </Button>
+        );
+      },
+    },
     {
       field: 'columnName',
       headerName: 'Column name',
