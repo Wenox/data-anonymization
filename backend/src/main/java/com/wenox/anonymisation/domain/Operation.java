@@ -17,7 +17,9 @@ public class Operation {
   @ManyToOne(fetch = FetchType.LAZY)
   private Worksheet worksheet;
 
-  private String name;
+  private String tableName;
+
+  private String columnName;
 
   public String getId() {
     return id;
@@ -31,11 +33,19 @@ public class Operation {
     this.worksheet = worksheet;
   }
 
-  public String getName() {
-    return name;
+  public String getTableName() {
+    return tableName;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setTableName(String tableName) {
+    this.tableName = tableName;
+  }
+
+  public String getColumnName() {
+    return columnName;
+  }
+
+  public void setColumnName(String columnName) {
+    this.columnName = columnName;
   }
 }

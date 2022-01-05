@@ -13,8 +13,6 @@ const Navigation = ({ children }: React.PropsWithChildren<{}>) => {
   const [opened, setOpened] = useState(false);
   const { me } = useContext(AuthContext);
 
-  const color = getColorForRole(me!.role);
-
   const handleDrawerOpened = () => {
     setOpened(true);
   };
@@ -25,10 +23,10 @@ const Navigation = ({ children }: React.PropsWithChildren<{}>) => {
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <AppBar handleDrawerOpened={handleDrawerOpened} opened={opened} color={color} />
+      <AppBar handleDrawerOpened={handleDrawerOpened} opened={opened} />
       <NavigationBase variant="permanent" open={opened}>
         <NavigationHeader handleDrawerClosed={handleDrawerClosed} />
-        <NavigationContent role={me!.role} color={color} />
+        <NavigationContent role={me!.role} />
         <Divider sx={{ mt: '-8px' }} />
       </NavigationBase>
       <Box

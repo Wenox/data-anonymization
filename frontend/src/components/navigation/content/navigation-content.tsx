@@ -7,16 +7,14 @@ import * as React from 'react';
 import { FC } from 'react';
 import { Role } from '../../../api/requests/shared.types';
 import { useNavigate } from 'react-router-dom';
-import { useTheme } from '@mui/material/styles';
 import { theme } from '../../../styles/theme';
 import Divider from '@mui/material/Divider';
 
 interface NavigationContentProps {
   role: Role;
-  color: string;
 }
 
-const NavigationContent: FC<NavigationContentProps> = ({ role, color }) => {
+const NavigationContent: FC<NavigationContentProps> = ({ role }) => {
   const navigate = useNavigate();
 
   return (
@@ -41,7 +39,7 @@ const NavigationContent: FC<NavigationContentProps> = ({ role, color }) => {
               onClick={(e) => navigate(path)}
             >
               <ListItemIcon>
-                <Icon className="icon" sx={{ fontSize: '335%', color: color }} />
+                <Icon className="icon" sx={{ fontSize: '335%', color: `${theme.palette.primary.main}` }} />
               </ListItemIcon>
               <ListItemText
                 sx={{ ml: '18px' }}
