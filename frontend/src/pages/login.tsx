@@ -204,7 +204,7 @@ const Login: FC = () => {
         </Collapse>
         <Grid container>
           <Grid item xs>
-            <Link onClick={() => navigate(ROUTES.RESET_PASSWORD} variant="body2">
+            <Link onClick={() => navigate(ROUTES.RESET_PASSWORD)} variant="body2">
               Forgot password?
             </Link>
           </Grid>
