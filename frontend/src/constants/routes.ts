@@ -35,7 +35,7 @@ import MyTemplates from '../pages/templates/my-templates';
 import WorksheetSummary from '../pages/worksheets/worksheet-summary';
 import MyWorksheets from '../pages/worksheets/my-worksheets';
 import MyOutcomes from '../pages/outcomes/my-outcomes';
-import Operations from '../pages/operations/operations';
+import OperationsInTable from '../pages/operations/operationsInTable';
 
 export const ROUTES = {
   HOME: '/home',
@@ -179,7 +179,7 @@ export const APP_ROUTES: RouteDescription[] = [
   },
   {
     path: ROUTES.OPERATIONS_IN_TABLE,
-    element: Operations,
+    element: OperationsInTable,
     authenticated: true,
     menu: true,
   },

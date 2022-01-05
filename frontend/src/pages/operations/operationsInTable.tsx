@@ -9,7 +9,7 @@ import { getOperationsForTableInWorksheet } from '../../api/requests/operations/
 import { useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-const Operations: FC = () => {
+const OperationsInTable: FC = () => {
   const [tableName, setTableName] = useState<string>('');
   const [numberOfRows, setNumberOfRows] = useState<number>(0);
   const [operations, setOperations] = useState<ColumnOperations[]>([]);
@@ -22,7 +22,7 @@ const Operations: FC = () => {
     getOperationsForTableInWorksheet(table, worksheetId)
       .then((response) => {
         if (response.status === 200) {
-          toast.success('Operations loaded successfully.', {
+          toast.success('Operations in table loaded successfully.', {
             position: 'top-right',
             autoClose: 600,
             hideProgressBar: false,
@@ -74,7 +74,7 @@ const Operations: FC = () => {
       headerName: 'Nullable',
       flex: 1,
       ...centeredColumn(),
-      renderCell: ({ row }) => row.column.nullable,
+      renderCell: ({ row }) => row.column.nullable.toString(),
     },
     {
       field: 'primaryKey',
@@ -113,4 +113,4 @@ const Operations: FC = () => {
   );
 };
 
-export default Operations;
+export default OperationsInTable;
