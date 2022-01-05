@@ -1,13 +1,14 @@
 import { FC, useEffect, useState } from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { Container, Divider } from '@mui/material';
+import { Button, Container, Divider } from '@mui/material';
 import { theme } from '../../styles/theme';
 import Typography from '@mui/material/Typography';
 import { centeredColumn } from '../../styles/data-table';
 import { ColumnOperations } from '../../api/requests/operations/operations.types';
 import { getOperationsForTableInWorksheet } from '../../api/requests/operations/operations.requests';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { ROUTES } from '../../constants/routes';
 
 const OperationsInTable: FC = () => {
   const [tableName, setTableName] = useState<string>('');
@@ -17,6 +18,8 @@ const OperationsInTable: FC = () => {
   const [searchParams] = useSearchParams();
   const worksheetId: string = searchParams.get('worksheet_id') ?? '';
   const table: string = searchParams.get('table') ?? '';
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     getOperationsForTableInWorksheet(table, worksheetId)
@@ -105,6 +108,13 @@ const OperationsInTable: FC = () => {
         </span>
       </Typography>
       <Divider sx={{ mb: 3 }} />
+      <Button
+        color="secondary"
+        variant="contained"
+        onClick={() => navigate(`${ROUTES.WORKSHEET_SUMMARY}?worksheet_id=${worksheetId}`)}
+      >
+        Return to summary
+      </Button>
       <p>
         <strong>Rows count in {tableName}:</strong> {numberOfRows}
       </p>
