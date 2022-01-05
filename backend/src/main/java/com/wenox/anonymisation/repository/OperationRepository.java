@@ -12,4 +12,5 @@ public interface OperationRepository extends CrudRepository<Operation, String> {
   List<Operation> findAll();
 
   List<Operation> findAllByWorksheetAndTableName(Worksheet worksheet, String tableName);
+  List<Operation> findAllByWorksheetAndTableNameAndColumnName(Worksheet worksheet, String tableName, String columnName);
 }

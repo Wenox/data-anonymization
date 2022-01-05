@@ -7,7 +7,6 @@ import AppBar from '../app-bar/app-bar';
 import AuthContext from '../../context/auth-context';
 import NavigationContent from './content/navigation-content';
 import NavigationHeader from './header/navigation-header';
-import { getColorForRole } from '../../constants/colors';
 
 const Navigation = ({ children }: React.PropsWithChildren<{}>) => {
   const [opened, setOpened] = useState(false);

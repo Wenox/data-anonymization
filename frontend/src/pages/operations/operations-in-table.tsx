@@ -10,11 +10,14 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { ROUTES } from '../../constants/routes';
 import { Add, Edit } from '@mui/icons-material';
+import AddOperationDialog from '../../components/operation/add-operation-dialog';
 
 const OperationsInTable: FC = () => {
   const [tableName, setTableName] = useState<string>('');
   const [numberOfRows, setNumberOfRows] = useState<number>(0);
   const [operations, setOperations] = useState<ColumnOperations[]>([]);
+  const [isAddOperation, setIsAddOperation] = useState(false);
+  const [selectedRow, setSelectedRow] = useState<ColumnOperations | null>(null);
 
   const [searchParams] = useSearchParams();
   const worksheetId: string = searchParams.get('worksheet_id') ?? '';
@@ -65,7 +68,16 @@ const OperationsInTable: FC = () => {
       width: 200,
       ...centeredColumn(),
       renderCell: ({ row }) => (
-        <Button size="large" color="success" variant="contained" fullWidth onClick={() => {}}>
+        <Button
+          size="large"
+          color="success"
+          variant="contained"
+          fullWidth
+          onClick={() => {
+            setIsAddOperation(true);
+            setSelectedRow(row);
+          }}
+        >
           <Add sx={{ fontSize: '200%', mr: 1 }} />
           Add operation
         </Button>
@@ -128,6 +140,15 @@ const OperationsInTable: FC = () => {
         pb: 3,
       }}
     >
+      {isAddOperation && (
+        <AddOperationDialog
+          open={isAddOperation}
+          columnOperations={selectedRow!}
+          handleCancel={() => setIsAddOperation(false)}
+          worksheetId={worksheetId}
+          tableName={tableName}
+        />
+      )}
       <Typography color="primary" variant="h4" sx={{ mb: 2 }}>
         Operations for table{' '}
         <span style={{ color: `${theme.palette.secondary.main}` }}>
