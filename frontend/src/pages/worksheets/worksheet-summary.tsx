@@ -93,7 +93,7 @@ const WorksheetSummary: FC = () => {
           color="secondary"
           variant="contained"
           fullWidth
-          onClick={() => navigate(`${ROUTES.OPERATIONS}?worksheet_id=${id}&table_name=${row.tableName}`)}
+          onClick={() => navigate(`${ROUTES.OPERATIONS}?worksheet_id=${id}&table=${row.tableName}`)}
         >
           <DeveloperBoard sx={{ fontSize: '200%', mr: 1 }} />
           Anonymise

@@ -1,6 +1,8 @@
 package com.wenox.uploading.extractor.domain.metadata;
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class TemplateMetadata {
@@ -11,6 +13,11 @@ public class TemplateMetadata {
   public void insertTable(Table table) {
     tables.put(table.getTableName(), table);
     numberOfTables++;
+  }
+
+  public List<Column> getColumnsByTable(String table) {
+    System.out.println("getting for table: " + table);
+    return tables.get(table).getColumns().values().stream().toList();
   }
 
   public int getNumberOfTables() {
