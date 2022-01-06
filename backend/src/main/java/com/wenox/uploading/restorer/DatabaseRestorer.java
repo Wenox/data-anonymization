@@ -31,6 +31,7 @@ public class DatabaseRestorer {
     final String dbPath = templatesPath + "/" + templateName;
 
     log.info("Restoring {} from {} for template {}.", dbName, dbPath, templateName);
+
     if (isRunningOnCloud) {
 
       ProcessExecutorFactory.newProcess(
@@ -71,6 +72,7 @@ public class DatabaseRestorer {
           dbPath
       ).execute();
     }
+    
     log.info("Restored {} successfully.", dbName);
   }
 }
