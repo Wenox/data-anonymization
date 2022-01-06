@@ -26,6 +26,22 @@ const TableOperations: FC = () => {
 
   const navigate = useNavigate();
 
+  const refetch = () => {
+    getTableOperations(table, worksheetId).then((response) => {
+      if (response.status === 200) {
+        setTableName(response.data.tableName);
+        setPrimaryKeyColumnName(response.data.primaryKeyColumnName);
+        setNumberOfRows(response.data.numberOfRows);
+        setOperations(
+          response.data.listOfColumnOperations.map((operation) => ({
+            ...operation,
+            id: operation.column.columnName,
+          })),
+        );
+      }
+    });
+  };
+
   useEffect(() => {
     getTableOperations(table, worksheetId).then((response) => {
       if (response.status === 200) {
@@ -41,7 +57,6 @@ const TableOperations: FC = () => {
         setTableName(response.data.tableName);
         setPrimaryKeyColumnName(response.data.primaryKeyColumnName);
         setNumberOfRows(response.data.numberOfRows);
-        console.log('data: ', response.data);
         setOperations(
           response.data.listOfColumnOperations.map((operation) => ({
             ...operation,
@@ -158,6 +173,10 @@ const TableOperations: FC = () => {
           open={isAddOperation}
           columnOperations={selectedRow!}
           handleCancel={() => setIsAddOperation(false)}
+          handleAddSuccess={() => {
+            setIsAddOperation(false);
+            refetch();
+          }}
           worksheetId={worksheetId}
           tableName={tableName}
           primaryKeyColumnName={primaryKeyColumnName}

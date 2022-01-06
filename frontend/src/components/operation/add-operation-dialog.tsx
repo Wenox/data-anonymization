@@ -10,6 +10,7 @@ import { ColumnOperations } from '../../api/requests/table-operations/table-oper
 interface AddOperationDialogProps {
   open: boolean;
   handleCancel: () => void;
+  handleAddSuccess: () => void;
   columnOperations: ColumnOperations;
   worksheetId: string;
   tableName: string;
@@ -19,6 +20,7 @@ interface AddOperationDialogProps {
 const AddOperationDialog: FC<AddOperationDialogProps> = ({
   open,
   handleCancel,
+  handleAddSuccess,
   columnOperations,
   worksheetId,
   tableName,
@@ -39,7 +41,6 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
         <Button
           color="secondary"
           onClick={() => {
-            console.log('column operations: ', columnOperations);
             putAddSuppressionOperation(worksheetId, {
               tableName: tableName,
               columnName: columnOperations.column.columnName,
@@ -57,7 +58,7 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
                     draggable: true,
                     progress: undefined,
                   });
-                  handleCancel();
+                  handleAddSuccess();
                 } else {
                   toast.error(response.data.message, {
                     position: 'top-right',
