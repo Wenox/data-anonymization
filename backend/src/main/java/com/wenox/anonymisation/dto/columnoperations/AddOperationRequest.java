@@ -1,4 +1,4 @@
-package com.wenox.anonymisation.dto.operations;
+package com.wenox.anonymisation.dto.columnoperations;
 
 public class AddOperationRequest {
 

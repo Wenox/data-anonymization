@@ -27,24 +27,24 @@ public class Worksheet {
   private Template template;
 
   @OneToMany(mappedBy = "worksheet", cascade = CascadeType.ALL, orphanRemoval = true)
-  private List<Operation> operations = new ArrayList<>();
+  private List<ColumnOperations> listOfColumnOperations = new ArrayList<>();
 
-  public void addOperation(Operation operation) {
-    operations.add(operation);
+  public void addColumnOperations(ColumnOperations operation) {
+    listOfColumnOperations.add(operation);
     operation.setWorksheet(this);
   }
 
-  public void removeOperation(Operation operation) {
-    operations.remove(operation);
+  public void removeColumnOperations(ColumnOperations operation) {
+    listOfColumnOperations.remove(operation);
     operation.setWorksheet(null);
   }
 
-  public List<Operation> getOperations() {
-    return operations;
+  public List<ColumnOperations> getListOfColumnOperations() {
+    return listOfColumnOperations;
   }
 
-  public void setOperations(List<Operation> operations) {
-    this.operations = operations;
+  public void setListOfColumnOperations(List<ColumnOperations> operations) {
+    this.listOfColumnOperations = operations;
   }
 
   public String getId() {

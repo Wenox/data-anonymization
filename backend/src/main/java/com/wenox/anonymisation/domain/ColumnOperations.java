@@ -10,8 +10,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "operations")
-public class Operation {
+@Table(name = "column_operations")
+public class ColumnOperations {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)

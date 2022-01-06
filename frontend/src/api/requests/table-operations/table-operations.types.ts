@@ -1,6 +1,6 @@
 import { Column } from '../templates/templates.types';
 
-export interface ColumnOperationsForTable {
+export interface TableOperations {
   tableName: string;
   primaryKeyColumnName: string;
   numberOfRows: number;
@@ -17,14 +17,4 @@ export interface Operation {
   operationName: string;
   tableName: string;
   columnName: string;
-}
-
-export interface AddOperation {
-  tableName: string;
-  columnName: string;
-  primaryKeyColumnName: string;
-}
-
-export interface AddSuppressionOperation extends AddOperation {
-  suppressionToken: string;
 }

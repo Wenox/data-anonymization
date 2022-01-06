@@ -1,7 +1,6 @@
 package com.wenox.uploading.template.domain;
 
 import com.vladmihalcea.hibernate.type.json.JsonType;
-import com.wenox.anonymisation.domain.Operation;
 import com.wenox.anonymisation.domain.Worksheet;
 import com.wenox.users.domain.FileType;
 import com.wenox.users.domain.User;

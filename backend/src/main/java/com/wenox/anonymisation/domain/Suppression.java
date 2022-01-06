@@ -16,7 +16,7 @@ public class Suppression {
   Long id;
 
   @OneToOne(mappedBy = "suppression")
-  Operation operation;
+  ColumnOperations columnOperations;
 
   public Long getId() {
     return id;
@@ -26,12 +26,12 @@ public class Suppression {
     this.id = id;
   }
 
-  public Operation getOperation() {
-    return operation;
+  public ColumnOperations getColumnOperations() {
+    return columnOperations;
   }
 
-  public void setOperation(Operation operation) {
-    this.operation = operation;
+  public void setColumnOperations(ColumnOperations operation) {
+    this.columnOperations = operation;
   }
 
   private String suppressionToken;

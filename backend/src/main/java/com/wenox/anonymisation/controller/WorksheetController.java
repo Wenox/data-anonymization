@@ -1,13 +1,11 @@
 package com.wenox.anonymisation.controller;
 
-import com.wenox.anonymisation.domain.Worksheet;
-import com.wenox.anonymisation.dto.CreateWorksheetRequest;
-import com.wenox.anonymisation.dto.WorksheetCreatedResponse;
-import com.wenox.anonymisation.dto.WorksheetSummaryResponse;
+import com.wenox.anonymisation.dto.worksheet.CreateWorksheetRequest;
+import com.wenox.anonymisation.dto.worksheet.WorksheetCreatedResponse;
+import com.wenox.anonymisation.dto.worksheet.WorksheetSummaryResponse;
 import com.wenox.anonymisation.service.WorksheetService;
 import java.util.List;
 import javax.validation.Valid;
-import org.hibernate.jdbc.Work;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;

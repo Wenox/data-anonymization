@@ -1,18 +1,18 @@
 import { FC, useEffect, useState } from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { Button, Container, Divider, Grid, IconButton } from '@mui/material';
+import { Button, Container, Divider } from '@mui/material';
 import { theme } from '../../styles/theme';
 import Typography from '@mui/material/Typography';
 import { centeredColumn } from '../../styles/data-table';
-import { ColumnOperations } from '../../api/requests/operations/operations.types';
-import { getOperationsForTableInWorksheet } from '../../api/requests/operations/operations.requests';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { ROUTES } from '../../constants/routes';
 import { Add, Edit } from '@mui/icons-material';
 import AddOperationDialog from '../../components/operation/add-operation-dialog';
+import { ColumnOperations } from '../../api/requests/table-operations/table-operations.types';
+import { getTableOperations } from '../../api/requests/table-operations/table-operations.requests';
 
-const OperationsInTable: FC = () => {
+const TableOperations: FC = () => {
   const [tableName, setTableName] = useState<string>('');
   const [primaryKeyColumnName, setPrimaryKeyColumnName] = useState<string>('');
   const [numberOfRows, setNumberOfRows] = useState<number>(0);
@@ -27,7 +27,7 @@ const OperationsInTable: FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getOperationsForTableInWorksheet(table, worksheetId)
+    getTableOperations(table, worksheetId)
       .then((response) => {
         if (response.status === 200) {
           toast.success('Operations in table loaded successfully.', {
@@ -176,4 +176,4 @@ const OperationsInTable: FC = () => {
   );
 };
 
-export default OperationsInTable;
+export default TableOperations;
