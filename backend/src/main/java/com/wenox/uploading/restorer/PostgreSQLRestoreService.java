@@ -9,10 +9,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
-public class DatabaseRestorer {
+public class PostgreSQLRestoreService implements DatabaseRestoreService {
 
-  @Value("${uploader.templates.path}")
-  private String templatesPath;
+  private static final Logger log = LoggerFactory.getLogger(PostgreSQLRestoreService.class);
 
   @Value("${POSTGRES_IP_ADDRESS:localhost}")
   private String postgresIpAddress;
@@ -23,14 +22,9 @@ public class DatabaseRestorer {
   @Value("${POSTGRES_HOST_PORT:5007}")
   private String postgresHostPort;
 
-  private static final Logger log = LoggerFactory.getLogger(DatabaseRestorer.class);
+  public void restore(String dumpPath, String databaseName) throws IOException, InterruptedException, TimeoutException {
 
-  public void restorePostgresDatabase(final String templateName, final String dbName)
-      throws IOException, InterruptedException, TimeoutException {
-
-    final String dbPath = templatesPath + "/" + templateName;
-
-    log.info("Restoring {} from {} for template {}.", dbName, dbPath, templateName);
+    log.info("Restoring new {} using dump located at {}.", databaseName, dumpPath);
 
     if (isRunningOnCloud) {
 
@@ -39,16 +33,16 @@ public class DatabaseRestorer {
           "-h", postgresIpAddress,
           "-U", "postgres", "--no-password",
           "-T", "template0",
-          dbName
+          databaseName
       ).execute();
 
       ProcessExecutorFactory.newProcess(
           "pg_restore",
           "-h", postgresIpAddress,
           "-U", "postgres", "--no-password",
-          "-d", dbName,
+          "-d", databaseName,
           "-v",
-          dbPath
+          dumpPath
       ).execute();
 
     } else {
@@ -59,7 +53,7 @@ public class DatabaseRestorer {
           "-p", postgresHostPort,
           "-U", "postgres", "--no-password",
           "-T", "template0",
-          dbName
+          databaseName
       ).execute();
 
       ProcessExecutorFactory.newProcess(
@@ -67,12 +61,12 @@ public class DatabaseRestorer {
           "-h", postgresIpAddress,
           "-p", postgresHostPort,
           "-U", "postgres", "--no-password",
-          "-d", dbName,
+          "-d", databaseName,
           "-v",
-          dbPath
+          dumpPath
       ).execute();
     }
-    
-    log.info("Restored {} successfully.", dbName);
+
+    log.info("Restored new {} successfully.", databaseName);
   }
 }
