@@ -33,7 +33,7 @@ public class DatabaseRestoredListener {
   public void onDatabaseRestoreSuccessEvent(final DatabaseRestoreSuccessEvent event) {
     final var connectionDetails = new ConnectionDetails();
     connectionDetails.setDatabaseType(event.getTemplate().getType());
-    connectionDetails.setDatabaseName(event.getTemplate().getDatabaseName());
+    connectionDetails.setDatabaseName(event.getTemplate().getTemplateDatabaseName());
     connectionDetails.setUsername("postgres");
     connectionDetails.setPassword("postgres");
 
