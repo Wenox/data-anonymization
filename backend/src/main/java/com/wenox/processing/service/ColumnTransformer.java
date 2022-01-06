@@ -1,4 +1,4 @@
-package com.wenox.anonymisation.service;
+package com.wenox.processing.service;
 
 import java.util.List;
 
