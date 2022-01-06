@@ -1,16 +1,11 @@
 package com.wenox.uploading.extractor.domain.metadata;
 
-public class PrimaryKey {
-  private String columnName;
+public class PrimaryKey extends Column {
   private String primaryKeyName;
-  private String type;
 
-  public String getColumnName() {
-    return columnName;
-  }
-
-  public void setColumnName(String columnName) {
-    this.columnName = columnName;
+  public PrimaryKey(String columnName, String type, String primaryKeyName) {
+    super(columnName, type, "NO");
+    this.primaryKeyName = primaryKeyName;
   }
 
   public String getPrimaryKeyName() {
@@ -19,13 +14,5 @@ public class PrimaryKey {
 
   public void setPrimaryKeyName(String primaryKeyName) {
     this.primaryKeyName = primaryKeyName;
-  }
-
-  public String getType() {
-    return type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
   }
 }

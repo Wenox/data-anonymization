@@ -63,7 +63,7 @@ public class OperationService {
       columnOperations.add(item);
     }
 
-    return new ColumnOperationsForTableResponse(table.getTableName(), table.getNumberOfRows(), columnOperations);
+    return new ColumnOperationsForTableResponse(table.getTableName(), table.getPrimaryKey().getColumnName(), table.getNumberOfRows(), columnOperations);
   }
 
   @Transactional
@@ -91,6 +91,7 @@ public class OperationService {
     operation.setOperationName(dto.getOperationName());
     operation.setTableName(dto.getTableName());
     operation.setColumnName(dto.getColumnName());
+    operation.setPrimaryKeyColumnName(dto.getPrimaryKeyColumnName());
     operationRepository.save(operation);
     return ApiResponse.ofSuccess("Added operation successfully");
   }

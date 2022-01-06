@@ -3,6 +3,7 @@ package com.wenox.uploading.extractor;
 import com.wenox.infrastructure.service.ConnectionDetails;
 import com.wenox.infrastructure.service.DataSourceFactory;
 import com.wenox.uploading.extractor.domain.metadata.Column;
+import com.wenox.uploading.extractor.domain.metadata.PrimaryKey;
 import com.wenox.uploading.extractor.domain.metadata.Table;
 import com.wenox.uploading.extractor.domain.metadata.TemplateMetadata;
 import java.sql.DatabaseMetaData;
@@ -32,9 +33,23 @@ public class DatabaseMetadataExtractor implements MetadataExtractor {
     while (tables.next()) {
       String tableName = tables.getString("TABLE_NAME");
       Integer numberOfRows = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM " + tableName, Integer.class);
-      Integer numberOfColumns = jdbcTemplate.queryForObject(getQueryForNumberOfColumnsInTable(tableName), Integer.class);
+      Integer numberOfColumns =
+          jdbcTemplate.queryForObject(getQueryForNumberOfColumnsInTable(tableName), Integer.class);
       Table table = new Table(tableName, numberOfRows, numberOfColumns);
       metadata.insertTable(table);
+
+      final var PKs = extractor.getPrimaryKeys(null, "public", tableName);
+      while (PKs.next()) {
+        String columnName = PKs.getString("COLUMN_NAME");
+        String primaryKeyName = PKs.getString("PK_NAME");
+        final var pkColumnResultSet = extractor.getColumns(null, "public", tableName, columnName);
+        String type = "";
+        if (pkColumnResultSet.next()) {
+          type = pkColumnResultSet.getString("DATA_TYPE");
+        }
+        PrimaryKey primaryKey = new PrimaryKey(columnName, type, primaryKeyName);
+        table.setPrimaryKey(primaryKey);
+      }
 
       final ResultSet columns = extractor.getColumns(null, "public", tableName, null);
       while (columns.next()) {
@@ -52,10 +67,10 @@ public class DatabaseMetadataExtractor implements MetadataExtractor {
   private String getQueryForNumberOfColumnsInTable(String tableName) {
     return String.format(
         """
-        SELECT count(*)
-        FROM information_schema.columns
-        WHERE table_name = '%s'
-        """, tableName);
+            SELECT count(*)
+            FROM information_schema.columns
+            WHERE table_name = '%s'
+            """, tableName);
   }
 }
 

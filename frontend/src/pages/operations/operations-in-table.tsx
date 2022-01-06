@@ -14,6 +14,7 @@ import AddOperationDialog from '../../components/operation/add-operation-dialog'
 
 const OperationsInTable: FC = () => {
   const [tableName, setTableName] = useState<string>('');
+  const [primaryKeyColumnName, setPrimaryKeyColumnName] = useState<string>('');
   const [numberOfRows, setNumberOfRows] = useState<number>(0);
   const [operations, setOperations] = useState<ColumnOperations[]>([]);
   const [isAddOperation, setIsAddOperation] = useState(false);
@@ -39,6 +40,7 @@ const OperationsInTable: FC = () => {
             progress: undefined,
           });
           setTableName(response.data.tableName);
+          setPrimaryKeyColumnName(response.data.primaryKeyColumnName);
           setNumberOfRows(response.data.numberOfRows);
           setOperations(
             response.data.columnOperations.map((operation) => ({
@@ -147,6 +149,7 @@ const OperationsInTable: FC = () => {
           handleCancel={() => setIsAddOperation(false)}
           worksheetId={worksheetId}
           tableName={tableName}
+          primaryKeyColumnName={primaryKeyColumnName}
         />
       )}
       <Typography color="primary" variant="h4" sx={{ mb: 2 }}>
@@ -165,6 +168,8 @@ const OperationsInTable: FC = () => {
       </Button>
       <p>
         <strong>Rows count in {tableName}:</strong> {numberOfRows}
+        <br />
+        <strong>Primary key column:</strong> {primaryKeyColumnName}
       </p>
       <DataGrid autoHeight columns={columns} rows={operations} loading={false} />
     </Container>

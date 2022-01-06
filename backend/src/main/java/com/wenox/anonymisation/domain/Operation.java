@@ -21,6 +21,8 @@ public class Operation {
 
   private String columnName;
 
+  private String primaryKeyColumnName;
+
   private String operationName;
 
   public String getId() {
@@ -49,6 +51,14 @@ public class Operation {
 
   public void setColumnName(String columnName) {
     this.columnName = columnName;
+  }
+
+  public String getPrimaryKeyColumnName() {
+    return primaryKeyColumnName;
+  }
+
+  public void setPrimaryKeyColumnName(String primaryKeyColumnName) {
+    this.primaryKeyColumnName = primaryKeyColumnName;
   }
 
   public String getOperationName() {
