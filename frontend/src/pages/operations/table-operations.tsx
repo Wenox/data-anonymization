@@ -103,7 +103,7 @@ const TableOperations: FC = () => {
     {
       field: 'accumulatedOperations',
       headerName: 'Accumulated operations',
-      width: 240,
+      width: 360,
       ...centeredColumn(),
       renderCell: ({ row }) => {
         return (
