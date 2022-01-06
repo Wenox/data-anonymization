@@ -45,7 +45,7 @@ public class TemplateService {
 
     final var template = new Template();
     template.setUser(me);
-    template.setDatabaseName("db-" + UUID.randomUUID());
+    template.setTemplateDatabaseName("db-" + UUID.randomUUID());
     template.setTitle(dto.getTitle());
     template.setType(dto.getType());
     template.setDescription(dto.getDescription());

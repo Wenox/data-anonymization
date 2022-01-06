@@ -34,7 +34,7 @@ public class TemplateFileStoredListener {
     }
 
     try {
-      restorer.restorePostgresDatabase(template.getTemplateFile().getSavedFileName(), template.getDatabaseName());
+      restorer.restorePostgresDatabase(template.getTemplateFile().getSavedFileName(), template.getTemplateDatabaseName());
       template.setStatus(TemplateStatus.RESTORE_SUCCESS);
       repository.save(template);
     } catch (final Exception ex) {

@@ -1,6 +1,5 @@
 package com.wenox.processing.service;
 
-import com.wenox.anonymisation.domain.ColumnOperations;
 import com.wenox.anonymisation.repository.WorksheetRepository;
 import com.wenox.infrastructure.service.ConnectionDetails;
 import com.wenox.infrastructure.service.DataSourceFactory;
@@ -10,7 +9,6 @@ import com.wenox.processing.domain.events.OutcomeGenerationStartedEvent;
 import com.wenox.processing.repository.OutcomeRepository;
 import com.wenox.users.service.AuthService;
 import java.time.LocalDateTime;
-import java.util.List;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -48,7 +46,7 @@ public class OutcomeService {
 
     final var connectionDetails = new ConnectionDetails();
     connectionDetails.setDatabaseType(worksheet.getTemplate().getType());
-    connectionDetails.setDatabaseName(worksheet.getTemplate().getDatabaseName());
+    connectionDetails.setDatabaseName(worksheet.getTemplate().getTemplateDatabaseName());
     connectionDetails.setUsername("postgres");
     connectionDetails.setPassword("postgres");
     final var queryExecutor = new QueryExecutor(dataSourceFactory.getDataSource(connectionDetails));

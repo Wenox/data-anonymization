@@ -59,8 +59,8 @@ public class Template {
   @Column(name = "title")
   private String title;
 
-  @Column(name = "database_name")
-  private String databaseName;
+  @Column(name = "template_database_name")
+  private String templateDatabaseName;
 
   @Column(name = "description")
   private String description;
@@ -139,12 +139,12 @@ public class Template {
     this.metadata = metadata;
   }
 
-  public String getDatabaseName() {
-    return databaseName;
+  public String getTemplateDatabaseName() {
+    return templateDatabaseName;
   }
 
-  public void setDatabaseName(String databaseName) {
-    this.databaseName = databaseName;
+  public void setTemplateDatabaseName(String databaseName) {
+    this.templateDatabaseName = databaseName;
   }
 
   public String getDescription() {

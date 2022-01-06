@@ -23,9 +23,15 @@ public class Outcome {
   @Enumerated(EnumType.STRING)
   private OutcomeStatus outcomeStatus;
 
+  private String mirrorDatabaseName;
+
   private LocalDateTime processingStartDate;
 
   private LocalDateTime processingEndDate;
+
+  public String getTemplateDatabaseName() {
+    return worksheet.getTemplate().getTemplateDatabaseName();
+  }
 
   public String getId() {
     return id;
@@ -41,6 +47,14 @@ public class Outcome {
 
   public OutcomeStatus getOutcomeStatus() {
     return outcomeStatus;
+  }
+
+  public String getMirrorDatabaseName() {
+    return mirrorDatabaseName;
+  }
+
+  public void setMirrorDatabaseName(String mirrorDatabaseName) {
+    this.mirrorDatabaseName = mirrorDatabaseName;
   }
 
   public void setOutcomeStatus(OutcomeStatus outcomeStatus) {
