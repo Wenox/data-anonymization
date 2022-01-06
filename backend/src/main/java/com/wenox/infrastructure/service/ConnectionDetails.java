@@ -9,6 +9,21 @@ public class ConnectionDetails {
   private String username;
   private String password;
 
+  public ConnectionDetails() {
+
+  }
+
+  private ConnectionDetails(FileType databaseType, String databaseName, String username, String password) {
+    this.databaseType = databaseType;
+    this.databaseName = databaseName;
+    this.username = username;
+    this.password = password;
+  }
+
+  public static ConnectionDetails newPostgreSQLConnection(String databaseName) {
+    return new ConnectionDetails(FileType.PSQL, databaseName, "postgres", "postgres");
+  }
+
   public FileType getDatabaseType() {
     return databaseType;
   }
