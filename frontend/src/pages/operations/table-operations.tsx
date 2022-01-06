@@ -1,19 +1,20 @@
 import { FC, useEffect, useState } from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { Button, Container, Divider, Grid, IconButton } from '@mui/material';
+import { Button, Container, Divider } from '@mui/material';
 import { theme } from '../../styles/theme';
 import Typography from '@mui/material/Typography';
 import { centeredColumn } from '../../styles/data-table';
-import { ColumnOperations } from '../../api/requests/operations/operations.types';
-import { getOperationsForTableInWorksheet } from '../../api/requests/operations/operations.requests';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { ROUTES } from '../../constants/routes';
 import { Add, Edit } from '@mui/icons-material';
 import AddOperationDialog from '../../components/operation/add-operation-dialog';
+import { ColumnOperations, Operation } from '../../api/requests/table-operations/table-operations.types';
+import { getTableOperations } from '../../api/requests/table-operations/table-operations.requests';
 
-const OperationsInTable: FC = () => {
+const TableOperations: FC = () => {
   const [tableName, setTableName] = useState<string>('');
+  const [primaryKeyColumnName, setPrimaryKeyColumnName] = useState<string>('');
   const [numberOfRows, setNumberOfRows] = useState<number>(0);
   const [operations, setOperations] = useState<ColumnOperations[]>([]);
   const [isAddOperation, setIsAddOperation] = useState(false);
@@ -25,40 +26,56 @@ const OperationsInTable: FC = () => {
 
   const navigate = useNavigate();
 
+  const refetch = () => {
+    getTableOperations(table, worksheetId).then((response) => {
+      if (response.status === 200) {
+        setTableName(response.data.tableName);
+        setPrimaryKeyColumnName(response.data.primaryKeyColumnName);
+        setNumberOfRows(response.data.numberOfRows);
+        setOperations(
+          response.data.listOfColumnOperations.map((operation) => ({
+            ...operation,
+            id: operation.column.columnName,
+          })),
+        );
+      }
+    });
+  };
+
   useEffect(() => {
-    getOperationsForTableInWorksheet(table, worksheetId)
-      .then((response) => {
-        if (response.status === 200) {
-          toast.success('Operations in table loaded successfully.', {
-            position: 'top-right',
-            autoClose: 600,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
-          setTableName(response.data.tableName);
-          setNumberOfRows(response.data.numberOfRows);
-          setOperations(
-            response.data.columnOperations.map((operation) => ({
-              ...operation,
-              id: operation.column.columnName,
-            })),
-          );
-        }
-      })
-      .catch(() =>
-        toast.error('Failed to load the operations.', {
+    getTableOperations(table, worksheetId).then((response) => {
+      if (response.status === 200) {
+        toast.success('Operations in table loaded successfully.', {
           position: 'top-right',
-          autoClose: 5000,
+          autoClose: 600,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-        }),
-      );
+        });
+        setTableName(response.data.tableName);
+        setPrimaryKeyColumnName(response.data.primaryKeyColumnName);
+        setNumberOfRows(response.data.numberOfRows);
+        setOperations(
+          response.data.listOfColumnOperations.map((operation) => ({
+            ...operation,
+            id: operation.column.columnName,
+          })),
+        );
+      }
+    });
+    // .catch(() =>
+    //   toast.error('Failed to load the operations.', {
+    //     position: 'top-right',
+    //     autoClose: 5000,
+    //     hideProgressBar: false,
+    //     closeOnClick: true,
+    //     pauseOnHover: true,
+    //     draggable: true,
+    //     progress: undefined,
+    //   }),
+    // );
   }, [table, worksheetId]);
 
   const columns: GridColDef[] = [
@@ -86,14 +103,25 @@ const OperationsInTable: FC = () => {
     {
       field: 'accumulatedOperations',
       headerName: 'Accumulated operations',
-      width: 240,
+      width: 360,
       ...centeredColumn(),
       renderCell: ({ row }) => {
         return (
-          <Button size="large" color="secondary" variant="contained" fullWidth onClick={() => {}}>
-            <Edit sx={{ fontSize: '200%', mr: 1 }} />
-            Generalisation
-          </Button>
+          <>
+            {row.listOfColumnOperation.map(({ operationName }: Operation) => (
+              <Button
+                key={operationName}
+                size="large"
+                color="secondary"
+                variant="contained"
+                fullWidth
+                onClick={() => {}}
+              >
+                <Edit sx={{ fontSize: '200%', mr: 1 }} />
+                {operationName}
+              </Button>
+            ))}
+          </>
         );
       },
     },
@@ -145,8 +173,13 @@ const OperationsInTable: FC = () => {
           open={isAddOperation}
           columnOperations={selectedRow!}
           handleCancel={() => setIsAddOperation(false)}
+          handleAddSuccess={() => {
+            setIsAddOperation(false);
+            refetch();
+          }}
           worksheetId={worksheetId}
           tableName={tableName}
+          primaryKeyColumnName={primaryKeyColumnName}
         />
       )}
       <Typography color="primary" variant="h4" sx={{ mb: 2 }}>
@@ -165,10 +198,12 @@ const OperationsInTable: FC = () => {
       </Button>
       <p>
         <strong>Rows count in {tableName}:</strong> {numberOfRows}
+        <br />
+        <strong>Primary key column:</strong> {primaryKeyColumnName}
       </p>
       <DataGrid autoHeight columns={columns} rows={operations} loading={false} />
     </Container>
   );
 };
 
-export default OperationsInTable;
+export default TableOperations;

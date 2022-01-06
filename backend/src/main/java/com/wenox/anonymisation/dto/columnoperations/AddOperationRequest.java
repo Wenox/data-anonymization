@@ -1,10 +1,10 @@
-package com.wenox.anonymisation.dto.operations;
+package com.wenox.anonymisation.dto.columnoperations;
 
 public class AddOperationRequest {
 
   private String tableName;
   private String columnName;
-  private String operationName;
+  private String primaryKeyColumnName;
 
   public String getTableName() {
     return tableName;
@@ -22,11 +22,12 @@ public class AddOperationRequest {
     this.columnName = columnName;
   }
 
-  public String getOperationName() {
-    return operationName;
+  public String getPrimaryKeyColumnName() {
+    return primaryKeyColumnName;
   }
 
-  public void setOperationName(String operationName) {
-    this.operationName = operationName;
+  public void setPrimaryKeyColumnName(String primaryKeyColumnName) {
+    this.primaryKeyColumnName = primaryKeyColumnName;
   }
+
 }

@@ -2,34 +2,35 @@ import React, { FC } from 'react';
 import { Dialog, DialogActions, DialogContent, DialogTitle, Divider, MenuItem, Select } from '@mui/material';
 import { Transition } from '../user/password-confirmation-dialog';
 import Button from '@mui/material/Button';
-import { ColumnOperations } from '../../api/requests/operations/operations.types';
 import Typography from '@mui/material/Typography';
-import { putAddOperationForColumn } from '../../api/requests/operations/operations.requests';
 import { toast } from 'react-toastify';
+import { putAddSuppressionOperation } from '../../api/requests/column-operations/column-operations.requests';
+import { ColumnOperations } from '../../api/requests/table-operations/table-operations.types';
 
 interface AddOperationDialogProps {
   open: boolean;
   handleCancel: () => void;
+  handleAddSuccess: () => void;
   columnOperations: ColumnOperations;
   worksheetId: string;
   tableName: string;
+  primaryKeyColumnName: string;
 }
 
 const AddOperationDialog: FC<AddOperationDialogProps> = ({
   open,
   handleCancel,
+  handleAddSuccess,
   columnOperations,
   worksheetId,
   tableName,
+  primaryKeyColumnName,
 }) => {
   return (
     <Dialog fullWidth maxWidth="sm" open={open} onClose={handleCancel} TransitionComponent={Transition}>
-      <DialogTitle>
-        <Typography color="secondary" variant="h4" sx={{ mb: 2 }}>
-          Select operation
-        </Typography>
-        <Divider sx={{ mb: 2 }} />
-      </DialogTitle>
+      <Typography color="secondary" variant="h4" sx={{ mb: 2, mt: 2, pl: 3 }}>
+        Select operation
+      </Typography>
       <DialogContent>
         <Select fullWidth value={'Shuffle'} label="Age">
           <MenuItem value={'Shuffle'}>Shuffle</MenuItem>
@@ -40,11 +41,11 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
         <Button
           color="secondary"
           onClick={() => {
-            console.log('column operations: ', columnOperations);
-            putAddOperationForColumn(worksheetId, {
+            putAddSuppressionOperation(worksheetId, {
               tableName: tableName,
               columnName: columnOperations.column.columnName,
-              operationName: 'Shuffle', // todo
+              primaryKeyColumnName: primaryKeyColumnName,
+              suppressionToken: '*',
             })
               .then((response) => {
                 if (response.data.success) {
@@ -57,7 +58,7 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
                     draggable: true,
                     progress: undefined,
                   });
-                  handleCancel();
+                  handleAddSuccess();
                 } else {
                   toast.error(response.data.message, {
                     position: 'top-right',
