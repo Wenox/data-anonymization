@@ -23,6 +23,9 @@ public class ColumnOperations {
   @OneToOne
   private Suppression suppression;
 
+  @OneToOne
+  private Shuffle shuffle;
+
   private String tableName;
 
   private String columnName;
@@ -69,6 +72,14 @@ public class ColumnOperations {
 
   public void setColumnName(String columnName) {
     this.columnName = columnName;
+  }
+
+  public Shuffle getShuffle() {
+    return shuffle;
+  }
+
+  public void setShuffle(Shuffle shuffle) {
+    this.shuffle = shuffle;
   }
 
   public String getPrimaryKeyColumnName() {

@@ -8,17 +8,17 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "suppressions")
-public class Suppression {
+@Table(name = "shuffles")
+public class Shuffle {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   Long id;
 
-  @OneToOne(mappedBy = "suppression")
+  @OneToOne(mappedBy = "shuffle")
   ColumnOperations columnOperations;
 
-  private String suppressionToken;
+  private boolean withRepetitions;
 
   public Long getId() {
     return id;
@@ -32,15 +32,15 @@ public class Suppression {
     return columnOperations;
   }
 
-  public void setColumnOperations(ColumnOperations operation) {
-    this.columnOperations = operation;
+  public void setColumnOperations(ColumnOperations columnOperations) {
+    this.columnOperations = columnOperations;
   }
 
-  public String getSuppressionToken() {
-    return suppressionToken;
+  public boolean isWithRepetitions() {
+    return withRepetitions;
   }
 
-  public void setSuppressionToken(String suppressionToken) {
-    this.suppressionToken = suppressionToken;
+  public void setWithRepetitions(boolean withRepetitions) {
+    this.withRepetitions = withRepetitions;
   }
 }

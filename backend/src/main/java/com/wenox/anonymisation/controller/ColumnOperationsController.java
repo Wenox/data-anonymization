@@ -1,5 +1,6 @@
 package com.wenox.anonymisation.controller;
 
+import com.wenox.anonymisation.dto.columnoperations.AddShuffleRequest;
 import com.wenox.anonymisation.dto.columnoperations.AddSuppressionRequest;
 import com.wenox.anonymisation.service.ColumnOperationsService;
 import com.wenox.users.dto.ApiResponse;
@@ -27,5 +28,13 @@ public class ColumnOperationsController {
                                                                       @Valid @RequestBody AddSuppressionRequest dto,
                                                                       Authentication auth) {
     return ResponseEntity.ok(columnOperationsService.addSuppressionOperationForColumn(id, dto, auth));
+  }
+
+  @PreAuthorize("hasAnyAuthority('VERIFIED_USER', 'ADMIN')")
+  @PutMapping("/api/v1/worksheet/{id}/column-operations/add-shuffle")
+  public ResponseEntity<ApiResponse> addShuffleOperationForColumn(@PathVariable("id") String id,
+                                                                  @Valid @RequestBody AddShuffleRequest dto,
+                                                                  Authentication auth) {
+    return ResponseEntity.ok(columnOperationsService.addShuffleOperationForColumn(id, dto, auth));
   }
 }
