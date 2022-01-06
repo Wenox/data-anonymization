@@ -1,4 +1,6 @@
-package com.wenox.anonymisation.dto.operations;
+package com.wenox.anonymisation.dto.columnoperations;
+
+import com.wenox.anonymisation.domain.ColumnOperations;
 
 public class OperationDto {
 
@@ -7,11 +9,11 @@ public class OperationDto {
   private String tableName;
   private String columnName;
 
-  public static OperationDto from(com.wenox.anonymisation.domain.Operation operation) {
+  public static OperationDto from(ColumnOperations columnOperations) {
     var dto = new OperationDto();
-    dto.setId(operation.getId());
-    dto.setTableName(operation.getTableName());
-    dto.setColumnName(operation.getColumnName());
+    dto.setId(String.valueOf(columnOperations.getId()));
+    dto.setTableName(columnOperations.getTableName());
+    dto.setColumnName(columnOperations.getColumnName());
     return dto;
   }
 

@@ -1,4 +1,4 @@
-package com.wenox.anonymisation.dto;
+package com.wenox.anonymisation.dto.worksheet;
 
 import javax.validation.constraints.NotNull;
 

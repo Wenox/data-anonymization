@@ -2,10 +2,10 @@ import React, { FC } from 'react';
 import { Dialog, DialogActions, DialogContent, DialogTitle, Divider, MenuItem, Select } from '@mui/material';
 import { Transition } from '../user/password-confirmation-dialog';
 import Button from '@mui/material/Button';
-import { ColumnOperations } from '../../api/requests/operations/operations.types';
 import Typography from '@mui/material/Typography';
-import { putAddOperationForColumn } from '../../api/requests/operations/operations.requests';
 import { toast } from 'react-toastify';
+import { putAddSuppressionOperation } from '../../api/requests/column-operations/column-operations.requests';
+import { ColumnOperations } from '../../api/requests/table-operations/table-operations.types';
 
 interface AddOperationDialogProps {
   open: boolean;
@@ -43,11 +43,11 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
           color="secondary"
           onClick={() => {
             console.log('column operations: ', columnOperations);
-            putAddOperationForColumn(worksheetId, {
+            putAddSuppressionOperation(worksheetId, {
               tableName: tableName,
               columnName: columnOperations.column.columnName,
               primaryKeyColumnName: primaryKeyColumnName,
-              operationName: 'Shuffle', // todo
+              suppressionToken: '*',
             })
               .then((response) => {
                 if (response.data.success) {

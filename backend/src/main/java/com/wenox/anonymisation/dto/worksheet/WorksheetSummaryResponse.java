@@ -1,4 +1,4 @@
-package com.wenox.anonymisation.dto;
+package com.wenox.anonymisation.dto.worksheet;
 
 import com.wenox.anonymisation.domain.Worksheet;
 import com.wenox.uploading.template.dto.MyTemplateDto;
