@@ -1,11 +1,13 @@
 package com.wenox.processing.service;
 
+import com.wenox.anonymisation.domain.ColumnOperations;
 import com.wenox.anonymisation.repository.WorksheetRepository;
 import com.wenox.anonymisation.service.ColumnShuffler;
 import com.wenox.processing.domain.Outcome;
 import com.wenox.processing.repository.OutcomeRepository;
 import com.wenox.users.service.AuthService;
 import java.time.LocalDateTime;
+import java.util.List;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -40,13 +42,14 @@ public class OutcomeService {
 
 
 
-    var operations = worksheet.getOperations();
-    System.out.println("Operations size: " + operations.size());
+    List<ColumnOperations> listOfColumnOperations = worksheet.getListOfColumnOperations();
+    System.out.println("Lost of column operations - affected columns size: " + listOfColumnOperations.size());
 
-    // Sort operations.
 
-    for (var operation : operations) {
-      if ("Shuffle".equals(operation.getOperationName())) {
+    for (ColumnOperations columnOperations : listOfColumnOperations) {
+
+      var suppression = columnOperations.getSuppression();
+      if (suppression != null) {
         // 1. Get data.
         // queryForColumn operation.getPK, operation.getTableName() operation.getColumnName()
 
