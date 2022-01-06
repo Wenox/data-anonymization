@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 import { ROUTES } from '../../constants/routes';
 import { Add, Edit } from '@mui/icons-material';
 import AddOperationDialog from '../../components/operation/add-operation-dialog';
-import { ColumnOperations } from '../../api/requests/table-operations/table-operations.types';
+import { ColumnOperations, Operation } from '../../api/requests/table-operations/table-operations.types';
 import { getTableOperations } from '../../api/requests/table-operations/table-operations.requests';
 
 const TableOperations: FC = () => {
@@ -27,40 +27,40 @@ const TableOperations: FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getTableOperations(table, worksheetId)
-      .then((response) => {
-        if (response.status === 200) {
-          toast.success('Operations in table loaded successfully.', {
-            position: 'top-right',
-            autoClose: 600,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
-          setTableName(response.data.tableName);
-          setPrimaryKeyColumnName(response.data.primaryKeyColumnName);
-          setNumberOfRows(response.data.numberOfRows);
-          setOperations(
-            response.data.columnOperations.map((operation) => ({
-              ...operation,
-              id: operation.column.columnName,
-            })),
-          );
-        }
-      })
-      .catch(() =>
-        toast.error('Failed to load the operations.', {
+    getTableOperations(table, worksheetId).then((response) => {
+      if (response.status === 200) {
+        toast.success('Operations in table loaded successfully.', {
           position: 'top-right',
-          autoClose: 5000,
+          autoClose: 600,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-        }),
-      );
+        });
+        setTableName(response.data.tableName);
+        setPrimaryKeyColumnName(response.data.primaryKeyColumnName);
+        setNumberOfRows(response.data.numberOfRows);
+        console.log('data: ', response.data);
+        setOperations(
+          response.data.listOfColumnOperations.map((operation) => ({
+            ...operation,
+            id: operation.column.columnName,
+          })),
+        );
+      }
+    });
+    // .catch(() =>
+    //   toast.error('Failed to load the operations.', {
+    //     position: 'top-right',
+    //     autoClose: 5000,
+    //     hideProgressBar: false,
+    //     closeOnClick: true,
+    //     pauseOnHover: true,
+    //     draggable: true,
+    //     progress: undefined,
+    //   }),
+    // );
   }, [table, worksheetId]);
 
   const columns: GridColDef[] = [
@@ -92,10 +92,21 @@ const TableOperations: FC = () => {
       ...centeredColumn(),
       renderCell: ({ row }) => {
         return (
-          <Button size="large" color="secondary" variant="contained" fullWidth onClick={() => {}}>
-            <Edit sx={{ fontSize: '200%', mr: 1 }} />
-            Generalisation
-          </Button>
+          <>
+            {row.listOfColumnOperation.map(({ operationName }: Operation) => (
+              <Button
+                key={operationName}
+                size="large"
+                color="secondary"
+                variant="contained"
+                fullWidth
+                onClick={() => {}}
+              >
+                <Edit sx={{ fontSize: '200%', mr: 1 }} />
+                {operationName}
+              </Button>
+            ))}
+          </>
         );
       },
     },

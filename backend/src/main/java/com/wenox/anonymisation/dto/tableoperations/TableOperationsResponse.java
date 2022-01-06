@@ -8,16 +8,16 @@ public class TableOperationsResponse {
   private final String tableName;
   private final String primaryKeyColumnName;
   private final Integer numberOfRows;
-  private final List<ColumnOperationsResponse> columnOperationResponses;
+  private final List<ColumnOperationsResponse> listOfColumnOperations;
 
   public TableOperationsResponse(String tableName,
                                  String primaryKeyColumnName,
                                  Integer numberOfRows,
-                                 List<ColumnOperationsResponse> columnOperationResponses) {
+                                 List<ColumnOperationsResponse> listOfColumnOperations) {
     this.tableName = tableName;
     this.primaryKeyColumnName = primaryKeyColumnName;
     this.numberOfRows = numberOfRows;
-    this.columnOperationResponses = columnOperationResponses;
+    this.listOfColumnOperations = listOfColumnOperations;
   }
 
   public String getTableName() {
@@ -28,8 +28,8 @@ public class TableOperationsResponse {
     return numberOfRows;
   }
 
-  public List<ColumnOperationsResponse> getColumnOperations() {
-    return columnOperationResponses;
+  public List<ColumnOperationsResponse> getListOfColumnOperations() {
+    return listOfColumnOperations;
   }
 
   public String getPrimaryKeyColumnName() {

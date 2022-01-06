@@ -12,9 +12,13 @@ public interface ColumnOperationsRepository extends CrudRepository<ColumnOperati
 
   List<ColumnOperations> findAll();
 
+  default List<ColumnOperations> findOperationsForTable(Worksheet worksheet, String tableName) {
+    return findAllByWorksheetAndTableName(worksheet, tableName);
+  }
+  
   List<ColumnOperations> findAllByWorksheetAndTableName(Worksheet worksheet, String tableName);
 
-  default Optional<ColumnOperations> findOperationForColumn(Worksheet worksheet, String tableName, String columnName) {
+  default Optional<ColumnOperations> findOperationsForColumn(Worksheet worksheet, String tableName, String columnName) {
     return findByWorksheetAndTableNameAndColumnName(worksheet, tableName, columnName);
   }
 

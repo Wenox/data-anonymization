@@ -4,16 +4,16 @@ export interface TableOperations {
   tableName: string;
   primaryKeyColumnName: string;
   numberOfRows: number;
-  columnOperations: ColumnOperations[];
+  listOfColumnOperations: ColumnOperations[];
 }
 
 export interface ColumnOperations {
   column: Column;
-  operations: Operation[];
+  listOfColumnOperation: Operation[];
 }
 
 export interface Operation {
-  id: string;
+  id: number;
   operationName: string;
   tableName: string;
   columnName: string;

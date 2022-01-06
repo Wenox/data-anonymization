@@ -5,13 +5,9 @@ import java.util.List;
 
 public class ColumnOperationsResponse {
 
-  private Integer numberOfRows;
   private Column column;
-  private List<OperationDto> operationDtos;
 
-  public void setNumberOfRows(Integer numberOfRows) {
-    this.numberOfRows = numberOfRows;
-  }
+  private List<ColumnOperationDto> listOfColumnOperation;
 
   public Column getColumn() {
     return column;
@@ -21,11 +17,11 @@ public class ColumnOperationsResponse {
     this.column = column;
   }
 
-  public List<OperationDto> getOperations() {
-    return operationDtos;
+  public List<ColumnOperationDto> getListOfColumnOperation() {
+    return listOfColumnOperation;
   }
 
-  public void setOperations(List<OperationDto> operationDtos) {
-    this.operationDtos = operationDtos;
+  public void setListOfColumnOperation(List<ColumnOperationDto> listOfColumnOperation) {
+    this.listOfColumnOperation = listOfColumnOperation;
   }
 }

@@ -23,6 +23,6 @@ public class TableOperationsController {
   public ResponseEntity<TableOperationsResponse> getTableOperations(@PathVariable("id") String id,
                                                                     @PathVariable("table") String table,
                                                                     Authentication auth) {
-    return ResponseEntity.ok(tableOperationsService.getOperationsForWorksheet(id, table, auth));
+    return ResponseEntity.ok(tableOperationsService.getTableOperations(id, table, auth));
   }
 }

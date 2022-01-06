@@ -26,12 +26,9 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
 }) => {
   return (
     <Dialog fullWidth maxWidth="sm" open={open} onClose={handleCancel} TransitionComponent={Transition}>
-      <DialogTitle>
-        <Typography color="secondary" variant="h4" sx={{ mb: 2 }}>
-          Select operation
-        </Typography>
-        <Divider sx={{ mb: 2 }} />
-      </DialogTitle>
+      <Typography color="secondary" variant="h4" sx={{ mb: 2, mt: 2, pl: 3 }}>
+        Select operation
+      </Typography>
       <DialogContent>
         <Select fullWidth value={'Shuffle'} label="Age">
           <MenuItem value={'Shuffle'}>Shuffle</MenuItem>

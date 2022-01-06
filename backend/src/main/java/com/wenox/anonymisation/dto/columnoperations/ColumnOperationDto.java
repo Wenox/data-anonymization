@@ -1,32 +1,26 @@
 package com.wenox.anonymisation.dto.columnoperations;
 
-import com.wenox.anonymisation.domain.ColumnOperations;
+public class ColumnOperationDto {
 
-public class OperationDto {
-
-  private String id;
-  private final String operationName = "Generalisation";
+  private Long id;
+  private String operationName;
   private String tableName;
   private String columnName;
 
-  public static OperationDto from(ColumnOperations columnOperations) {
-    var dto = new OperationDto();
-    dto.setId(String.valueOf(columnOperations.getId()));
-    dto.setTableName(columnOperations.getTableName());
-    dto.setColumnName(columnOperations.getColumnName());
-    return dto;
-  }
-
-  public String getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(String id) {
+  public void setId(Long id) {
     this.id = id;
   }
 
   public String getOperationName() {
     return operationName;
+  }
+
+  public void setOperationName(String operationName) {
+    this.operationName = operationName;
   }
 
   public String getTableName() {

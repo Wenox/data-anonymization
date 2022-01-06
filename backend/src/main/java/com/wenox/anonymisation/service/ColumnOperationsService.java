@@ -37,7 +37,7 @@ public class ColumnOperationsService {
       throw new RuntimeException("The worksheet does not belong to this user.");
     }
 
-    var columnOperations = columnOperationsRepository.findOperationForColumn(worksheet, dto.getTableName(), dto.getColumnName())
+    var columnOperations = columnOperationsRepository.findOperationsForColumn(worksheet, dto.getTableName(), dto.getColumnName())
         .orElseGet(
             () -> {
               var newColumnOperations = new ColumnOperations();

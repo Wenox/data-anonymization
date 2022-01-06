@@ -2,7 +2,7 @@ package com.wenox.anonymisation.service;
 
 import com.wenox.anonymisation.domain.ColumnOperations;
 import com.wenox.anonymisation.dto.columnoperations.ColumnOperationsResponse;
-import com.wenox.anonymisation.dto.columnoperations.OperationDto;
+import com.wenox.anonymisation.dto.columnoperations.ColumnOperationDto;
 import com.wenox.anonymisation.dto.tableoperations.TableOperationsResponse;
 import com.wenox.anonymisation.repository.ColumnOperationsRepository;
 import com.wenox.anonymisation.repository.SuppressionRepository;
@@ -13,6 +13,7 @@ import com.wenox.users.service.AuthService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -34,7 +35,7 @@ public class TableOperationsService {
     this.suppressionRepository = suppressionRepository;
   }
 
-  public TableOperationsResponse getOperationsForWorksheet(String id, String tableName, Authentication auth) {
+  public TableOperationsResponse getTableOperations(String id, String tableName, Authentication auth) {
     final var me = authService.getMe(auth);
     final var worksheet = worksheetRepository.findById(id).orElseThrow();
     if (!me.getId().equals(worksheet.getUser().getId())) {
@@ -43,30 +44,46 @@ public class TableOperationsService {
     final var metadata = worksheet.getTemplate().getMetadata();
 
     final Table table = metadata.getTable(tableName);
-    final List<Column> columns = table.getColumns().values().stream().toList();
+    final List<Column> columns = table.getColumns()
+        .values()
+        .stream()
+        .toList();
 
-    final List<ColumnOperations> listOfColumnOperations =
-        columnOperationsRepository.findAllByWorksheetAndTableName(worksheet, tableName);
+    final List<ColumnOperations> operationsForTable =
+        columnOperationsRepository.findOperationsForTable(worksheet, tableName);
+    final Map<String, ColumnOperations> operationsByColumn =
+        operationsForTable.stream().collect(Collectors.toMap(ColumnOperations::getColumnName, v -> v));
 
 
-    final Map<String, List<ColumnOperations>> operationsByColumn =
-        listOfColumnOperations.stream().collect(Collectors.groupingBy(ColumnOperations::getColumnName));
-
-
-    List<ColumnOperationsResponse> columnOperationResponses = new ArrayList<>();
+    List<ColumnOperationsResponse> listOfColumnOperationsDtos = new ArrayList<>();
     for (var column : columns) {
       var item = new ColumnOperationsResponse();
       item.setColumn(column);
-      item.setOperations(operationsByColumn
-          .getOrDefault(column.getColumnName(), List.of())
-          .stream()
-          .map(OperationDto::from)
-          .toList());
-      columnOperationResponses.add(item);
+
+      var columnOperations = operationsByColumn.get(column.getColumnName());
+      if (columnOperations == null) {
+        item.setListOfColumnOperation(List.of());
+      } else {
+
+        List<ColumnOperationDto> listOfColumnOperationDto = new ArrayList<>();
+        Optional
+            .ofNullable(columnOperations.getSuppression())
+            .ifPresent(suppression -> {
+              ColumnOperationDto columnOperationDto = new ColumnOperationDto();
+              columnOperationDto.setOperationName("Suppression");
+              columnOperationDto.setColumnName(column.getColumnName());
+              columnOperationDto.setTableName(tableName);
+              columnOperationDto.setId(suppression.getId());
+              listOfColumnOperationDto.add(columnOperationDto);
+            });
+        item.setListOfColumnOperation(listOfColumnOperationDto);
+      }
+      
+      listOfColumnOperationsDtos.add(item);
     }
 
     return new TableOperationsResponse(table.getTableName(), table.getPrimaryKey().getColumnName(),
-        table.getNumberOfRows(), columnOperationResponses);
+        table.getNumberOfRows(), listOfColumnOperationsDtos);
   }
 
 }
