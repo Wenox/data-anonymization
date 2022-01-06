@@ -23,5 +23,8 @@ export interface AddOperation {
   tableName: string;
   columnName: string;
   primaryKeyColumnName: string;
-  operationName: string;
+}
+
+export interface AddSuppressionOperation extends AddOperation {
+  suppressionToken: string;
 }

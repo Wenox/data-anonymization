@@ -4,8 +4,8 @@ import { Transition } from '../user/password-confirmation-dialog';
 import Button from '@mui/material/Button';
 import { ColumnOperations } from '../../api/requests/operations/operations.types';
 import Typography from '@mui/material/Typography';
-import { putAddOperationForColumn } from '../../api/requests/operations/operations.requests';
 import { toast } from 'react-toastify';
+import { putAddSuppressionOperationForColumn } from '../../api/requests/operations/operations.requests';
 
 interface AddOperationDialogProps {
   open: boolean;
@@ -43,11 +43,11 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
           color="secondary"
           onClick={() => {
             console.log('column operations: ', columnOperations);
-            putAddOperationForColumn(worksheetId, {
+            putAddSuppressionOperationForColumn(worksheetId, {
               tableName: tableName,
               columnName: columnOperations.column.columnName,
               primaryKeyColumnName: primaryKeyColumnName,
-              operationName: 'Shuffle', // todo
+              suppressionToken: '*',
             })
               .then((response) => {
                 if (response.data.success) {

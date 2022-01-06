@@ -1,6 +1,7 @@
 package com.wenox.anonymisation.controller;
 
 import com.wenox.anonymisation.dto.operations.AddOperationRequest;
+import com.wenox.anonymisation.dto.operations.AddSuppressionRequest;
 import com.wenox.anonymisation.dto.operations.ColumnOperations;
 import com.wenox.anonymisation.dto.operations.ColumnOperationsForTableResponse;
 import com.wenox.anonymisation.service.OperationService;
@@ -36,11 +37,11 @@ public class OperationController {
   }
 
   @PreAuthorize("hasAnyAuthority('VERIFIED_USER', 'ADMIN')")
-  @PutMapping("/api/v1/worksheet/{id}/operations")
-  public ResponseEntity<ApiResponse> addOperationForColumn(
+  @PutMapping("/api/v1/worksheet/{id}/operations/add-suppression")
+  public ResponseEntity<ApiResponse> addSuppressionOperationForColumn(
       @PathVariable("id") String id,
-      @Valid @RequestBody AddOperationRequest dto,
+      @Valid @RequestBody AddSuppressionRequest dto,
       Authentication auth) {
-    return ResponseEntity.ok(operationService.addOperationForColumn(id, dto, auth));
+    return ResponseEntity.ok(operationService.addSuppressionOperationForColumn(id, dto, auth));
   }
 }

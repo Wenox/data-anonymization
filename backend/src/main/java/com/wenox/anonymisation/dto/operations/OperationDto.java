@@ -1,5 +1,7 @@
 package com.wenox.anonymisation.dto.operations;
 
+import com.wenox.anonymisation.domain.Operation;
+
 public class OperationDto {
 
   private String id;
@@ -7,9 +9,9 @@ public class OperationDto {
   private String tableName;
   private String columnName;
 
-  public static OperationDto from(com.wenox.anonymisation.domain.Operation operation) {
+  public static OperationDto from(Operation operation) {
     var dto = new OperationDto();
-    dto.setId(operation.getId());
+    dto.setId(String.valueOf(operation.getId()));
     dto.setTableName(operation.getTableName());
     dto.setColumnName(operation.getColumnName());
     return dto;

@@ -1,10 +1,12 @@
 package com.wenox.anonymisation.domain;
 
-import java.util.UUID;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -12,25 +14,41 @@ import javax.persistence.Table;
 public class Operation {
 
   @Id
-  private final String id = UUID.randomUUID().toString();
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Long id;
 
   @ManyToOne(fetch = FetchType.LAZY)
   private Worksheet worksheet;
+
+  @OneToOne
+  private Suppression suppression;
 
   private String tableName;
 
   private String columnName;
 
+  // todo: column type
+
   private String primaryKeyColumnName;
 
-  private String operationName;
-
-  public String getId() {
+  public Long getId() {
     return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
   }
 
   public Worksheet getWorksheet() {
     return worksheet;
+  }
+
+  public Suppression getSuppression() {
+    return suppression;
+  }
+
+  public void setSuppression(Suppression suppression) {
+    this.suppression = suppression;
   }
 
   public void setWorksheet(Worksheet worksheet) {
@@ -59,13 +77,5 @@ public class Operation {
 
   public void setPrimaryKeyColumnName(String primaryKeyColumnName) {
     this.primaryKeyColumnName = primaryKeyColumnName;
-  }
-
-  public String getOperationName() {
-    return operationName;
-  }
-
-  public void setOperationName(String operationName) {
-    this.operationName = operationName;
   }
 }
