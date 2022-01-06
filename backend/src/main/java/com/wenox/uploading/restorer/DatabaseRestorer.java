@@ -31,8 +31,8 @@ public class DatabaseRestorer {
     final String dbPath = templatesPath + "/" + templateName;
 
     log.info("Restoring {} from {} for template {}.", dbName, dbPath, templateName);
-
     if (isRunningOnCloud) {
+
       ProcessExecutorFactory.newProcess(
           "createdb",
           "-h", postgresIpAddress,
@@ -40,6 +40,7 @@ public class DatabaseRestorer {
           "-T", "template0",
           dbName
       ).execute();
+
       ProcessExecutorFactory.newProcess(
           "pg_restore",
           "-h", postgresIpAddress,
@@ -48,7 +49,9 @@ public class DatabaseRestorer {
           "-v",
           dbPath
       ).execute();
+
     } else {
+
       ProcessExecutorFactory.newProcess(
           "createdb",
           "-h", postgresIpAddress,
@@ -57,6 +60,7 @@ public class DatabaseRestorer {
           "-T", "template0",
           dbName
       ).execute();
+
       ProcessExecutorFactory.newProcess(
           "pg_restore",
           "-h", postgresIpAddress,
@@ -67,7 +71,6 @@ public class DatabaseRestorer {
           dbPath
       ).execute();
     }
-
     log.info("Restored {} successfully.", dbName);
   }
 }
