@@ -76,9 +76,19 @@ public class TableOperationsService {
               columnOperationDto.setId(suppression.getId());
               listOfColumnOperationDto.add(columnOperationDto);
             });
+        Optional
+            .ofNullable(columnOperations.getShuffle())
+            .ifPresent(shuffle -> {
+              ColumnOperationDto columnOperationDto = new ColumnOperationDto();
+              columnOperationDto.setOperationName("Shuffle");
+              columnOperationDto.setColumnName(column.getColumnName());
+              columnOperationDto.setTableName(tableName);
+              columnOperationDto.setId(shuffle.getId());
+              listOfColumnOperationDto.add(columnOperationDto);
+            });
         item.setListOfColumnOperation(listOfColumnOperationDto);
       }
-      
+
       listOfColumnOperationsDtos.add(item);
     }
 
