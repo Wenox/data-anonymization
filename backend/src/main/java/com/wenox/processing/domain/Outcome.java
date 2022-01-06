@@ -4,6 +4,8 @@ import com.wenox.anonymisation.domain.Worksheet;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -18,7 +20,8 @@ public class Outcome {
   @OneToOne
   private Worksheet worksheet;
 
-  private Boolean processingSuccss;
+  @Enumerated(EnumType.STRING)
+  private OutcomeStatus outcomeStatus;
 
   private LocalDateTime processingStartDate;
 
@@ -36,12 +39,12 @@ public class Outcome {
     this.worksheet = worksheet;
   }
 
-  public Boolean getProcessingSuccss() {
-    return processingSuccss;
+  public OutcomeStatus getOutcomeStatus() {
+    return outcomeStatus;
   }
 
-  public void setProcessingSuccss(Boolean processingSuccss) {
-    this.processingSuccss = processingSuccss;
+  public void setOutcomeStatus(OutcomeStatus outcomeStatus) {
+    this.outcomeStatus = outcomeStatus;
   }
 
   public LocalDateTime getProcessingStartDate() {
