@@ -2,6 +2,7 @@ import { Column } from '../templates/templates.types';
 
 export interface ColumnOperationsForTable {
   tableName: string;
+  primaryKeyColumnName: string;
   numberOfRows: number;
   columnOperations: ColumnOperations[];
 }
@@ -21,5 +22,6 @@ export interface Operation {
 export interface AddOperation {
   tableName: string;
   columnName: string;
+  primaryKeyColumnName: string;
   operationName: string;
 }

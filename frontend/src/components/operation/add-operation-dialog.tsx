@@ -13,6 +13,7 @@ interface AddOperationDialogProps {
   columnOperations: ColumnOperations;
   worksheetId: string;
   tableName: string;
+  primaryKeyColumnName: string;
 }
 
 const AddOperationDialog: FC<AddOperationDialogProps> = ({
@@ -21,6 +22,7 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
   columnOperations,
   worksheetId,
   tableName,
+  primaryKeyColumnName,
 }) => {
   return (
     <Dialog fullWidth maxWidth="sm" open={open} onClose={handleCancel} TransitionComponent={Transition}>
@@ -44,6 +46,7 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
             putAddOperationForColumn(worksheetId, {
               tableName: tableName,
               columnName: columnOperations.column.columnName,
+              primaryKeyColumnName: primaryKeyColumnName,
               operationName: 'Shuffle', // todo
             })
               .then((response) => {
