@@ -1,8 +1,8 @@
-package com.wenox.infrastructure.service;
+package com.wenox.processing.service;
 
+import com.wenox.processing.domain.Pair;
 import java.util.List;
 import javax.sql.DataSource;
-import org.springframework.data.util.Pair;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 public class QueryExecutor {
@@ -17,7 +17,13 @@ public class QueryExecutor {
     System.out.println("Selecting " + tableName + ": " + primaryKeyColumnName + " and " + columnName);
     List<Pair<String, String>> pairs =
         jdbcTemplate.query(String.format("SELECT %s, %s FROM %s", primaryKeyColumnName, columnName, tableName),
-            (rs, n) -> Pair.of(rs.getString(1), rs.getString(2))
+            (rs, n) -> {
+              var pk = rs.getString(primaryKeyColumnName);
+              System.out.println("PK: " + pk);
+              var column = rs.getString(columnName);
+              System.out.println("column: " + column);
+              return Pair.of(pk, column);
+            }
         );
     System.out.println("pairs size: " + pairs.size());
     pairs.forEach(System.out::println);

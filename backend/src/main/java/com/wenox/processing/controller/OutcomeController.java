@@ -23,6 +23,8 @@ public class OutcomeController {
   @PostMapping("/generate")
   @PreAuthorize("hasAnyAuthority('VERIFIED_USER', 'ADMIN')")
   public ResponseEntity<Outcome> generateOutcome(@RequestParam("worksheet_id") String worksheetId, Authentication auth) {
-    return ResponseEntity.ok(outcomeService.generateOutcome(worksheetId, auth));
+    outcomeService.generateOutcome(worksheetId, auth);
+    System.out.println("Outcome success");
+    return ResponseEntity.ok().build();
   }
 }
