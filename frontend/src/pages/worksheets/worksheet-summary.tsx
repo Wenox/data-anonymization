@@ -33,6 +33,7 @@ import { handleDownloadDump } from '../../utils/download-dump';
 import { Table } from '../../api/requests/templates/templates.types';
 import { centeredHeader } from '../../styles/data-table';
 import { ROUTES } from '../../constants/routes';
+import GenerateOutcomeDialog from '../../components/outcome/generate-outcome-dialog';
 
 const WorksheetSummary: FC = () => {
   const [searchParams] = useSearchParams();
@@ -42,6 +43,8 @@ const WorksheetSummary: FC = () => {
   const [summary, setSummary] = useState<WorksheetSummaryResponse>();
   const [isMetadataDialogOpen, setIsMetadataDialogOpen] = useState(false);
   const [tables, setTables] = useState<Table[]>([]);
+
+  const [openedGenerationDialog, setOpenedGenerationDialog] = useState(false);
 
   const navigate = useNavigate();
 
@@ -392,6 +395,25 @@ const WorksheetSummary: FC = () => {
         </AccordionSummary>
 
         <AccordionDetails>
+          <Button
+            disabled={false}
+            color="secondary"
+            size="large"
+            type="submit"
+            variant="contained"
+            fullWidth
+            sx={{ mb: 5 }}
+            onClick={() => setOpenedGenerationDialog(true)}
+          >
+            Generate outcome
+          </Button>
+          {openedGenerationDialog && (
+            <GenerateOutcomeDialog
+              open={openedGenerationDialog}
+              worksheetId={id}
+              handleClose={() => setOpenedGenerationDialog(false)}
+            />
+          )}
           <Grid container spacing={2}>
             <DataGrid autoHeight columns={[]} rows={[]} />
           </Grid>
