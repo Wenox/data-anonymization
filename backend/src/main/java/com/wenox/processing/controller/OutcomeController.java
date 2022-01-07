@@ -1,6 +1,5 @@
 package com.wenox.processing.controller;
 
-import com.wenox.processing.domain.Outcome;
 import com.wenox.processing.service.OutcomeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

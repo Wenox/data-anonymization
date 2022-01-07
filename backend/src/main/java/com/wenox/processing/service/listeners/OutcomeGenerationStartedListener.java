@@ -1,4 +1,4 @@
-package com.wenox.processing.service;
+package com.wenox.processing.service.listeners;
 
 import com.wenox.processing.domain.Outcome;
 import com.wenox.processing.domain.OutcomeStatus;
@@ -7,8 +7,6 @@ import com.wenox.processing.domain.events.OutcomeGenerationStartedEvent;
 import com.wenox.processing.repository.OutcomeRepository;
 import com.wenox.processing.service.mirror.DatabaseMirrorFacade;
 import com.wenox.processing.service.mirror.PostgreSQLMirrorFacade;
-import java.io.IOException;
-import java.util.concurrent.TimeoutException;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
@@ -37,11 +35,13 @@ public class OutcomeGenerationStartedListener {
       String mirrorDatabaseName = mirrorFacade.cloneDatabase(outcome.getTemplateDatabaseName());
       outcome.setMirrorDatabaseName(mirrorDatabaseName);
       outcome.setOutcomeStatus(OutcomeStatus.MIRROR_READY);
+      outcomeRepository.save(outcome);
     } catch (Exception ex) {
       outcome.setOutcomeStatus(OutcomeStatus.MIRROR_FAILURE);
+      outcomeRepository.save(outcome);
       return;
     }
-    outcomeRepository.save(outcome);
+
     applicationEventPublisher.publishEvent(new MirrorReadyEvent(outcome));
   }
 }

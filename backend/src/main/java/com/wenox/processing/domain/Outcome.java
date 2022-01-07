@@ -25,6 +25,8 @@ public class Outcome {
 
   private String mirrorDatabaseName;
 
+  private String scriptName;
+
   private LocalDateTime processingStartDate;
 
   private LocalDateTime processingEndDate;
@@ -51,6 +53,14 @@ public class Outcome {
 
   public String getMirrorDatabaseName() {
     return mirrorDatabaseName;
+  }
+
+  public String getScriptName() {
+    return scriptName;
+  }
+
+  public void setScriptName(String scriptName) {
+    this.scriptName = scriptName;
   }
 
   public void setMirrorDatabaseName(String mirrorDatabaseName) {

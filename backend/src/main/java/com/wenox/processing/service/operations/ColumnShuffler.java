@@ -1,4 +1,4 @@
-package com.wenox.processing.service;
+package com.wenox.processing.service.operations;
 
 import java.util.Collections;
 import java.util.List;
