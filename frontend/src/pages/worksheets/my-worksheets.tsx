@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { Button, Container, Divider, IconButton } from '@mui/material';
 import { theme } from '../../styles/theme';
 import Typography from '@mui/material/Typography';
@@ -10,10 +10,14 @@ import { centeredColumn } from '../../styles/data-table';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../constants/routes';
 import { Delete, Edit } from '@mui/icons-material';
+import GenerateOutcomeDialog from '../../components/outcome/generate-outcome-dialog';
 
 const MyWorksheets: FC = () => {
   const { data, isLoading, refetch, isRefetching } = useQuery('worksheets', getMyWorksheets);
   const worksheets: Worksheet[] = data?.data || [];
+
+  const [openedGenerationDialog, setOpenedGenerationDialog] = useState(false);
+  const [worksheetId, setWorksheetId] = useState('');
 
   const navigate = useNavigate();
 
@@ -21,7 +25,26 @@ const MyWorksheets: FC = () => {
     {
       field: 'worksheetSummary',
       headerName: 'Summary',
-      width: 180,
+      width: 200,
+      sortable: false,
+      filterable: false,
+      ...centeredColumn(),
+      renderCell: ({ row }) => (
+        <Button
+          size="medium"
+          color="secondary"
+          variant="contained"
+          fullWidth
+          onClick={() => navigate(`${ROUTES.WORKSHEET_SUMMARY}?worksheet_id=${row.id}`)}
+        >
+          View summary
+        </Button>
+      ),
+    },
+    {
+      field: 'outcomeActions',
+      headerName: 'Outcome',
+      width: 200,
       sortable: false,
       filterable: false,
       ...centeredColumn(),
@@ -31,9 +54,12 @@ const MyWorksheets: FC = () => {
           color="primary"
           variant="contained"
           fullWidth
-          onClick={() => navigate(`${ROUTES.WORKSHEET_SUMMARY}?worksheet_id=${row.id}`)}
+          onClick={() => {
+            setOpenedGenerationDialog(true);
+            setWorksheetId(row.id);
+          }}
         >
-          View summary
+          Generate outcome
         </Button>
       ),
     },
@@ -98,6 +124,13 @@ const MyWorksheets: FC = () => {
         pb: 3,
       }}
     >
+      {openedGenerationDialog && (
+        <GenerateOutcomeDialog
+          open={openedGenerationDialog}
+          worksheetId={worksheetId}
+          handleClose={() => setOpenedGenerationDialog(false)}
+        />
+      )}
       <Typography color="secondary" variant="h4" sx={{ mb: 2 }}>
         Worksheets
       </Typography>

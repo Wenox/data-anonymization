@@ -103,7 +103,7 @@ const GenerateOutcomeDialog: FC<GenerateOutcomeDialogProps> = ({ open, worksheet
             Cancel
           </Button>
           <Button color="secondary" type="submit" fullWidth variant="contained">
-            Confirm
+            Generate
           </Button>
         </DialogActions>
       </Box>
