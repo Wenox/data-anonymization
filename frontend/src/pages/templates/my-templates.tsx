@@ -35,8 +35,6 @@ const MyTemplates = () => {
   const [isMetadataDialogOpen, setIsMetadataDialogOpen] = useState(false);
   const [metadataWithFile, setMetadataWithFile] = useState<TemplateMetadataWithFile>();
 
-  console.log('tempates: ', templates);
-
   const columns: GridColDef[] = [
     {
       field: 'worksheet',
