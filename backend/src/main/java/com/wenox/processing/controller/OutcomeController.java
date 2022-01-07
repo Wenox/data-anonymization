@@ -1,10 +1,13 @@
 package com.wenox.processing.controller;
 
+import com.wenox.processing.dto.GenerateOutcomeRequest;
 import com.wenox.processing.service.OutcomeService;
+import javax.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,8 +24,8 @@ public class OutcomeController {
 
   @PostMapping("/generate")
   @PreAuthorize("hasAnyAuthority('VERIFIED_USER', 'ADMIN')")
-  public ResponseEntity<String> generateOutcome(@RequestParam("worksheet_id") String worksheetId, Authentication auth) {
-    final String id = outcomeService.generateOutcome(worksheetId, auth);
+  public ResponseEntity<String> generateOutcome(@Valid @RequestBody GenerateOutcomeRequest dto, Authentication auth) {
+    final String id = outcomeService.generateOutcome(dto, auth);
     return ResponseEntity.accepted().body(id);
   }
 }

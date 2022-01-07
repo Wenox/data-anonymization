@@ -5,7 +5,10 @@ import com.wenox.processing.domain.OutcomeStatus;
 import com.wenox.processing.domain.events.MirrorReadyEvent;
 import com.wenox.processing.domain.events.ScriptCreatedEvent;
 import com.wenox.processing.repository.OutcomeRepository;
-import com.wenox.uploading.restorer.PostgreSQLRestoreService;
+import com.wenox.uploading.template.domain.FileEntity;
+import com.wenox.uploading.template.namegenerator.FileNameGenerator;
+import com.wenox.uploading.template.namegenerator.UuidFileNameGenerator;
+import com.wenox.uploading.template.repository.FileRepository;
 import com.wenox.users.service.FormatDate;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -25,15 +28,21 @@ public class MirrorReadyListener {
   @Value("${processing.scripts.path}")
   String scriptsPath;
 
+  private final FileNameGenerator fileNameGenerator;
   private final ApplicationEventPublisher applicationEventPublisher;
   private final OutcomeRepository outcomeRepository;
+  private final FileRepository fileRepository;
 
   private static final Logger log = LoggerFactory.getLogger(MirrorReadyListener.class);
 
-  public MirrorReadyListener(ApplicationEventPublisher applicationEventPublisher,
-                             OutcomeRepository outcomeRepository) {
+  public MirrorReadyListener(UuidFileNameGenerator uuidFileNameGenerator,
+                             ApplicationEventPublisher applicationEventPublisher,
+                             OutcomeRepository outcomeRepository,
+                             FileRepository fileRepository) {
+    this.fileNameGenerator = uuidFileNameGenerator;
     this.applicationEventPublisher = applicationEventPublisher;
     this.outcomeRepository = outcomeRepository;
+    this.fileRepository = fileRepository;
   }
 
   @Async
@@ -41,11 +50,19 @@ public class MirrorReadyListener {
   public void onMirrorReadyEvent(MirrorReadyEvent event) {
     Outcome outcome = event.getOutcome();
 
+    String savedFileName = fileNameGenerator.get();
     try {
-      log.info("Creating script {}.", "script.sql");
+      log.info("Creating script {} as {}.", outcome.getScriptName(), savedFileName);
       Files.createDirectories(Path.of(scriptsPath));
-      Files.writeString(Path.of(scriptsPath, "script.sql"), "-- Generated on " + FormatDate.toString(LocalDateTime.now()) + "\n");
-      outcome.setScriptName("script.sql");
+      Files.writeString(Path.of(scriptsPath, savedFileName), "-- Generated on " + FormatDate.toString(LocalDateTime.now()) + "\n\n");
+
+      FileEntity file = new FileEntity();
+      file.setOriginalFileName(outcome.getScriptName());
+      file.setSavedFileName(savedFileName);
+      file.setType(outcome.getTemplateType());
+
+      fileRepository.save(file);
+      outcome.setFileEntity(file);
       outcome.setOutcomeStatus(OutcomeStatus.SCRIPT_CREATION_SUCCESS);
       outcomeRepository.save(outcome);
     } catch (IOException ex) {
@@ -55,7 +72,6 @@ public class MirrorReadyListener {
       return;
     }
 
-    System.out.println("saving outcome.. " + outcome.getOutcomeStatus());
     outcomeRepository.save(outcome);
     applicationEventPublisher.publishEvent(new ScriptCreatedEvent(outcome));
   }
