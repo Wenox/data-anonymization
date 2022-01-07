@@ -1,4 +1,4 @@
-package com.wenox.processing.service;
+package com.wenox.processing.service.operations;
 
 import com.wenox.processing.domain.Pair;
 import java.util.List;

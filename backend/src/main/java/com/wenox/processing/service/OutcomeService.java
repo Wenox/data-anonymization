@@ -6,7 +6,9 @@ import com.wenox.infrastructure.service.DataSourceFactory;
 import com.wenox.processing.domain.Outcome;
 import com.wenox.processing.domain.OutcomeStatus;
 import com.wenox.processing.domain.events.OutcomeGenerationStartedEvent;
+import com.wenox.processing.dto.GenerateOutcomeRequest;
 import com.wenox.processing.repository.OutcomeRepository;
+import com.wenox.processing.service.operations.ColumnShuffler;
 import com.wenox.users.service.AuthService;
 import java.time.LocalDateTime;
 import org.springframework.context.ApplicationEventPublisher;
@@ -37,9 +39,9 @@ public class OutcomeService {
     this.publisher = publisher;
   }
 
-  public String generateOutcome(String worksheetId, Authentication auth) {
+  public String generateOutcome(GenerateOutcomeRequest dto, Authentication auth) {
     final var me = authService.getMe(auth);
-    final var worksheet = worksheetRepository.findById(worksheetId).orElseThrow();
+    final var worksheet = worksheetRepository.findById(dto.getWorksheetId()).orElseThrow();
     if (!me.getId().equals(worksheet.getUser().getId())) {
       throw new RuntimeException("The worksheet does not belong to this user.");
     }
@@ -52,8 +54,9 @@ public class OutcomeService {
     final var queryExecutor = new QueryExecutor(dataSourceFactory.getDataSource(connectionDetails));
 
     Outcome outcome = new Outcome();
-    outcome.setProcessingStartDate(LocalDateTime.now());
     outcome.setWorksheet(worksheet);
+    outcome.setScriptName(dto.getScriptName());
+    outcome.setProcessingStartDate(LocalDateTime.now());
     outcome.setOutcomeStatus(OutcomeStatus.GENERATION_STARTED);
     outcomeRepository.save(outcome);
     publisher.publishEvent(new OutcomeGenerationStartedEvent(outcome));
