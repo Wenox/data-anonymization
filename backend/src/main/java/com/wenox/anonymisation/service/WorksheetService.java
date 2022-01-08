@@ -52,8 +52,6 @@ public class WorksheetService {
 
   public List<Worksheet> getAllMyWorksheets(Authentication auth) {
     User me = authService.getMe(auth);
-    final var all = worksheetRepository.findAll();
-    System.out.println("all size: " + all.size());
     final var worksheets = worksheetRepository.findAllByUser(me);
     log.info("Retrieving {} worksheets for {}.", worksheets.size(), me.getEmail());
     return worksheets;

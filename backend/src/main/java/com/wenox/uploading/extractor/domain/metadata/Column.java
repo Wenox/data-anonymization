@@ -10,7 +10,6 @@ public class Column {
     this.columnName = columnName;
     this.type = type;
     this.nullable = "YES".equals(nullable);
-    System.out.println("Created" + this);
   }
 
   public String getColumnName() {

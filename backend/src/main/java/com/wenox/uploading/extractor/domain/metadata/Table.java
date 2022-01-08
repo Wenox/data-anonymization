@@ -16,7 +16,6 @@ public class Table {
     this.tableName = tableName;
     this.numberOfRows = numberOfRows;
     this.numberOfColumns = numberOfColumns;
-    System.out.println("Creating: " + this);
   }
 
   public void insertColumn(Column column) {
