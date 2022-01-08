@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,5 +37,12 @@ public class OutcomeController {
   @PreAuthorize("hasAnyAuthority('VERIFIED_USER', 'ADMIN')")
   public ResponseEntity<List<OutcomeResponse>> getMyOutcomes(Authentication auth) {
     return ResponseEntity.ok(outcomeService.getMyOutcomes(auth).stream().map(OutcomeResponse::from).toList());
+  }
+
+  @GetMapping("/{id}/")
+  @PreAuthorize("hasAnyAuthority('VERIFIED_USER', 'ADMIN')")
+  public ResponseEntity<byte[]> downloadOutcomeDump(@PathVariable("id") String id, Authentication auth) {
+//    return ResponseEntity.ok(outcomeService.downloadDump(id, auth));
+    return null;
   }
 }

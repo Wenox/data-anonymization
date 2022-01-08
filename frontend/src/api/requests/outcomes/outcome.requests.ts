@@ -8,3 +8,9 @@ export const postGenerateOutcome = (dto: GenerateOutcomeRequest) => {
 export const getMyOutcomes = () => {
   return axios.get<OutcomeResponse[]>('/api/v1/outcomes/me');
 };
+
+export const getDownloadOutcomeDump = (id: string) => {
+  return axios.get<any>(`/api/v1/outcomes/${id}/dump`, {
+    responseType: 'blob',
+  });
+};

@@ -1,20 +1,15 @@
-package com.wenox.uploading.storage;
+package com.wenox.storage.service;
 
 import com.wenox.storage.domain.FileData;
 import com.wenox.users.domain.FileType;
-import com.wenox.uploading.template.dto.FileDto;
 
 public class TemplateFileData extends FileData {
 
-  private FileDto fileDTO;
   private FileType fileType;
 
-  public FileDto getFileDTO() {
-    return fileDTO;
-  }
-
-  public void setFileDTO(FileDto fileDTO) {
-    this.fileDTO = fileDTO;
+  public TemplateFileData(FileData fileData, FileType fileType) {
+    super(fileData);
+    this.fileType = fileType;
   }
 
   public FileType getFileType() {

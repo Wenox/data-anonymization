@@ -1,8 +1,8 @@
-import { getDownloadDump } from '../api/requests/templates/templates.requests';
+import { getDownloadTemplateDump } from '../api/requests/templates/templates.requests';
 import { toast } from 'react-toastify';
 
-export const handleDownloadDump = (templateId: string, originalFileName: string) => {
-  getDownloadDump(templateId)
+export const handleDownloadTemplateDump = (templateId: string, originalFileName: string) => {
+  getDownloadTemplateDump(templateId)
     .then((response) => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement('a');
