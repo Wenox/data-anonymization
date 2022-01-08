@@ -6,9 +6,9 @@ import com.wenox.processing.domain.OutcomeStatus;
 import com.wenox.processing.domain.events.OutcomeGenerationStartedEvent;
 import com.wenox.processing.dto.GenerateOutcomeRequest;
 import com.wenox.processing.repository.OutcomeRepository;
-import com.wenox.uploading.template.domain.FileEntity;
 import com.wenox.users.service.AuthService;
 import java.time.LocalDateTime;
+import java.util.List;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -49,5 +49,10 @@ public class OutcomeService {
     publisher.publishEvent(new OutcomeGenerationStartedEvent(outcome));
 
     return outcome.getId();
+  }
+
+  public List<Outcome> getMyOutcomes(Authentication auth) {
+    final var me = authService.getMe(auth);
+    return outcomeRepository.findAllByWorksheetUser(me);
   }
 }
