@@ -1,13 +1,25 @@
 import React, { FC } from 'react';
 import { Transition } from '../user/password-confirmation-dialog';
 import Typography from '@mui/material/Typography';
-import { Box, Dialog, DialogActions, DialogContent, TextField } from '@mui/material';
+import {
+  Box,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Radio,
+  RadioGroup,
+  TextField,
+} from '@mui/material';
 import Button from '@mui/material/Button';
 import { toast } from 'react-toastify';
 import { postGenerateOutcome } from '../../api/requests/outcomes/outcome.requests';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { DumpMode } from '../../api/requests/outcomes/outcome.types';
 
 interface GenerateOutcomeDialogProps {
   open: boolean;
@@ -18,6 +30,7 @@ interface GenerateOutcomeDialogProps {
 interface IFormInputs {
   worksheetId: string;
   scriptName: string;
+  dumpMode: DumpMode;
 }
 
 const schema = yup.object().shape({
@@ -25,6 +38,11 @@ const schema = yup.object().shape({
 });
 
 const GenerateOutcomeDialog: FC<GenerateOutcomeDialogProps> = ({ open, worksheetId, handleClose }) => {
+  const [dumpMode, setDumpMode] = React.useState<DumpMode>(DumpMode.SCRIPT_FILE);
+  const handleChangeDumpMode = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setDumpMode(event.target.value as DumpMode);
+  };
+
   const {
     handleSubmit,
     control,
@@ -32,7 +50,7 @@ const GenerateOutcomeDialog: FC<GenerateOutcomeDialogProps> = ({ open, worksheet
   } = useForm<IFormInputs>({ resolver: yupResolver(schema) });
 
   const formSubmitHandler: SubmitHandler<IFormInputs> = (data: IFormInputs) => {
-    postGenerateOutcome({ ...data, worksheetId: worksheetId })
+    postGenerateOutcome({ ...data, worksheetId: worksheetId, dumpMode: dumpMode })
       .then((response) => {
         if (response.status === 202) {
           toast.success('Successfully started to generate a new outcome.', {
@@ -97,6 +115,11 @@ const GenerateOutcomeDialog: FC<GenerateOutcomeDialogProps> = ({ open, worksheet
               />
             )}
           />
+          <FormLabel component="legend">Dump mode</FormLabel>
+          <RadioGroup row value={dumpMode} onChange={handleChangeDumpMode}>
+            <FormControlLabel value={DumpMode.SCRIPT_FILE} control={<Radio />} label="Script file" />
+            <FormControlLabel value={DumpMode.COMPRESSED_ARCHIVE} control={<Radio />} label="Compressed archive" />
+          </RadioGroup>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} fullWidth color="primary" variant="contained">

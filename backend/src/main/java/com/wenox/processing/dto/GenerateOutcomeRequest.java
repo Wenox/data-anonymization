@@ -11,9 +11,13 @@ public class GenerateOutcomeRequest {
   @NotEmpty
   private final String scriptName;
 
-  public GenerateOutcomeRequest(String worksheetId, String scriptName) {
+  @NotNull
+  private final DumpMode dumpMode;
+
+  public GenerateOutcomeRequest(String worksheetId, String scriptName, DumpMode dumpMode) {
     this.worksheetId = worksheetId;
     this.scriptName = scriptName;
+    this.dumpMode = dumpMode;
   }
 
   public String getWorksheetId() {
@@ -22,5 +26,9 @@ public class GenerateOutcomeRequest {
 
   public String getScriptName() {
     return scriptName;
+  }
+
+  public DumpMode getDumpMode() {
+    return dumpMode;
   }
 }
