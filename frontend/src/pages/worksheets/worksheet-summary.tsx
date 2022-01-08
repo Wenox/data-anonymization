@@ -29,7 +29,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { WorksheetSummaryResponse } from '../../api/requests/worksheets/worksheet.types';
 import MetadataDialog from '../../components/metadata/metadata-dialog';
-import { handleDownloadDump } from '../../utils/download-dump';
+import { handleDownloadTemplateDump } from '../../utils/download-dump';
 import { Table } from '../../api/requests/templates/templates.types';
 import { centeredHeader } from '../../styles/data-table';
 import { ROUTES } from '../../constants/routes';
@@ -254,7 +254,9 @@ const WorksheetSummary: FC = () => {
               />
             </Grid>
             <Grid item xs={6}>
-              <IconButton onClick={() => handleDownloadDump(summary!.template.id, summary!.template.originalFileName)}>
+              <IconButton
+                onClick={() => handleDownloadTemplateDump(summary!.template.id, summary!.template.originalFileName)}
+              >
                 <CloudDownload fontSize="large" sx={{ color: '#7f00b5', mr: 1 }} />
                 Download{' '}
               </IconButton>

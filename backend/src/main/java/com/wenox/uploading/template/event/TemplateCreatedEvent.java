@@ -1,23 +1,23 @@
 package com.wenox.uploading.template.event;
 
-import com.wenox.uploading.template.dto.FileDto;
+import com.wenox.storage.domain.FileData;
 import com.wenox.uploading.template.domain.Template;
 
 public class TemplateCreatedEvent {
 
   private final Template template;
-  private final FileDto fileDTO;
+  private final FileData fileData;
 
-  public TemplateCreatedEvent(Template template, FileDto fileDTO) {
+  public TemplateCreatedEvent(Template template, FileData fileData) {
     this.template = template;
-    this.fileDTO = fileDTO;
+    this.fileData = fileData;
   }
 
   public Template getTemplate() {
     return template;
   }
 
-  public FileDto getFileDTO() {
-    return fileDTO;
+  public FileData getFileData() {
+    return fileData;
   }
 }

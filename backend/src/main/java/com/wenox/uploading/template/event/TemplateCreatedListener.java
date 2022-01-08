@@ -1,10 +1,10 @@
 package com.wenox.uploading.template.event;
 
-import com.wenox.uploading.storage.TemplateFileData;
+import com.wenox.storage.domain.TemplateFileData;
 import com.wenox.uploading.storage.event.TemplateFileStoredFailureEvent;
 import com.wenox.uploading.storage.event.TemplateFileStoredSuccessEvent;
 import com.wenox.uploading.template.service.FileUploader;
-import com.wenox.uploading.template.service.MultipartFileUploader;
+import com.wenox.uploading.template.service.TemplateFileUploader;
 import com.wenox.uploading.template.domain.TemplateStatus;
 import com.wenox.uploading.template.repository.TemplateRepository;
 import java.io.IOException;
@@ -20,7 +20,7 @@ public class TemplateCreatedListener {
   private final ApplicationEventPublisher publisher;
   private final TemplateRepository repository;
 
-  public TemplateCreatedListener(MultipartFileUploader fileUploader,
+  public TemplateCreatedListener(TemplateFileUploader fileUploader,
                                  ApplicationEventPublisher publisher,
                                  TemplateRepository repository) {
     this.fileUploader = fileUploader;
@@ -34,9 +34,7 @@ public class TemplateCreatedListener {
 
     final var template = event.getTemplate();
     try {
-      TemplateFileData fileData = new TemplateFileData();
-      fileData.setFileDTO(event.getFileDTO());
-      fileData.setFileType(template.getType());
+      TemplateFileData fileData = new TemplateFileData(event.getFileData(), template.getType());
       final var savedTemplateFile = fileUploader.upload(fileData);
       template.setStatus(TemplateStatus.UPLOAD_SUCCESS);
       template.setTemplateFile(savedTemplateFile);

@@ -18,7 +18,7 @@ export const getAllMyTemplates = () => {
   return axios.get<MyTemplate[]>('/api/v1/templates/me');
 };
 
-export const getDownloadDump = (id: string) => {
+export const getDownloadTemplateDump = (id: string) => {
   return axios.get<any>(`/api/v1/templates/${id}/dump`, {
     responseType: 'blob',
   });

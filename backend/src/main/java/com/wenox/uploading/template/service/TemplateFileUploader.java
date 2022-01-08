@@ -1,36 +1,38 @@
 package com.wenox.uploading.template.service;
 
+import com.wenox.storage.service.FileStorage;
 import com.wenox.uploading.template.domain.FileEntity;
 import com.wenox.uploading.template.namegenerator.FileNameGenerator;
 import com.wenox.storage.domain.FileData;
-import com.wenox.storage.service.FileStorage;
-import com.wenox.uploading.storage.TemplateFileData;
-import com.wenox.uploading.storage.TemplateFileStorage;
+import com.wenox.storage.domain.TemplateFileData;
+import com.wenox.storage.service.template.TemplateDumpStorage;
+import com.wenox.uploading.template.namegenerator.UuidFileNameGenerator;
 import com.wenox.uploading.template.repository.FileRepository;
 import java.io.IOException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MultipartFileUploader implements FileUploader {
+public class TemplateFileUploader implements FileUploader {
 
   private final FileStorage fileStorage;
   private final FileNameGenerator fileNameGenerator;
   private final FileRepository fileRepository;
 
-  public MultipartFileUploader(final TemplateFileStorage fileStorage,
-                               final FileNameGenerator fileNameGenerator,
-                               final FileRepository fileRepository) {
-    this.fileStorage = fileStorage;
-    this.fileNameGenerator = fileNameGenerator;
+  public TemplateFileUploader(final TemplateDumpStorage templateDumpStorage,
+                              final UuidFileNameGenerator uuidFileNameGenerator,
+                              final FileRepository fileRepository) {
+    this.fileStorage = templateDumpStorage;
+    this.fileNameGenerator = uuidFileNameGenerator;
     this.fileRepository = fileRepository;
   }
+
   public FileEntity upload(final FileData fileData) throws IOException {
     TemplateFileData templateFileData = (TemplateFileData) fileData;
     templateFileData.setSavedFileName(fileNameGenerator.get());
-    fileStorage.store(fileData);
+    fileStorage.save(fileData);
 
     final var file = new FileEntity();
-    file.setOriginalFileName(templateFileData.getFileDTO().getOriginalFileName());
+    file.setOriginalFileName(templateFileData.getOriginalFileName());
     file.setSavedFileName(templateFileData.getSavedFileName());
     file.setType(templateFileData.getFileType());
     return fileRepository.save(file);

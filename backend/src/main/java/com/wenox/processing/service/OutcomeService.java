@@ -6,9 +6,13 @@ import com.wenox.processing.domain.OutcomeStatus;
 import com.wenox.processing.domain.events.OutcomeGenerationStartedEvent;
 import com.wenox.processing.dto.GenerateOutcomeRequest;
 import com.wenox.processing.repository.OutcomeRepository;
-import com.wenox.uploading.template.domain.FileEntity;
+import com.wenox.storage.service.FileStorage;
+import com.wenox.storage.service.outcome.OutcomeDumpScriptStorage;
+import com.wenox.storage.service.outcome.OutcomeDumpStorageFactory;
 import com.wenox.users.service.AuthService;
+import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -20,15 +24,18 @@ public class OutcomeService {
   private final WorksheetRepository worksheetRepository;
   private final AuthService authService;
   private final ApplicationEventPublisher publisher;
+  private final OutcomeDumpStorageFactory storageFactory;
 
   public OutcomeService(OutcomeRepository outcomeRepository,
                         WorksheetRepository worksheetRepository,
                         AuthService authService,
-                        ApplicationEventPublisher publisher) {
+                        ApplicationEventPublisher publisher,
+                        OutcomeDumpStorageFactory storageFactory) {
     this.outcomeRepository = outcomeRepository;
     this.worksheetRepository = worksheetRepository;
     this.authService = authService;
     this.publisher = publisher;
+    this.storageFactory = storageFactory;
   }
 
   public String generateOutcome(GenerateOutcomeRequest dto, Authentication auth) {
@@ -49,5 +56,28 @@ public class OutcomeService {
     publisher.publishEvent(new OutcomeGenerationStartedEvent(outcome));
 
     return outcome.getId();
+  }
+
+  public List<Outcome> getMyOutcomes(Authentication auth) {
+    final var me = authService.getMe(auth);
+    return outcomeRepository.findAllByWorksheetUser(me);
+  }
+
+  public byte[] downloadOutcomeDump(String id, Authentication auth) throws IOException {
+    final var me = authService.getMe(auth);
+    final var outcome = outcomeRepository.findById(id).orElseThrow();
+    if (!me.equals(outcome.getWorksheet().getUser())) {
+      throw new RuntimeException("This outcome belongs to other user!");
+    }
+
+    var dump = outcome.getDumpFile();
+    if (dump == null) {
+      throw new RuntimeException("No dump file associated with this outcome!");
+    }
+
+    return switch (outcome.getDumpMode()) {
+      case COMPRESSED_ARCHIVE -> storageFactory.getArchiveStorage().retrieve(dump.getSavedFileName());
+      case SCRIPT_FILE -> storageFactory.getScriptStorage().retrieve(dump.getSavedFileName());
+    };
   }
 }

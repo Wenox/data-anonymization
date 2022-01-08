@@ -1,15 +1,15 @@
 package com.wenox.uploading.template.service;
 
+import com.wenox.storage.domain.FileData;
+import com.wenox.storage.service.FileStorage;
 import com.wenox.uploading.template.domain.TemplateStatus;
 import com.wenox.uploading.template.domain.Template;
 import com.wenox.uploading.template.dto.CreateTemplateDto;
-import com.wenox.uploading.template.dto.FileDto;
 import com.wenox.uploading.template.repository.TemplateRepository;
 import com.wenox.users.service.AuthService;
 import com.wenox.uploading.template.event.TemplateCreatedEvent;
 import com.wenox.uploading.extractor.domain.metadata.TemplateMetadata;
-import com.wenox.storage.service.FileStorage;
-import com.wenox.uploading.storage.TemplateFileStorage;
+import com.wenox.storage.service.template.TemplateDumpStorage;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -31,17 +31,17 @@ public class TemplateService {
   public TemplateService(TemplateRepository templateRepository,
                          ApplicationEventPublisher publisher,
                          AuthService authService,
-                         TemplateFileStorage fileStorage) {
+                         TemplateDumpStorage templateDumpStorage) {
     this.templateRepository = templateRepository;
     this.publisher = publisher;
     this.authService = authService;
-    this.fileStorage = fileStorage;
+    this.fileStorage = templateDumpStorage;
   }
 
   public String createTemplate(CreateTemplateDto dto, Authentication auth) throws IOException {
     final var me = authService.getMe(auth);
 
-    var fileDto = FileDto.from(dto.getFile());
+    var fileData = FileData.from(dto.getFile());
 
     final var template = new Template();
     template.setUser(me);
@@ -55,7 +55,7 @@ public class TemplateService {
     template.setCreatedDate(LocalDateTime.now());
     templateRepository.save(template);
 
-    publisher.publishEvent(new TemplateCreatedEvent(template, fileDto));
+    publisher.publishEvent(new TemplateCreatedEvent(template, fileData));
 
     return template.getId();
   }
@@ -77,12 +77,18 @@ public class TemplateService {
     return me.getTemplates();
   }
 
-  public byte[] downloadDump(String id) throws IOException {
+  public byte[] downloadTemplateDump(String id, Authentication auth) throws IOException {
+    var me = authService.getMe(auth);
     var template = templateRepository.findById(id).orElseThrow();
+    if (!me.equals(template.getUser())) {
+      throw new RuntimeException("This template belongs to other user!");
+    }
+
     var dump = template.getTemplateFile();
     if (dump == null) {
       throw new RuntimeException("No dump file associated with this template!");
     }
+
     var savedFileName = dump.getSavedFileName();
     return fileStorage.retrieve(savedFileName);
   }

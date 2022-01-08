@@ -2,7 +2,7 @@ import { useQuery } from 'react-query';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { Button, CircularProgress, Container, Divider, IconButton } from '@mui/material';
 import Typography from '@mui/material/Typography';
-import { getAllMyTemplates, getDownloadDump } from '../../api/requests/templates/templates.requests';
+import { getAllMyTemplates, getDownloadTemplateDump } from '../../api/requests/templates/templates.requests';
 import { MyTemplate, TemplateMetadata } from '../../api/requests/templates/templates.types';
 import { theme } from '../../styles/theme';
 import { useState } from 'react';
@@ -14,7 +14,7 @@ import { CloudDownload, Delete, Download, Edit } from '@mui/icons-material';
 import { centeredColumn } from '../../styles/data-table';
 import { toast } from 'react-toastify';
 import { postCreateMyWorksheet } from '../../api/requests/worksheets/worksheet.requests';
-import { handleDownloadDump } from '../../utils/download-dump';
+import { handleDownloadTemplateDump } from '../../utils/download-dump';
 
 export interface TemplateMetadataWithFile {
   metadata?: TemplateMetadata;
@@ -107,7 +107,7 @@ const MyTemplates = () => {
       ...centeredColumn(),
       renderCell: ({ row }) => {
         return (
-          <IconButton onClick={() => handleDownloadDump(row.id, row.originalFileName)}>
+          <IconButton onClick={() => handleDownloadTemplateDump(row.id, row.originalFileName)}>
             <CloudDownload fontSize="large" sx={{ color: '#7f00b5' }} />
           </IconButton>
         );
