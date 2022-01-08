@@ -5,10 +5,8 @@ import com.wenox.processing.domain.OutcomeStatus;
 import com.wenox.processing.domain.events.DatabaseAnonymisedEvent;
 import com.wenox.processing.domain.events.DatabaseDumpedEvent;
 import com.wenox.processing.repository.OutcomeRepository;
-import com.wenox.processing.service.DatabaseDumpService;
-import com.wenox.processing.service.PostgreSQLDumpService;
-import com.wenox.processing.service.mirror.DatabaseHostDetails;
-import com.wenox.processing.service.mirror.PostgreSQLHostDetails;
+import com.wenox.processing.service.dump.DatabaseDumpFacade;
+import com.wenox.processing.service.dump.PostgreSQLDumpFacade;
 import java.time.LocalDateTime;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.event.EventListener;
@@ -17,17 +15,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class DatabaseAnonymisedListener {
 
-  private final DatabaseDumpService databaseDumpService;
-  private final DatabaseHostDetails databaseHostDetails;
+  private final DatabaseDumpFacade dumpFacade;
   private final OutcomeRepository outcomeRepository;
   private final ApplicationEventPublisher applicationEventPublisher;
 
-  public DatabaseAnonymisedListener(PostgreSQLDumpService postgreSQLDumpService,
-                                    PostgreSQLHostDetails postgreSQLHostDetails,
+  public DatabaseAnonymisedListener(PostgreSQLDumpFacade postgreSQLDumpFacade,
                                     OutcomeRepository outcomeRepository,
                                     ApplicationEventPublisher applicationEventPublisher) {
-    this.databaseDumpService = postgreSQLDumpService;
-    this.databaseHostDetails = postgreSQLHostDetails;
+    this.dumpFacade = postgreSQLDumpFacade;
     this.outcomeRepository = outcomeRepository;
     this.applicationEventPublisher = applicationEventPublisher;
   }
@@ -38,8 +33,8 @@ public class DatabaseAnonymisedListener {
     Outcome outcome = event.getOutcome();
 
     switch (outcome.getDumpMode()) {
-      case SCRIPT_FILE -> databaseDumpService.dumpDatabaseToScriptFile(databaseHostDetails, outcome.getMirrorDatabaseName(), "out.sql");
-      case COMPRESSED_ARCHIVE -> databaseDumpService.dumpDatabaseToCompressedArchive(databaseHostDetails, outcome.getMirrorDatabaseName(), "out.dump");
+      case SCRIPT_FILE -> dumpFacade.dumpToScript(outcome.getMirrorDatabaseName(), "out.sql");
+      case COMPRESSED_ARCHIVE -> dumpFacade.dumpToArchive(outcome.getMirrorDatabaseName(), "out.dump");
     }
 
     outcome.setProcessingEndDate(LocalDateTime.now());
