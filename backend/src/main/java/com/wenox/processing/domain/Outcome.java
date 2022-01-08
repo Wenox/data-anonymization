@@ -25,6 +25,9 @@ public class Outcome {
   @Enumerated(EnumType.STRING)
   private OutcomeStatus outcomeStatus;
 
+  @Enumerated(EnumType.STRING)
+  private DumpMode dumpMode;
+
   private String mirrorDatabaseName;
 
   private String scriptName;
@@ -50,6 +53,14 @@ public class Outcome {
 
   public Worksheet getWorksheet() {
     return worksheet;
+  }
+
+  public DumpMode getDumpMode() {
+    return dumpMode;
+  }
+
+  public void setDumpMode(DumpMode dumpMode) {
+    this.dumpMode = dumpMode;
   }
 
   public void setWorksheet(Worksheet worksheet) {

@@ -1,4 +1,4 @@
-package com.wenox.processing.dto;
+package com.wenox.processing.domain;
 
 public enum DumpMode {
   SCRIPT_FILE,

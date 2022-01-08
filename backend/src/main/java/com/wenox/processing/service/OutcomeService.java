@@ -49,6 +49,7 @@ public class OutcomeService {
     Outcome outcome = new Outcome();
     outcome.setWorksheet(worksheet);
     outcome.setScriptName(dto.getScriptName());
+    outcome.setDumpMode(dto.getDumpMode());
     outcome.setProcessingStartDate(LocalDateTime.now());
     outcome.setOutcomeStatus(OutcomeStatus.GENERATION_STARTED);
     outcomeRepository.save(outcome);
