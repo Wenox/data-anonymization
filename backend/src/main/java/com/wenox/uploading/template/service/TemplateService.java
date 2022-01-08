@@ -88,7 +88,7 @@ public class TemplateService {
     if (dump == null) {
       throw new RuntimeException("No dump file associated with this template!");
     }
-    
+
     var savedFileName = dump.getSavedFileName();
     return fileStorage.retrieve(savedFileName);
   }

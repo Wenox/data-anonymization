@@ -40,7 +40,7 @@ public class OutcomeController {
     return ResponseEntity.ok(outcomeService.getMyOutcomes(auth).stream().map(OutcomeResponse::from).toList());
   }
 
-  @GetMapping("/{id}/")
+  @GetMapping("/{id}/dump")
   @PreAuthorize("hasAnyAuthority('VERIFIED_USER', 'ADMIN')")
   public ResponseEntity<byte[]> downloadOutcomeDump(@PathVariable("id") String id, Authentication auth) throws IOException {
     return ResponseEntity.ok(outcomeService.downloadOutcomeDump(id, auth));

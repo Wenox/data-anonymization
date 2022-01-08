@@ -1,5 +1,6 @@
 import { getDownloadTemplateDump } from '../api/requests/templates/templates.requests';
 import { toast } from 'react-toastify';
+import { getDownloadOutcomeDump } from '../api/requests/outcomes/outcome.requests';
 
 export const handleDownloadTemplateDump = (templateId: string, originalFileName: string) => {
   getDownloadTemplateDump(templateId)
@@ -10,7 +11,7 @@ export const handleDownloadTemplateDump = (templateId: string, originalFileName:
       link.setAttribute('download', originalFileName);
       document.body.appendChild(link);
       link.click();
-      toast.success('Successfully downloaded dump file.', {
+      toast.success('Successfully downloaded template dump file.', {
         position: 'top-right',
         autoClose: 5000,
         hideProgressBar: false,
@@ -20,8 +21,40 @@ export const handleDownloadTemplateDump = (templateId: string, originalFileName:
         progress: undefined,
       });
     })
-    .catch((err) => {
-      toast.success('Failed to downloaded the dump file.', {
+    .catch(() => {
+      toast.error('Failed to download the template dump file.', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    });
+};
+
+export const handleDownloadOutcomeDump = (outcomeId: string, originalFileName: string) => {
+  getDownloadOutcomeDump(outcomeId)
+    .then((response) => {
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', originalFileName);
+      document.body.appendChild(link);
+      link.click();
+      toast.success('Successfully downloaded outcome dump file.', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    })
+    .catch(() => {
+      toast.error('Failed to download the outcome dump file.', {
         position: 'top-right',
         autoClose: 5000,
         hideProgressBar: false,

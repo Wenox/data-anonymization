@@ -1,11 +1,13 @@
 import { useQuery } from 'react-query';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { centeredColumn, centeredHeader } from '../../styles/data-table';
-import { Container, Divider } from '@mui/material';
+import { Container, Divider, IconButton } from '@mui/material';
 import { theme } from '../../styles/theme';
 import Typography from '@mui/material/Typography';
 import { getMyOutcomes } from '../../api/requests/outcomes/outcome.requests';
 import { OutcomeResponse } from '../../api/requests/outcomes/outcome.types';
+import { handleDownloadOutcomeDump, handleDownloadTemplateDump } from '../../utils/download-dump';
+import { CloudDownload } from '@mui/icons-material';
 
 const MyOutcomes = () => {
   const { data, isLoading, refetch, isRefetching } = useQuery('outcomes', getMyOutcomes);
@@ -17,6 +19,17 @@ const MyOutcomes = () => {
     { field: 'dumpName', headerName: 'Dump name', flex: 1, ...centeredHeader() },
     { field: 'anonymisationScriptName', headerName: 'Anonymisation script name', flex: 1, ...centeredHeader() },
     { field: 'processingTime', headerName: 'Processing time', flex: 1, ...centeredColumn() },
+    {
+      field: 'dumpFile',
+      headerName: 'Dump file',
+      flex: 1,
+      ...centeredColumn(),
+      renderCell: ({ row }) => (
+        <IconButton onClick={() => handleDownloadOutcomeDump(row.id, row.dumpName)}>
+          <CloudDownload fontSize="large" sx={{ color: '#7f00b5' }} />
+        </IconButton>
+      ),
+    },
   ];
 
   return (
