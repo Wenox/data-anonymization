@@ -1,6 +1,6 @@
 export interface GenerateOutcomeRequest {
   worksheetId: string;
-  scriptName: string;
+  anonymisationScriptName: string;
   dumpMode: DumpMode;
 }
 

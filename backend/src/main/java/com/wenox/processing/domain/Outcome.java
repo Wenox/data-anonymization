@@ -30,7 +30,7 @@ public class Outcome {
 
   private String mirrorDatabaseName;
 
-  private String scriptName;
+  private String anonymisationScriptName;
 
   @OneToOne
   private FileEntity fileEntity;
@@ -75,8 +75,8 @@ public class Outcome {
     return mirrorDatabaseName;
   }
 
-  public String getScriptName() {
-    return scriptName;
+  public String getAnonymisationScriptName() {
+    return anonymisationScriptName;
   }
 
   public FileEntity getFileEntity() {
@@ -87,8 +87,8 @@ public class Outcome {
     this.fileEntity = fileEntity;
   }
 
-  public void setScriptName(String scriptName) {
-    this.scriptName = scriptName;
+  public void setAnonymisationScriptName(String scriptName) {
+    this.anonymisationScriptName = scriptName;
   }
 
   public void setMirrorDatabaseName(String mirrorDatabaseName) {

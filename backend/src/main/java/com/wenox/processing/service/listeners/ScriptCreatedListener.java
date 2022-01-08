@@ -24,8 +24,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 public class ScriptCreatedListener {
 
-  @Value("${processing.scripts.path}")
-  String scriptsPath;
+  @Value("${processing.anonymisationScripts.path}")
+  String anonymisationScriptsPath;
 
   private final DataSourceFactory dataSourceFactory;
   private final OutcomeRepository outcomeRepository;
@@ -57,7 +57,7 @@ public class ScriptCreatedListener {
     System.out.println("Lost of column operations - affected columns size: " + listOfColumnOperations.size());
 
     var fileEntity = outcome.getFileEntity();
-    var fileLocation = Path.of(scriptsPath, fileEntity.getSavedFileName());
+    var fileLocation = Path.of(anonymisationScriptsPath, fileEntity.getSavedFileName());
 
     for (ColumnOperations columnOperations : listOfColumnOperations) {
 

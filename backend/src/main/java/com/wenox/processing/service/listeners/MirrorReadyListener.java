@@ -19,15 +19,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.event.EventListener;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class MirrorReadyListener {
 
-  @Value("${processing.scripts.path}")
-  String scriptsPath;
+  @Value("${processing.anonymisationScripts.path}")
+  String anonymisationScriptsPath;
 
   private final FileNameGenerator fileNameGenerator;
   private final ApplicationEventPublisher applicationEventPublisher;
@@ -53,12 +52,12 @@ public class MirrorReadyListener {
 
     String savedFileName = fileNameGenerator.get();
     try {
-      log.info("Creating script {} as {}.", outcome.getScriptName(), savedFileName);
-      Files.createDirectories(Path.of(scriptsPath));
-      Files.writeString(Path.of(scriptsPath, savedFileName), "-- Generated on " + FormatDate.toString(LocalDateTime.now()) + "\n\n");
+      log.info("Creating script {} as {}.", outcome.getAnonymisationScriptName(), savedFileName);
+      Files.createDirectories(Path.of(anonymisationScriptsPath));
+      Files.writeString(Path.of(anonymisationScriptsPath, savedFileName), "-- Generated on " + FormatDate.toString(LocalDateTime.now()) + "\n\n");
 
       FileEntity file = new FileEntity();
-      file.setOriginalFileName(outcome.getScriptName());
+      file.setOriginalFileName(outcome.getAnonymisationScriptName());
       file.setSavedFileName(savedFileName);
       file.setType(outcome.getTemplateType());
 

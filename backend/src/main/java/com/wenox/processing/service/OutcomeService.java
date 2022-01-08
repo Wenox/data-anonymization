@@ -1,7 +1,6 @@
 package com.wenox.processing.service;
 
 import com.wenox.anonymisation.repository.WorksheetRepository;
-import com.wenox.infrastructure.service.ConnectionDetails;
 import com.wenox.infrastructure.service.DataSourceFactory;
 import com.wenox.processing.domain.Outcome;
 import com.wenox.processing.domain.OutcomeStatus;
@@ -48,7 +47,7 @@ public class OutcomeService {
 
     Outcome outcome = new Outcome();
     outcome.setWorksheet(worksheet);
-    outcome.setScriptName(dto.getScriptName());
+    outcome.setAnonymisationScriptName(dto.getAnonymisationScriptName());
     outcome.setDumpMode(dto.getDumpMode());
     outcome.setProcessingStartDate(LocalDateTime.now());
     outcome.setOutcomeStatus(OutcomeStatus.GENERATION_STARTED);

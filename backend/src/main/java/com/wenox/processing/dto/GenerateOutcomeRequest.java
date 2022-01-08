@@ -10,14 +10,14 @@ public class GenerateOutcomeRequest {
   private final String worksheetId;
 
   @NotEmpty
-  private final String scriptName;
+  private final String anonymisationScriptName;
 
   @NotNull
   private final DumpMode dumpMode;
 
-  public GenerateOutcomeRequest(String worksheetId, String scriptName, DumpMode dumpMode) {
+  public GenerateOutcomeRequest(String worksheetId, String anonymisationScriptName, DumpMode dumpMode) {
     this.worksheetId = worksheetId;
-    this.scriptName = scriptName;
+    this.anonymisationScriptName = anonymisationScriptName;
     this.dumpMode = dumpMode;
   }
 
@@ -25,8 +25,8 @@ public class GenerateOutcomeRequest {
     return worksheetId;
   }
 
-  public String getScriptName() {
-    return scriptName;
+  public String getAnonymisationScriptName() {
+    return anonymisationScriptName;
   }
 
   public DumpMode getDumpMode() {

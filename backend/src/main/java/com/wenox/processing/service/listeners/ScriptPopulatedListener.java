@@ -3,6 +3,7 @@ package com.wenox.processing.service.listeners;
 import com.wenox.infrastructure.service.ProcessExecutorFactory;
 import com.wenox.processing.domain.Outcome;
 import com.wenox.processing.domain.OutcomeStatus;
+import com.wenox.processing.domain.events.DatabaseAnonymisedEvent;
 import com.wenox.processing.domain.events.ScriptPopulatedEvent;
 import com.wenox.processing.repository.OutcomeRepository;
 import org.slf4j.Logger;
@@ -76,5 +77,7 @@ public class ScriptPopulatedListener {
         outcome.getMirrorDatabaseName());
     outcome.setOutcomeStatus(OutcomeStatus.SCRIPT_EXECUTION_SUCCESS);
     outcomeRepository.save(outcome);
+
+    applicationEventPublisher.publishEvent(new DatabaseAnonymisedEvent(outcome));
   }
 }
