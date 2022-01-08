@@ -23,10 +23,10 @@ public class Worksheet {
   @ManyToOne(fetch = FetchType.LAZY)
   private User user;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.EAGER)
   private Template template;
 
-  @OneToMany(mappedBy = "worksheet", cascade = CascadeType.ALL, orphanRemoval = true)
+  @OneToMany(mappedBy = "worksheet", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
   private List<ColumnOperations> listOfColumnOperations = new ArrayList<>();
 
   public void addColumnOperations(ColumnOperations operation) {
