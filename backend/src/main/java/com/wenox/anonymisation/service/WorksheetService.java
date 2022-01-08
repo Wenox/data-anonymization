@@ -45,8 +45,6 @@ public class WorksheetService {
     worksheet.setTemplate(template);
     worksheetRepository.save(worksheet);
 
-    System.out.println("Created worksheet: " + worksheet);
-
     return worksheet;
   }
 

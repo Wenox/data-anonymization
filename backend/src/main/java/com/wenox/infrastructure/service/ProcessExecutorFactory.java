@@ -11,10 +11,7 @@ public class ProcessExecutorFactory {
     return new ProcessExecutor(command)
         .exitValue(0)
         .readOutput(false)
-        .redirectOutput(System.out)
-        .redirectOutputAlsoTo(Slf4jStream.of(LoggerFactory.getLogger(ProcessExecutorFactory.class)).asInfo())
-        .redirectError(System.err)
-        .redirectErrorAlsoTo(Slf4jStream.of(LoggerFactory.getLogger(ProcessExecutorFactory.class)).asError())
+        .redirectOutput(Slf4jStream.of(LoggerFactory.getLogger(ProcessExecutorFactory.class)).asInfo())
         .destroyOnExit()
         .timeout(60, TimeUnit.SECONDS);
   }
