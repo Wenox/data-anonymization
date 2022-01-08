@@ -9,7 +9,6 @@ import com.wenox.processing.service.mirror.DatabaseMirrorFacade;
 import com.wenox.processing.service.mirror.PostgreSQLMirrorFacade;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.event.EventListener;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -27,7 +26,6 @@ public class OutcomeGenerationStartedListener {
     this.mirrorFacade = postgreSQLMirrorService;
   }
 
-  @Async
   @EventListener
   public void onOutcomeGenerationStarted(OutcomeGenerationStartedEvent event) {
     Outcome outcome = event.getOutcome();
@@ -37,6 +35,7 @@ public class OutcomeGenerationStartedListener {
       outcome.setOutcomeStatus(OutcomeStatus.MIRROR_READY);
       outcomeRepository.save(outcome);
     } catch (Exception ex) {
+      ex.printStackTrace();
       outcome.setOutcomeStatus(OutcomeStatus.MIRROR_FAILURE);
       outcomeRepository.save(outcome);
       return;

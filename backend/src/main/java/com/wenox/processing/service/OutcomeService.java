@@ -46,13 +46,6 @@ public class OutcomeService {
       throw new RuntimeException("The worksheet does not belong to this user.");
     }
 
-    final var connectionDetails = new ConnectionDetails();
-    connectionDetails.setDatabaseType(worksheet.getTemplate().getType());
-    connectionDetails.setDatabaseName(worksheet.getTemplate().getTemplateDatabaseName());
-    connectionDetails.setUsername("postgres");
-    connectionDetails.setPassword("postgres");
-    final var queryExecutor = new QueryExecutor(dataSourceFactory.getDataSource(connectionDetails));
-
     Outcome outcome = new Outcome();
     outcome.setWorksheet(worksheet);
     outcome.setScriptName(dto.getScriptName());
@@ -63,57 +56,4 @@ public class OutcomeService {
 
     return outcome.getId();
   }
-
-//    List<ColumnOperations> listOfColumnOperations = worksheet.getListOfColumnOperations();
-//    System.out.println("Lost of column operations - affected columns size: " + listOfColumnOperations.size());
-//
-//
-//    for (ColumnOperations columnOperations : listOfColumnOperations) {
-//
-//      final var rows = queryExecutor.select(columnOperations.getTableName(), columnOperations.getPrimaryKeyColumnName(), columnOperations.getColumnName());
-//
-//      var suppression = columnOperations.getSuppression();
-//      if (suppression != null) {
-//
-//        System.out.println("Ready to transform with suppression.");
-//
-//        var suppressed = new SuppressionService().suppress(rows, suppression.getSuppressionToken());
-//
-//        System.out.println("Suppression ended, new values:");
-//        suppressed.forEach(System.out::println);
-//
-//
-//        // 1. Get data.
-//        // queryForColumn operation.getPK, operation.getTableName() operation.getColumnName()
-//
-//        // 2. Transform
-//        // columnShuffler.transform(rows);
-//
-//        // 3. Generate output
-//        // writing into SQL file
-//      }
-//
-//
-//
-//      var shuffle = columnOperations.getShuffle();
-//      if (shuffle != null) {
-//
-//        System.out.println("Result success.");
-//        System.out.println("Ready to transform with shuffle.");
-//
-//        // 1. Get data.
-//        // queryForColumn operation.getPK, operation.getTableName() operation.getColumnName()
-//
-//        // 2. Transform
-//        // columnShuffler.transform(rows);
-//
-//        // 3. Generate output
-//        // writing into SQL file
-//      }
-//
-//
-//    }
-//
-//    outcomeRepository.save(outcome);
-//  }
 }

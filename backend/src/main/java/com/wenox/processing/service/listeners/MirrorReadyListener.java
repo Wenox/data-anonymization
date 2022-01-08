@@ -21,6 +21,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class MirrorReadyListener {
@@ -45,8 +46,8 @@ public class MirrorReadyListener {
     this.fileRepository = fileRepository;
   }
 
-  @Async
   @EventListener
+  @Transactional
   public void onMirrorReadyEvent(MirrorReadyEvent event) {
     Outcome outcome = event.getOutcome();
 
