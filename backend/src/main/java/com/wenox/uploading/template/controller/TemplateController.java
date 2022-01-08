@@ -37,8 +37,8 @@ public class TemplateController {
 
   @GetMapping("/{id}/dump")
   @PreAuthorize("hasAnyAuthority('VERIFIED_USER', 'ADMIN')")
-  public ResponseEntity<byte[]> downloadDump(@PathVariable("id") String id) throws IOException {
-    return ResponseEntity.ok(templateService.downloadDump(id));
+  public ResponseEntity<byte[]> downloadTemplateDump(@PathVariable("id") String id, Authentication auth) throws IOException {
+    return ResponseEntity.ok(templateService.downloadTemplateDump(id, auth));
   }
 
   @GetMapping("/{id}/status")

@@ -77,12 +77,18 @@ public class TemplateService {
     return me.getTemplates();
   }
 
-  public byte[] downloadDump(String id) throws IOException {
+  public byte[] downloadTemplateDump(String id, Authentication auth) throws IOException {
+    var me = authService.getMe(auth);
     var template = templateRepository.findById(id).orElseThrow();
+    if (!me.equals(template.getUser())) {
+      throw new RuntimeException("This template belongs to other user!");
+    }
+
     var dump = template.getTemplateFile();
     if (dump == null) {
       throw new RuntimeException("No dump file associated with this template!");
     }
+    
     var savedFileName = dump.getSavedFileName();
     return fileStorage.retrieve(savedFileName);
   }
