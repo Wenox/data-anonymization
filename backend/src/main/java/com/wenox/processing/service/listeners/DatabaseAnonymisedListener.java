@@ -33,8 +33,8 @@ public class DatabaseAnonymisedListener {
     Outcome outcome = event.getOutcome();
 
     switch (outcome.getDumpMode()) {
-      case SCRIPT_FILE -> dumpFacade.dumpToScript(outcome.getMirrorDatabaseName(), "out.sql");
-      case COMPRESSED_ARCHIVE -> dumpFacade.dumpToArchive(outcome.getMirrorDatabaseName(), "out.dump");
+      case SCRIPT_FILE -> dumpFacade.dumpToScript(outcome.getMirrorDatabaseName(), outcome.getDumpName());
+      case COMPRESSED_ARCHIVE -> dumpFacade.dumpToArchive(outcome.getMirrorDatabaseName(), outcome.getDumpName());
     }
 
     outcome.setProcessingEndDate(LocalDateTime.now());

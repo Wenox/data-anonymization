@@ -48,6 +48,7 @@ public class OutcomeService {
     Outcome outcome = new Outcome();
     outcome.setWorksheet(worksheet);
     outcome.setAnonymisationScriptName(dto.getAnonymisationScriptName());
+    outcome.setDumpName(dto.getDumpName());
     outcome.setDumpMode(dto.getDumpMode());
     outcome.setProcessingStartDate(LocalDateTime.now());
     outcome.setOutcomeStatus(OutcomeStatus.GENERATION_STARTED);

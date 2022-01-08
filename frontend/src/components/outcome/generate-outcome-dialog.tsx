@@ -30,11 +30,13 @@ interface GenerateOutcomeDialogProps {
 interface IFormInputs {
   worksheetId: string;
   anonymisationScriptName: string;
+  dumpName: string;
   dumpMode: DumpMode;
 }
 
 const schema = yup.object().shape({
   anonymisationScriptName: yup.string().required('Script name is required'),
+  dumpName: yup.string().required('Script name is required'),
 });
 
 const GenerateOutcomeDialog: FC<GenerateOutcomeDialogProps> = ({ open, worksheetId, handleClose }) => {
@@ -112,6 +114,25 @@ const GenerateOutcomeDialog: FC<GenerateOutcomeDialogProps> = ({ open, worksheet
                 name="anonymisationScriptName"
                 label="Anonymisation script name"
                 id="anonymisationScriptName"
+              />
+            )}
+          />
+          <Controller
+            name="dumpName"
+            control={control}
+            defaultValue=""
+            render={({ field }) => (
+              <TextField
+                {...field}
+                variant="outlined"
+                error={!!errors.dumpName}
+                helperText={errors.dumpName ? errors.dumpName?.message : ''}
+                margin="normal"
+                required
+                fullWidth
+                name="dumpName"
+                label="Dump name"
+                id="dumpName"
               />
             )}
           />

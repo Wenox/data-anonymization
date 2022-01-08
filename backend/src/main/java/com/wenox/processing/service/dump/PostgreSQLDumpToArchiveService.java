@@ -3,6 +3,8 @@ package com.wenox.processing.service.dump;
 import com.wenox.infrastructure.service.ProcessExecutorFactory;
 import com.wenox.processing.service.mirror.DatabaseHostDetails;
 import java.io.FileOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,7 @@ public class PostgreSQLDumpToArchiveService implements DatabaseDumpToArchiveServ
   public void dump(DatabaseHostDetails details, String databaseName, String compressedArchivePath) {
     log.info("Dumping an anonymised database {} to compressed archive {}.", databaseName, compressedArchivePath);
     try {
+      Files.createDirectories(Path.of(compressedArchivePath).getParent());
       if (details.isRunningOnCloud()) {
         try (var outputStream = new FileOutputStream(compressedArchivePath)) {
           ProcessExecutorFactory.newProcessWithOutputRedirectedTo(

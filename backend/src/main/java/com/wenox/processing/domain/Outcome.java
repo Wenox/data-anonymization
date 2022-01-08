@@ -28,6 +28,8 @@ public class Outcome {
   @Enumerated(EnumType.STRING)
   private DumpMode dumpMode;
 
+  private String dumpName;
+
   private String mirrorDatabaseName;
 
   private String anonymisationScriptName;
@@ -109,6 +111,14 @@ public class Outcome {
 
   public LocalDateTime getProcessingEndDate() {
     return processingEndDate;
+  }
+
+  public String getDumpName() {
+    return dumpName;
+  }
+
+  public void setDumpName(String dumpName) {
+    this.dumpName = dumpName;
   }
 
   public void setProcessingEndDate(LocalDateTime processingEndDate) {
