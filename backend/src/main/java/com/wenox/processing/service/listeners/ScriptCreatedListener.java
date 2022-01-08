@@ -7,6 +7,7 @@ import com.wenox.infrastructure.service.DataSourceFactory;
 import com.wenox.processing.domain.Outcome;
 import com.wenox.processing.domain.OutcomeStatus;
 import com.wenox.processing.domain.events.ScriptCreatedEvent;
+import com.wenox.processing.domain.events.ScriptPopulatedEvent;
 import com.wenox.processing.repository.OutcomeRepository;
 import com.wenox.processing.service.QueryExecutor;
 import com.wenox.processing.service.operations.SuppressionService;
@@ -15,8 +16,8 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.event.EventListener;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,11 +29,14 @@ public class ScriptCreatedListener {
 
   private final DataSourceFactory dataSourceFactory;
   private final OutcomeRepository outcomeRepository;
+  private final ApplicationEventPublisher applicationEventPublisher;
 
   public ScriptCreatedListener(DataSourceFactory dataSourceFactory,
-                               OutcomeRepository outcomeRepository) {
+                               OutcomeRepository outcomeRepository,
+                               ApplicationEventPublisher applicationEventPublisher) {
     this.dataSourceFactory = dataSourceFactory;
     this.outcomeRepository = outcomeRepository;
+    this.applicationEventPublisher = applicationEventPublisher;
   }
 
   @EventListener
@@ -93,28 +97,18 @@ public class ScriptCreatedListener {
           }
         }
 
-
         var shuffle = columnOperations.getShuffle();
         if (shuffle != null) {
 
           System.out.println("Result success.");
           System.out.println("Ready to transform with shuffle.");
-
-          // 1. Get data.
-          // queryForColumn operation.getPK, operation.getTableName() operation.getColumnName()
-
-          // 2. Transform
-          // columnShuffler.transform(rows);
-
-          // 3. Generate output
-          // writing into SQL file
         }
-
-
       }
 
-      outcome.setOutcomeStatus(OutcomeStatus.OUTCOME_READY);
-      outcomeRepository.save(outcome);
     }
+    outcome.setOutcomeStatus(OutcomeStatus.SCRIPT_POPULATION_SUCCESS);
+    outcomeRepository.save(outcome);
+
+    applicationEventPublisher.publishEvent(new ScriptPopulatedEvent(outcome, fileLocation));
   }
 }
