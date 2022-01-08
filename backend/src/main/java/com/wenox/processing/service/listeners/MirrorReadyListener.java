@@ -25,8 +25,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 public class MirrorReadyListener {
 
-  @Value("${processing.anonymisationScripts.path}")
-  String anonymisationScriptsPath;
+  @Value("${processing.anonymisations.scripts.path}")
+  String anonymisationsScriptsPath;
 
   private final FileNameGenerator fileNameGenerator;
   private final ApplicationEventPublisher applicationEventPublisher;
@@ -53,8 +53,8 @@ public class MirrorReadyListener {
     String savedFileName = fileNameGenerator.get();
     try {
       log.info("Creating script {} as {}.", outcome.getAnonymisationScriptName(), savedFileName);
-      Files.createDirectories(Path.of(anonymisationScriptsPath));
-      Files.writeString(Path.of(anonymisationScriptsPath, savedFileName), "-- Generated on " + FormatDate.toString(LocalDateTime.now()) + "\n\n");
+      Files.createDirectories(Path.of(anonymisationsScriptsPath));
+      Files.writeString(Path.of(anonymisationsScriptsPath, savedFileName), "-- Generated on " + FormatDate.toString(LocalDateTime.now()) + "\n\n");
 
       FileEntity file = new FileEntity();
       file.setOriginalFileName(outcome.getAnonymisationScriptName());
