@@ -8,6 +8,7 @@ import com.wenox.processing.dto.GenerateOutcomeRequest;
 import com.wenox.processing.repository.OutcomeRepository;
 import com.wenox.storage.service.FileStorage;
 import com.wenox.storage.service.outcome.OutcomeDumpScriptStorage;
+import com.wenox.storage.service.outcome.OutcomeDumpStorageFactory;
 import com.wenox.users.service.AuthService;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -23,18 +24,18 @@ public class OutcomeService {
   private final WorksheetRepository worksheetRepository;
   private final AuthService authService;
   private final ApplicationEventPublisher publisher;
-  private final FileStorage fileStorage;
+  private final OutcomeDumpStorageFactory storageFactory;
 
   public OutcomeService(OutcomeRepository outcomeRepository,
                         WorksheetRepository worksheetRepository,
                         AuthService authService,
                         ApplicationEventPublisher publisher,
-                        OutcomeDumpScriptStorage outcomeDumpScriptStorage) {
+                        OutcomeDumpStorageFactory storageFactory) {
     this.outcomeRepository = outcomeRepository;
     this.worksheetRepository = worksheetRepository;
     this.authService = authService;
     this.publisher = publisher;
-    this.fileStorage = outcomeDumpScriptStorage;
+    this.storageFactory = storageFactory;
   }
 
   public String generateOutcome(GenerateOutcomeRequest dto, Authentication auth) {
@@ -68,10 +69,15 @@ public class OutcomeService {
     if (!me.equals(outcome.getWorksheet().getUser())) {
       throw new RuntimeException("This outcome belongs to other user!");
     }
+
     var dump = outcome.getDumpFile();
     if (dump == null) {
       throw new RuntimeException("No dump file associated with this outcome!");
     }
-    return fileStorage.retrieve(dump.getSavedFileName());
+
+    return switch (outcome.getDumpMode()) {
+      case COMPRESSED_ARCHIVE -> storageFactory.getArchiveStorage().retrieve(dump.getSavedFileName());
+      case SCRIPT_FILE -> storageFactory.getScriptStorage().retrieve(dump.getSavedFileName());
+    };
   }
 }

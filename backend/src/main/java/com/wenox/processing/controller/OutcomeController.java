@@ -4,6 +4,7 @@ import com.wenox.processing.domain.Outcome;
 import com.wenox.processing.dto.GenerateOutcomeRequest;
 import com.wenox.processing.dto.OutcomeResponse;
 import com.wenox.processing.service.OutcomeService;
+import java.io.IOException;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -41,8 +42,7 @@ public class OutcomeController {
 
   @GetMapping("/{id}/")
   @PreAuthorize("hasAnyAuthority('VERIFIED_USER', 'ADMIN')")
-  public ResponseEntity<byte[]> downloadOutcomeDump(@PathVariable("id") String id, Authentication auth) {
-//    return ResponseEntity.ok(outcomeService.downloadDump(id, auth));
-    return null;
+  public ResponseEntity<byte[]> downloadOutcomeDump(@PathVariable("id") String id, Authentication auth) throws IOException {
+    return ResponseEntity.ok(outcomeService.downloadOutcomeDump(id, auth));
   }
 }
