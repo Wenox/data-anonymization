@@ -9,6 +9,7 @@ public class OutcomeResponse {
 
   private String id;
   private String worksheetId;
+  private String templateName;
   private OutcomeStatus outcomeStatus;
   private DumpMode dumpMode;
   private String dumpName;
@@ -19,6 +20,7 @@ public class OutcomeResponse {
     var dto = new OutcomeResponse();
     dto.setId(outcome.getId());
     dto.setWorksheetId(outcome.getWorksheet().getId());
+    dto.setTemplateName(outcome.getWorksheet().getTemplate().getTitle());
     dto.setOutcomeStatus(outcome.getOutcomeStatus());
     dto.setDumpMode(outcome.getDumpMode());
     dto.setDumpName(outcome.getDumpName());
@@ -41,6 +43,14 @@ public class OutcomeResponse {
 
   public void setWorksheetId(String worksheetId) {
     this.worksheetId = worksheetId;
+  }
+
+  public String getTemplateName() {
+    return templateName;
+  }
+
+  public void setTemplateName(String templateName) {
+    this.templateName = templateName;
   }
 
   public OutcomeStatus getOutcomeStatus() {

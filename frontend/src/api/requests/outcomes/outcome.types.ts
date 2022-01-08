@@ -13,6 +13,7 @@ export enum DumpMode {
 export interface OutcomeResponse {
   id: string;
   worksheetId: string;
+  templateName: string;
   outcomeStatus: string;
   dumpMode: DumpMode;
   dumpName: string;

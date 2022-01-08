@@ -1,6 +1,5 @@
 package com.wenox.processing.controller;
 
-import com.wenox.processing.domain.Outcome;
 import com.wenox.processing.dto.GenerateOutcomeRequest;
 import com.wenox.processing.dto.OutcomeResponse;
 import com.wenox.processing.service.OutcomeService;
