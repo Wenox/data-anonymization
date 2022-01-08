@@ -28,12 +28,17 @@ public class Outcome {
   @Enumerated(EnumType.STRING)
   private DumpMode dumpMode;
 
+  private String dumpName;
+
   private String mirrorDatabaseName;
 
-  private String scriptName;
+  private String anonymisationScriptName;
 
   @OneToOne
-  private FileEntity fileEntity;
+  private FileEntity anonymisationFile;
+
+  @OneToOne
+  private FileEntity dumpFile;
 
   private LocalDateTime processingStartDate;
 
@@ -75,20 +80,20 @@ public class Outcome {
     return mirrorDatabaseName;
   }
 
-  public String getScriptName() {
-    return scriptName;
+  public String getAnonymisationScriptName() {
+    return anonymisationScriptName;
   }
 
-  public FileEntity getFileEntity() {
-    return fileEntity;
+  public FileEntity getAnonymisationFile() {
+    return anonymisationFile;
   }
 
-  public void setFileEntity(FileEntity fileEntity) {
-    this.fileEntity = fileEntity;
+  public void setAnonymisationFile(FileEntity fileEntity) {
+    this.anonymisationFile = fileEntity;
   }
 
-  public void setScriptName(String scriptName) {
-    this.scriptName = scriptName;
+  public void setAnonymisationScriptName(String scriptName) {
+    this.anonymisationScriptName = scriptName;
   }
 
   public void setMirrorDatabaseName(String mirrorDatabaseName) {
@@ -109,6 +114,22 @@ public class Outcome {
 
   public LocalDateTime getProcessingEndDate() {
     return processingEndDate;
+  }
+
+  public String getDumpName() {
+    return dumpName;
+  }
+
+  public FileEntity getDumpFile() {
+    return dumpFile;
+  }
+
+  public void setDumpFile(FileEntity dumpFile) {
+    this.dumpFile = dumpFile;
+  }
+
+  public void setDumpName(String dumpName) {
+    this.dumpName = dumpName;
   }
 
   public void setProcessingEndDate(LocalDateTime processingEndDate) {

@@ -29,12 +29,14 @@ interface GenerateOutcomeDialogProps {
 
 interface IFormInputs {
   worksheetId: string;
-  scriptName: string;
+  anonymisationScriptName: string;
+  dumpName: string;
   dumpMode: DumpMode;
 }
 
 const schema = yup.object().shape({
-  scriptName: yup.string().required('Script name is required'),
+  anonymisationScriptName: yup.string().required('Script name is required'),
+  dumpName: yup.string().required('Script name is required'),
 });
 
 const GenerateOutcomeDialog: FC<GenerateOutcomeDialogProps> = ({ open, worksheetId, handleClose }) => {
@@ -97,21 +99,40 @@ const GenerateOutcomeDialog: FC<GenerateOutcomeDialogProps> = ({ open, worksheet
         <DialogContent>
           <p>By confirming you will start to generate a new outcome. This process may take a while.</p>
           <Controller
-            name="scriptName"
+            name="anonymisationScriptName"
             control={control}
             defaultValue=""
             render={({ field }) => (
               <TextField
                 {...field}
                 variant="outlined"
-                error={!!errors.scriptName}
-                helperText={errors.scriptName ? errors.scriptName?.message : ''}
+                error={!!errors.anonymisationScriptName}
+                helperText={errors.anonymisationScriptName ? errors.anonymisationScriptName?.message : ''}
                 margin="normal"
                 required
                 fullWidth
-                name="scriptName"
-                label="Script name"
-                id="scriptName"
+                name="anonymisationScriptName"
+                label="Anonymisation script name"
+                id="anonymisationScriptName"
+              />
+            )}
+          />
+          <Controller
+            name="dumpName"
+            control={control}
+            defaultValue=""
+            render={({ field }) => (
+              <TextField
+                {...field}
+                variant="outlined"
+                error={!!errors.dumpName}
+                helperText={errors.dumpName ? errors.dumpName?.message : ''}
+                margin="normal"
+                required
+                fullWidth
+                name="dumpName"
+                label="Dump name"
+                id="dumpName"
               />
             )}
           />
