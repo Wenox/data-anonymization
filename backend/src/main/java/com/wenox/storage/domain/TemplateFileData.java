@@ -1,6 +1,5 @@
-package com.wenox.storage.service;
+package com.wenox.storage.domain;
 
-import com.wenox.storage.domain.FileData;
 import com.wenox.users.domain.FileType;
 
 public class TemplateFileData extends FileData {

@@ -1,6 +1,6 @@
 package com.wenox.uploading.template.event;
 
-import com.wenox.storage.service.TemplateFileData;
+import com.wenox.storage.domain.TemplateFileData;
 import com.wenox.uploading.storage.event.TemplateFileStoredFailureEvent;
 import com.wenox.uploading.storage.event.TemplateFileStoredSuccessEvent;
 import com.wenox.uploading.template.service.FileUploader;

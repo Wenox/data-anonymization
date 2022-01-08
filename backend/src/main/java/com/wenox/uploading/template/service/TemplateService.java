@@ -9,7 +9,7 @@ import com.wenox.uploading.template.repository.TemplateRepository;
 import com.wenox.users.service.AuthService;
 import com.wenox.uploading.template.event.TemplateCreatedEvent;
 import com.wenox.uploading.extractor.domain.metadata.TemplateMetadata;
-import com.wenox.storage.service.TemplateDumpStorage;
+import com.wenox.storage.service.template.TemplateDumpStorage;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;

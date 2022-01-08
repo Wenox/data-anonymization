@@ -7,7 +7,7 @@ import com.wenox.processing.domain.events.OutcomeGenerationStartedEvent;
 import com.wenox.processing.dto.GenerateOutcomeRequest;
 import com.wenox.processing.repository.OutcomeRepository;
 import com.wenox.storage.service.FileStorage;
-import com.wenox.storage.service.OutcomeDumpScriptStorage;
+import com.wenox.storage.service.outcome.OutcomeDumpScriptStorage;
 import com.wenox.users.service.AuthService;
 import java.io.IOException;
 import java.time.LocalDateTime;

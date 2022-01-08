@@ -1,5 +1,6 @@
-package com.wenox.storage.service;
+package com.wenox.storage.service.outcome;
 
+import com.wenox.storage.service.LocalFileStorage;
 import java.nio.file.Path;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
