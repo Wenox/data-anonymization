@@ -5,14 +5,14 @@ import java.nio.file.Path;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ScriptPopulatedEvent {
+public class AnonymisationScriptPopulatedEvent {
 
   private final Outcome outcome;
   private final Path scriptPathLocation;
 
   private static final Logger log = LoggerFactory.getLogger(OutcomeGenerationStartedEvent.class);
 
-  public ScriptPopulatedEvent(Outcome outcome, Path scriptPathLocation) {
+  public AnonymisationScriptPopulatedEvent(Outcome outcome, Path scriptPathLocation) {
     this.outcome = outcome;
     this.scriptPathLocation = scriptPathLocation;
     log.info("{} for outcome {}.", this.getClass().getSimpleName(), outcome.getId());

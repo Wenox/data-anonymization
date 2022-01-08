@@ -4,7 +4,7 @@ import com.wenox.infrastructure.service.ProcessExecutorFactory;
 import com.wenox.processing.domain.Outcome;
 import com.wenox.processing.domain.OutcomeStatus;
 import com.wenox.processing.domain.events.DatabaseAnonymisedEvent;
-import com.wenox.processing.domain.events.ScriptPopulatedEvent;
+import com.wenox.processing.domain.events.AnonymisationScriptPopulatedEvent;
 import com.wenox.processing.repository.OutcomeRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,12 +14,12 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ScriptPopulatedListener {
+public class AnonymisationScriptPopulatedListener {
 
   private final OutcomeRepository outcomeRepository;
   private final ApplicationEventPublisher applicationEventPublisher;
 
-  private static final Logger log = LoggerFactory.getLogger(ScriptPopulatedListener.class);
+  private static final Logger log = LoggerFactory.getLogger(AnonymisationScriptPopulatedListener.class);
 
   @Value("${POSTGRES_IP_ADDRESS:localhost}")
   private String postgresIpAddress;
@@ -30,18 +30,18 @@ public class ScriptPopulatedListener {
   @Value("${POSTGRES_HOST_PORT:5007}")
   private String postgresHostPort;
 
-  public ScriptPopulatedListener(OutcomeRepository outcomeRepository,
-                                 ApplicationEventPublisher applicationEventPublisher) {
+  public AnonymisationScriptPopulatedListener(OutcomeRepository outcomeRepository,
+                                              ApplicationEventPublisher applicationEventPublisher) {
     this.outcomeRepository = outcomeRepository;
     this.applicationEventPublisher = applicationEventPublisher;
   }
 
   @EventListener
-  public void onScriptPopulated(ScriptPopulatedEvent event) {
+  public void onScriptPopulated(AnonymisationScriptPopulatedEvent event) {
 
     Outcome outcome = event.getOutcome();
 
-    log.info("Executing script {} into {} using psql.", event.getScriptPathLocation().toString(),
+    log.info("Executing anonymisation script {} into {} using psql.", event.getScriptPathLocation().toString(),
         outcome.getMirrorDatabaseName());
     try {
       if (isRunningOnCloud) {
@@ -65,7 +65,7 @@ public class ScriptPopulatedListener {
         ).execute();
       }
     } catch (Exception ex) {
-      log.error("Failed to execute script {} for database {}.", event.getScriptPathLocation().toString(),
+      log.error("Failed to execute anonymisation script {} for database {}.", event.getScriptPathLocation().toString(),
           outcome.getMirrorDatabaseName());
       ex.printStackTrace();
       outcome.setOutcomeStatus(OutcomeStatus.SCRIPT_EXECUTION_FAILURE);
@@ -73,7 +73,7 @@ public class ScriptPopulatedListener {
       return;
     }
 
-    log.info("Successfully executed script {} for database {}.", event.getScriptPathLocation().toString(),
+    log.info("Successfully executed anonymisation script {} for database {}.", event.getScriptPathLocation().toString(),
         outcome.getMirrorDatabaseName());
     outcome.setOutcomeStatus(OutcomeStatus.SCRIPT_EXECUTION_SUCCESS);
     outcomeRepository.save(outcome);

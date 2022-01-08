@@ -35,7 +35,10 @@ public class Outcome {
   private String anonymisationScriptName;
 
   @OneToOne
-  private FileEntity fileEntity;
+  private FileEntity anonymisationFile;
+
+  @OneToOne
+  private FileEntity dumpFile;
 
   private LocalDateTime processingStartDate;
 
@@ -81,12 +84,12 @@ public class Outcome {
     return anonymisationScriptName;
   }
 
-  public FileEntity getFileEntity() {
-    return fileEntity;
+  public FileEntity getAnonymisationFile() {
+    return anonymisationFile;
   }
 
-  public void setFileEntity(FileEntity fileEntity) {
-    this.fileEntity = fileEntity;
+  public void setAnonymisationFile(FileEntity fileEntity) {
+    this.anonymisationFile = fileEntity;
   }
 
   public void setAnonymisationScriptName(String scriptName) {
@@ -115,6 +118,14 @@ public class Outcome {
 
   public String getDumpName() {
     return dumpName;
+  }
+
+  public FileEntity getDumpFile() {
+    return dumpFile;
+  }
+
+  public void setDumpFile(FileEntity dumpFile) {
+    this.dumpFile = dumpFile;
   }
 
   public void setDumpName(String dumpName) {

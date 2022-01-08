@@ -7,7 +7,7 @@ import com.wenox.infrastructure.service.DataSourceFactory;
 import com.wenox.processing.domain.Outcome;
 import com.wenox.processing.domain.OutcomeStatus;
 import com.wenox.processing.domain.events.ScriptCreatedEvent;
-import com.wenox.processing.domain.events.ScriptPopulatedEvent;
+import com.wenox.processing.domain.events.AnonymisationScriptPopulatedEvent;
 import com.wenox.processing.repository.OutcomeRepository;
 import com.wenox.processing.service.QueryExecutor;
 import com.wenox.processing.service.operations.SuppressionService;
@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Component
-public class ScriptCreatedListener {
+public class AnonymisationScriptCreatedListener {
 
   @Value("${processing.anonymisations.scripts.path}")
   String anonymisationsScriptsPath;
@@ -31,9 +31,9 @@ public class ScriptCreatedListener {
   private final OutcomeRepository outcomeRepository;
   private final ApplicationEventPublisher applicationEventPublisher;
 
-  public ScriptCreatedListener(DataSourceFactory dataSourceFactory,
-                               OutcomeRepository outcomeRepository,
-                               ApplicationEventPublisher applicationEventPublisher) {
+  public AnonymisationScriptCreatedListener(DataSourceFactory dataSourceFactory,
+                                            OutcomeRepository outcomeRepository,
+                                            ApplicationEventPublisher applicationEventPublisher) {
     this.dataSourceFactory = dataSourceFactory;
     this.outcomeRepository = outcomeRepository;
     this.applicationEventPublisher = applicationEventPublisher;
@@ -56,7 +56,7 @@ public class ScriptCreatedListener {
     List<ColumnOperations> listOfColumnOperations = worksheet.getListOfColumnOperations();
     System.out.println("Lost of column operations - affected columns size: " + listOfColumnOperations.size());
 
-    var fileEntity = outcome.getFileEntity();
+    var fileEntity = outcome.getAnonymisationFile();
     var fileLocation = Path.of(anonymisationsScriptsPath, fileEntity.getSavedFileName());
 
     for (ColumnOperations columnOperations : listOfColumnOperations) {
@@ -109,6 +109,6 @@ public class ScriptCreatedListener {
     outcome.setOutcomeStatus(OutcomeStatus.SCRIPT_POPULATION_SUCCESS);
     outcomeRepository.save(outcome);
 
-    applicationEventPublisher.publishEvent(new ScriptPopulatedEvent(outcome, fileLocation));
+    applicationEventPublisher.publishEvent(new AnonymisationScriptPopulatedEvent(outcome, fileLocation));
   }
 }

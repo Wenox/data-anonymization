@@ -52,17 +52,17 @@ public class MirrorReadyListener {
 
     String savedFileName = fileNameGenerator.get();
     try {
-      log.info("Creating script {} as {}.", outcome.getAnonymisationScriptName(), savedFileName);
+      log.info("Initialized empty anonymisation script {} as {}.", outcome.getAnonymisationScriptName(), savedFileName);
       Files.createDirectories(Path.of(anonymisationsScriptsPath));
       Files.writeString(Path.of(anonymisationsScriptsPath, savedFileName), "-- Generated on " + FormatDate.toString(LocalDateTime.now()) + "\n\n");
 
-      FileEntity file = new FileEntity();
-      file.setOriginalFileName(outcome.getAnonymisationScriptName());
-      file.setSavedFileName(savedFileName);
-      file.setType(outcome.getTemplateType());
+      FileEntity anonymisationFile = new FileEntity();
+      anonymisationFile.setOriginalFileName(outcome.getAnonymisationScriptName());
+      anonymisationFile.setSavedFileName(savedFileName);
+      anonymisationFile.setType(outcome.getTemplateType());
 
-      fileRepository.save(file);
-      outcome.setFileEntity(file);
+      fileRepository.save(anonymisationFile);
+      outcome.setAnonymisationFile(anonymisationFile);
       outcome.setOutcomeStatus(OutcomeStatus.SCRIPT_CREATION_SUCCESS);
       outcomeRepository.save(outcome);
     } catch (IOException ex) {
