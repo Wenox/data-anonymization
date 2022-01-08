@@ -1,5 +1,6 @@
 package com.wenox.processing.dto;
 
+import com.wenox.processing.domain.DumpMode;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
