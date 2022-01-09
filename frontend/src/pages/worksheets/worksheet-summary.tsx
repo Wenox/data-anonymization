@@ -40,9 +40,23 @@ import { ROUTES } from '../../constants/routes';
 import GenerateOutcomeDialog from '../../components/outcome/generate-outcome-dialog';
 import { SHOW_WORKSHEET_SUMMARY_TIMEOUT } from '../../constants/timeouts';
 
+interface ExpandedAccordions {
+  template: boolean;
+  tables: boolean;
+  operations: boolean;
+  outcomes: boolean;
+}
+
 const WorksheetSummary: FC = () => {
   const [searchParams] = useSearchParams();
   const id: string = searchParams.get('worksheet_id') ?? '';
+
+  const [expandedAccordions, setExpandedAccordions] = useState<ExpandedAccordions>({
+    template: true,
+    tables: true,
+    operations: true,
+    outcomes: true,
+  });
 
   const [isLoading, setIsLoading] = useState(true);
   const [summary, setSummary] = useState<WorksheetSummaryResponse>();
@@ -230,7 +244,13 @@ const WorksheetSummary: FC = () => {
           {/*Template*/}
 
           <Accordion
-            expanded
+            expanded={expandedAccordions.template}
+            onChange={() =>
+              setExpandedAccordions((prevState) => ({
+                ...prevState,
+                template: !prevState.template,
+              }))
+            }
             sx={{
               backgroundColor: '#f9f9f9',
               border: `1px dashed #c4c4c4`,
@@ -380,7 +400,13 @@ const WorksheetSummary: FC = () => {
           {/*Tables*/}
 
           <Accordion
-            expanded
+            expanded={expandedAccordions.tables}
+            onChange={() =>
+              setExpandedAccordions((prevState) => ({
+                ...prevState,
+                tables: !prevState.tables,
+              }))
+            }
             sx={{
               backgroundColor: '#f9f9f9',
               border: `1px dashed #c4c4c4`,
@@ -417,7 +443,13 @@ const WorksheetSummary: FC = () => {
           {/*Operations*/}
 
           <Accordion
-            expanded
+            expanded={expandedAccordions.operations}
+            onChange={() =>
+              setExpandedAccordions((prevState) => ({
+                ...prevState,
+                operations: !prevState.operations,
+              }))
+            }
             sx={{
               backgroundColor: '#f9f9f9',
               border: `1px dashed #c4c4c4`,
@@ -454,7 +486,13 @@ const WorksheetSummary: FC = () => {
           {/*Outcomes*/}
 
           <Accordion
-            expanded
+            expanded={expandedAccordions.outcomes}
+            onChange={() =>
+              setExpandedAccordions((prevState) => ({
+                ...prevState,
+                outcomes: !prevState.outcomes,
+              }))
+            }
             sx={{
               backgroundColor: '#f9f9f9',
               border: `1px dashed #c4c4c4`,
