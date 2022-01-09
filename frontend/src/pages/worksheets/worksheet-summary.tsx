@@ -21,7 +21,6 @@ import {
   ListAlt,
   SnippetFolder,
   Storage as StorageIcon,
-  Upload,
 } from '@mui/icons-material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { getMyWorksheetSummary } from '../../api/requests/worksheets/worksheet.requests';
@@ -208,6 +207,7 @@ const WorksheetSummary: FC = () => {
       {/*Template*/}
 
       <Accordion
+        expanded
         sx={{
           backgroundColor: '#f9f9f9',
           border: `1px dashed #c4c4c4`,
@@ -355,6 +355,7 @@ const WorksheetSummary: FC = () => {
       {/*Tables*/}
 
       <Accordion
+        expanded
         sx={{
           backgroundColor: '#f9f9f9',
           border: `1px dashed #c4c4c4`,
@@ -391,6 +392,7 @@ const WorksheetSummary: FC = () => {
       {/*Operations*/}
 
       <Accordion
+        expanded
         sx={{
           backgroundColor: '#f9f9f9',
           border: `1px dashed #c4c4c4`,
@@ -427,6 +429,7 @@ const WorksheetSummary: FC = () => {
       {/*Outcomes*/}
 
       <Accordion
+        expanded
         sx={{
           backgroundColor: '#f9f9f9',
           border: `1px dashed #c4c4c4`,
