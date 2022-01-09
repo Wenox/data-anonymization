@@ -1,7 +1,10 @@
 package com.wenox.anonymisation.dto.columnoperations;
 
-public class AddShuffleRequest extends AddOperationRequest {
+import javax.validation.constraints.NotNull;
 
+public class AddColumnShuffleRequest extends AddOperationRequest {
+
+  @NotNull
   private boolean withRepetitions;
 
   public boolean isWithRepetitions() {

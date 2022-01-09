@@ -1,6 +1,7 @@
 package com.wenox.anonymisation.controller;
 
-import com.wenox.anonymisation.dto.columnoperations.AddShuffleRequest;
+import com.wenox.anonymisation.dto.columnoperations.AddColumnShuffleRequest;
+import com.wenox.anonymisation.dto.columnoperations.AddRowShuffleRequest;
 import com.wenox.anonymisation.dto.columnoperations.AddSuppressionRequest;
 import com.wenox.anonymisation.service.ColumnOperationsService;
 import com.wenox.users.dto.ApiResponse;
@@ -31,10 +32,18 @@ public class ColumnOperationsController {
   }
 
   @PreAuthorize("hasAnyAuthority('VERIFIED_USER', 'ADMIN')")
-  @PutMapping("/api/v1/worksheet/{id}/column-operations/add-shuffle")
-  public ResponseEntity<ApiResponse> addShuffleOperationForColumn(@PathVariable("id") String id,
-                                                                  @Valid @RequestBody AddShuffleRequest dto,
-                                                                  Authentication auth) {
-    return ResponseEntity.ok(columnOperationsService.addShuffleOperationForColumn(id, dto, auth));
+  @PutMapping("/api/v1/worksheet/{id}/column-operations/add-column-shuffle")
+  public ResponseEntity<ApiResponse> addColumnShuffleOperationForColumn(@PathVariable("id") String id,
+                                                                        @Valid @RequestBody AddColumnShuffleRequest dto,
+                                                                        Authentication auth) {
+    return ResponseEntity.ok(columnOperationsService.addColumnShuffleOperationForColumn(id, dto, auth));
+  }
+
+  @PreAuthorize("hasAnyAuthority('VERIFIED_USER', 'ADMIN')")
+  @PutMapping("/api/v1/worksheet/{id}/column-operations/add-row-shuffle")
+  public ResponseEntity<ApiResponse> addRowShuffleOperationForColumn(@PathVariable("id") String id,
+                                                                     @Valid @RequestBody AddRowShuffleRequest dto,
+                                                                     Authentication auth) {
+    return ResponseEntity.ok(columnOperationsService.addRowShuffleOperationForColumn(id, dto, auth));
   }
 }

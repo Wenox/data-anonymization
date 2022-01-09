@@ -1,11 +1,15 @@
 import axios from 'axios';
-import { AddShuffle, AddSuppression } from './column-operations.types';
+import { AddColumnShuffle, AddRowShuffle, AddSuppression } from './column-operations.types';
 import { ApiResponse } from '../shared.types';
 
 export const putAddSuppressionOperation = (worksheetId: string, dto: AddSuppression) => {
   return axios.put<ApiResponse>(`/api/v1/worksheet/${worksheetId}/column-operations/add-suppression`, dto);
 };
 
-export const putAddShuffleOperation = (worksheetId: string, dto: AddShuffle) => {
-  return axios.put<ApiResponse>(`/api/v1/worksheet/${worksheetId}/column-operations/add-shuffle`, dto);
+export const putAddColumnShuffleOperation = (worksheetId: string, dto: AddColumnShuffle) => {
+  return axios.put<ApiResponse>(`/api/v1/worksheet/${worksheetId}/column-operations/add-column-shuffle`, dto);
+};
+
+export const putAddRowShuffleOperation = (worksheetId: string, dto: AddRowShuffle) => {
+  return axios.put<ApiResponse>(`/api/v1/worksheet/${worksheetId}/column-operations/add-row-shuffle`, dto);
 };

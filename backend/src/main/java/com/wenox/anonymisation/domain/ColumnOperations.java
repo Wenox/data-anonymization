@@ -24,7 +24,10 @@ public class ColumnOperations {
   private Suppression suppression;
 
   @OneToOne
-  private Shuffle shuffle;
+  private ColumnShuffle columnShuffle;
+
+  @OneToOne
+  private RowShuffle rowShuffle;
 
   private String tableName;
 
@@ -50,6 +53,14 @@ public class ColumnOperations {
 
   public Suppression getSuppression() {
     return suppression;
+  }
+
+  public RowShuffle getRowShuffle() {
+    return rowShuffle;
+  }
+
+  public void setRowShuffle(RowShuffle rowShuffle) {
+    this.rowShuffle = rowShuffle;
   }
 
   public void setSuppression(Suppression suppression) {
@@ -92,12 +103,12 @@ public class ColumnOperations {
     this.primaryKeyColumnType = primaryKeyColumnType;
   }
 
-  public Shuffle getShuffle() {
-    return shuffle;
+  public ColumnShuffle getColumnShuffle() {
+    return columnShuffle;
   }
 
-  public void setShuffle(Shuffle shuffle) {
-    this.shuffle = shuffle;
+  public void setColumnShuffle(ColumnShuffle columnShuffle) {
+    this.columnShuffle = columnShuffle;
   }
 
   public String getPrimaryKeyColumnName() {

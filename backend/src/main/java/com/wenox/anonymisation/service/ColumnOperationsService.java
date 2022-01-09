@@ -1,12 +1,15 @@
 package com.wenox.anonymisation.service;
 
 import com.wenox.anonymisation.domain.ColumnOperations;
-import com.wenox.anonymisation.domain.Shuffle;
+import com.wenox.anonymisation.domain.ColumnShuffle;
+import com.wenox.anonymisation.domain.RowShuffle;
 import com.wenox.anonymisation.domain.Suppression;
-import com.wenox.anonymisation.dto.columnoperations.AddShuffleRequest;
+import com.wenox.anonymisation.dto.columnoperations.AddColumnShuffleRequest;
+import com.wenox.anonymisation.dto.columnoperations.AddRowShuffleRequest;
 import com.wenox.anonymisation.dto.columnoperations.AddSuppressionRequest;
 import com.wenox.anonymisation.repository.ColumnOperationsRepository;
-import com.wenox.anonymisation.repository.ShuffleRepository;
+import com.wenox.anonymisation.repository.ColumnShuffleRepository;
+import com.wenox.anonymisation.repository.RowShuffleRepository;
 import com.wenox.anonymisation.repository.SuppressionRepository;
 import com.wenox.anonymisation.repository.WorksheetRepository;
 import com.wenox.users.dto.ApiResponse;
@@ -22,18 +25,21 @@ public class ColumnOperationsService {
   private final WorksheetRepository worksheetRepository;
   private final ColumnOperationsRepository columnOperationsRepository;
   private final SuppressionRepository suppressionRepository;
-  private final ShuffleRepository shuffleRepository;
+  private final ColumnShuffleRepository columnShuffleRepository;
+  private final RowShuffleRepository rowShuffleRepository;
 
   public ColumnOperationsService(AuthService authService,
                                  WorksheetRepository worksheetRepository,
                                  ColumnOperationsRepository columnOperationsRepository,
                                  SuppressionRepository suppressionRepository,
-                                 ShuffleRepository shuffleRepository) {
+                                 ColumnShuffleRepository columnShuffleRepository,
+                                 RowShuffleRepository rowShuffleRepository) {
     this.authService = authService;
     this.worksheetRepository = worksheetRepository;
     this.columnOperationsRepository = columnOperationsRepository;
     this.suppressionRepository = suppressionRepository;
-    this.shuffleRepository = shuffleRepository;
+    this.columnShuffleRepository = columnShuffleRepository;
+    this.rowShuffleRepository = rowShuffleRepository;
   }
 
   @Transactional
@@ -73,7 +79,7 @@ public class ColumnOperationsService {
   }
 
   @Transactional
-  public ApiResponse addShuffleOperationForColumn(String id, AddShuffleRequest dto, Authentication auth) {
+  public ApiResponse addColumnShuffleOperationForColumn(String id, AddColumnShuffleRequest dto, Authentication auth) {
     final var me = authService.getMe(auth);
     final var worksheet = worksheetRepository.findById(id).orElseThrow();
     if (!me.getId().equals(worksheet.getUser().getId())) {
@@ -95,21 +101,61 @@ public class ColumnOperationsService {
                 }
             );
 
-    if (columnOperations.getShuffle() != null) {
-      return ApiResponse.ofError("This column already uses shuffle.");
+    if (columnOperations.getColumnShuffle() != null) {
+      return ApiResponse.ofError("This column already uses column shuffle.");
     }
 
     if (columnOperations.getSuppression() != null) {
-      return ApiResponse.ofError("This column uses suppression and therefore cannot use shuffle.");
+      return ApiResponse.ofError("This column uses suppression and therefore cannot use column shuffle.");
     }
 
-    Shuffle shuffle = new Shuffle();
-    shuffle.setWithRepetitions(dto.isWithRepetitions());
-    columnOperations.setShuffle(shuffle);
+    ColumnShuffle columnShuffle = new ColumnShuffle();
+    columnShuffle.setWithRepetitions(dto.isWithRepetitions());
+    columnOperations.setColumnShuffle(columnShuffle);
     columnOperationsRepository.save(columnOperations);
-    shuffleRepository.save(shuffle);
+    columnShuffleRepository.save(columnShuffle);
 
-    return ApiResponse.ofSuccess("Shuffle added successfully.");
+    return ApiResponse.ofSuccess("Column shuffle added successfully.");
   }
 
+  @Transactional
+  public ApiResponse addRowShuffleOperationForColumn(String id, AddRowShuffleRequest dto, Authentication auth) {
+    final var me = authService.getMe(auth);
+    final var worksheet = worksheetRepository.findById(id).orElseThrow();
+    if (!me.getId().equals(worksheet.getUser().getId())) {
+      throw new RuntimeException("The worksheet does not belong to this user.");
+    }
+
+    var columnOperations =
+        columnOperationsRepository.findOperationsForColumn(worksheet, dto.getTableName(), dto.getColumnName())
+            .orElseGet(
+                () -> {
+                  var newColumnOperations = new ColumnOperations();
+                  newColumnOperations.setWorksheet(worksheet);
+                  newColumnOperations.setTableName(dto.getTableName());
+                  newColumnOperations.setColumnName(dto.getColumnName());
+                  newColumnOperations.setColumnType(dto.getColumnType());
+                  newColumnOperations.setPrimaryKeyColumnName(dto.getPrimaryKeyColumnName());
+                  newColumnOperations.setPrimaryKeyColumnType(dto.getPrimaryKeyColumnType());
+                  return newColumnOperations;
+                }
+            );
+
+    if (columnOperations.getRowShuffle() != null) {
+      return ApiResponse.ofError("This column already uses row shuffle.");
+    }
+
+    if (columnOperations.getSuppression() != null) {
+      return ApiResponse.ofError("This column uses suppression and therefore cannot use row shuffle.");
+    }
+
+    RowShuffle rowShuffle = new RowShuffle();
+    rowShuffle.setLetterMode(dto.getLetterMode());
+    rowShuffle.setWithRepetitions(dto.isWithRepetitions());
+    columnOperations.setRowShuffle(rowShuffle);
+    columnOperationsRepository.save(columnOperations);
+    rowShuffleRepository.save(rowShuffle);
+
+    return ApiResponse.ofSuccess("Row shuffle added successfully.");
+  }
 }
