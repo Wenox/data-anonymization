@@ -44,8 +44,8 @@ public class Query {
   public String createAlterColumnTypeToTextQuery() {
     return String.format(
         """
+        
         ALTER TABLE %s ALTER COLUMN %s TYPE TEXT USING '';
-                        
         """, tableName, columnName);
   }
 
