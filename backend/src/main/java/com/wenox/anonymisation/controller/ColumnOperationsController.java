@@ -3,6 +3,7 @@ package com.wenox.anonymisation.controller;
 import com.wenox.anonymisation.dto.columnoperations.AddColumnShuffleRequest;
 import com.wenox.anonymisation.dto.columnoperations.AddPatternMaskingRequest;
 import com.wenox.anonymisation.dto.columnoperations.AddRowShuffleRequest;
+import com.wenox.anonymisation.dto.columnoperations.AddShorteningRequest;
 import com.wenox.anonymisation.dto.columnoperations.AddSuppressionRequest;
 import com.wenox.anonymisation.service.ColumnOperationsService;
 import com.wenox.users.dto.ApiResponse;
@@ -51,8 +52,17 @@ public class ColumnOperationsController {
   @PreAuthorize("hasAnyAuthority('VERIFIED_USER', 'ADMIN')")
   @PutMapping("/api/v1/worksheet/{id}/column-operations/add-pattern-masking")
   public ResponseEntity<ApiResponse> addPatternMaskingOperationForColumn(@PathVariable("id") String id,
-                                                                         @Valid @RequestBody AddPatternMaskingRequest dto,
+                                                                         @Valid @RequestBody
+                                                                             AddPatternMaskingRequest dto,
                                                                          Authentication auth) {
     return ResponseEntity.ok(columnOperationsService.addPatternMaskingOperationForColumn(id, dto, auth));
+  }
+
+  @PreAuthorize("hasAnyAuthority('VERIFIED_USER', 'ADMIN')")
+  @PutMapping("/api/v1/worksheet/{id}/column-operations/add-shortening")
+  public ResponseEntity<ApiResponse> addShorteningOperationForColumn(@PathVariable("id") String id,
+                                                                     @Valid @RequestBody AddShorteningRequest dto,
+                                                                     Authentication auth) {
+    return ResponseEntity.ok(columnOperationsService.addShorteningOperationForColumn(id, dto, auth));
   }
 }

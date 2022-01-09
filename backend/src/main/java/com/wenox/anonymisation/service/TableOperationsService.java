@@ -106,6 +106,16 @@ public class TableOperationsService {
               columnOperationDto.setId(patternMasking.getId());
               listOfColumnOperationDto.add(columnOperationDto);
             });
+        Optional
+            .ofNullable(columnOperations.getShortening())
+            .ifPresent(shortening -> {
+              ColumnOperationDto columnOperationDto = new ColumnOperationDto();
+              columnOperationDto.setOperationName("Shortening");
+              columnOperationDto.setColumnName(column.getColumnName());
+              columnOperationDto.setTableName(tableName);
+              columnOperationDto.setId(shortening.getId());
+              listOfColumnOperationDto.add(columnOperationDto);
+            });
 
         item.setListOfColumnOperation(listOfColumnOperationDto);
       }

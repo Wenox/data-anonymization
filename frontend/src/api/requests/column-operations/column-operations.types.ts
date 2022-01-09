@@ -29,3 +29,7 @@ export interface AddPatternMasking extends AddOperation {
   maskingCharacter: string;
   discardExcessiveCharacters: boolean;
 }
+
+export interface AddShorteningRequest extends AddOperation {
+  length: number;
+}

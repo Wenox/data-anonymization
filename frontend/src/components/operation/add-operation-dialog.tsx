@@ -8,7 +8,6 @@ import {
   FormControlLabel,
   FormLabel,
   Grid,
-  IconButton,
   MenuItem,
   Radio,
   RadioGroup,
@@ -24,6 +23,7 @@ import {
   putAddColumnShuffleOperation,
   putAddPatternMaskingOperation,
   putAddRowShuffleOperation,
+  putAddShorteningOperation,
   putAddSuppressionOperation,
 } from '../../api/requests/column-operations/column-operations.requests';
 import { ColumnOperations } from '../../api/requests/table-operations/table-operations.types';
@@ -60,6 +60,7 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
   const [pattern, setPattern] = useState('');
   const [maskingCharacter, setMaskingCharacter] = useState('#');
   const [discardExcessiveCharacters, setDiscardExcessiveCharacters] = useState(false);
+  const [length, setLength] = useState<number>(4);
 
   return (
     <Dialog fullWidth maxWidth="sm" open={open} onClose={handleCancel} TransitionComponent={Transition}>
@@ -72,6 +73,7 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
           <MenuItem value={'ColumnShuffle'}>Column shuffle</MenuItem>
           <MenuItem value={'RowShuffle'}>Row shuffle</MenuItem>
           <MenuItem value={'PatternMasking'}>Pattern masking</MenuItem>
+          <MenuItem value={'Shortening'}>Shortening</MenuItem>
         </Select>
 
         <Divider sx={{ mt: 2, mb: 2 }} />
@@ -175,6 +177,21 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
                 />
               </Grid>
             </Grid>
+          </>
+        )}
+
+        {selectedOperation == 'Shortening' && (
+          <>
+            <TextField
+              label="Length"
+              onChange={(e) => setLength(Number(e.target.value))}
+              value={length}
+              variant="outlined"
+              fullWidth
+              type="number"
+              InputProps={{ inputProps: { min: 1 } }}
+              sx={{ backgroundColor: '#fff' }}
+            />
           </>
         )}
       </DialogContent>
@@ -327,9 +344,54 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
                   columnType: columnOperations.column.type,
                   primaryKeyColumnName: primaryKeyColumnName,
                   primaryKeyColumnType: primaryKeyColumnType,
-                  pattern: 'XULCAO',
-                  maskingCharacter: '#',
-                  discardExcessiveCharacters: false,
+                  pattern: pattern,
+                  maskingCharacter: maskingCharacter,
+                  discardExcessiveCharacters: discardExcessiveCharacters,
+                })
+                  .then((response) => {
+                    if (response.data.success) {
+                      toast.success(response.data.message, {
+                        position: 'top-right',
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                      });
+                      handleAddSuccess();
+                    } else {
+                      toast.error(response.data.message, {
+                        position: 'top-right',
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                      });
+                    }
+                  })
+                  .catch((err) =>
+                    toast.error('Failed to add operation: ' + err.data, {
+                      position: 'top-right',
+                      autoClose: 5000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                    }),
+                  );
+                break;
+              case 'Shortening':
+                putAddShorteningOperation(worksheetId, {
+                  tableName: tableName,
+                  columnName: columnOperations.column.columnName,
+                  columnType: columnOperations.column.type,
+                  primaryKeyColumnName: primaryKeyColumnName,
+                  primaryKeyColumnType: primaryKeyColumnType,
+                  length: length,
                 })
                   .then((response) => {
                     if (response.data.success) {
