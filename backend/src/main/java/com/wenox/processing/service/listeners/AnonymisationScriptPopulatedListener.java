@@ -41,8 +41,7 @@ public class AnonymisationScriptPopulatedListener {
 
     Outcome outcome = event.getOutcome();
 
-    log.info("Executing anonymisation script {} into {} using psql.", event.getScriptPathLocation().toString(),
-        outcome.getMirrorDatabaseName());
+    log.info("Executing anonymisation script {} into {} using psql.", event.getScriptPathLocation().toString(), outcome.getMirrorDatabaseName());
     try {
       if (isRunningOnCloud) {
         ProcessExecutorFactory.newProcess(
@@ -51,6 +50,7 @@ public class AnonymisationScriptPopulatedListener {
             "-U", "postgres", "--no-password",
             "-d", outcome.getMirrorDatabaseName(),
             "--echo-all",
+            "-v", "ON_ERROR_STOP=1",
             "-f", event.getScriptPathLocation().toString()
         ).execute();
       } else {
@@ -60,6 +60,7 @@ public class AnonymisationScriptPopulatedListener {
             "-p", postgresHostPort,
             "-U", "postgres", "--no-password",
             "-d", outcome.getMirrorDatabaseName(),
+            "-v", "ON_ERROR_STOP=1",
             "--echo-all",
             "-f", event.getScriptPathLocation().toString()
         ).execute();

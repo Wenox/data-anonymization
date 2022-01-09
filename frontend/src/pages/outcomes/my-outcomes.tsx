@@ -23,7 +23,7 @@ const MyOutcomes = () => {
       renderCell: ({ row }) => (
         <>
           <IconButton onClick={() => handleDownloadAnonymisationScript(row.id, row.anonymisationScriptName)}>
-            <CloudDownload sx={{ fontSize: '260%', color: '#7f00b5' }} />
+            <CloudDownload sx={{ fontSize: '240%', color: '#7f00b5' }} />
           </IconButton>
           <h2>&nbsp;{row.anonymisationScriptName}</h2>
         </>
@@ -37,7 +37,7 @@ const MyOutcomes = () => {
       renderCell: ({ row }) => (
         <>
           <IconButton onClick={() => handleDownloadOutcomeDump(row.id, row.dumpName)}>
-            <CloudDownload sx={{ fontSize: '260%', color: '#7f00b5' }} />
+            <CloudDownload sx={{ fontSize: '240%', color: '#7f00b5' }} />
           </IconButton>
           <h2>&nbsp;{row.dumpName}</h2>
         </>

@@ -1,7 +1,5 @@
 package com.wenox.infrastructure.service;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.concurrent.TimeUnit;
 import org.slf4j.LoggerFactory;
