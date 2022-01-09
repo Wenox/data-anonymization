@@ -9,6 +9,7 @@ import com.wenox.processing.domain.OutcomeStatus;
 import com.wenox.processing.domain.events.ScriptCreatedEvent;
 import com.wenox.processing.domain.events.AnonymisationScriptPopulatedEvent;
 import com.wenox.processing.repository.OutcomeRepository;
+import com.wenox.processing.service.Query;
 import com.wenox.processing.service.QueryExecutor;
 import com.wenox.processing.service.operations.SuppressionService;
 import java.nio.file.Files;
@@ -80,13 +81,16 @@ public class AnonymisationScriptCreatedListener {
         for (var row : suppressedRows) {
           try {
             Files.writeString(fileLocation,
-                String.format("UPDATE %s SET %s = '%s' WHERE %s = %s;\n",
-                    columnOperations.getTableName(),
-                    columnOperations.getColumnName(),
-                    row.getSecond(),
-                    columnOperations.getPrimaryKeyColumnName(),
-                    row.getFirst()
-                ),
+                new Query.QueryBuilder(Query.QueryType.UPDATE)
+                    .tableName(columnOperations.getTableName())
+                    .primaryKeyColumnName(columnOperations.getPrimaryKeyColumnName())
+                    .primaryKeyType("4")
+                    .primaryKeyValue(row.getFirst())
+                    .columnName(columnOperations.getColumnName())
+                    .columnType(columnOperations.getColumnType())
+                    .columnValue(row.getSecond())
+                    .build()
+                    .toString(),
                 StandardOpenOption.APPEND);
           } catch (Exception ex) {
             ex.printStackTrace();
