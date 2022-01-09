@@ -74,15 +74,10 @@ public class AnonymisationScriptCreatedListener {
       // 2. Transform
       var suppression = columnOperations.getSuppression();
       if (suppression != null) {
-
-        System.out.println("Ready to transform with suppression.");
         var suppressedRows = new SuppressionService().suppress(rows, suppression.getSuppressionToken());
-        System.out.println("Suppression ended.");
-
 
         // 3.0 Handle column type change
         if (!columnOperations.getColumnType().equals(String.valueOf(Types.VARCHAR))) {
-          System.out.print("Type: " + columnOperations.getColumnType() + " detected. Changing column type with cast to string.");
           try {
             Files.writeString(fileLocation,
                 new Query.QueryBuilder(Query.QueryType.ALTER_COLUMN_TYPE)
@@ -119,14 +114,12 @@ public class AnonymisationScriptCreatedListener {
 
       var columnShuffle = columnOperations.getColumnShuffle();
       if (columnShuffle != null) {
-        System.out.println("Ready to transform with column shuffle.");
         final List<Pair<String, String>> shuffledRows;
         if (columnShuffle.isWithRepetitions()) {
           shuffledRows = new ColumnShuffler().shuffleWithRepetitions(rows);
         } else {
           shuffledRows = new ColumnShuffler().shuffle(rows);
         }
-        System.out.println("Shuffle ended.");
 
         for (var row : shuffledRows) {
           try {
@@ -151,14 +144,12 @@ public class AnonymisationScriptCreatedListener {
 
       var rowShuffle = columnOperations.getRowShuffle();
       if (rowShuffle != null) {
-        System.out.println("Ready to transform with row shuffle.");
         final List<Pair<String, String>> shuffledRows;
         if (rowShuffle.isWithRepetitions()) {
-          shuffledRows = new RowShuffler().shuffle(rows, rowShuffle.getLetterMode());
+          shuffledRows = new RowShuffler().shuffleWithRepetitions(rows, rowShuffle.getLetterMode());
         } else {
           shuffledRows = new RowShuffler().shuffle(rows, rowShuffle.getLetterMode());
         }
-        System.out.println("Shuffle ended.");
 
         for (var row : shuffledRows) {
           try {
