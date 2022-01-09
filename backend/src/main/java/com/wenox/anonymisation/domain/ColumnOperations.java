@@ -31,9 +31,10 @@ public class ColumnOperations {
   private String columnName;
 
   private String columnType;
-  // todo: column type
 
   private String primaryKeyColumnName;
+
+  private String primaryKeyColumnType;
 
   public Long getId() {
     return id;
@@ -81,6 +82,14 @@ public class ColumnOperations {
 
   public void setColumnType(String columnType) {
     this.columnType = columnType;
+  }
+
+  public String getPrimaryKeyColumnType() {
+    return primaryKeyColumnType;
+  }
+
+  public void setPrimaryKeyColumnType(String primaryKeyColumnType) {
+    this.primaryKeyColumnType = primaryKeyColumnType;
   }
 
   public Shuffle getShuffle() {

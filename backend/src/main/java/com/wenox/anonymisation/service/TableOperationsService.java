@@ -92,8 +92,13 @@ public class TableOperationsService {
       listOfColumnOperationsDtos.add(item);
     }
 
-    return new TableOperationsResponse(table.getTableName(), table.getPrimaryKey().getColumnName(),
-        table.getNumberOfRows(), listOfColumnOperationsDtos);
+    return new TableOperationsResponse(
+        table.getTableName(),
+        table.getPrimaryKey().getColumnName(),
+        table.getPrimaryKey().getType(),
+        table.getNumberOfRows(),
+        listOfColumnOperationsDtos
+    );
   }
 
 }

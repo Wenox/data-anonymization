@@ -1,8 +1,9 @@
 export interface AddOperation {
   tableName: string;
   columnName: string;
-  primaryKeyColumnName: string;
   columnType: string;
+  primaryKeyColumnName: string;
+  primaryKeyColumnType: string;
 }
 
 export interface AddSuppression extends AddOperation {

@@ -15,6 +15,7 @@ import { getTableOperations } from '../../api/requests/table-operations/table-op
 const TableOperations: FC = () => {
   const [tableName, setTableName] = useState<string>('');
   const [primaryKeyColumnName, setPrimaryKeyColumnName] = useState<string>('');
+  const [primaryKeyColumnType, setPrimaryKeyColumnType] = useState<string>('');
   const [numberOfRows, setNumberOfRows] = useState<number>(0);
   const [operations, setOperations] = useState<ColumnOperations[]>([]);
   const [isAddOperation, setIsAddOperation] = useState(false);
@@ -31,6 +32,7 @@ const TableOperations: FC = () => {
       if (response.status === 200) {
         setTableName(response.data.tableName);
         setPrimaryKeyColumnName(response.data.primaryKeyColumnName);
+        setPrimaryKeyColumnType(response.data.primaryKeyColumnType);
         setNumberOfRows(response.data.numberOfRows);
         setOperations(
           response.data.listOfColumnOperations.map((operation) => ({
@@ -57,6 +59,7 @@ const TableOperations: FC = () => {
           });
           setTableName(response.data.tableName);
           setPrimaryKeyColumnName(response.data.primaryKeyColumnName);
+          setPrimaryKeyColumnType(response.data.primaryKeyColumnType);
           setNumberOfRows(response.data.numberOfRows);
           setOperations(
             response.data.listOfColumnOperations.map((operation) => ({
@@ -181,6 +184,7 @@ const TableOperations: FC = () => {
           worksheetId={worksheetId}
           tableName={tableName}
           primaryKeyColumnName={primaryKeyColumnName}
+          primaryKeyColumnType={primaryKeyColumnType}
         />
       )}
       <Typography color="primary" variant="h4" sx={{ mb: 2 }}>
