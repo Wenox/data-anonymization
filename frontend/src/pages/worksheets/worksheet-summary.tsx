@@ -230,7 +230,7 @@ const WorksheetSummary: FC = () => {
         </AccordionSummary>
 
         <AccordionDetails>
-          <Grid container spacing={2}>
+          <Grid container spacing={2} alignItems={'center'}>
             <Grid item xs={12}>
               <Divider />
             </Grid>
@@ -307,8 +307,8 @@ const WorksheetSummary: FC = () => {
               <IconButton
                 onClick={() => handleDownloadTemplateDump(summary!.template.id, summary!.template.originalFileName)}
               >
-                <CloudDownload fontSize="large" sx={{ color: '#7f00b5', mr: 1 }} />
-                Download{' '}
+                <CloudDownload sx={{ fontSize: '300%', color: '#7f00b5', mr: 1 }} />
+                Download
               </IconButton>
             </Grid>
 
