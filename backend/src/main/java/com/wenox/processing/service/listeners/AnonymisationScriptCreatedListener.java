@@ -1,6 +1,7 @@
 package com.wenox.processing.service.listeners;
 
 import com.wenox.anonymisation.domain.ColumnOperations;
+import com.wenox.anonymisation.domain.RowShuffle;
 import com.wenox.anonymisation.domain.Worksheet;
 import com.wenox.infrastructure.service.ConnectionDetails;
 import com.wenox.infrastructure.service.DataSourceFactory;
@@ -13,6 +14,7 @@ import com.wenox.processing.repository.OutcomeRepository;
 import com.wenox.processing.service.Query;
 import com.wenox.processing.service.QueryExecutor;
 import com.wenox.processing.service.operations.ColumnShuffler;
+import com.wenox.processing.service.operations.RowShuffler;
 import com.wenox.processing.service.operations.SuppressionService;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -117,7 +119,7 @@ public class AnonymisationScriptCreatedListener {
 
       var columnShuffle = columnOperations.getColumnShuffle();
       if (columnShuffle != null) {
-        System.out.println("Ready to transform with shuffle.");
+        System.out.println("Ready to transform with column shuffle.");
         final List<Pair<String, String>> shuffledRows;
         if (columnShuffle.isWithRepetitions()) {
           shuffledRows = new ColumnShuffler().shuffleWithRepetitions(rows);
@@ -145,6 +147,39 @@ public class AnonymisationScriptCreatedListener {
           }
         }
       }
+
+
+      var rowShuffle = columnOperations.getRowShuffle();
+      if (rowShuffle != null) {
+        System.out.println("Ready to transform with row shuffle.");
+        final List<Pair<String, String>> shuffledRows;
+        if (rowShuffle.isWithRepetitions()) {
+          shuffledRows = new RowShuffler().shuffle(rows, rowShuffle.getLetterMode());
+        } else {
+          shuffledRows = new RowShuffler().shuffle(rows, rowShuffle.getLetterMode());
+        }
+        System.out.println("Shuffle ended.");
+
+        for (var row : shuffledRows) {
+          try {
+            Files.writeString(fileLocation,
+                new Query.QueryBuilder(Query.QueryType.UPDATE)
+                    .tableName(columnOperations.getTableName())
+                    .primaryKeyColumnName(columnOperations.getPrimaryKeyColumnName())
+                    .primaryKeyType(columnOperations.getPrimaryKeyColumnType())
+                    .primaryKeyValue(row.getFirst())
+                    .columnName(columnOperations.getColumnName())
+                    .columnType(columnOperations.getColumnType())
+                    .columnValue(row.getSecond())
+                    .build()
+                    .toString(),
+                StandardOpenOption.APPEND);
+          } catch (Exception ex) {
+            ex.printStackTrace();
+          }
+        }
+      }
+
 
 
     }
