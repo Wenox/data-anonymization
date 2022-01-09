@@ -206,6 +206,7 @@ public class ColumnOperationsService {
 
     PatternMasking patternMasking = new PatternMasking();
     patternMasking.setPattern(dto.getPattern());
+    patternMasking.setMaskingCharacter(dto.getMaskingCharacter());
     patternMasking.setDiscardExcessiveCharacters(dto.isDiscardExcessiveCharacters());
     columnOperations.setPatternMasking(patternMasking);
     columnOperationsRepository.save(columnOperations);

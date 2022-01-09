@@ -7,10 +7,14 @@ import {
   Divider,
   FormControlLabel,
   FormLabel,
+  Grid,
+  IconButton,
   MenuItem,
   Radio,
   RadioGroup,
   Select,
+  Tooltip,
+  Zoom,
 } from '@mui/material';
 import { Transition } from '../user/password-confirmation-dialog';
 import Button from '@mui/material/Button';
@@ -25,7 +29,8 @@ import {
 import { ColumnOperations } from '../../api/requests/table-operations/table-operations.types';
 import TextField from '@mui/material/TextField';
 import { LetterMode } from '../../api/requests/column-operations/column-operations.types';
-import { DumpMode } from '../../api/requests/outcomes/outcome.types';
+import { HelpOutline, LockOutlined } from '@mui/icons-material';
+import { theme } from '../../styles/theme';
 
 interface AddOperationDialogProps {
   open: boolean;
@@ -52,6 +57,9 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
   const [withRepetitions, setWithRepetitions] = useState(false);
   const [suppressionToken, setSuppressionToken] = useState('*');
   const [letterMode, setLetterMode] = useState<LetterMode>(LetterMode.RETAIN_CASE);
+  const [pattern, setPattern] = useState('');
+  const [maskingCharacter, setMaskingCharacter] = useState('#');
+  const [discardExcessiveCharacters, setDiscardExcessiveCharacters] = useState(false);
 
   return (
     <Dialog fullWidth maxWidth="sm" open={open} onClose={handleCancel} TransitionComponent={Transition}>
@@ -94,6 +102,79 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
               <FormControlLabel value={LetterMode.TO_LOWERCASE} control={<Radio />} label="To lowercase" />
               <FormControlLabel value={LetterMode.TO_UPPERCASE} control={<Radio />} label="To uppercase" />
             </RadioGroup>
+          </>
+        )}
+
+        {selectedOperation == 'PatternMasking' && (
+          <>
+            <Grid container spacing={0} alignItems={'center'}>
+              <Grid item xs={11}>
+                <TextField
+                  label="Pattern"
+                  onChange={(e) => setPattern(e.target.value)}
+                  value={pattern}
+                  variant="outlined"
+                  fullWidth
+                  sx={{ backgroundColor: '#fff' }}
+                />
+              </Grid>
+              <Grid item xs={1} textAlign={'right'}>
+                <Tooltip
+                  TransitionComponent={Zoom}
+                  title={
+                    <div>
+                      Build pattern using the following characters:
+                      <p>
+                        <strong>O</strong> – retains the original character
+                      </p>
+                      <p>
+                        <strong>X</strong> – masks with the provided masking character
+                      </p>
+                      <p>
+                        <strong>N</strong> – random digit [0-9]
+                      </p>
+                      <p>
+                        <strong>L</strong> – random lowercase letter [a-z]
+                      </p>
+                      <p>
+                        <strong>U</strong> – random uppercase letter [A-Z]
+                      </p>
+                      <p>
+                        <strong>A</strong> – random alphabetic letter [a-zA-Z]
+                      </p>
+                      <p>
+                        <strong>C</strong> – random alphanumeric letter [a-zA-Z0-9]
+                      </p>
+                    </div>
+                  }
+                  placement={'top'}
+                >
+                  <HelpOutline fontSize="large" sx={{ color: `${theme.palette.secondary.main}` }} />
+                </Tooltip>
+              </Grid>
+              <Grid xs={6}>
+                <TextField
+                  label="Masking character"
+                  onChange={(e) => setMaskingCharacter(e.target.value)}
+                  value={maskingCharacter}
+                  variant="outlined"
+                  fullWidth
+                  sx={{ mt: 2, backgroundColor: '#fff' }}
+                  inputProps={{ maxLength: 1 }}
+                />
+              </Grid>
+              <Grid item xs={6} sx={{ pl: 2, pt: 2 }}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={discardExcessiveCharacters}
+                      onChange={(e) => setDiscardExcessiveCharacters(e.target.checked)}
+                    />
+                  }
+                  label="Discard excessive characters"
+                />
+              </Grid>
+            </Grid>
           </>
         )}
       </DialogContent>
@@ -247,6 +328,7 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
                   primaryKeyColumnName: primaryKeyColumnName,
                   primaryKeyColumnType: primaryKeyColumnType,
                   pattern: 'XULCAO',
+                  maskingCharacter: '#',
                   discardExcessiveCharacters: false,
                 })
                   .then((response) => {

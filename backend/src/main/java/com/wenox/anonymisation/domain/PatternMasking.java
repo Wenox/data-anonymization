@@ -22,6 +22,8 @@ public class PatternMasking {
 
   private Boolean discardExcessiveCharacters;
 
+  private Character maskingCharacter;
+
   public Long getId() {
     return id;
   }
@@ -36,6 +38,14 @@ public class PatternMasking {
 
   public void setColumnOperations(ColumnOperations columnOperations) {
     this.columnOperations = columnOperations;
+  }
+
+  public Character getMaskingCharacter() {
+    return maskingCharacter;
+  }
+
+  public void setMaskingCharacter(Character maskingCharacter) {
+    this.maskingCharacter = maskingCharacter;
   }
 
   public String getPattern() {

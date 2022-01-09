@@ -8,6 +8,9 @@ public class AddPatternMaskingRequest extends AddOperationRequest {
   private String pattern;
 
   @NotNull
+  private Character maskingCharacter;
+
+  @NotNull
   private boolean discardExcessiveCharacters;
 
   public String getPattern() {
@@ -16,6 +19,14 @@ public class AddPatternMaskingRequest extends AddOperationRequest {
 
   public void setPattern(String pattern) {
     this.pattern = pattern;
+  }
+
+  public Character getMaskingCharacter() {
+    return maskingCharacter;
+  }
+
+  public void setMaskingCharacter(Character maskingCharacter) {
+    this.maskingCharacter = maskingCharacter;
   }
 
   public boolean isDiscardExcessiveCharacters() {

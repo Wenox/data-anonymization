@@ -26,5 +26,6 @@ export enum LetterMode {
 
 export interface AddPatternMasking extends AddOperation {
   pattern: string;
+  maskingCharacter: string;
   discardExcessiveCharacters: boolean;
 }
