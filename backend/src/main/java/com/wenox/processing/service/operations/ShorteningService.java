@@ -14,11 +14,21 @@ public class ShorteningService {
 
     List<String> shortenedValues = new ArrayList<>(fullValues.size());
     final int length = shortening.getLength();
+    final boolean endsWithPeriod = shortening.getEndsWithPeriod();
     for (var value : fullValues) {
+      if (value == null) {
+        shortenedValues.add(null);
+        continue;
+      }
+
       if (value.length() <= length) {
         shortenedValues.add(value);
       } else {
-        shortenedValues.add(value.substring(0, length));
+        if (endsWithPeriod) {
+          shortenedValues.add(value.substring(0, length) + ".");
+        } else {
+          shortenedValues.add(value.substring(0, length));
+        }
       }
     }
 

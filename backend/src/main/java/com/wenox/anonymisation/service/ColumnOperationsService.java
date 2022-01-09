@@ -250,6 +250,7 @@ public class ColumnOperationsService {
 
     Shortening shortening = new Shortening();
     shortening.setLength(dto.getLength());
+    shortening.setEndsWithPeriod(dto.isEndsWithPeriod());
     columnOperations.setShortening(shortening);
     columnOperationsRepository.save(columnOperations);
     shorteningRepository.save(shortening);

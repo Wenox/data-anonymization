@@ -20,6 +20,8 @@ public class Shortening {
 
   private Integer length;
 
+  private Boolean endsWithPeriod;
+
   public Long getId() {
     return id;
   }
@@ -34,6 +36,14 @@ public class Shortening {
 
   public void setColumnOperations(ColumnOperations columnOperations) {
     this.columnOperations = columnOperations;
+  }
+
+  public Boolean getEndsWithPeriod() {
+    return endsWithPeriod;
+  }
+
+  public void setEndsWithPeriod(Boolean endsWithPeriod) {
+    this.endsWithPeriod = endsWithPeriod;
   }
 
   public Integer getLength() {

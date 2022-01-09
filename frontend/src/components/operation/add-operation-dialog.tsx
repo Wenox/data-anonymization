@@ -61,6 +61,7 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
   const [maskingCharacter, setMaskingCharacter] = useState('#');
   const [discardExcessiveCharacters, setDiscardExcessiveCharacters] = useState(false);
   const [length, setLength] = useState<number>(4);
+  const [endsWithPeriod, setEndsWithPeriod] = useState(false);
 
   return (
     <Dialog fullWidth maxWidth="sm" open={open} onClose={handleCancel} TransitionComponent={Transition}>
@@ -191,6 +192,10 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
               type="number"
               InputProps={{ inputProps: { min: 1 } }}
               sx={{ backgroundColor: '#fff' }}
+            />
+            <FormControlLabel
+              control={<Checkbox checked={endsWithPeriod} onChange={(e) => setEndsWithPeriod(e.target.checked)} />}
+              label="End abbreviation with a period"
             />
           </>
         )}
@@ -392,6 +397,7 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
                   primaryKeyColumnName: primaryKeyColumnName,
                   primaryKeyColumnType: primaryKeyColumnType,
                   length: length,
+                  endsWithPeriod: endsWithPeriod,
                 })
                   .then((response) => {
                     if (response.data.success) {

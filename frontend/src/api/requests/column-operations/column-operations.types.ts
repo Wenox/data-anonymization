@@ -32,4 +32,5 @@ export interface AddPatternMasking extends AddOperation {
 
 export interface AddShorteningRequest extends AddOperation {
   length: number;
+  endsWithPeriod: boolean;
 }
