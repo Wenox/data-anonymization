@@ -99,6 +99,10 @@ public class ColumnOperationsService {
       return ApiResponse.ofError("This column already uses shuffle.");
     }
 
+    if (columnOperations.getSuppression() != null) {
+      return ApiResponse.ofError("This column uses suppression and therefore cannot use shuffle.");
+    }
+
     Shuffle shuffle = new Shuffle();
     shuffle.setWithRepetitions(dto.isWithRepetitions());
     columnOperations.setShuffle(shuffle);
