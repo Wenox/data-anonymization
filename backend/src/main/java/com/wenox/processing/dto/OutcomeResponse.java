@@ -25,7 +25,11 @@ public class OutcomeResponse {
     dto.setDumpMode(outcome.getDumpMode());
     dto.setDumpName(outcome.getDumpName());
     dto.setAnonymisationScriptName(outcome.getAnonymisationScriptName());
-    dto.setProcessingTime(outcome.getProcessingEndDate().toEpochSecond(ZoneOffset.UTC) - outcome.getProcessingStartDate().toEpochSecond(ZoneOffset.UTC));
+    if (outcome.getProcessingEndDate() == null) {
+      dto.setProcessingTime(-1L);
+    } else {
+      dto.setProcessingTime(outcome.getProcessingEndDate().toEpochSecond(ZoneOffset.UTC) - outcome.getProcessingStartDate().toEpochSecond(ZoneOffset.UTC));
+    }
     return dto;
   }
 
