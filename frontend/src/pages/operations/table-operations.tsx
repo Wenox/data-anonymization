@@ -1,9 +1,9 @@
 import { FC, useEffect, useState } from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { Button, Container, Divider } from '@mui/material';
+import { Button, Container, Divider, Tooltip } from '@mui/material';
 import { theme } from '../../styles/theme';
 import Typography from '@mui/material/Typography';
-import { centeredColumn } from '../../styles/data-table';
+import { centeredColumn, centeredHeader } from '../../styles/data-table';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { ROUTES } from '../../constants/routes';
@@ -88,27 +88,33 @@ const TableOperations: FC = () => {
       headerName: 'Actions',
       width: 200,
       ...centeredColumn(),
-      renderCell: ({ row }) => (
-        <Button
-          size="large"
-          color="success"
-          variant="contained"
-          fullWidth
-          onClick={() => {
-            setIsAddOperation(true);
-            setSelectedRow(row);
-          }}
-        >
-          <Add sx={{ fontSize: '200%', mr: 1 }} />
-          Add operation
-        </Button>
-      ),
+      renderCell: ({ row }) => {
+        const usesSuppression = row.listOfColumnOperation
+          .map((v: Operation) => v.operationName)
+          .includes('Suppression');
+        return (
+          <Button
+            disabled={usesSuppression}
+            size="large"
+            color="success"
+            variant="contained"
+            fullWidth
+            onClick={() => {
+              setIsAddOperation(true);
+              setSelectedRow(row);
+            }}
+          >
+            <Add sx={{ fontSize: '200%', mr: 1 }} />
+            Add operation
+          </Button>
+        );
+      },
     },
     {
       field: 'accumulatedOperations',
       headerName: 'Accumulated operations',
       width: 360,
-      ...centeredColumn(),
+      ...centeredHeader(),
       renderCell: ({ row }) => {
         return (
           <>
@@ -118,7 +124,7 @@ const TableOperations: FC = () => {
                 size="large"
                 color="secondary"
                 variant="contained"
-                fullWidth
+                sx={{ width: '180px' }}
                 onClick={() => {}}
               >
                 <Edit sx={{ fontSize: '200%', mr: 1 }} />
