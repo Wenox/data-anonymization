@@ -23,3 +23,8 @@ export enum LetterMode {
   TO_LOWERCASE = 'TO_LOWERCASE',
   TO_UPPERCASE = 'TO_UPPERCASE',
 }
+
+export interface AddPatternMasking extends AddOperation {
+  pattern: string;
+  discardExcessiveCharacters: boolean;
+}

@@ -18,6 +18,7 @@ import Typography from '@mui/material/Typography';
 import { toast } from 'react-toastify';
 import {
   putAddColumnShuffleOperation,
+  putAddPatternMaskingOperation,
   putAddRowShuffleOperation,
   putAddSuppressionOperation,
 } from '../../api/requests/column-operations/column-operations.requests';
@@ -62,6 +63,7 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
           <MenuItem value={'Suppression'}>Suppression</MenuItem>
           <MenuItem value={'ColumnShuffle'}>Column shuffle</MenuItem>
           <MenuItem value={'RowShuffle'}>Row shuffle</MenuItem>
+          <MenuItem value={'PatternMasking'}>Pattern masking</MenuItem>
         </Select>
 
         <Divider sx={{ mt: 2, mb: 2 }} />
@@ -237,6 +239,53 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
                     }),
                   );
                 break;
+              case 'PatternMasking':
+                putAddPatternMaskingOperation(worksheetId, {
+                  tableName: tableName,
+                  columnName: columnOperations.column.columnName,
+                  columnType: columnOperations.column.type,
+                  primaryKeyColumnName: primaryKeyColumnName,
+                  primaryKeyColumnType: primaryKeyColumnType,
+                  pattern: 'OXOXO',
+                  discardExcessiveCharacters: false,
+                })
+                  .then((response) => {
+                    if (response.data.success) {
+                      toast.success(response.data.message, {
+                        position: 'top-right',
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                      });
+                      handleAddSuccess();
+                    } else {
+                      toast.error(response.data.message, {
+                        position: 'top-right',
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                      });
+                    }
+                  })
+                  .catch((err) =>
+                    toast.error('Failed to add operation: ' + err.data, {
+                      position: 'top-right',
+                      autoClose: 5000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                    }),
+                  );
+                break;
+
               default:
                 alert('Unsupported operation!');
             }
