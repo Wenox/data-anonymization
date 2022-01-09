@@ -6,7 +6,7 @@ import { theme } from '../../styles/theme';
 import Typography from '@mui/material/Typography';
 import { getMyOutcomes } from '../../api/requests/outcomes/outcome.requests';
 import { OutcomeResponse } from '../../api/requests/outcomes/outcome.types';
-import { handleDownloadOutcomeDump, handleDownloadTemplateDump } from '../../utils/download-dump';
+import { handleDownloadAnonymisationScript, handleDownloadOutcomeDump } from '../../utils/download-dump';
 import { CloudDownload } from '@mui/icons-material';
 
 const MyOutcomes = () => {
@@ -16,22 +16,35 @@ const MyOutcomes = () => {
   const columns: GridColDef[] = [
     { field: 'templateName', headerName: 'Template name', flex: 1, ...centeredHeader() },
     {
+      field: 'scriptFile',
+      headerName: 'Anonymisation script',
+      flex: 1,
+      ...centeredHeader(),
+      renderCell: ({ row }) => (
+        <>
+          <IconButton onClick={() => handleDownloadAnonymisationScript(row.id, row.anonymisationScriptName)}>
+            <CloudDownload sx={{ fontSize: '260%', color: '#7f00b5' }} />
+          </IconButton>
+          <h2>&nbsp;{row.anonymisationScriptName}</h2>
+        </>
+      ),
+    },
+    {
       field: 'dumpFile',
       headerName: 'Dump file',
       flex: 1,
+      ...centeredHeader(),
       renderCell: ({ row }) => (
         <>
           <IconButton onClick={() => handleDownloadOutcomeDump(row.id, row.dumpName)}>
-            <CloudDownload sx={{ fontSize: '200%', color: '#7f00b5' }} />
+            <CloudDownload sx={{ fontSize: '260%', color: '#7f00b5' }} />
           </IconButton>
-          <h3>{row.dumpName}</h3>
+          <h2>&nbsp;{row.dumpName}</h2>
         </>
       ),
     },
     { field: 'outcomeStatus', headerName: 'Status', flex: 1, ...centeredHeader() },
     { field: 'dumpMode', headerName: 'Dump mode', flex: 1, ...centeredHeader() },
-    { field: 'dumpName', headerName: 'Dump name', flex: 1, ...centeredHeader() },
-    { field: 'anonymisationScriptName', headerName: 'Anonymisation script name', flex: 1, ...centeredHeader() },
     { field: 'processingTime', headerName: 'Processing time', flex: 1, ...centeredColumn() },
   ];
 

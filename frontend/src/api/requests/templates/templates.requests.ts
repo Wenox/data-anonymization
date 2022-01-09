@@ -19,7 +19,7 @@ export const getAllMyTemplates = () => {
 };
 
 export const getDownloadTemplateDump = (id: string) => {
-  return axios.get<any>(`/api/v1/templates/${id}/dump`, {
+  return axios.get<any>(`/api/v1/templates/${id}/dump/download`, {
     responseType: 'blob',
   });
 };

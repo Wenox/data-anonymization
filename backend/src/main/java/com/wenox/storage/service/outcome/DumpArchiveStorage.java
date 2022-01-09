@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
-public class OutcomeDumpScriptStorage extends LocalFileStorage {
+public class DumpArchiveStorage extends LocalFileStorage {
 
-  @Value("${processing.dumps.scripts.path}")
-  private String outcomeScriptsPath;
+  @Value("${processing.dumps.archives.path}")
+  private String outcomeArchivesPath;
 
   @Override
   public Path getFileDirectoryPath() {
-    return Path.of(outcomeScriptsPath);
+    return Path.of(outcomeArchivesPath);
   }
 }

@@ -39,9 +39,15 @@ public class OutcomeController {
     return ResponseEntity.ok(outcomeService.getMyOutcomes(auth).stream().map(OutcomeResponse::from).toList());
   }
 
-  @GetMapping("/{id}/dump")
+  @GetMapping("/{id}/dump/download")
   @PreAuthorize("hasAnyAuthority('VERIFIED_USER', 'ADMIN')")
   public ResponseEntity<byte[]> downloadOutcomeDump(@PathVariable("id") String id, Authentication auth) throws IOException {
     return ResponseEntity.ok(outcomeService.downloadOutcomeDump(id, auth));
+  }
+
+  @GetMapping("/{id}/anonymisation-script/download")
+  @PreAuthorize("hasAnyAuthority('VERIFIED_USER', 'ADMIN')")
+  public ResponseEntity<byte[]> downloadAnonymisationScript(@PathVariable("id") String id, Authentication auth) throws IOException {
+    return ResponseEntity.ok(outcomeService.downloadAnonymisationScript(id, auth));
   }
 }

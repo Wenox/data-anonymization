@@ -10,7 +10,13 @@ export const getMyOutcomes = () => {
 };
 
 export const getDownloadOutcomeDump = (id: string) => {
-  return axios.get<any>(`/api/v1/outcomes/${id}/dump`, {
+  return axios.get<any>(`/api/v1/outcomes/${id}/dump/download`, {
+    responseType: 'blob',
+  });
+};
+
+export const getDownloadAnonymisationScript = (id: string) => {
+  return axios.get<any>(`/api/v1/outcomes/${id}/anonymisation-script/download`, {
     responseType: 'blob',
   });
 };
