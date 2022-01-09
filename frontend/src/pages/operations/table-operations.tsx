@@ -188,7 +188,7 @@ const TableOperations: FC = () => {
         />
       )}
       <Typography color="primary" variant="h4" sx={{ mb: 2 }}>
-        Operations for table
+        Operations for table{' '}
         <span style={{ color: `${theme.palette.secondary.main}` }}>
           <strong>{tableName}</strong>
         </span>

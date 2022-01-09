@@ -15,6 +15,7 @@ import com.wenox.processing.service.operations.SuppressionService;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.sql.Types;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEventPublisher;
@@ -77,6 +78,22 @@ public class AnonymisationScriptCreatedListener {
         suppressedRows.forEach(System.out::println);
 
 
+        // 3.0 Handle column type change
+        if (!columnOperations.getColumnType().equals(String.valueOf(Types.VARCHAR))) {
+          System.out.print("Type: " + columnOperations.getColumnType() + " detected. Changing column type with cast to string.");
+          try {
+            Files.writeString(fileLocation,
+                new Query.QueryBuilder(Query.QueryType.ALTER_COLUMN_TYPE)
+                    .tableName(columnOperations.getTableName())
+                    .columnName(columnOperations.getColumnName())
+                    .build()
+                    .toString(),
+                StandardOpenOption.APPEND);
+          } catch (Exception ex) {
+            ex.printStackTrace();
+          }
+        }
+
         // 3. Generate output
         for (var row : suppressedRows) {
           try {
@@ -87,7 +104,7 @@ public class AnonymisationScriptCreatedListener {
                     .primaryKeyType(columnOperations.getPrimaryKeyColumnType())
                     .primaryKeyValue(row.getFirst())
                     .columnName(columnOperations.getColumnName())
-                    .columnType(columnOperations.getColumnType())
+                    .columnType(String.valueOf(Types.VARCHAR))
                     .columnValue(row.getSecond())
                     .build()
                     .toString(),
