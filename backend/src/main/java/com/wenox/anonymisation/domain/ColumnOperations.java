@@ -30,6 +30,7 @@ public class ColumnOperations {
 
   private String columnName;
 
+  private String columnType;
   // todo: column type
 
   private String primaryKeyColumnName;
@@ -72,6 +73,14 @@ public class ColumnOperations {
 
   public void setColumnName(String columnName) {
     this.columnName = columnName;
+  }
+
+  public String getColumnType() {
+    return columnType;
+  }
+
+  public void setColumnType(String columnType) {
+    this.columnType = columnType;
   }
 
   public Shuffle getShuffle() {

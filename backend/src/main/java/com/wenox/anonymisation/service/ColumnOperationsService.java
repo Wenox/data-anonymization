@@ -52,6 +52,7 @@ public class ColumnOperationsService {
                   newColumnOperations.setWorksheet(worksheet);
                   newColumnOperations.setTableName(dto.getTableName());
                   newColumnOperations.setColumnName(dto.getColumnName());
+                  newColumnOperations.setColumnType(dto.getColumnType());
                   newColumnOperations.setPrimaryKeyColumnName(dto.getPrimaryKeyColumnName());
                   return newColumnOperations;
                 }
@@ -86,6 +87,7 @@ public class ColumnOperationsService {
                   newColumnOperations.setWorksheet(worksheet);
                   newColumnOperations.setTableName(dto.getTableName());
                   newColumnOperations.setColumnName(dto.getColumnName());
+                  newColumnOperations.setColumnType(dto.getColumnType());
                   newColumnOperations.setPrimaryKeyColumnName(dto.getPrimaryKeyColumnName());
                   return newColumnOperations;
                 }

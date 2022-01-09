@@ -44,6 +44,7 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
             putAddSuppressionOperation(worksheetId, {
               tableName: tableName,
               columnName: columnOperations.column.columnName,
+              columnType: columnOperations.column.type,
               primaryKeyColumnName: primaryKeyColumnName,
               suppressionToken: '*',
             })

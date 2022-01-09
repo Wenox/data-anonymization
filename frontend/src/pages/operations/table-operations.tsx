@@ -43,39 +43,40 @@ const TableOperations: FC = () => {
   };
 
   useEffect(() => {
-    getTableOperations(table, worksheetId).then((response) => {
-      if (response.status === 200) {
-        toast.success('Operations in table loaded successfully.', {
+    getTableOperations(table, worksheetId)
+      .then((response) => {
+        if (response.status === 200) {
+          toast.success('Operations in table loaded successfully.', {
+            position: 'top-right',
+            autoClose: 600,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+          setTableName(response.data.tableName);
+          setPrimaryKeyColumnName(response.data.primaryKeyColumnName);
+          setNumberOfRows(response.data.numberOfRows);
+          setOperations(
+            response.data.listOfColumnOperations.map((operation) => ({
+              ...operation,
+              id: operation.column.columnName,
+            })),
+          );
+        }
+      })
+      .catch(() =>
+        toast.error('Failed to load the operations.', {
           position: 'top-right',
-          autoClose: 600,
+          autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-        });
-        setTableName(response.data.tableName);
-        setPrimaryKeyColumnName(response.data.primaryKeyColumnName);
-        setNumberOfRows(response.data.numberOfRows);
-        setOperations(
-          response.data.listOfColumnOperations.map((operation) => ({
-            ...operation,
-            id: operation.column.columnName,
-          })),
-        );
-      }
-    });
-    // .catch(() =>
-    //   toast.error('Failed to load the operations.', {
-    //     position: 'top-right',
-    //     autoClose: 5000,
-    //     hideProgressBar: false,
-    //     closeOnClick: true,
-    //     pauseOnHover: true,
-    //     draggable: true,
-    //     progress: undefined,
-    //   }),
-    // );
+        }),
+      );
   }, [table, worksheetId]);
 
   const columns: GridColDef[] = [
@@ -183,7 +184,7 @@ const TableOperations: FC = () => {
         />
       )}
       <Typography color="primary" variant="h4" sx={{ mb: 2 }}>
-        Operations for table{' '}
+        Operations for table
         <span style={{ color: `${theme.palette.secondary.main}` }}>
           <strong>{tableName}</strong>
         </span>

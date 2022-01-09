@@ -2,6 +2,7 @@ export interface AddOperation {
   tableName: string;
   columnName: string;
   primaryKeyColumnName: string;
+  columnType: string;
 }
 
 export interface AddSuppression extends AddOperation {

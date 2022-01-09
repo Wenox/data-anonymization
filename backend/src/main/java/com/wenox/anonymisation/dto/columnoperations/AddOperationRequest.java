@@ -5,6 +5,7 @@ public class AddOperationRequest {
   private String tableName;
   private String columnName;
   private String primaryKeyColumnName;
+  private String columnType;
 
   public String getTableName() {
     return tableName;
@@ -30,4 +31,11 @@ public class AddOperationRequest {
     this.primaryKeyColumnName = primaryKeyColumnName;
   }
 
+  public String getColumnType() {
+    return columnType;
+  }
+
+  public void setColumnType(String columnType) {
+    this.columnType = columnType;
+  }
 }

@@ -71,16 +71,12 @@ public class AnonymisationScriptCreatedListener {
       if (suppression != null) {
 
         System.out.println("Ready to transform with suppression.");
-
         var suppressedRows = new SuppressionService().suppress(rows, suppression.getSuppressionToken());
-
         System.out.println("Suppression ended, new values:");
         suppressedRows.forEach(System.out::println);
 
 
         // 3. Generate output
-
-        System.out.println("Opening for writing: " + fileLocation);
         for (var row : suppressedRows) {
           try {
             Files.writeString(fileLocation,
