@@ -12,6 +12,7 @@ import java.util.stream.IntStream;
 public class RowShuffler {
 
   private final Random rng = new Random(System.currentTimeMillis());
+
   public List<Pair<String, String>> shuffle(List<Pair<String, String>> rows, RowShuffle.LetterMode letterMode) {
     List<String> shuffled = rows.stream()
         .map(Pair::getSecond)

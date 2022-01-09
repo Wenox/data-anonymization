@@ -32,6 +32,9 @@ public class ColumnOperations {
   @OneToOne
   private PatternMasking patternMasking;
 
+  @OneToOne
+  private Shortening shortening;
+
   private String tableName;
 
   private String columnName;
@@ -108,6 +111,14 @@ public class ColumnOperations {
 
   public void setPatternMasking(PatternMasking patternMasking) {
     this.patternMasking = patternMasking;
+  }
+
+  public Shortening getShortening() {
+    return shortening;
+  }
+
+  public void setShortening(Shortening shortening) {
+    this.shortening = shortening;
   }
 
   public void setPrimaryKeyColumnType(String primaryKeyColumnType) {

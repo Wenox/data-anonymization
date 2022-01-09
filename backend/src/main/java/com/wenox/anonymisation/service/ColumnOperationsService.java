@@ -4,15 +4,18 @@ import com.wenox.anonymisation.domain.ColumnOperations;
 import com.wenox.anonymisation.domain.ColumnShuffle;
 import com.wenox.anonymisation.domain.PatternMasking;
 import com.wenox.anonymisation.domain.RowShuffle;
+import com.wenox.anonymisation.domain.Shortening;
 import com.wenox.anonymisation.domain.Suppression;
 import com.wenox.anonymisation.dto.columnoperations.AddColumnShuffleRequest;
 import com.wenox.anonymisation.dto.columnoperations.AddPatternMaskingRequest;
 import com.wenox.anonymisation.dto.columnoperations.AddRowShuffleRequest;
+import com.wenox.anonymisation.dto.columnoperations.AddShorteningRequest;
 import com.wenox.anonymisation.dto.columnoperations.AddSuppressionRequest;
 import com.wenox.anonymisation.repository.ColumnOperationsRepository;
 import com.wenox.anonymisation.repository.ColumnShuffleRepository;
 import com.wenox.anonymisation.repository.PatternMaskingRepository;
 import com.wenox.anonymisation.repository.RowShuffleRepository;
+import com.wenox.anonymisation.repository.ShorteningRepository;
 import com.wenox.anonymisation.repository.SuppressionRepository;
 import com.wenox.anonymisation.repository.WorksheetRepository;
 import com.wenox.users.dto.ApiResponse;
@@ -31,6 +34,7 @@ public class ColumnOperationsService {
   private final ColumnShuffleRepository columnShuffleRepository;
   private final RowShuffleRepository rowShuffleRepository;
   private final PatternMaskingRepository patternMaskingRepository;
+  private final ShorteningRepository shorteningRepository;
 
   public ColumnOperationsService(AuthService authService,
                                  WorksheetRepository worksheetRepository,
@@ -38,7 +42,8 @@ public class ColumnOperationsService {
                                  SuppressionRepository suppressionRepository,
                                  ColumnShuffleRepository columnShuffleRepository,
                                  RowShuffleRepository rowShuffleRepository,
-                                 PatternMaskingRepository patternMaskingRepository) {
+                                 PatternMaskingRepository patternMaskingRepository,
+                                 ShorteningRepository shorteningRepository) {
     this.authService = authService;
     this.worksheetRepository = worksheetRepository;
     this.columnOperationsRepository = columnOperationsRepository;
@@ -46,6 +51,7 @@ public class ColumnOperationsService {
     this.columnShuffleRepository = columnShuffleRepository;
     this.rowShuffleRepository = rowShuffleRepository;
     this.patternMaskingRepository = patternMaskingRepository;
+    this.shorteningRepository = shorteningRepository;
   }
 
   @Transactional
@@ -214,4 +220,42 @@ public class ColumnOperationsService {
 
     return ApiResponse.ofSuccess("Pattern masking added successfully.");
   }
+
+  @Transactional
+  public ApiResponse addShorteningOperationForColumn(String id, AddShorteningRequest dto, Authentication auth) {
+    final var me = authService.getMe(auth);
+    final var worksheet = worksheetRepository.findById(id).orElseThrow();
+    if (!me.getId().equals(worksheet.getUser().getId())) {
+      throw new RuntimeException("The worksheet does not belong to this user.");
+    }
+
+    var columnOperations =
+        columnOperationsRepository.findOperationsForColumn(worksheet, dto.getTableName(), dto.getColumnName())
+            .orElseGet(
+                () -> {
+                  var newColumnOperations = new ColumnOperations();
+                  newColumnOperations.setWorksheet(worksheet);
+                  newColumnOperations.setTableName(dto.getTableName());
+                  newColumnOperations.setColumnName(dto.getColumnName());
+                  newColumnOperations.setColumnType(dto.getColumnType());
+                  newColumnOperations.setPrimaryKeyColumnName(dto.getPrimaryKeyColumnName());
+                  newColumnOperations.setPrimaryKeyColumnType(dto.getPrimaryKeyColumnType());
+                  return newColumnOperations;
+                }
+            );
+
+    if (columnOperations.getShortening() != null) {
+      return ApiResponse.ofError("This column already uses shortening.");
+    }
+
+    Shortening shortening = new Shortening();
+    shortening.setLength(dto.getLength());
+    shortening.setEndsWithPeriod(dto.isEndsWithPeriod());
+    columnOperations.setShortening(shortening);
+    columnOperationsRepository.save(columnOperations);
+    shorteningRepository.save(shortening);
+
+    return ApiResponse.ofSuccess("Shortening added successfully.");
+  }
+
 }
