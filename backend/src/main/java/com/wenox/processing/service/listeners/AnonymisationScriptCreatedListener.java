@@ -16,6 +16,7 @@ import com.wenox.processing.service.QueryExecutor;
 import com.wenox.processing.service.operations.ColumnShuffler;
 import com.wenox.processing.service.operations.PatternMaskingService;
 import com.wenox.processing.service.operations.RowShuffler;
+import com.wenox.processing.service.operations.ShorteningService;
 import com.wenox.processing.service.operations.SuppressionService;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -197,6 +198,30 @@ public class AnonymisationScriptCreatedListener {
         }
       }
 
+
+      var shortening = columnOperations.getShortening();
+      if (shortening != null) {
+        final List<Pair<String, String>> shortenedRows = new ShorteningService().shorten(rows, shortening);
+
+        for (var row : shortenedRows) {
+          try {
+            Files.writeString(fileLocation,
+                new Query.QueryBuilder(Query.QueryType.UPDATE)
+                    .tableName(columnOperations.getTableName())
+                    .primaryKeyColumnName(columnOperations.getPrimaryKeyColumnName())
+                    .primaryKeyType(columnOperations.getPrimaryKeyColumnType())
+                    .primaryKeyValue(row.getFirst())
+                    .columnName(columnOperations.getColumnName())
+                    .columnType(columnOperations.getColumnType())
+                    .columnValue(row.getSecond())
+                    .build()
+                    .toString(),
+                StandardOpenOption.APPEND);
+          } catch (Exception ex) {
+            ex.printStackTrace();
+          }
+        }
+      }
 
 
     }

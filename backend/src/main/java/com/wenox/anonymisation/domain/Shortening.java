@@ -18,7 +18,7 @@ public class Shortening {
   @OneToOne(mappedBy = "shortening")
   ColumnOperations columnOperations;
 
-  private Long length;
+  private Integer length;
 
   public Long getId() {
     return id;
@@ -36,11 +36,11 @@ public class Shortening {
     this.columnOperations = columnOperations;
   }
 
-  public Long getLength() {
+  public Integer getLength() {
     return length;
   }
 
-  public void setLength(Long length) {
+  public void setLength(Integer length) {
     this.length = length;
   }
 }
