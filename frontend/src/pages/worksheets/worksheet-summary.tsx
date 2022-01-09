@@ -29,9 +29,14 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { WorksheetSummaryResponse } from '../../api/requests/worksheets/worksheet.types';
 import MetadataDialog from '../../components/metadata/metadata-dialog';
-import { handleDownloadTemplateDump } from '../../utils/download-dump';
+import {
+  handleDownloadAnonymisationScript,
+  handleDownloadOutcomeDump,
+  handleDownloadTemplateDump,
+  isDownloadDisabled,
+} from '../../utils/download-dump';
 import { Table } from '../../api/requests/templates/templates.types';
-import { centeredHeader } from '../../styles/data-table';
+import { centeredColumn, centeredHeader } from '../../styles/data-table';
 import { ROUTES } from '../../constants/routes';
 import GenerateOutcomeDialog from '../../components/outcome/generate-outcome-dialog';
 
@@ -106,6 +111,51 @@ const WorksheetSummary: FC = () => {
     { field: 'tableName', headerName: 'Table name', flex: 1, ...centeredHeader() },
     { field: 'numberOfRows', headerName: 'Number of rows', flex: 1, ...centeredHeader() },
     { field: 'numberOfColumns', headerName: 'Number of columns', flex: 1, ...centeredHeader() },
+  ];
+
+  const outcomesColumns: GridColDef[] = [
+    {
+      field: 'scriptFile',
+      headerName: 'Anonymisation script',
+      flex: 1,
+      ...centeredHeader(),
+      renderCell: ({ row }) => {
+        const downloadDisabled = isDownloadDisabled(row.outcomeStatus);
+        return (
+          <>
+            <IconButton
+              disabled={downloadDisabled}
+              onClick={() => handleDownloadAnonymisationScript(row.id, row.anonymisationScriptName)}
+            >
+              <CloudDownload sx={{ fontSize: '240%', color: downloadDisabled ? '#ccc' : '#7f00b5' }} />
+            </IconButton>
+            <h2 style={{ color: downloadDisabled ? '#ccc' : `${theme.palette.primary.main}` }}>
+              &nbsp;{row.anonymisationScriptName}
+            </h2>
+          </>
+        );
+      },
+    },
+    {
+      field: 'dumpFile',
+      headerName: 'Dump file',
+      flex: 1,
+      ...centeredHeader(),
+      renderCell: ({ row }) => {
+        const downloadDisabled = isDownloadDisabled(row.outcomeStatus);
+        return (
+          <>
+            <IconButton disabled={downloadDisabled} onClick={() => handleDownloadOutcomeDump(row.id, row.dumpName)}>
+              <CloudDownload sx={{ fontSize: '240%', color: downloadDisabled ? '#ccc' : '#7f00b5' }} />
+            </IconButton>
+            <h2 style={{ color: downloadDisabled ? '#ccc' : `${theme.palette.primary.main}` }}>&nbsp;{row.dumpName}</h2>
+          </>
+        );
+      },
+    },
+    { field: 'outcomeStatus', headerName: 'Status', flex: 1, ...centeredHeader() },
+    { field: 'dumpMode', headerName: 'Dump mode', flex: 1, ...centeredHeader() },
+    { field: 'processingTime', headerName: 'Processing time', flex: 1, ...centeredColumn() },
   ];
 
   return (
@@ -417,7 +467,7 @@ const WorksheetSummary: FC = () => {
             />
           )}
           <Grid container spacing={2}>
-            <DataGrid autoHeight columns={[]} rows={[]} />
+            <DataGrid autoHeight columns={outcomesColumns} rows={summary?.outcomes ?? []} />
           </Grid>
         </AccordionDetails>
       </Accordion>

@@ -97,3 +97,12 @@ export const handleDownloadAnonymisationScript = (outcomeId: string, originalFil
       });
     });
 };
+
+export const isDownloadDisabled = (outcomeStatus: string) =>
+  [
+    'DATABASE_DUMP_FAILURE',
+    'SCRIPT_EXECUTION_FAILURE',
+    'SCRIPT_POPULATION_FAILURE',
+    'SCRIPT_POPULATION_FAILURE',
+    'MIRROR_FAILURE',
+  ].includes(outcomeStatus);

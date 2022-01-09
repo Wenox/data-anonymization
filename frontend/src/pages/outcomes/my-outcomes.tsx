@@ -6,21 +6,16 @@ import { theme } from '../../styles/theme';
 import Typography from '@mui/material/Typography';
 import { getMyOutcomes } from '../../api/requests/outcomes/outcome.requests';
 import { OutcomeResponse } from '../../api/requests/outcomes/outcome.types';
-import { handleDownloadAnonymisationScript, handleDownloadOutcomeDump } from '../../utils/download-dump';
+import {
+  handleDownloadAnonymisationScript,
+  handleDownloadOutcomeDump,
+  isDownloadDisabled,
+} from '../../utils/download-dump';
 import { CloudDownload } from '@mui/icons-material';
 
 const MyOutcomes = () => {
   const { data, isLoading, refetch, isRefetching } = useQuery('outcomes', getMyOutcomes);
   const outcomes: OutcomeResponse[] = data?.data || [];
-
-  const isDownloadDisabled = (outcomeStatus: string) =>
-    [
-      'DATABASE_DUMP_FAILURE',
-      'SCRIPT_EXECUTION_FAILURE',
-      'SCRIPT_POPULATION_FAILURE',
-      'SCRIPT_POPULATION_FAILURE',
-      'MIRROR_FAILURE',
-    ].includes(outcomeStatus);
 
   const columns: GridColDef[] = [
     { field: 'templateName', headerName: 'Template name', flex: 1, ...centeredHeader() },
