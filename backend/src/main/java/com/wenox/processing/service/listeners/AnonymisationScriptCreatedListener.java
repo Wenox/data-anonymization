@@ -18,9 +18,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.sql.Types;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.event.EventListener;
@@ -115,20 +113,13 @@ public class AnonymisationScriptCreatedListener {
             ex.printStackTrace();
           }
         }
-
-        var shuffle = columnOperations.getShuffle();
-        if (shuffle != null) {
-
-          System.out.println("Result success.");
-          System.out.println("Ready to transform with shuffle.");
-        }
       }
 
-      var shuffle = columnOperations.getShuffle();
-      if (shuffle != null) {
+      var columnShuffle = columnOperations.getColumnShuffle();
+      if (columnShuffle != null) {
         System.out.println("Ready to transform with shuffle.");
         final List<Pair<String, String>> shuffledRows;
-        if (shuffle.isWithRepetitions()) {
+        if (columnShuffle.isWithRepetitions()) {
           shuffledRows = new ColumnShuffler().shuffleWithRepetitions(rows);
         } else {
           shuffledRows = new ColumnShuffler().shuffle(rows);

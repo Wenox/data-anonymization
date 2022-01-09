@@ -14,7 +14,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { toast } from 'react-toastify';
 import {
-  putAddShuffleOperation,
+  putAddColumnShuffleOperation,
   putAddSuppressionOperation,
 } from '../../api/requests/column-operations/column-operations.requests';
 import { ColumnOperations } from '../../api/requests/table-operations/table-operations.types';
@@ -128,7 +128,7 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
                   );
                 break;
               case 'Shuffle':
-                putAddShuffleOperation(worksheetId, {
+                putAddColumnShuffleOperation(worksheetId, {
                   tableName: tableName,
                   columnName: columnOperations.column.columnName,
                   columnType: columnOperations.column.type,

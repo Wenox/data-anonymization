@@ -77,13 +77,23 @@ public class TableOperationsService {
               listOfColumnOperationDto.add(columnOperationDto);
             });
         Optional
-            .ofNullable(columnOperations.getShuffle())
-            .ifPresent(shuffle -> {
+            .ofNullable(columnOperations.getColumnShuffle())
+            .ifPresent(columnShuffle -> {
               ColumnOperationDto columnOperationDto = new ColumnOperationDto();
-              columnOperationDto.setOperationName("Shuffle");
+              columnOperationDto.setOperationName("ColumnShuffle");
               columnOperationDto.setColumnName(column.getColumnName());
               columnOperationDto.setTableName(tableName);
-              columnOperationDto.setId(shuffle.getId());
+              columnOperationDto.setId(columnShuffle.getId());
+              listOfColumnOperationDto.add(columnOperationDto);
+            });
+        Optional
+            .ofNullable(columnOperations.getRowShuffle())
+            .ifPresent(rowShuffle -> {
+              ColumnOperationDto columnOperationDto = new ColumnOperationDto();
+              columnOperationDto.setOperationName("RowShuffle");
+              columnOperationDto.setColumnName(column.getColumnName());
+              columnOperationDto.setTableName(tableName);
+              columnOperationDto.setId(rowShuffle.getId());
               listOfColumnOperationDto.add(columnOperationDto);
             });
         item.setListOfColumnOperation(listOfColumnOperationDto);
