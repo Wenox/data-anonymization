@@ -108,7 +108,7 @@ const MyTemplates = () => {
       renderCell: ({ row }) => {
         return (
           <IconButton onClick={() => handleDownloadTemplateDump(row.id, row.originalFileName)}>
-            <CloudDownload fontSize="large" sx={{ color: '#7f00b5' }} />
+            <CloudDownload sx={{ fontSize: '240%', color: '#7f00b5' }} />
           </IconButton>
         );
       },
