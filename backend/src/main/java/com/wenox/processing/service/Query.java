@@ -4,15 +4,16 @@ public class Query {
 
   @Override
   public String toString() {
+    return switch (queryType) {
+      case UPDATE -> createUpdateQuery();
+      case ALTER_COLUMN_TYPE -> createAlterColumnTypeToTextQuery();
+    };
+  }
 
+  public String createUpdateQuery() {
     var query = new StringBuilder();
 
-    var queryTypeString = switch (queryType) {
-      case UPDATE -> "UPDATE ";
-      case INSERT -> "INSERT INTO ";
-    };
-
-    query.append(queryTypeString)
+    query.append("UPDATE ")
         .append(tableName)
         .append(" SET ")
         .append(columnName)
@@ -38,6 +39,14 @@ public class Query {
     query.append(";\n");
 
     return query.toString();
+  }
+
+  public String createAlterColumnTypeToTextQuery() {
+    return String.format(
+        """
+        ALTER TABLE %s ALTER COLUMN %s TYPE TEXT USING '';
+                        
+        """, tableName, columnName);
   }
 
   private boolean isQuotedType(String type) {
@@ -163,6 +172,6 @@ public class Query {
 
   public enum QueryType {
     UPDATE,
-    INSERT
+    ALTER_COLUMN_TYPE
   }
 }
