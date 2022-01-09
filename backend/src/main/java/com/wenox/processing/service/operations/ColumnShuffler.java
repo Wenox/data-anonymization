@@ -1,49 +1,34 @@
 package com.wenox.processing.service.operations;
 
 import com.wenox.processing.domain.Pair;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 
 public class ColumnShuffler {
 
-  private static final Logger log = LoggerFactory.getLogger(ColumnShuffler.class);
+  private final Random rng = new Random(System.currentTimeMillis());
 
   public List<Pair<String, String>> shuffle(List<Pair<String, String>> rows) {
-    log.info("Shuffling {} rows.", rows.size());
-
-    System.out.println("Before shuffle: ");
-    rows.forEach(System.out::println);
-
-    var values = rows.stream().map(Pair::getSecond).collect(Collectors.toList());
+    List<String> values = rows.stream().map(Pair::getSecond).collect(Collectors.toList());
     Collections.shuffle(values);
-
-    var shuffledRows = IntStream.range(0, rows.size()).mapToObj(i -> Pair.of(rows.get(i).getFirst(), values.get(i))).toList();
-
-    System.out.println("After shuffle:");
-    shuffledRows.forEach(System.out::println);
-
-    return shuffledRows;
+    return IntStream.range(0, rows.size()).mapToObj(i -> Pair.of(rows.get(i).getFirst(), values.get(i))).toList();
   }
 
   public List<Pair<String, String>> shuffleWithRepetitions(List<Pair<String, String>> rows) {
-    log.info("Shuffling {} rows.", rows.size());
+    List<String> beforeShuffle = rows.stream().map(Pair::getSecond).collect(Collectors.toList());
 
-    System.out.println("Before shuffle: ");
-    rows.forEach(System.out::println);
+    final int valuesSize = beforeShuffle.size();
+    List<String> afterShuffle = new ArrayList<>(valuesSize);
+    for (int i = 0; i < valuesSize; i++) {
+      afterShuffle.add(beforeShuffle.get(rng.nextInt(valuesSize)));
+    }
 
-    var values = rows.stream().map(Pair::getSecond).collect(Collectors.toList());
-    Collections.shuffle(values);
-
-    var shuffledRows = IntStream.range(0, rows.size()).mapToObj(i -> Pair.of(rows.get(i).getFirst(), values.get(i))).toList();
-
-    System.out.println("After shuffle:");
-    shuffledRows.forEach(System.out::println);
-
-    return shuffledRows;
+    return IntStream.range(0, valuesSize)
+        .mapToObj(i -> Pair.of(rows.get(i).getFirst(), afterShuffle.get(i)))
+        .toList();
   }
 }
