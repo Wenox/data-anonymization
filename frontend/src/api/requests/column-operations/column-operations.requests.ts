@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AddColumnShuffle, AddRowShuffle, AddSuppression } from './column-operations.types';
+import { AddColumnShuffle, AddPatternMasking, AddRowShuffle, AddSuppression } from './column-operations.types';
 import { ApiResponse } from '../shared.types';
 
 export const putAddSuppressionOperation = (worksheetId: string, dto: AddSuppression) => {
@@ -12,4 +12,8 @@ export const putAddColumnShuffleOperation = (worksheetId: string, dto: AddColumn
 
 export const putAddRowShuffleOperation = (worksheetId: string, dto: AddRowShuffle) => {
   return axios.put<ApiResponse>(`/api/v1/worksheet/${worksheetId}/column-operations/add-row-shuffle`, dto);
+};
+
+export const putAddPatternMaskingOperation = (worksheetId: string, dto: AddPatternMasking) => {
+  return axios.put<ApiResponse>(`/api/v1/worksheet/${worksheetId}/column-operations/add-pattern-masking`, dto);
 };

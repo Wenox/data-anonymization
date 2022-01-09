@@ -29,6 +29,9 @@ public class ColumnOperations {
   @OneToOne
   private RowShuffle rowShuffle;
 
+  @OneToOne
+  private PatternMasking patternMasking;
+
   private String tableName;
 
   private String columnName;
@@ -97,6 +100,14 @@ public class ColumnOperations {
 
   public String getPrimaryKeyColumnType() {
     return primaryKeyColumnType;
+  }
+
+  public PatternMasking getPatternMasking() {
+    return patternMasking;
+  }
+
+  public void setPatternMasking(PatternMasking patternMasking) {
+    this.patternMasking = patternMasking;
   }
 
   public void setPrimaryKeyColumnType(String primaryKeyColumnType) {

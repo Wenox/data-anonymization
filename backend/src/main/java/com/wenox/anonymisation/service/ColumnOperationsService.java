@@ -2,13 +2,16 @@ package com.wenox.anonymisation.service;
 
 import com.wenox.anonymisation.domain.ColumnOperations;
 import com.wenox.anonymisation.domain.ColumnShuffle;
+import com.wenox.anonymisation.domain.PatternMasking;
 import com.wenox.anonymisation.domain.RowShuffle;
 import com.wenox.anonymisation.domain.Suppression;
 import com.wenox.anonymisation.dto.columnoperations.AddColumnShuffleRequest;
+import com.wenox.anonymisation.dto.columnoperations.AddPatternMaskingRequest;
 import com.wenox.anonymisation.dto.columnoperations.AddRowShuffleRequest;
 import com.wenox.anonymisation.dto.columnoperations.AddSuppressionRequest;
 import com.wenox.anonymisation.repository.ColumnOperationsRepository;
 import com.wenox.anonymisation.repository.ColumnShuffleRepository;
+import com.wenox.anonymisation.repository.PatternMaskingRepository;
 import com.wenox.anonymisation.repository.RowShuffleRepository;
 import com.wenox.anonymisation.repository.SuppressionRepository;
 import com.wenox.anonymisation.repository.WorksheetRepository;
@@ -27,19 +30,22 @@ public class ColumnOperationsService {
   private final SuppressionRepository suppressionRepository;
   private final ColumnShuffleRepository columnShuffleRepository;
   private final RowShuffleRepository rowShuffleRepository;
+  private final PatternMaskingRepository patternMaskingRepository;
 
   public ColumnOperationsService(AuthService authService,
                                  WorksheetRepository worksheetRepository,
                                  ColumnOperationsRepository columnOperationsRepository,
                                  SuppressionRepository suppressionRepository,
                                  ColumnShuffleRepository columnShuffleRepository,
-                                 RowShuffleRepository rowShuffleRepository) {
+                                 RowShuffleRepository rowShuffleRepository,
+                                 PatternMaskingRepository patternMaskingRepository) {
     this.authService = authService;
     this.worksheetRepository = worksheetRepository;
     this.columnOperationsRepository = columnOperationsRepository;
     this.suppressionRepository = suppressionRepository;
     this.columnShuffleRepository = columnShuffleRepository;
     this.rowShuffleRepository = rowShuffleRepository;
+    this.patternMaskingRepository = patternMaskingRepository;
   }
 
   @Transactional
@@ -149,6 +155,10 @@ public class ColumnOperationsService {
       return ApiResponse.ofError("This column uses suppression and therefore cannot use row shuffle.");
     }
 
+    if (columnOperations.getPatternMasking() != null) {
+      return ApiResponse.ofError("This column uses pattern masking and therefore cannot use row shuffle.");
+    }
+
     RowShuffle rowShuffle = new RowShuffle();
     rowShuffle.setLetterMode(dto.getLetterMode());
     rowShuffle.setWithRepetitions(dto.isWithRepetitions());
@@ -157,5 +167,51 @@ public class ColumnOperationsService {
     rowShuffleRepository.save(rowShuffle);
 
     return ApiResponse.ofSuccess("Row shuffle added successfully.");
+  }
+
+  @Transactional
+  public ApiResponse addPatternMaskingOperationForColumn(String id, AddPatternMaskingRequest dto, Authentication auth) {
+    final var me = authService.getMe(auth);
+    final var worksheet = worksheetRepository.findById(id).orElseThrow();
+    if (!me.getId().equals(worksheet.getUser().getId())) {
+      throw new RuntimeException("The worksheet does not belong to this user.");
+    }
+
+    var columnOperations =
+        columnOperationsRepository.findOperationsForColumn(worksheet, dto.getTableName(), dto.getColumnName())
+            .orElseGet(
+                () -> {
+                  var newColumnOperations = new ColumnOperations();
+                  newColumnOperations.setWorksheet(worksheet);
+                  newColumnOperations.setTableName(dto.getTableName());
+                  newColumnOperations.setColumnName(dto.getColumnName());
+                  newColumnOperations.setColumnType(dto.getColumnType());
+                  newColumnOperations.setPrimaryKeyColumnName(dto.getPrimaryKeyColumnName());
+                  newColumnOperations.setPrimaryKeyColumnType(dto.getPrimaryKeyColumnType());
+                  return newColumnOperations;
+                }
+            );
+
+    if (columnOperations.getPatternMasking() != null) {
+      return ApiResponse.ofError("This column already uses pattern masking.");
+    }
+
+    if (columnOperations.getSuppression() != null) {
+      return ApiResponse.ofError("This column uses suppression and therefore cannot use pattern masking.");
+    }
+
+    if (columnOperations.getRowShuffle() != null) {
+      return ApiResponse.ofError("This column uses row shuffle and therefore cannot use pattern masking.");
+    }
+
+    PatternMasking patternMasking = new PatternMasking();
+    patternMasking.setPattern(dto.getPattern());
+    patternMasking.setMaskingCharacter(dto.getMaskingCharacter());
+    patternMasking.setDiscardExcessiveCharacters(dto.isDiscardExcessiveCharacters());
+    columnOperations.setPatternMasking(patternMasking);
+    columnOperationsRepository.save(columnOperations);
+    patternMaskingRepository.save(patternMasking);
+
+    return ApiResponse.ofSuccess("Pattern masking added successfully.");
   }
 }
