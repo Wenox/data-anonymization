@@ -246,7 +246,7 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
                   columnType: columnOperations.column.type,
                   primaryKeyColumnName: primaryKeyColumnName,
                   primaryKeyColumnType: primaryKeyColumnType,
-                  pattern: 'OXOXO',
+                  pattern: 'XULCAO',
                   discardExcessiveCharacters: false,
                 })
                   .then((response) => {

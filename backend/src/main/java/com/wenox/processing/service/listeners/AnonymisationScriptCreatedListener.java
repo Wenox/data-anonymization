@@ -14,6 +14,7 @@ import com.wenox.processing.repository.OutcomeRepository;
 import com.wenox.processing.service.Query;
 import com.wenox.processing.service.QueryExecutor;
 import com.wenox.processing.service.operations.ColumnShuffler;
+import com.wenox.processing.service.operations.PatternMaskingService;
 import com.wenox.processing.service.operations.RowShuffler;
 import com.wenox.processing.service.operations.SuppressionService;
 import java.nio.file.Files;
@@ -152,6 +153,31 @@ public class AnonymisationScriptCreatedListener {
         }
 
         for (var row : shuffledRows) {
+          try {
+            Files.writeString(fileLocation,
+                new Query.QueryBuilder(Query.QueryType.UPDATE)
+                    .tableName(columnOperations.getTableName())
+                    .primaryKeyColumnName(columnOperations.getPrimaryKeyColumnName())
+                    .primaryKeyType(columnOperations.getPrimaryKeyColumnType())
+                    .primaryKeyValue(row.getFirst())
+                    .columnName(columnOperations.getColumnName())
+                    .columnType(columnOperations.getColumnType())
+                    .columnValue(row.getSecond())
+                    .build()
+                    .toString(),
+                StandardOpenOption.APPEND);
+          } catch (Exception ex) {
+            ex.printStackTrace();
+          }
+        }
+      }
+
+
+      var patternMasking = columnOperations.getPatternMasking();
+      if (patternMasking != null) {
+        final List<Pair<String, String>> maskedRows = new PatternMaskingService().mask(rows, patternMasking);
+
+        for (var row : maskedRows) {
           try {
             Files.writeString(fileLocation,
                 new Query.QueryBuilder(Query.QueryType.UPDATE)
