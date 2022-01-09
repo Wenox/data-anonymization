@@ -15,6 +15,7 @@ interface AddOperationDialogProps {
   worksheetId: string;
   tableName: string;
   primaryKeyColumnName: string;
+  primaryKeyColumnType: string;
 }
 
 const AddOperationDialog: FC<AddOperationDialogProps> = ({
@@ -25,6 +26,7 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
   worksheetId,
   tableName,
   primaryKeyColumnName,
+  primaryKeyColumnType,
 }) => {
   return (
     <Dialog fullWidth maxWidth="sm" open={open} onClose={handleCancel} TransitionComponent={Transition}>
@@ -46,6 +48,7 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
               columnName: columnOperations.column.columnName,
               columnType: columnOperations.column.type,
               primaryKeyColumnName: primaryKeyColumnName,
+              primaryKeyColumnType: primaryKeyColumnType,
               suppressionToken: '*',
             })
               .then((response) => {

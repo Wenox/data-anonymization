@@ -3,6 +3,7 @@ import { Column } from '../templates/templates.types';
 export interface TableOperations {
   tableName: string;
   primaryKeyColumnName: string;
+  primaryKeyColumnType: string;
   numberOfRows: number;
   listOfColumnOperations: ColumnOperations[];
 }

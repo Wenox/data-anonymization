@@ -84,7 +84,7 @@ public class AnonymisationScriptCreatedListener {
                 new Query.QueryBuilder(Query.QueryType.UPDATE)
                     .tableName(columnOperations.getTableName())
                     .primaryKeyColumnName(columnOperations.getPrimaryKeyColumnName())
-                    .primaryKeyType("4")
+                    .primaryKeyType(columnOperations.getPrimaryKeyColumnType())
                     .primaryKeyValue(row.getFirst())
                     .columnName(columnOperations.getColumnName())
                     .columnType(columnOperations.getColumnType())

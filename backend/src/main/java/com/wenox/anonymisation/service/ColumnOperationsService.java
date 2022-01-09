@@ -54,6 +54,7 @@ public class ColumnOperationsService {
                   newColumnOperations.setColumnName(dto.getColumnName());
                   newColumnOperations.setColumnType(dto.getColumnType());
                   newColumnOperations.setPrimaryKeyColumnName(dto.getPrimaryKeyColumnName());
+                  newColumnOperations.setPrimaryKeyColumnType(dto.getPrimaryKeyColumnType());
                   return newColumnOperations;
                 }
             );
@@ -89,6 +90,7 @@ public class ColumnOperationsService {
                   newColumnOperations.setColumnName(dto.getColumnName());
                   newColumnOperations.setColumnType(dto.getColumnType());
                   newColumnOperations.setPrimaryKeyColumnName(dto.getPrimaryKeyColumnName());
+                  newColumnOperations.setPrimaryKeyColumnType(dto.getPrimaryKeyColumnType());
                   return newColumnOperations;
                 }
             );
