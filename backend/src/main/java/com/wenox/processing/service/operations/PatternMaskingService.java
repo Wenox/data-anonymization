@@ -40,6 +40,7 @@ public class PatternMaskingService {
         switch (c) {
           case 'O' -> masked.append(valueChars[i]);
           case 'X' -> masked.append('#');
+          case 'N' -> masked.append(rng.nextInt(10));
           case 'L' -> masked.append((char) (rng.nextInt(26) + 'a'));
           case 'U' -> masked.append((char) (rng.nextInt(26) + 'A'));
           case 'A' -> masked.append(RandomStringUtils.randomAlphabetic(1));
