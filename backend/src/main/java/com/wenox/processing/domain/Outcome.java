@@ -8,7 +8,9 @@ import java.util.UUID;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -19,7 +21,7 @@ public class Outcome {
   @Id
   private final String id = UUID.randomUUID().toString();
 
-  @OneToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   private Worksheet worksheet;
 
   @Enumerated(EnumType.STRING)

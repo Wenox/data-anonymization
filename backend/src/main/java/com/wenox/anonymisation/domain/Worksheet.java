@@ -1,5 +1,6 @@
 package com.wenox.anonymisation.domain;
 
+import com.wenox.processing.domain.Outcome;
 import com.wenox.uploading.template.domain.Template;
 import com.wenox.users.domain.User;
 import java.util.ArrayList;
@@ -23,6 +24,9 @@ public class Worksheet {
   @ManyToOne(fetch = FetchType.LAZY)
   private User user;
 
+  @OneToMany(mappedBy = "worksheet", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<Outcome> outcomes = new ArrayList<>();
+
   @ManyToOne(fetch = FetchType.EAGER)
   private Template template;
 
@@ -37,6 +41,14 @@ public class Worksheet {
   public void removeColumnOperations(ColumnOperations operation) {
     listOfColumnOperations.remove(operation);
     operation.setWorksheet(null);
+  }
+
+  public List<Outcome> getOutcomes() {
+    return outcomes;
+  }
+
+  public void setOutcomes(List<Outcome> outcomes) {
+    this.outcomes = outcomes;
   }
 
   public List<ColumnOperations> getListOfColumnOperations() {
