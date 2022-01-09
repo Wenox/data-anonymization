@@ -13,6 +13,15 @@ const MyOutcomes = () => {
   const { data, isLoading, refetch, isRefetching } = useQuery('outcomes', getMyOutcomes);
   const outcomes: OutcomeResponse[] = data?.data || [];
 
+  const isDownloadDisabled = (outcomeStatus: string) =>
+    [
+      'DATABASE_DUMP_FAILURE',
+      'SCRIPT_EXECUTION_FAILURE',
+      'SCRIPT_POPULATION_FAILURE',
+      'SCRIPT_POPULATION_FAILURE',
+      'MIRROR_FAILURE',
+    ].includes(outcomeStatus);
+
   const columns: GridColDef[] = [
     { field: 'templateName', headerName: 'Template name', flex: 1, ...centeredHeader() },
     {
@@ -20,28 +29,39 @@ const MyOutcomes = () => {
       headerName: 'Anonymisation script',
       flex: 1,
       ...centeredHeader(),
-      renderCell: ({ row }) => (
-        <>
-          <IconButton onClick={() => handleDownloadAnonymisationScript(row.id, row.anonymisationScriptName)}>
-            <CloudDownload sx={{ fontSize: '240%', color: '#7f00b5' }} />
-          </IconButton>
-          <h2>&nbsp;{row.anonymisationScriptName}</h2>
-        </>
-      ),
+      renderCell: ({ row }) => {
+        const downloadDisabled = isDownloadDisabled(row.outcomeStatus);
+        return (
+          <>
+            <IconButton
+              disabled={downloadDisabled}
+              onClick={() => handleDownloadAnonymisationScript(row.id, row.anonymisationScriptName)}
+            >
+              <CloudDownload sx={{ fontSize: '240%', color: downloadDisabled ? '#ccc' : '#7f00b5' }} />
+            </IconButton>
+            <h2 style={{ color: downloadDisabled ? '#ccc' : `${theme.palette.primary.main}` }}>
+              &nbsp;{row.anonymisationScriptName}
+            </h2>
+          </>
+        );
+      },
     },
     {
       field: 'dumpFile',
       headerName: 'Dump file',
       flex: 1,
       ...centeredHeader(),
-      renderCell: ({ row }) => (
-        <>
-          <IconButton onClick={() => handleDownloadOutcomeDump(row.id, row.dumpName)}>
-            <CloudDownload sx={{ fontSize: '240%', color: '#7f00b5' }} />
-          </IconButton>
-          <h2>&nbsp;{row.dumpName}</h2>
-        </>
-      ),
+      renderCell: ({ row }) => {
+        const downloadDisabled = isDownloadDisabled(row.outcomeStatus);
+        return (
+          <>
+            <IconButton disabled={downloadDisabled} onClick={() => handleDownloadOutcomeDump(row.id, row.dumpName)}>
+              <CloudDownload sx={{ fontSize: '240%', color: downloadDisabled ? '#ccc' : '#7f00b5' }} />
+            </IconButton>
+            <h2 style={{ color: downloadDisabled ? '#ccc' : `${theme.palette.primary.main}` }}>&nbsp;{row.dumpName}</h2>
+          </>
+        );
+      },
     },
     { field: 'outcomeStatus', headerName: 'Status', flex: 1, ...centeredHeader() },
     { field: 'dumpMode', headerName: 'Dump mode', flex: 1, ...centeredHeader() },
