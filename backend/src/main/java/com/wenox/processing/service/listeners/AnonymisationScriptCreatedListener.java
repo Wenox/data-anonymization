@@ -21,6 +21,7 @@ import com.wenox.processing.service.operations.PerturbationService;
 import com.wenox.processing.service.operations.RandomNumberService;
 import com.wenox.processing.service.operations.RowShuffler;
 import com.wenox.processing.service.operations.ShorteningService;
+import com.wenox.processing.service.operations.SubstitutionService;
 import com.wenox.processing.service.operations.SuppressionService;
 import com.wenox.processing.service.operations.TokenizationService;
 import java.nio.file.Files;
@@ -398,6 +399,47 @@ public class AnonymisationScriptCreatedListener {
                     .primaryKeyValue(row.getFirst())
                     .columnName(columnOperations.getColumnName())
                     .columnType(String.valueOf(Types.INTEGER))
+                    .columnValue(row.getSecond())
+                    .build()
+                    .toString(),
+                StandardOpenOption.APPEND);
+          } catch (Exception ex) {
+            ex.printStackTrace();
+          }
+        }
+      }
+
+
+      var substitution = columnOperations.getSubstitution();
+      if (substitution != null) {
+
+        // 3.0 Handle column type change
+        if (!columnOperations.getColumnType().equals(String.valueOf(Types.VARCHAR))) {
+          try {
+            Files.writeString(fileLocation,
+                new Query.QueryBuilder(Query.QueryType.ALTER_COLUMN_TYPE_TEXT)
+                    .tableName(columnOperations.getTableName())
+                    .columnName(columnOperations.getColumnName())
+                    .build()
+                    .toString(),
+                StandardOpenOption.APPEND);
+          } catch (Exception ex) {
+            ex.printStackTrace();
+          }
+        }
+
+        final List<Pair<String, String>> substitutions = new SubstitutionService().substitute(rows, substitution);
+
+        for (var row : substitutions) {
+          try {
+            Files.writeString(fileLocation,
+                new Query.QueryBuilder(Query.QueryType.UPDATE)
+                    .tableName(columnOperations.getTableName())
+                    .primaryKeyColumnName(columnOperations.getPrimaryKeyColumnName())
+                    .primaryKeyType(columnOperations.getPrimaryKeyColumnType())
+                    .primaryKeyValue(row.getFirst())
+                    .columnName(columnOperations.getColumnName())
+                    .columnType(String.valueOf(Types.VARCHAR))
                     .columnValue(row.getSecond())
                     .build()
                     .toString(),
