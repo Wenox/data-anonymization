@@ -1,4 +1,4 @@
-import { Column } from '../templates/templates.types';
+import { Column, TemplateMetadata } from '../templates/templates.types';
 
 export interface TableOperations {
   tableName: string;
@@ -6,6 +6,7 @@ export interface TableOperations {
   primaryKeyColumnType: string;
   numberOfRows: number;
   listOfColumnOperations: ColumnOperations[];
+  metadata: TemplateMetadata;
 }
 
 export interface ColumnOperations {

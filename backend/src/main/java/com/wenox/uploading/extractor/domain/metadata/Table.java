@@ -9,8 +9,6 @@ public class Table {
   private final Integer numberOfColumns;
   private final Map<String, Column> columns = new HashMap<>();
   private PrimaryKey primaryKey;
-  private final Map<String, ForeignKey> importedKeys = new HashMap<>();
-  private final Map<String, ForeignKey> exportedKeys = new HashMap<>();
 
   public Table(String tableName, Integer numberOfRows, Integer numberOfColumns) {
     this.tableName = tableName;
@@ -42,27 +40,7 @@ public class Table {
     return primaryKey;
   }
 
-  public Map<String, ForeignKey> getImportedKeys() {
-    return importedKeys;
-  }
-
-  public Map<String, ForeignKey> getExportedKeys() {
-    return exportedKeys;
-  }
-
   public void setPrimaryKey(PrimaryKey primaryKey) {
     this.primaryKey = primaryKey;
-  }
-
-  @Override
-  public String toString() {
-    return "Table{" + "tableName='" + tableName + '\'' +
-        ", numberOfRows=" + numberOfRows +
-        ", numberOfColumns=" + numberOfColumns +
-        ", columns=" + columns +
-        ", primaryKeys=" + primaryKey +
-        ", importedKeys=" + importedKeys +
-        ", exportedKeys=" + exportedKeys +
-        '}';
   }
 }

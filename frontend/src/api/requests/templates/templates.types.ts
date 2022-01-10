@@ -22,10 +22,20 @@ export interface Table {
   numberOfRows: number;
   numberOfColumns: number;
   columns: Record<string, Column>;
+  primaryKey: PrimaryKey;
 }
 
 export interface Column {
   columnName: string;
   type: string;
   nullable: boolean;
+  primaryKey: boolean;
+  foreignKey: boolean;
+}
+
+export interface PrimaryKey {
+  columnName: string;
+  type: string;
+  nullable: boolean;
+  primaryKeyName: string;
 }

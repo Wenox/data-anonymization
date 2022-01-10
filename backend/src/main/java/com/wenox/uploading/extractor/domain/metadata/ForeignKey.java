@@ -1,23 +1,13 @@
 package com.wenox.uploading.extractor.domain.metadata;
 
 public class ForeignKey {
-  private String referencingSchemaName;
   private String referencingTableName;
   private String referencingColumnName;
-  private String referencedSchemaName;
   private String referencedTableName;
   private String referencedColumnName;
   private String foreignKeyName;
   private String primaryKeyName;
   private String type;
-
-  public String getReferencingSchemaName() {
-    return referencingSchemaName;
-  }
-
-  public void setReferencingSchemaName(String referencingSchemaName) {
-    this.referencingSchemaName = referencingSchemaName;
-  }
 
   public String getReferencingTableName() {
     return referencingTableName;
@@ -33,14 +23,6 @@ public class ForeignKey {
 
   public void setReferencingColumnName(String referencingColumnName) {
     this.referencingColumnName = referencingColumnName;
-  }
-
-  public String getReferencedSchemaName() {
-    return referencedSchemaName;
-  }
-
-  public void setReferencedSchemaName(String referencedSchemaName) {
-    this.referencedSchemaName = referencedSchemaName;
   }
 
   public String getReferencedTableName() {
