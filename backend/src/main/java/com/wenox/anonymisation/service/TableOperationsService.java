@@ -179,7 +179,8 @@ public class TableOperationsService {
         table.getPrimaryKey().getColumnName(),
         table.getPrimaryKey().getType(),
         table.getNumberOfRows(),
-        listOfColumnOperationsDtos
+        listOfColumnOperationsDtos,
+        metadata
     );
   }
 

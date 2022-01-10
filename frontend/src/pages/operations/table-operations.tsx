@@ -7,7 +7,7 @@ import { centeredColumn, centeredHeader } from '../../styles/data-table';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { ROUTES } from '../../constants/routes';
-import { Add, Edit } from '@mui/icons-material';
+import { Add, Edit, Key } from '@mui/icons-material';
 import AddOperationDialog from '../../components/operation/add-operation-dialog';
 import { ColumnOperations, Operation } from '../../api/requests/table-operations/table-operations.types';
 import { getTableOperations } from '../../api/requests/table-operations/table-operations.requests';
@@ -84,17 +84,47 @@ const TableOperations: FC = () => {
 
   const columns: GridColDef[] = [
     {
+      field: 'keyInfo',
+      headerName: 'Key info',
+      width: 120,
+      ...centeredColumn(),
+      sortable: false,
+      filterable: false,
+      renderCell: ({ row }) => {
+        const isPrimaryKey = row.column.primaryKey;
+        const isForeignKey = row.column.foreignKey;
+        return (
+          <>
+            {isPrimaryKey && (
+              <>
+                <Key sx={{ fontSize: '200%' }} color="error" /> &nbsp;Primary key
+              </>
+            )}
+            {isForeignKey && (
+              <>
+                <Key sx={{ fontSize: '200%' }} color="error" /> &nbsp;Foreign key
+              </>
+            )}
+          </>
+        );
+      },
+    },
+    {
       field: 'actions',
       headerName: 'Actions',
       width: 200,
       ...centeredColumn(),
+      sortable: false,
+      filterable: false,
       renderCell: ({ row }) => {
         const usesSuppression = row.listOfColumnOperation
           .map((v: Operation) => v.operationName)
           .includes('Suppression');
+        const isPrimaryKey = row.column.primaryKey;
+        const isForeignKey = row.column.foreignKey;
         return (
           <Button
-            disabled={usesSuppression}
+            disabled={isPrimaryKey || isForeignKey || usesSuppression}
             size="large"
             color="success"
             variant="contained"
@@ -115,6 +145,8 @@ const TableOperations: FC = () => {
       headerName: 'Accumulated operations',
       width: 360,
       ...centeredHeader(),
+      sortable: false,
+      filterable: false,
       renderCell: ({ row }) => {
         return (
           <>
