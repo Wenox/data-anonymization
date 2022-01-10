@@ -23,38 +23,38 @@ public class GeneralisationService {
     int computedMax = userMax == null ? rawMax : (userMax > rawMax ? userMax : rawMax);
 
     if (generalisation.getGeneralisationMode() == GeneralisationMode.DISTRIBUTION) {
-      var numberOfDistributions = generalisation.getNumberOfDistributions();
-
-      int distributionSize = (computedMax - computedMin) / numberOfDistributions;
-
-      Map<GeneralisationInterval, List<Pair<String, String>>> generalisationMap = new HashMap<>();
-
+      final var numberOfDistributions = generalisation.getNumberOfDistributions();
+      final int distributionSize = (computedMax - computedMin) / numberOfDistributions;
       int currentStart = computedMin;
+      Map<GeneralisationInterval, List<Pair<String, String>>> generalisationMap = new HashMap<>();
       for (int i = 0; i < numberOfDistributions; i++) {
-        generalisationMap.put(new GeneralisationInterval(currentStart + 1, currentStart + distributionSize), new ArrayList<>());
+        generalisationMap.put(new GeneralisationInterval(currentStart, currentStart + distributionSize - 1), new ArrayList<>());
         currentStart += distributionSize;
       }
+      return getPairs(rows, generalisationMap);
 
-      var intervals = generalisationMap.keySet();
-      for (var value : rows) {
-        for (var interval : intervals) {
-          if (interval.isWithinInterval(Integer.valueOf(value.getSecond()))) {
-            generalisationMap.get(interval).add(Pair.of(value.getFirst(), interval.toString()));
-          }
+    } else {
+      final int intervalSize = generalisation.getIntervalSize();
+      Map<GeneralisationInterval, List<Pair<String, String>>> generalisationMap = new HashMap<>();
+      for (int currentStart = computedMin; currentStart < computedMax; currentStart += intervalSize) {
+        generalisationMap.put(new GeneralisationInterval(currentStart, currentStart + intervalSize - 1), new ArrayList<>());
+      }
+      return getPairs(rows, generalisationMap);
+    }
+  }
+
+  private List<Pair<String, String>> getPairs(List<Pair<String, String>> rows,
+                                              Map<GeneralisationInterval, List<Pair<String, String>>> generalisationMap) {
+    var intervals = generalisationMap.keySet();
+    for (var value : rows) {
+      for (var interval : intervals) {
+        if (interval.isWithinInterval(Integer.valueOf(value.getSecond()))) {
+          generalisationMap.get(interval).add(Pair.of(value.getFirst(), interval.toString()));
         }
       }
-
-      return generalisationMap.values().stream().flatMap(List::stream).toList();
     }
 
-    else {
-
-
-
-    }
-
-
-    return null;
+    return generalisationMap.values().stream().flatMap(List::stream).toList();
   }
 
   static class GeneralisationInterval {
