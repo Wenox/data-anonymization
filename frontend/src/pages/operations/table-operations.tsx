@@ -188,13 +188,6 @@ const TableOperations: FC = () => {
       ...centeredColumn(),
       renderCell: ({ row }) => row.column.nullable.toString(),
     },
-    {
-      field: 'primaryKey',
-      headerName: 'Primary key',
-      flex: 1,
-      ...centeredColumn(),
-      renderCell: () => 'Todo',
-    },
   ];
 
   return (
