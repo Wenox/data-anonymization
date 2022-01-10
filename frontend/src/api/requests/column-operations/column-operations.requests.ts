@@ -9,6 +9,7 @@ import {
   AddRowShuffle,
   AddShorteningRequest,
   AddSuppression,
+  AddTokenizationRequest,
 } from './column-operations.types';
 import { ApiResponse } from '../shared.types';
 
@@ -46,4 +47,8 @@ export const putAddRandomNumberOperation = (worksheetId: string, dto: AddRandomN
 
 export const putAddHashingOperation = (worksheetId: string, dto: AddHashingRequest) => {
   return axios.put<ApiResponse>(`/api/v1/worksheet/${worksheetId}/column-operations/add-hashing`, dto);
+};
+
+export const putAddTokenizationOperation = (worksheetId: string, dto: AddTokenizationRequest) => {
+  return axios.put<ApiResponse>(`/api/v1/worksheet/${worksheetId}/column-operations/add-tokenization`, dto);
 };

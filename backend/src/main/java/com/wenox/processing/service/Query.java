@@ -6,7 +6,8 @@ public class Query {
   public String toString() {
     return switch (queryType) {
       case UPDATE -> createUpdateQuery();
-      case ALTER_COLUMN_TYPE -> createAlterColumnTypeToTextQuery();
+      case ALTER_COLUMN_TYPE_TEXT -> createAlterColumnTypeToTextQuery();
+      case ALTER_COLUMN_TYPE_INTEGER -> createAlterColumnTypeToIntegerQuery();
     };
   }
 
@@ -46,6 +47,14 @@ public class Query {
         """
         
         ALTER TABLE %s ALTER COLUMN %s TYPE TEXT USING '';
+        """, tableName, columnName);
+  }
+
+  public String createAlterColumnTypeToIntegerQuery() {
+    return String.format(
+        """
+        
+        ALTER TABLE %s ALTER COLUMN %s TYPE INTEGER USING 0;
         """, tableName, columnName);
   }
 
@@ -172,6 +181,7 @@ public class Query {
 
   public enum QueryType {
     UPDATE,
-    ALTER_COLUMN_TYPE
+    ALTER_COLUMN_TYPE_TEXT,
+    ALTER_COLUMN_TYPE_INTEGER
   }
 }
