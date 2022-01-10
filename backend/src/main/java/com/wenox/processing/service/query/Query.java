@@ -1,7 +1,30 @@
-package com.wenox.processing.service;
+package com.wenox.processing.service.query;
 
 public class Query {
 
+  private final QueryType queryType;
+
+  private final String tableName;
+
+  private final String primaryKeyType;
+  private final String primaryKeyColumnName;
+  private final String primaryKeyValue;
+
+  private final String columnType;
+  private final String columnName;
+  private final String columnValue;
+
+  public Query(QueryBuilder builder) {
+    this.queryType = builder.queryType;
+    this.tableName = builder.tableName;
+    this.primaryKeyType = builder.primaryKeyType;
+    this.primaryKeyColumnName = builder.primaryKeyColumnName;
+    this.primaryKeyValue = builder.primaryKeyValue;
+    this.columnType = builder.columnType;
+    this.columnName = builder.columnName;
+    this.columnValue = builder.columnValue;
+  }
+  
   @Override
   public String toString() {
     return switch (queryType) {
@@ -64,29 +87,6 @@ public class Query {
       case "4" -> false;
       default -> throw new IllegalStateException("Unsupported column type: " + type);
     };
-  }
-
-  private final QueryType queryType;
-
-  private final String tableName;
-
-  private final String primaryKeyType;
-  private final String primaryKeyColumnName;
-  private final String primaryKeyValue;
-
-  private final String columnType;
-  private final String columnName;
-  private final String columnValue;
-
-  public Query(QueryBuilder builder) {
-    this.queryType = builder.queryType;
-    this.tableName = builder.tableName;
-    this.primaryKeyType = builder.primaryKeyType;
-    this.primaryKeyColumnName = builder.primaryKeyColumnName;
-    this.primaryKeyValue = builder.primaryKeyValue;
-    this.columnType = builder.columnType;
-    this.columnName = builder.columnName;
-    this.columnValue = builder.columnValue;
   }
 
   public QueryType getQueryType() {
@@ -177,11 +177,5 @@ public class Query {
     public Query build() {
       return new Query(this);
     }
-  }
-
-  public enum QueryType {
-    UPDATE,
-    ALTER_COLUMN_TYPE_TEXT,
-    ALTER_COLUMN_TYPE_INTEGER
   }
 }

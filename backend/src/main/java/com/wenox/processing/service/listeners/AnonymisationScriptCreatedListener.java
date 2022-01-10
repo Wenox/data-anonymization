@@ -1,7 +1,6 @@
 package com.wenox.processing.service.listeners;
 
 import com.wenox.anonymisation.domain.ColumnOperations;
-import com.wenox.anonymisation.domain.RowShuffle;
 import com.wenox.anonymisation.domain.Worksheet;
 import com.wenox.infrastructure.service.ConnectionDetails;
 import com.wenox.infrastructure.service.DataSourceFactory;
@@ -11,8 +10,8 @@ import com.wenox.processing.domain.Pair;
 import com.wenox.processing.domain.events.ScriptCreatedEvent;
 import com.wenox.processing.domain.events.AnonymisationScriptPopulatedEvent;
 import com.wenox.processing.repository.OutcomeRepository;
-import com.wenox.processing.service.Query;
-import com.wenox.processing.service.QueryExecutor;
+import com.wenox.processing.service.query.Query;
+import com.wenox.processing.service.query.QueryExecutor;
 import com.wenox.processing.service.operations.ColumnShuffler;
 import com.wenox.processing.service.operations.GeneralisationService;
 import com.wenox.processing.service.operations.HashingService;
@@ -24,6 +23,7 @@ import com.wenox.processing.service.operations.ShorteningService;
 import com.wenox.processing.service.operations.SubstitutionService;
 import com.wenox.processing.service.operations.SuppressionService;
 import com.wenox.processing.service.operations.TokenizationService;
+import com.wenox.processing.service.query.QueryType;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
@@ -88,7 +88,7 @@ public class AnonymisationScriptCreatedListener {
         if (!columnOperations.getColumnType().equals(String.valueOf(Types.VARCHAR))) {
           try {
             Files.writeString(fileLocation,
-                new Query.QueryBuilder(Query.QueryType.ALTER_COLUMN_TYPE_TEXT)
+                new Query.QueryBuilder(QueryType.ALTER_COLUMN_TYPE_TEXT)
                     .tableName(columnOperations.getTableName())
                     .columnName(columnOperations.getColumnName())
                     .build()
@@ -103,7 +103,7 @@ public class AnonymisationScriptCreatedListener {
         for (var row : suppressedRows) {
           try {
             Files.writeString(fileLocation,
-                new Query.QueryBuilder(Query.QueryType.UPDATE)
+                new Query.QueryBuilder(QueryType.UPDATE)
                     .tableName(columnOperations.getTableName())
                     .primaryKeyColumnName(columnOperations.getPrimaryKeyColumnName())
                     .primaryKeyType(columnOperations.getPrimaryKeyColumnType())
@@ -132,7 +132,7 @@ public class AnonymisationScriptCreatedListener {
         for (var row : shuffledRows) {
           try {
             Files.writeString(fileLocation,
-                new Query.QueryBuilder(Query.QueryType.UPDATE)
+                new Query.QueryBuilder(QueryType.UPDATE)
                     .tableName(columnOperations.getTableName())
                     .primaryKeyColumnName(columnOperations.getPrimaryKeyColumnName())
                     .primaryKeyType(columnOperations.getPrimaryKeyColumnType())
@@ -162,7 +162,7 @@ public class AnonymisationScriptCreatedListener {
         for (var row : shuffledRows) {
           try {
             Files.writeString(fileLocation,
-                new Query.QueryBuilder(Query.QueryType.UPDATE)
+                new Query.QueryBuilder(QueryType.UPDATE)
                     .tableName(columnOperations.getTableName())
                     .primaryKeyColumnName(columnOperations.getPrimaryKeyColumnName())
                     .primaryKeyType(columnOperations.getPrimaryKeyColumnType())
@@ -187,7 +187,7 @@ public class AnonymisationScriptCreatedListener {
         for (var row : maskedRows) {
           try {
             Files.writeString(fileLocation,
-                new Query.QueryBuilder(Query.QueryType.UPDATE)
+                new Query.QueryBuilder(QueryType.UPDATE)
                     .tableName(columnOperations.getTableName())
                     .primaryKeyColumnName(columnOperations.getPrimaryKeyColumnName())
                     .primaryKeyType(columnOperations.getPrimaryKeyColumnType())
@@ -212,7 +212,7 @@ public class AnonymisationScriptCreatedListener {
         for (var row : shortenedRows) {
           try {
             Files.writeString(fileLocation,
-                new Query.QueryBuilder(Query.QueryType.UPDATE)
+                new Query.QueryBuilder(QueryType.UPDATE)
                     .tableName(columnOperations.getTableName())
                     .primaryKeyColumnName(columnOperations.getPrimaryKeyColumnName())
                     .primaryKeyType(columnOperations.getPrimaryKeyColumnType())
@@ -238,7 +238,7 @@ public class AnonymisationScriptCreatedListener {
         if (!columnOperations.getColumnType().equals(String.valueOf(Types.VARCHAR))) {
           try {
             Files.writeString(fileLocation,
-                new Query.QueryBuilder(Query.QueryType.ALTER_COLUMN_TYPE_TEXT)
+                new Query.QueryBuilder(QueryType.ALTER_COLUMN_TYPE_TEXT)
                     .tableName(columnOperations.getTableName())
                     .columnName(columnOperations.getColumnName())
                     .build()
@@ -254,7 +254,7 @@ public class AnonymisationScriptCreatedListener {
         for (var row : generalisedRows) {
           try {
             Files.writeString(fileLocation,
-                new Query.QueryBuilder(Query.QueryType.UPDATE)
+                new Query.QueryBuilder(QueryType.UPDATE)
                     .tableName(columnOperations.getTableName())
                     .primaryKeyColumnName(columnOperations.getPrimaryKeyColumnName())
                     .primaryKeyType(columnOperations.getPrimaryKeyColumnType())
@@ -280,7 +280,7 @@ public class AnonymisationScriptCreatedListener {
         for (var row : perturbatedRows) {
           try {
             Files.writeString(fileLocation,
-                new Query.QueryBuilder(Query.QueryType.UPDATE)
+                new Query.QueryBuilder(QueryType.UPDATE)
                     .tableName(columnOperations.getTableName())
                     .primaryKeyColumnName(columnOperations.getPrimaryKeyColumnName())
                     .primaryKeyType(columnOperations.getPrimaryKeyColumnType())
@@ -307,7 +307,7 @@ public class AnonymisationScriptCreatedListener {
         for (var row : randomizedRows) {
           try {
             Files.writeString(fileLocation,
-                new Query.QueryBuilder(Query.QueryType.UPDATE)
+                new Query.QueryBuilder(QueryType.UPDATE)
                     .tableName(columnOperations.getTableName())
                     .primaryKeyColumnName(columnOperations.getPrimaryKeyColumnName())
                     .primaryKeyType(columnOperations.getPrimaryKeyColumnType())
@@ -334,7 +334,7 @@ public class AnonymisationScriptCreatedListener {
         if (!columnOperations.getColumnType().equals(String.valueOf(Types.VARCHAR))) {
           try {
             Files.writeString(fileLocation,
-                new Query.QueryBuilder(Query.QueryType.ALTER_COLUMN_TYPE_TEXT)
+                new Query.QueryBuilder(QueryType.ALTER_COLUMN_TYPE_TEXT)
                     .tableName(columnOperations.getTableName())
                     .columnName(columnOperations.getColumnName())
                     .build()
@@ -350,7 +350,7 @@ public class AnonymisationScriptCreatedListener {
         for (var row : hashedRows) {
           try {
             Files.writeString(fileLocation,
-                new Query.QueryBuilder(Query.QueryType.UPDATE)
+                new Query.QueryBuilder(QueryType.UPDATE)
                     .tableName(columnOperations.getTableName())
                     .primaryKeyColumnName(columnOperations.getPrimaryKeyColumnName())
                     .primaryKeyType(columnOperations.getPrimaryKeyColumnType())
@@ -376,7 +376,7 @@ public class AnonymisationScriptCreatedListener {
         if (!columnOperations.getColumnType().equals(String.valueOf(Types.INTEGER))) {
           try {
             Files.writeString(fileLocation,
-                new Query.QueryBuilder(Query.QueryType.ALTER_COLUMN_TYPE_INTEGER)
+                new Query.QueryBuilder(QueryType.ALTER_COLUMN_TYPE_INTEGER)
                     .tableName(columnOperations.getTableName())
                     .columnName(columnOperations.getColumnName())
                     .build()
@@ -392,7 +392,7 @@ public class AnonymisationScriptCreatedListener {
         for (var row : tokenizedRows) {
           try {
             Files.writeString(fileLocation,
-                new Query.QueryBuilder(Query.QueryType.UPDATE)
+                new Query.QueryBuilder(QueryType.UPDATE)
                     .tableName(columnOperations.getTableName())
                     .primaryKeyColumnName(columnOperations.getPrimaryKeyColumnName())
                     .primaryKeyType(columnOperations.getPrimaryKeyColumnType())
@@ -417,7 +417,7 @@ public class AnonymisationScriptCreatedListener {
         if (!columnOperations.getColumnType().equals(String.valueOf(Types.VARCHAR))) {
           try {
             Files.writeString(fileLocation,
-                new Query.QueryBuilder(Query.QueryType.ALTER_COLUMN_TYPE_TEXT)
+                new Query.QueryBuilder(QueryType.ALTER_COLUMN_TYPE_TEXT)
                     .tableName(columnOperations.getTableName())
                     .columnName(columnOperations.getColumnName())
                     .build()
@@ -433,7 +433,7 @@ public class AnonymisationScriptCreatedListener {
         for (var row : substitutions) {
           try {
             Files.writeString(fileLocation,
-                new Query.QueryBuilder(Query.QueryType.UPDATE)
+                new Query.QueryBuilder(QueryType.UPDATE)
                     .tableName(columnOperations.getTableName())
                     .primaryKeyColumnName(columnOperations.getPrimaryKeyColumnName())
                     .primaryKeyType(columnOperations.getPrimaryKeyColumnType())
