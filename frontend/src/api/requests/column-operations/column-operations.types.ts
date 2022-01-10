@@ -59,3 +59,8 @@ export enum PerturbationMode {
   FIXED = 'FIXED',
   PERCENTAGE = 'PERCENTAGE',
 }
+
+export interface AddRandomNumberRequest extends AddOperation {
+  minValue: number;
+  maxValue: number;
+}

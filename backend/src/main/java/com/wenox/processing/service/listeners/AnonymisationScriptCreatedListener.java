@@ -17,6 +17,7 @@ import com.wenox.processing.service.operations.ColumnShuffler;
 import com.wenox.processing.service.operations.GeneralisationService;
 import com.wenox.processing.service.operations.PatternMaskingService;
 import com.wenox.processing.service.operations.PerturbationService;
+import com.wenox.processing.service.operations.RandomNumberService;
 import com.wenox.processing.service.operations.RowShuffler;
 import com.wenox.processing.service.operations.ShorteningService;
 import com.wenox.processing.service.operations.SuppressionService;
@@ -293,6 +294,32 @@ public class AnonymisationScriptCreatedListener {
         }
       }
 
+
+
+      var randomNumber = columnOperations.getRandomNumber();
+      if (randomNumber != null) {
+
+        final List<Pair<String, String>> randomizedRows = new RandomNumberService().randomize(rows, randomNumber);
+
+        for (var row : randomizedRows) {
+          try {
+            Files.writeString(fileLocation,
+                new Query.QueryBuilder(Query.QueryType.UPDATE)
+                    .tableName(columnOperations.getTableName())
+                    .primaryKeyColumnName(columnOperations.getPrimaryKeyColumnName())
+                    .primaryKeyType(columnOperations.getPrimaryKeyColumnType())
+                    .primaryKeyValue(row.getFirst())
+                    .columnName(columnOperations.getColumnName())
+                    .columnType(columnOperations.getColumnType())
+                    .columnValue(row.getSecond())
+                    .build()
+                    .toString(),
+                StandardOpenOption.APPEND);
+          } catch (Exception ex) {
+            ex.printStackTrace();
+          }
+        }
+      }
 
 
 

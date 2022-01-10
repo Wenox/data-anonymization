@@ -137,7 +137,7 @@ public class TableOperationsService {
               listOfColumnOperationDto.add(columnOperationDto);
             });
         Optional
-            .ofNullable(columnOperations.getPerturbation())
+            .ofNullable(columnOperations.getRandomNumber())
             .ifPresent(randomNumber -> {
               ColumnOperationDto columnOperationDto = new ColumnOperationDto();
               columnOperationDto.setOperationName("RandomNumber");
