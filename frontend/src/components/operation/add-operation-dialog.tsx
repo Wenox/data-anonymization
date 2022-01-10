@@ -24,13 +24,18 @@ import {
   putAddColumnShuffleOperation,
   putAddGeneralisationOperation,
   putAddPatternMaskingOperation,
+  putAddPerturbationOperation,
   putAddRowShuffleOperation,
   putAddShorteningOperation,
   putAddSuppressionOperation,
 } from '../../api/requests/column-operations/column-operations.requests';
 import { ColumnOperations } from '../../api/requests/table-operations/table-operations.types';
 import TextField from '@mui/material/TextField';
-import { GeneralisationMode, LetterMode } from '../../api/requests/column-operations/column-operations.types';
+import {
+  GeneralisationMode,
+  LetterMode,
+  PerturbationMode,
+} from '../../api/requests/column-operations/column-operations.types';
 import { HelpOutline } from '@mui/icons-material';
 import { theme } from '../../styles/theme';
 
@@ -71,6 +76,9 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
   const [minValueChecked, setMinValueChecked] = useState(false);
   const [maxValueChecked, setMaxValueChecked] = useState(false);
   const [numberOfDistributionsChecked, setNumberOfDistributionsChecked] = useState(false);
+  const [fixedValue, setFixedValue] = useState(10);
+  const [percentageValue, setPercentageValue] = useState(5);
+  const [perturbationMode, setPerturbationMode] = useState<PerturbationMode>(PerturbationMode.FIXED);
 
   return (
     <Dialog fullWidth maxWidth="sm" open={open} onClose={handleCancel} TransitionComponent={Transition}>
@@ -85,6 +93,7 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
           <MenuItem value={'PatternMasking'}>Pattern masking</MenuItem>
           <MenuItem value={'Shortening'}>Shortening</MenuItem>
           <MenuItem value={'Generalisation'}>Generalisation</MenuItem>
+          <MenuItem value={'Perturbation'}>Perturbation</MenuItem>
         </Select>
 
         <Divider sx={{ mt: 2, mb: 2 }} />
@@ -294,6 +303,102 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
                   disabled={!numberOfDistributionsChecked}
                   onChange={(e) => setNumberOfDistributions(Number(e.target.value))}
                   value={numberOfDistributions || 0}
+                  variant="outlined"
+                  fullWidth
+                  type="number"
+                  sx={{ backgroundColor: '#fff' }}
+                />
+              </Grid>
+            </Grid>
+          </>
+        )}
+
+        {selectedOperation == 'Perturbation' && (
+          <>
+            <Grid container spacing={0}>
+              <Grid item xs={3}>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={minValueChecked}
+                      onChange={(e) => setMinValueChecked(e.target.checked)}
+                      color="secondary"
+                    />
+                  }
+                  label="Minimum value"
+                />
+              </Grid>
+              <Grid item xs={3}>
+                <TextField
+                  label="Minimum value"
+                  disabled={!minValueChecked}
+                  onChange={(e) => setMinValue(Number(e.target.value))}
+                  value={minValue || 0}
+                  variant="outlined"
+                  fullWidth
+                  type="number"
+                  sx={{ backgroundColor: '#fff' }}
+                />
+              </Grid>
+              <Grid item xs={3} sx={{ pl: 1 }}>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={maxValueChecked}
+                      onChange={(e) => setMaxValueChecked(e.target.checked)}
+                      color="secondary"
+                    />
+                  }
+                  label="Maximum value"
+                />
+              </Grid>
+              <Grid item xs={3}>
+                <TextField
+                  disabled={!maxValueChecked}
+                  label="Maximum value"
+                  onChange={(e) => setMaxValue(Number(e.target.value))}
+                  value={maxValue || 0}
+                  variant="outlined"
+                  fullWidth
+                  type="number"
+                  sx={{ backgroundColor: '#fff' }}
+                />
+              </Grid>
+              <Grid item xs={12} textAlign={'right'} sx={{ mb: 2 }}>
+                <Divider sx={{ mt: 2, mb: 2 }} />
+                <FormControlLabel
+                  labelPlacement="start"
+                  control={
+                    <Switch
+                      checked={perturbationMode === PerturbationMode.PERCENTAGE}
+                      onChange={(e) =>
+                        setPerturbationMode(e.target.checked ? PerturbationMode.PERCENTAGE : PerturbationMode.FIXED)
+                      }
+                      color="secondary"
+                      defaultChecked
+                    />
+                  }
+                  label="Percentage mode"
+                />
+              </Grid>
+              <Grid item xs={6} sx={{ pr: 0.5 }}>
+                <TextField
+                  label="Fixed value"
+                  disabled={perturbationMode === PerturbationMode.PERCENTAGE}
+                  onChange={(e) => setFixedValue(Number(e.target.value))}
+                  value={fixedValue || 0}
+                  variant="outlined"
+                  fullWidth
+                  type="number"
+                  sx={{ backgroundColor: '#fff' }}
+                />
+              </Grid>
+              <Grid item xs={6} sx={{ pl: 0.5 }}>
+                <TextField
+                  label="Percentage value"
+                  disabled={perturbationMode === PerturbationMode.FIXED}
+                  onChange={(e) => setPercentageValue(Number(e.target.value))}
+                  value={percentageValue || 0}
                   variant="outlined"
                   fullWidth
                   type="number"
@@ -552,7 +657,7 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
                   numberOfDistributions: numberOfDistributionsChecked ? numberOfDistributions : null,
                   generalisationMode: numberOfDistributionsChecked
                     ? GeneralisationMode.DISTRIBUTION
-                    : GeneralisationMode.VALUE,
+                    : GeneralisationMode.FIXED,
                 })
                   .then((response) => {
                     if (response.data.success) {
@@ -590,6 +695,55 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
                     }),
                   );
                 break;
+              case 'Perturbation':
+                putAddPerturbationOperation(worksheetId, {
+                  tableName: tableName,
+                  columnName: columnOperations.column.columnName,
+                  columnType: columnOperations.column.type,
+                  primaryKeyColumnName: primaryKeyColumnName,
+                  primaryKeyColumnType: primaryKeyColumnType,
+                  minValue: minValue,
+                  maxValue: maxValue,
+                  value: perturbationMode === PerturbationMode.PERCENTAGE ? percentageValue : fixedValue,
+                  perturbationMode: perturbationMode,
+                })
+                  .then((response) => {
+                    if (response.data.success) {
+                      toast.success(response.data.message, {
+                        position: 'top-right',
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                      });
+                      handleAddSuccess();
+                    } else {
+                      toast.error(response.data.message, {
+                        position: 'top-right',
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                      });
+                    }
+                  })
+                  .catch((err) =>
+                    toast.error('Failed to add operation: ' + err.data, {
+                      position: 'top-right',
+                      autoClose: 5000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                    }),
+                  );
+                break;
+
               default:
                 alert('Unsupported operation!');
             }

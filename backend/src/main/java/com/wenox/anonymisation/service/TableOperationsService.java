@@ -127,7 +127,7 @@ public class TableOperationsService {
               listOfColumnOperationDto.add(columnOperationDto);
             });
         Optional
-            .ofNullable(columnOperations.getGeneralisation())
+            .ofNullable(columnOperations.getPerturbation())
             .ifPresent(perturbation -> {
               ColumnOperationDto columnOperationDto = new ColumnOperationDto();
               columnOperationDto.setOperationName("Perturbation");
