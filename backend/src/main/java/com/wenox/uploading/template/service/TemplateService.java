@@ -48,6 +48,7 @@ public class TemplateService {
     template.setTemplateDatabaseName("db-" + UUID.randomUUID());
     template.setTitle(dto.getTitle());
     template.setType(dto.getType());
+    template.setRestoreMode(dto.getRestoreMode());
     template.setDescription(dto.getDescription());
     template.setStatus(TemplateStatus.NEW);
     template.setMetadata(null);
