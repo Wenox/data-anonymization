@@ -16,6 +16,7 @@ import com.wenox.processing.service.QueryExecutor;
 import com.wenox.processing.service.operations.ColumnShuffler;
 import com.wenox.processing.service.operations.GeneralisationService;
 import com.wenox.processing.service.operations.PatternMaskingService;
+import com.wenox.processing.service.operations.PerturbationService;
 import com.wenox.processing.service.operations.RowShuffler;
 import com.wenox.processing.service.operations.ShorteningService;
 import com.wenox.processing.service.operations.SuppressionService;
@@ -265,6 +266,36 @@ public class AnonymisationScriptCreatedListener {
           }
         }
       }
+
+
+      var perturbation = columnOperations.getPerturbation();
+      if (perturbation != null) {
+
+        final List<Pair<String, String>> perturbatedRows = new PerturbationService().perturb(rows, perturbation);
+
+        for (var row : perturbatedRows) {
+          try {
+            Files.writeString(fileLocation,
+                new Query.QueryBuilder(Query.QueryType.UPDATE)
+                    .tableName(columnOperations.getTableName())
+                    .primaryKeyColumnName(columnOperations.getPrimaryKeyColumnName())
+                    .primaryKeyType(columnOperations.getPrimaryKeyColumnType())
+                    .primaryKeyValue(row.getFirst())
+                    .columnName(columnOperations.getColumnName())
+                    .columnType(columnOperations.getColumnType())
+                    .columnValue(row.getSecond())
+                    .build()
+                    .toString(),
+                StandardOpenOption.APPEND);
+          } catch (Exception ex) {
+            ex.printStackTrace();
+          }
+        }
+      }
+
+
+
+
     }
     outcome.setOutcomeStatus(OutcomeStatus.SCRIPT_POPULATION_SUCCESS);
     outcomeRepository.save(outcome);
