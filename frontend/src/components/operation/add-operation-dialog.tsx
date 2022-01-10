@@ -21,6 +21,7 @@ import Typography from '@mui/material/Typography';
 import { toast } from 'react-toastify';
 import {
   putAddColumnShuffleOperation,
+  putAddGeneralisationOperation,
   putAddPatternMaskingOperation,
   putAddRowShuffleOperation,
   putAddShorteningOperation,
@@ -62,6 +63,10 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
   const [discardExcessiveCharacters, setDiscardExcessiveCharacters] = useState(false);
   const [length, setLength] = useState<number>(4);
   const [endsWithPeriod, setEndsWithPeriod] = useState(false);
+  const [minValue, setMinValue] = useState<number | null>(null);
+  const [maxValue, setMaxValue] = useState<number | null>(null);
+  const [intervalSize, setIntervalSize] = useState<number | null>(null);
+  const [numberOfDistributions, setNumberOfDistributions] = useState<number | null>(null);
 
   return (
     <Dialog fullWidth maxWidth="sm" open={open} onClose={handleCancel} TransitionComponent={Transition}>
@@ -75,6 +80,7 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
           <MenuItem value={'RowShuffle'}>Row shuffle</MenuItem>
           <MenuItem value={'PatternMasking'}>Pattern masking</MenuItem>
           <MenuItem value={'Shortening'}>Shortening</MenuItem>
+          <MenuItem value={'Generalisation'}>Generalisation</MenuItem>
         </Select>
 
         <Divider sx={{ mt: 2, mb: 2 }} />
@@ -197,6 +203,35 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
               control={<Checkbox checked={endsWithPeriod} onChange={(e) => setEndsWithPeriod(e.target.checked)} />}
               label="End abbreviation with a period"
             />
+          </>
+        )}
+
+        {selectedOperation == 'Generalisation' && (
+          <>
+            <Grid container spacing={0}>
+              <Grid item xs={6}>
+                <TextField
+                  label="Minimum value"
+                  onChange={(e) => setMinValue(Number(e.target.value))}
+                  value={minValue || 0}
+                  variant="outlined"
+                  fullWidth
+                  type="number"
+                  sx={{ backgroundColor: '#fff' }}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <TextField
+                  label="Maximum value"
+                  onChange={(e) => setMaxValue(Number(e.target.value))}
+                  value={maxValue || 0}
+                  variant="outlined"
+                  fullWidth
+                  type="number"
+                  sx={{ backgroundColor: '#fff' }}
+                />
+              </Grid>
+            </Grid>
           </>
         )}
       </DialogContent>
@@ -435,7 +470,54 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
                     }),
                   );
                 break;
-
+              case 'Generalisation':
+                putAddGeneralisationOperation(worksheetId, {
+                  tableName: tableName,
+                  columnName: columnOperations.column.columnName,
+                  columnType: columnOperations.column.type,
+                  primaryKeyColumnName: primaryKeyColumnName,
+                  primaryKeyColumnType: primaryKeyColumnType,
+                  minValue: minValue,
+                  maxValue: maxValue,
+                  intervalSize: intervalSize,
+                  numberOfDistributions: numberOfDistributions,
+                })
+                  .then((response) => {
+                    if (response.data.success) {
+                      toast.success(response.data.message, {
+                        position: 'top-right',
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                      });
+                      handleAddSuccess();
+                    } else {
+                      toast.error(response.data.message, {
+                        position: 'top-right',
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                      });
+                    }
+                  })
+                  .catch((err) =>
+                    toast.error('Failed to add operation: ' + err.data, {
+                      position: 'top-right',
+                      autoClose: 5000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                    }),
+                  );
+                break;
               default:
                 alert('Unsupported operation!');
             }

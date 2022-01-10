@@ -116,6 +116,16 @@ public class TableOperationsService {
               columnOperationDto.setId(shortening.getId());
               listOfColumnOperationDto.add(columnOperationDto);
             });
+        Optional
+            .ofNullable(columnOperations.getGeneralisation())
+            .ifPresent(generalisation -> {
+              ColumnOperationDto columnOperationDto = new ColumnOperationDto();
+              columnOperationDto.setOperationName("Generalisation");
+              columnOperationDto.setColumnName(column.getColumnName());
+              columnOperationDto.setTableName(tableName);
+              columnOperationDto.setId(generalisation.getId());
+              listOfColumnOperationDto.add(columnOperationDto);
+            });
 
         item.setListOfColumnOperation(listOfColumnOperationDto);
       }

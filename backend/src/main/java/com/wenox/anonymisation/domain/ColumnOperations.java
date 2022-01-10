@@ -35,6 +35,9 @@ public class ColumnOperations {
   @OneToOne
   private Shortening shortening;
 
+  @OneToOne
+  private Generalisation generalisation;
+
   private String tableName;
 
   private String columnName;
@@ -119,6 +122,14 @@ public class ColumnOperations {
 
   public void setShortening(Shortening shortening) {
     this.shortening = shortening;
+  }
+
+  public Generalisation getGeneralisation() {
+    return generalisation;
+  }
+
+  public void setGeneralisation(Generalisation generalisation) {
+    this.generalisation = generalisation;
   }
 
   public void setPrimaryKeyColumnType(String primaryKeyColumnType) {
