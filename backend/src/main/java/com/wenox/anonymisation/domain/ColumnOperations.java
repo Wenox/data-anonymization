@@ -38,6 +38,9 @@ public class ColumnOperations {
   @OneToOne
   private Generalisation generalisation;
 
+  @OneToOne
+  private Perturbation perturbation;
+
   private String tableName;
 
   private String columnName;
@@ -150,5 +153,13 @@ public class ColumnOperations {
 
   public void setPrimaryKeyColumnName(String primaryKeyColumnName) {
     this.primaryKeyColumnName = primaryKeyColumnName;
+  }
+
+  public Perturbation getPerturbation() {
+    return perturbation;
+  }
+
+  public void setPerturbation(Perturbation perturbation) {
+    this.perturbation = perturbation;
   }
 }

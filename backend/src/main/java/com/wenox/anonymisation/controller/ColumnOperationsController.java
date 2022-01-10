@@ -3,6 +3,7 @@ package com.wenox.anonymisation.controller;
 import com.wenox.anonymisation.dto.columnoperations.AddColumnShuffleRequest;
 import com.wenox.anonymisation.dto.columnoperations.AddGeneralisationRequest;
 import com.wenox.anonymisation.dto.columnoperations.AddPatternMaskingRequest;
+import com.wenox.anonymisation.dto.columnoperations.AddPerturbationRequest;
 import com.wenox.anonymisation.dto.columnoperations.AddRowShuffleRequest;
 import com.wenox.anonymisation.dto.columnoperations.AddShorteningRequest;
 import com.wenox.anonymisation.dto.columnoperations.AddSuppressionRequest;
@@ -72,5 +73,13 @@ public class ColumnOperationsController {
                                                                          @Valid @RequestBody AddGeneralisationRequest dto,
                                                                          Authentication auth) {
     return ResponseEntity.ok(columnOperationsService.addGeneralisationOperationForColumn(id, dto, auth));
+  }
+
+  @PreAuthorize("hasAnyAuthority('VERIFIED_USER', 'ADMIN')")
+  @PutMapping("/api/v1/worksheet/{id}/column-operations/add-perturbation")
+  public ResponseEntity<ApiResponse> addPerturbationOperationForColumn(@PathVariable("id") String id,
+                                                                       @Valid @RequestBody AddPerturbationRequest dto,
+                                                                       Authentication auth) {
+    return ResponseEntity.ok(columnOperationsService.addPerturbationOperationForColumn(id, dto, auth));
   }
 }

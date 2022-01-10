@@ -4,12 +4,14 @@ import com.wenox.anonymisation.domain.ColumnOperations;
 import com.wenox.anonymisation.domain.ColumnShuffle;
 import com.wenox.anonymisation.domain.Generalisation;
 import com.wenox.anonymisation.domain.PatternMasking;
+import com.wenox.anonymisation.domain.Perturbation;
 import com.wenox.anonymisation.domain.RowShuffle;
 import com.wenox.anonymisation.domain.Shortening;
 import com.wenox.anonymisation.domain.Suppression;
 import com.wenox.anonymisation.dto.columnoperations.AddColumnShuffleRequest;
 import com.wenox.anonymisation.dto.columnoperations.AddGeneralisationRequest;
 import com.wenox.anonymisation.dto.columnoperations.AddPatternMaskingRequest;
+import com.wenox.anonymisation.dto.columnoperations.AddPerturbationRequest;
 import com.wenox.anonymisation.dto.columnoperations.AddRowShuffleRequest;
 import com.wenox.anonymisation.dto.columnoperations.AddShorteningRequest;
 import com.wenox.anonymisation.dto.columnoperations.AddSuppressionRequest;
@@ -17,6 +19,7 @@ import com.wenox.anonymisation.repository.ColumnOperationsRepository;
 import com.wenox.anonymisation.repository.ColumnShuffleRepository;
 import com.wenox.anonymisation.repository.GeneralisationRepository;
 import com.wenox.anonymisation.repository.PatternMaskingRepository;
+import com.wenox.anonymisation.repository.PerturbationRepository;
 import com.wenox.anonymisation.repository.RowShuffleRepository;
 import com.wenox.anonymisation.repository.ShorteningRepository;
 import com.wenox.anonymisation.repository.SuppressionRepository;
@@ -39,6 +42,7 @@ public class ColumnOperationsService {
   private final PatternMaskingRepository patternMaskingRepository;
   private final ShorteningRepository shorteningRepository;
   private final GeneralisationRepository generalisationRepository;
+  private final PerturbationRepository perturbationRepository;
 
   public ColumnOperationsService(AuthService authService,
                                  WorksheetRepository worksheetRepository,
@@ -48,7 +52,8 @@ public class ColumnOperationsService {
                                  RowShuffleRepository rowShuffleRepository,
                                  PatternMaskingRepository patternMaskingRepository,
                                  ShorteningRepository shorteningRepository,
-                                 GeneralisationRepository generalisationRepository) {
+                                 GeneralisationRepository generalisationRepository,
+                                 PerturbationRepository perturbationRepository) {
     this.authService = authService;
     this.worksheetRepository = worksheetRepository;
     this.columnOperationsRepository = columnOperationsRepository;
@@ -58,6 +63,7 @@ public class ColumnOperationsService {
     this.patternMaskingRepository = patternMaskingRepository;
     this.shorteningRepository = shorteningRepository;
     this.generalisationRepository = generalisationRepository;
+    this.perturbationRepository = perturbationRepository;
   }
 
   @Transactional
@@ -304,5 +310,43 @@ public class ColumnOperationsService {
     return ApiResponse.ofSuccess("Generalisation added successfully.");
   }
 
+  @Transactional
+  public ApiResponse addPerturbationOperationForColumn(String id, AddPerturbationRequest dto, Authentication auth) {
+    final var me = authService.getMe(auth);
+    final var worksheet = worksheetRepository.findById(id).orElseThrow();
+    if (!me.getId().equals(worksheet.getUser().getId())) {
+      throw new RuntimeException("The worksheet does not belong to this user.");
+    }
+
+    var columnOperations =
+        columnOperationsRepository.findOperationsForColumn(worksheet, dto.getTableName(), dto.getColumnName())
+            .orElseGet(
+                () -> {
+                  var newColumnOperations = new ColumnOperations();
+                  newColumnOperations.setWorksheet(worksheet);
+                  newColumnOperations.setTableName(dto.getTableName());
+                  newColumnOperations.setColumnName(dto.getColumnName());
+                  newColumnOperations.setColumnType(dto.getColumnType());
+                  newColumnOperations.setPrimaryKeyColumnName(dto.getPrimaryKeyColumnName());
+                  newColumnOperations.setPrimaryKeyColumnType(dto.getPrimaryKeyColumnType());
+                  return newColumnOperations;
+                }
+            );
+
+    if (columnOperations.getPerturbation() != null) {
+      return ApiResponse.ofError("This column already uses perturbation.");
+    }
+
+    Perturbation perturbation = new Perturbation();
+    perturbation.setPerturbationMode(dto.getPerturbationMode());
+    perturbation.setValue(dto.getValue());
+    perturbation.setMinValue(dto.getMinValue());
+    perturbation.setMaxValue(dto.getMaxValue());
+    columnOperations.setPerturbation(perturbation);
+    columnOperationsRepository.save(columnOperations);
+    perturbationRepository.save(perturbation);
+
+    return ApiResponse.ofSuccess("Perturbation added successfully.");
+  }
 
 }
