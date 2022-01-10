@@ -25,7 +25,6 @@ import {
   putAddGeneralisationOperation,
   putAddHashingOperation,
   putAddPatternMaskingOperation,
-  putAddPerturbationOperation,
   putAddRandomNumberOperation,
   putAddRowShuffleOperation,
   putAddShorteningOperation,
@@ -35,6 +34,7 @@ import { ColumnOperations } from '../../api/requests/table-operations/table-oper
 import TextField from '@mui/material/TextField';
 import {
   GeneralisationMode,
+  HashingMode,
   LetterMode,
   PerturbationMode,
 } from '../../api/requests/column-operations/column-operations.types';
@@ -81,6 +81,7 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
   const [fixedValue, setFixedValue] = useState(10);
   const [percentageValue, setPercentageValue] = useState(5);
   const [perturbationMode, setPerturbationMode] = useState<PerturbationMode>(PerturbationMode.FIXED);
+  const [hashingMode, setHashingMode] = useState<HashingMode>(HashingMode.SHA3);
 
   return (
     <Dialog fullWidth maxWidth="sm" open={open} onClose={handleCancel} TransitionComponent={Transition}>
@@ -441,6 +442,23 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
             </Grid>
           </>
         )}
+
+        {selectedOperation === 'Hashing' && (
+          <>
+            <h4>Hashing algorithm: {hashingMode === HashingMode.SHA3 ? 'SHA3-256' : 'SHA2-256'}</h4>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={hashingMode == HashingMode.SHA3}
+                  onChange={(e) => setHashingMode(e.target.checked ? HashingMode.SHA3 : HashingMode.SHA2)}
+                  color="secondary"
+                  defaultChecked
+                />
+              }
+              label="SHA3-256"
+            />
+          </>
+        )}
       </DialogContent>
       <DialogActions>
         <Button onClick={handleCancel}>Cancel</Button>
@@ -781,6 +799,7 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
                   columnType: columnOperations.column.type,
                   primaryKeyColumnName: primaryKeyColumnName,
                   primaryKeyColumnType: primaryKeyColumnType,
+                  hashingMode: hashingMode,
                 })
                   .then((response) => {
                     if (response.data.success) {

@@ -65,4 +65,11 @@ export interface AddRandomNumberRequest extends AddOperation {
   maxValue: number;
 }
 
-export interface AddHashingRequest extends AddOperation {}
+export interface AddHashingRequest extends AddOperation {
+  hashingMode: HashingMode;
+}
+
+export enum HashingMode {
+  SHA2 = 'SHA2',
+  SHA3 = 'SHA3',
+}

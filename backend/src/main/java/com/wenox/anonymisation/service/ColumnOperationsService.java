@@ -426,6 +426,7 @@ public class ColumnOperationsService {
     }
 
     Hashing hashing = new Hashing();
+    hashing.setHashingMode(dto.getHashingMode());
     columnOperations.setHashing(hashing);
     columnOperationsRepository.save(columnOperations);
     hashingRepository.save(hashing);
