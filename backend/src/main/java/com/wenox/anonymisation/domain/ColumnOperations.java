@@ -41,6 +41,9 @@ public class ColumnOperations {
   @OneToOne
   private Perturbation perturbation;
 
+  @OneToOne
+  private RandomNumber randomNumber;
+
   private String tableName;
 
   private String columnName;
@@ -161,5 +164,13 @@ public class ColumnOperations {
 
   public void setPerturbation(Perturbation perturbation) {
     this.perturbation = perturbation;
+  }
+
+  public RandomNumber getRandomNumber() {
+    return randomNumber;
+  }
+
+  public void setRandomNumber(RandomNumber randomNumber) {
+    this.randomNumber = randomNumber;
   }
 }

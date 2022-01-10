@@ -25,6 +25,7 @@ import {
   putAddGeneralisationOperation,
   putAddPatternMaskingOperation,
   putAddPerturbationOperation,
+  putAddRandomNumberOperation,
   putAddRowShuffleOperation,
   putAddShorteningOperation,
   putAddSuppressionOperation,
@@ -94,6 +95,7 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
           <MenuItem value={'Shortening'}>Shortening</MenuItem>
           <MenuItem value={'Generalisation'}>Generalisation</MenuItem>
           <MenuItem value={'Perturbation'}>Perturbation</MenuItem>
+          <MenuItem value={'RandomNumber'}>Random number</MenuItem>
         </Select>
 
         <Divider sx={{ mt: 2, mb: 2 }} />
@@ -408,6 +410,35 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
             </Grid>
           </>
         )}
+
+        {selectedOperation == 'RandomNumber' && (
+          <>
+            <Grid container spacing={0}>
+              <Grid item xs={6} sx={{ pr: 0.5 }}>
+                <TextField
+                  label="Minimum value"
+                  onChange={(e) => setMinValue(Number(e.target.value))}
+                  value={minValue || 0}
+                  variant="outlined"
+                  fullWidth
+                  type="number"
+                  sx={{ backgroundColor: '#fff' }}
+                />
+              </Grid>
+              <Grid item xs={6} sx={{ pl: 0.5 }}>
+                <TextField
+                  label="Maximum value"
+                  onChange={(e) => setMaxValue(Number(e.target.value))}
+                  value={maxValue || 0}
+                  variant="outlined"
+                  fullWidth
+                  type="number"
+                  sx={{ backgroundColor: '#fff' }}
+                />
+              </Grid>
+            </Grid>
+          </>
+        )}
       </DialogContent>
       <DialogActions>
         <Button onClick={handleCancel}>Cancel</Button>
@@ -695,17 +726,15 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
                     }),
                   );
                 break;
-              case 'Perturbation':
-                putAddPerturbationOperation(worksheetId, {
+              case 'RandomNumber':
+                putAddRandomNumberOperation(worksheetId, {
                   tableName: tableName,
                   columnName: columnOperations.column.columnName,
                   columnType: columnOperations.column.type,
                   primaryKeyColumnName: primaryKeyColumnName,
                   primaryKeyColumnType: primaryKeyColumnType,
-                  minValue: minValue,
-                  maxValue: maxValue,
-                  value: perturbationMode === PerturbationMode.PERCENTAGE ? percentageValue : fixedValue,
-                  perturbationMode: perturbationMode,
+                  minValue: minValue || 0,
+                  maxValue: maxValue || 100,
                 })
                   .then((response) => {
                     if (response.data.success) {
