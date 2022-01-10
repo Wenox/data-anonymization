@@ -88,6 +88,8 @@ const TableOperations: FC = () => {
       headerName: 'Key info',
       width: 120,
       ...centeredColumn(),
+      sortable: false,
+      filterable: false,
       renderCell: ({ row }) => {
         const isPrimaryKey = row.column.primaryKey;
         const isForeignKey = row.column.foreignKey;
@@ -112,6 +114,8 @@ const TableOperations: FC = () => {
       headerName: 'Actions',
       width: 200,
       ...centeredColumn(),
+      sortable: false,
+      filterable: false,
       renderCell: ({ row }) => {
         const usesSuppression = row.listOfColumnOperation
           .map((v: Operation) => v.operationName)
@@ -141,6 +145,8 @@ const TableOperations: FC = () => {
       headerName: 'Accumulated operations',
       width: 360,
       ...centeredHeader(),
+      sortable: false,
+      filterable: false,
       renderCell: ({ row }) => {
         return (
           <>
