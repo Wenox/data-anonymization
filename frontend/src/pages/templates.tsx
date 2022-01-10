@@ -199,9 +199,6 @@ const Templates: FC = () => {
                     <MenuItem key={'PSQL'} value={'PSQL'}>
                       PostgreSQL
                     </MenuItem>
-                    <MenuItem key={'MYSQL'} value={'MYSQL'}>
-                      MySQL
-                    </MenuItem>
                   </TextField>
                 )}
               />

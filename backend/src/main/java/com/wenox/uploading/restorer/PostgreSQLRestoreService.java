@@ -1,8 +1,5 @@
 package com.wenox.uploading.restorer;
 
-import static com.wenox.uploading.template.domain.RestoreMode.ARCHIVE;
-
-
 import com.wenox.infrastructure.service.ProcessExecutorFactory;
 import com.wenox.uploading.template.domain.RestoreMode;
 import java.io.IOException;
@@ -85,7 +82,6 @@ public class PostgreSQLRestoreService implements DatabaseRestoreService {
 
   private void restoreFromScript(String dumpPath, String databaseName)
       throws IOException, InterruptedException, TimeoutException {
-    System.out.println("Restore from script");
     if (isRunningOnCloud) {
 
       ProcessExecutorFactory.newProcess(
