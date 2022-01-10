@@ -8,6 +8,7 @@ import com.wenox.anonymisation.dto.columnoperations.AddPerturbationRequest;
 import com.wenox.anonymisation.dto.columnoperations.AddRandomNumberRequest;
 import com.wenox.anonymisation.dto.columnoperations.AddRowShuffleRequest;
 import com.wenox.anonymisation.dto.columnoperations.AddShorteningRequest;
+import com.wenox.anonymisation.dto.columnoperations.AddSubstitutionRequest;
 import com.wenox.anonymisation.dto.columnoperations.AddSuppressionRequest;
 import com.wenox.anonymisation.dto.columnoperations.AddTokenizationRequest;
 import com.wenox.anonymisation.service.ColumnOperationsService;
@@ -110,5 +111,13 @@ public class ColumnOperationsController {
                                                                        @Valid @RequestBody AddTokenizationRequest dto,
                                                                        Authentication auth) {
     return ResponseEntity.ok(columnOperationsService.addTokenizationOperationForColumn(id, dto, auth));
+  }
+
+  @PreAuthorize("hasAnyAuthority('VERIFIED_USER', 'ADMIN')")
+  @PutMapping("/api/v1/worksheet/{id}/column-operations/add-substitution")
+  public ResponseEntity<ApiResponse> addSubstitutionOperationForColumn(@PathVariable("id") String id,
+                                                                       @Valid @RequestBody AddSubstitutionRequest dto,
+                                                                       Authentication auth) {
+    return ResponseEntity.ok(columnOperationsService.addSubstitutionOperationForColumn(id, dto, auth));
   }
 }

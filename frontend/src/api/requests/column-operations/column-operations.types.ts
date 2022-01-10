@@ -78,3 +78,8 @@ export interface AddTokenizationRequest extends AddOperation {
   startingValue: number;
   step: number;
 }
+
+export interface AddSubstitutionRequest extends AddOperation {
+  values: string;
+  rememberMappings: boolean;
+}

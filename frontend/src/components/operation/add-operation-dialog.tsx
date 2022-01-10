@@ -29,6 +29,7 @@ import {
   putAddRandomNumberOperation,
   putAddRowShuffleOperation,
   putAddShorteningOperation,
+  putAddSubstitutionOperation,
   putAddSuppressionOperation,
   putAddTokenizationOperation,
 } from '../../api/requests/column-operations/column-operations.requests';
@@ -86,6 +87,8 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
   const [hashingMode, setHashingMode] = useState<HashingMode>(HashingMode.SHA3);
   const [startingValue, setStartingValue] = useState(1);
   const [step, setStep] = useState(1);
+  const [values, setValues] = useState('');
+  const [rememberMappings, setRememberMappings] = useState(false);
 
   return (
     <Dialog fullWidth maxWidth="sm" open={open} onClose={handleCancel} TransitionComponent={Transition}>
@@ -104,6 +107,7 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
           <MenuItem value={'RandomNumber'}>Random number</MenuItem>
           <MenuItem value={'Hashing'}>Hashing</MenuItem>
           <MenuItem value={'Tokenization'}>Tokenization</MenuItem>
+          <MenuItem value={'Substitution'}>Substitution</MenuItem>
         </Select>
 
         <Divider sx={{ mt: 2, mb: 2 }} />
@@ -491,6 +495,26 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
                 />
               </Grid>
             </Grid>
+          </>
+        )}
+
+        {selectedOperation == 'Substitution' && (
+          <>
+            <TextField
+              label="Comma separated values"
+              onChange={(e) => setValues(e.target.value)}
+              value={values}
+              defaultValue={'Paste comma separated values...'}
+              variant="outlined"
+              fullWidth
+              multiline
+              minRows={4}
+              sx={{ backgroundColor: '#fff' }}
+            />
+            <FormControlLabel
+              control={<Checkbox checked={rememberMappings} onChange={(e) => setRememberMappings(e.target.checked)} />}
+              label="Remember mappings"
+            />
           </>
         )}
       </DialogContent>
@@ -928,6 +952,52 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
                   primaryKeyColumnType: primaryKeyColumnType,
                   startingValue: startingValue,
                   step: step,
+                })
+                  .then((response) => {
+                    if (response.data.success) {
+                      toast.success(response.data.message, {
+                        position: 'top-right',
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                      });
+                      handleAddSuccess();
+                    } else {
+                      toast.error(response.data.message, {
+                        position: 'top-right',
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                      });
+                    }
+                  })
+                  .catch((err) =>
+                    toast.error('Failed to add operation: ' + err.data, {
+                      position: 'top-right',
+                      autoClose: 5000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                    }),
+                  );
+                break;
+              case 'Substitution':
+                putAddSubstitutionOperation(worksheetId, {
+                  tableName: tableName,
+                  columnName: columnOperations.column.columnName,
+                  columnType: columnOperations.column.type,
+                  primaryKeyColumnName: primaryKeyColumnName,
+                  primaryKeyColumnType: primaryKeyColumnType,
+                  values: values,
+                  rememberMappings: rememberMappings,
                 })
                   .then((response) => {
                     if (response.data.success) {

@@ -156,6 +156,16 @@ public class TableOperationsService {
               columnOperationDto.setId(tokenization.getId());
               listOfColumnOperationDto.add(columnOperationDto);
             });
+        Optional
+            .ofNullable(columnOperations.getSubstitution())
+            .ifPresent(substitution -> {
+              ColumnOperationDto columnOperationDto = new ColumnOperationDto();
+              columnOperationDto.setOperationName("Substitution");
+              columnOperationDto.setColumnName(column.getColumnName());
+              columnOperationDto.setTableName(tableName);
+              columnOperationDto.setId(substitution.getId());
+              listOfColumnOperationDto.add(columnOperationDto);
+            });
 
 
         item.setListOfColumnOperation(listOfColumnOperationDto);
