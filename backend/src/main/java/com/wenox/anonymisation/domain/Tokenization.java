@@ -18,6 +18,10 @@ public class Tokenization {
   @OneToOne(mappedBy = "generalisation")
   ColumnOperations columnOperations;
 
+  private Integer startingValue;
+
+  private Integer step;
+
   public Long getId() {
     return id;
   }
@@ -28,6 +32,22 @@ public class Tokenization {
 
   public ColumnOperations getColumnOperations() {
     return columnOperations;
+  }
+
+  public Integer getStartingValue() {
+    return startingValue;
+  }
+
+  public void setStartingValue(Integer startingValue) {
+    this.startingValue = startingValue;
+  }
+
+  public Integer getStep() {
+    return step;
+  }
+
+  public void setStep(Integer step) {
+    this.step = step;
   }
 
   public void setColumnOperations(ColumnOperations columnOperations) {

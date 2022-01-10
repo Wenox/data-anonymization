@@ -84,6 +84,8 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
   const [percentageValue, setPercentageValue] = useState(5);
   const [perturbationMode, setPerturbationMode] = useState<PerturbationMode>(PerturbationMode.FIXED);
   const [hashingMode, setHashingMode] = useState<HashingMode>(HashingMode.SHA3);
+  const [startingValue, setStartingValue] = useState(1);
+  const [step, setStep] = useState(1);
 
   return (
     <Dialog fullWidth maxWidth="sm" open={open} onClose={handleCancel} TransitionComponent={Transition}>
@@ -460,6 +462,35 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
               }
               label="SHA3-256"
             />
+          </>
+        )}
+
+        {selectedOperation == 'Tokenization' && (
+          <>
+            <Grid container spacing={0}>
+              <Grid item xs={6} sx={{ pr: 0.5 }}>
+                <TextField
+                  label="Starting value"
+                  onChange={(e) => setStartingValue(Number(e.target.value))}
+                  value={startingValue || 1}
+                  variant="outlined"
+                  fullWidth
+                  type="number"
+                  sx={{ backgroundColor: '#fff' }}
+                />
+              </Grid>
+              <Grid item xs={6} sx={{ pl: 0.5 }}>
+                <TextField
+                  label="Step"
+                  onChange={(e) => setStep(Number(e.target.value))}
+                  value={step || 1}
+                  variant="outlined"
+                  fullWidth
+                  type="number"
+                  sx={{ backgroundColor: '#fff' }}
+                />
+              </Grid>
+            </Grid>
           </>
         )}
       </DialogContent>
@@ -895,6 +926,8 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
                   columnType: columnOperations.column.type,
                   primaryKeyColumnName: primaryKeyColumnName,
                   primaryKeyColumnType: primaryKeyColumnType,
+                  startingValue: startingValue,
+                  step: step,
                 })
                   .then((response) => {
                     if (response.data.success) {

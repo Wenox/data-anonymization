@@ -467,7 +467,9 @@ public class ColumnOperationsService {
       return ApiResponse.ofError("This column already uses tokenization operation.");
     }
 
-    Tokenization tokenization = new Tokenization();;
+    Tokenization tokenization = new Tokenization();
+    tokenization.setStartingValue(dto.getStartingValue());
+    tokenization.setStep(dto.getStep());
     columnOperations.setTokenization(tokenization);
     columnOperationsRepository.save(columnOperations);
     tokenizationRepository.save(tokenization);

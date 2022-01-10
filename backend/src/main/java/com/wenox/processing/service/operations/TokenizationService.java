@@ -1,7 +1,5 @@
 package com.wenox.processing.service.operations;
 
-import static java.util.stream.Collectors.toList;
-
 
 import com.wenox.anonymisation.domain.Tokenization;
 import com.wenox.processing.domain.Pair;
@@ -14,7 +12,9 @@ public class TokenizationService {
   public List<Pair<String, String>> tokenize(List<Pair<String, String>> rows, Tokenization tokenization) {
     List<String> rawValues = rows.stream().map(Pair::getSecond).toList();
 
-    int count = 0;
+    final int step = tokenization.getStep();
+
+    int count = tokenization.getStartingValue();
     Map<String, Integer> valuesMap = new TreeMap<>();
     for (var value : rawValues) {
       if (value == null) {
@@ -22,7 +22,8 @@ public class TokenizationService {
       }
       var token = valuesMap.get(value);
       if (token == null) {
-        valuesMap.put(value, ++count);
+        valuesMap.put(value, count);
+        count += step;
       }
     }
 
