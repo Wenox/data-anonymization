@@ -1,6 +1,6 @@
 package com.wenox.anonymisation.domain;
 
-public enum GeneralisationMode {
+public enum PerturbationMode {
   FIXED,
-  DISTRIBUTION
+  PERCENTAGE
 }

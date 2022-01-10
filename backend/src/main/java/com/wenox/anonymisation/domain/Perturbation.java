@@ -10,26 +10,24 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "generalisations")
-public class Generalisation {
+@Table(name = "perturbations")
+public class Perturbation {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   Long id;
 
-  @OneToOne(mappedBy = "generalisation")
+  @OneToOne(mappedBy = "perturbation")
   ColumnOperations columnOperations;
 
   @Enumerated(EnumType.STRING)
-  private GeneralisationMode generalisationMode;
+  PerturbationMode perturbationMode;
 
   private Integer minValue;
 
   private Integer maxValue;
 
-  private Integer intervalSize;
-
-  private Integer numberOfDistributions;
+  private Integer value;
 
   public Long getId() {
     return id;
@@ -39,20 +37,20 @@ public class Generalisation {
     this.id = id;
   }
 
-  public GeneralisationMode getGeneralisationMode() {
-    return generalisationMode;
-  }
-
-  public void setGeneralisationMode(GeneralisationMode generalisationMode) {
-    this.generalisationMode = generalisationMode;
-  }
-
   public ColumnOperations getColumnOperations() {
     return columnOperations;
   }
 
   public void setColumnOperations(ColumnOperations columnOperations) {
     this.columnOperations = columnOperations;
+  }
+
+  public PerturbationMode getPerturbationMode() {
+    return perturbationMode;
+  }
+
+  public void setPerturbationMode(PerturbationMode perturbationMode) {
+    this.perturbationMode = perturbationMode;
   }
 
   public Integer getMinValue() {
@@ -71,19 +69,11 @@ public class Generalisation {
     this.maxValue = maxValue;
   }
 
-  public Integer getIntervalSize() {
-    return intervalSize;
+  public Integer getValue() {
+    return value;
   }
 
-  public void setIntervalSize(Integer interval) {
-    this.intervalSize = interval;
-  }
-
-  public Integer getNumberOfDistributions() {
-    return numberOfDistributions;
-  }
-
-  public void setNumberOfDistributions(Integer numberOfDistributions) {
-    this.numberOfDistributions = numberOfDistributions;
+  public void setValue(Integer value) {
+    this.value = value;
   }
 }

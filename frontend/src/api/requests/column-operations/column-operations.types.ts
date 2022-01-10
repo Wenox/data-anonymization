@@ -44,6 +44,18 @@ export interface AddGeneralisationRequest extends AddOperation {
 }
 
 export enum GeneralisationMode {
-  VALUE = 'VALUE',
+  FIXED = 'FIXED',
   DISTRIBUTION = 'DISTRIBUTION',
+}
+
+export interface AddPerturbationRequest extends AddOperation {
+  value: number;
+  perturbationMode: PerturbationMode;
+  minValue: number | null;
+  maxValue: number | null;
+}
+
+export enum PerturbationMode {
+  FIXED = 'FIXED',
+  PERCENTAGE = 'PERCENTAGE',
 }

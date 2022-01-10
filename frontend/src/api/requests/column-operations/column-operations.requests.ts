@@ -3,6 +3,7 @@ import {
   AddColumnShuffle,
   AddGeneralisationRequest,
   AddPatternMasking,
+  AddPerturbationRequest,
   AddRowShuffle,
   AddShorteningRequest,
   AddSuppression,
@@ -31,4 +32,8 @@ export const putAddShorteningOperation = (worksheetId: string, dto: AddShortenin
 
 export const putAddGeneralisationOperation = (worksheetId: string, dto: AddGeneralisationRequest) => {
   return axios.put<ApiResponse>(`/api/v1/worksheet/${worksheetId}/column-operations/add-generalisation`, dto);
+};
+
+export const putAddPerturbationOperation = (worksheetId: string, dto: AddPerturbationRequest) => {
+  return axios.put<ApiResponse>(`/api/v1/worksheet/${worksheetId}/column-operations/add-perturbation`, dto);
 };
