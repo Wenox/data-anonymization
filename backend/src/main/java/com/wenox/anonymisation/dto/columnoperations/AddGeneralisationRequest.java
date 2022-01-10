@@ -1,6 +1,9 @@
 package com.wenox.anonymisation.dto.columnoperations;
 
 
+import com.wenox.anonymisation.domain.GeneralisationMode;
+import javax.validation.constraints.NotNull;
+
 public class AddGeneralisationRequest extends AddOperationRequest {
 
   private Integer minValue;
@@ -10,6 +13,9 @@ public class AddGeneralisationRequest extends AddOperationRequest {
   private Integer intervalSize;
 
   private Integer numberOfDistributions;
+
+  @NotNull
+  private GeneralisationMode generalisationMode;
 
   public Integer getMinValue() {
     return minValue;
@@ -41,5 +47,13 @@ public class AddGeneralisationRequest extends AddOperationRequest {
 
   public void setNumberOfDistributions(Integer numberOfDistributions) {
     this.numberOfDistributions = numberOfDistributions;
+  }
+
+  public GeneralisationMode getGeneralisationMode() {
+    return generalisationMode;
+  }
+
+  public void setGeneralisationMode(GeneralisationMode generalisationMode) {
+    this.generalisationMode = generalisationMode;
   }
 }

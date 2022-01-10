@@ -40,4 +40,10 @@ export interface AddGeneralisationRequest extends AddOperation {
   maxValue: number | null;
   intervalSize: number | null;
   numberOfDistributions: number | null;
+  generalisationMode: GeneralisationMode;
+}
+
+export enum GeneralisationMode {
+  VALUE = 'VALUE',
+  DISTRIBUTION = 'DISTRIBUTION',
 }

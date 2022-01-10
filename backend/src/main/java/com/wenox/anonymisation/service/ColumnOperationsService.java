@@ -292,6 +292,7 @@ public class ColumnOperationsService {
     }
 
     Generalisation generalisation = new Generalisation();
+    generalisation.setGeneralisationMode(dto.getGeneralisationMode());
     generalisation.setMinValue(dto.getMinValue());
     generalisation.setMaxValue(dto.getMaxValue());
     generalisation.setIntervalSize(dto.getIntervalSize());

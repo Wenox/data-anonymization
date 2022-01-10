@@ -30,8 +30,8 @@ import {
 } from '../../api/requests/column-operations/column-operations.requests';
 import { ColumnOperations } from '../../api/requests/table-operations/table-operations.types';
 import TextField from '@mui/material/TextField';
-import { LetterMode } from '../../api/requests/column-operations/column-operations.types';
-import { HelpOutline, LockOutlined } from '@mui/icons-material';
+import { GeneralisationMode, LetterMode } from '../../api/requests/column-operations/column-operations.types';
+import { HelpOutline } from '@mui/icons-material';
 import { theme } from '../../styles/theme';
 
 interface AddOperationDialogProps {
@@ -68,6 +68,9 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
   const [maxValue, setMaxValue] = useState<number | null>(null);
   const [intervalSize, setIntervalSize] = useState<number | null>(null);
   const [numberOfDistributions, setNumberOfDistributions] = useState<number | null>(null);
+  const [minValueChecked, setMinValueChecked] = useState(false);
+  const [maxValueChecked, setMaxValueChecked] = useState(false);
+  const [numberOfDistributionsChecked, setNumberOfDistributionsChecked] = useState(false);
 
   return (
     <Dialog fullWidth maxWidth="sm" open={open} onClose={handleCancel} TransitionComponent={Transition}>
@@ -211,11 +214,21 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
           <>
             <Grid container spacing={0}>
               <Grid item xs={3}>
-                <FormControlLabel control={<Switch color="secondary" />} label="Minimum value" />
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={minValueChecked}
+                      onChange={(e) => setMinValueChecked(e.target.checked)}
+                      color="secondary"
+                    />
+                  }
+                  label="Minimum value"
+                />
               </Grid>
               <Grid item xs={3}>
                 <TextField
                   label="Minimum value"
+                  disabled={!minValueChecked}
                   onChange={(e) => setMinValue(Number(e.target.value))}
                   value={minValue || 0}
                   variant="outlined"
@@ -225,10 +238,20 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
                 />
               </Grid>
               <Grid item xs={3} sx={{ pl: 1 }}>
-                <FormControlLabel control={<Switch color="secondary" />} label="Maximum value" />
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={maxValueChecked}
+                      onChange={(e) => setMaxValueChecked(e.target.checked)}
+                      color="secondary"
+                    />
+                  }
+                  label="Maximum value"
+                />
               </Grid>
               <Grid item xs={3}>
                 <TextField
+                  disabled={!maxValueChecked}
                   label="Maximum value"
                   onChange={(e) => setMaxValue(Number(e.target.value))}
                   value={maxValue || 0}
@@ -242,13 +265,21 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
                 <Divider sx={{ mt: 2, mb: 2 }} />
                 <FormControlLabel
                   labelPlacement="start"
-                  control={<Switch color="secondary" defaultChecked />}
+                  control={
+                    <Switch
+                      checked={numberOfDistributionsChecked}
+                      onChange={(e) => setNumberOfDistributionsChecked(e.target.checked)}
+                      color="secondary"
+                      defaultChecked
+                    />
+                  }
                   label="Number of distributions mode"
                 />
               </Grid>
               <Grid item xs={6} sx={{ pr: 0.5 }}>
                 <TextField
                   label="Interval size"
+                  disabled={numberOfDistributionsChecked}
                   onChange={(e) => setIntervalSize(Number(e.target.value))}
                   value={intervalSize || 0}
                   variant="outlined"
@@ -260,6 +291,7 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
               <Grid item xs={6} sx={{ pl: 0.5 }}>
                 <TextField
                   label="Number of distributions"
+                  disabled={!numberOfDistributionsChecked}
                   onChange={(e) => setNumberOfDistributions(Number(e.target.value))}
                   value={numberOfDistributions || 0}
                   variant="outlined"
@@ -516,8 +548,11 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
                   primaryKeyColumnType: primaryKeyColumnType,
                   minValue: minValue,
                   maxValue: maxValue,
-                  intervalSize: intervalSize,
-                  numberOfDistributions: numberOfDistributions,
+                  intervalSize: numberOfDistributionsChecked ? null : intervalSize,
+                  numberOfDistributions: numberOfDistributionsChecked ? numberOfDistributions : null,
+                  generalisationMode: numberOfDistributionsChecked
+                    ? GeneralisationMode.DISTRIBUTION
+                    : GeneralisationMode.VALUE,
                 })
                   .then((response) => {
                     if (response.data.success) {

@@ -1,6 +1,8 @@
 package com.wenox.anonymisation.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,6 +20,9 @@ public class Generalisation {
   @OneToOne(mappedBy = "rowShuffle")
   ColumnOperations columnOperations;
 
+  @Enumerated(EnumType.STRING)
+  private GeneralisationMode generalisationMode;
+
   private Integer minValue;
 
   private Integer maxValue;
@@ -32,6 +37,14 @@ public class Generalisation {
 
   public void setId(Long id) {
     this.id = id;
+  }
+
+  public GeneralisationMode getGeneralisationMode() {
+    return generalisationMode;
+  }
+
+  public void setGeneralisationMode(GeneralisationMode generalisationMode) {
+    this.generalisationMode = generalisationMode;
   }
 
   public ColumnOperations getColumnOperations() {
