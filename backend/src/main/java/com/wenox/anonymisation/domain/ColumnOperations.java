@@ -50,6 +50,9 @@ public class ColumnOperations {
   @OneToOne
   private Hashing hashing;
 
+  @OneToOne
+  private Substitution substitution;
+
   private String tableName;
 
   private String columnName;
@@ -194,5 +197,13 @@ public class ColumnOperations {
 
   public void setTokenization(Tokenization tokenization) {
     this.tokenization = tokenization;
+  }
+
+  public Substitution getSubstitution() {
+    return substitution;
+  }
+
+  public void setSubstitution(Substitution substitution) {
+    this.substitution = substitution;
   }
 }

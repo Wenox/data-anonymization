@@ -9,6 +9,7 @@ import com.wenox.anonymisation.domain.Perturbation;
 import com.wenox.anonymisation.domain.RandomNumber;
 import com.wenox.anonymisation.domain.RowShuffle;
 import com.wenox.anonymisation.domain.Shortening;
+import com.wenox.anonymisation.domain.Substitution;
 import com.wenox.anonymisation.domain.Suppression;
 import com.wenox.anonymisation.domain.Tokenization;
 import com.wenox.anonymisation.dto.columnoperations.AddColumnShuffleRequest;
@@ -19,6 +20,7 @@ import com.wenox.anonymisation.dto.columnoperations.AddPerturbationRequest;
 import com.wenox.anonymisation.dto.columnoperations.AddRandomNumberRequest;
 import com.wenox.anonymisation.dto.columnoperations.AddRowShuffleRequest;
 import com.wenox.anonymisation.dto.columnoperations.AddShorteningRequest;
+import com.wenox.anonymisation.dto.columnoperations.AddSubstitutionRequest;
 import com.wenox.anonymisation.dto.columnoperations.AddSuppressionRequest;
 import com.wenox.anonymisation.dto.columnoperations.AddTokenizationRequest;
 import com.wenox.anonymisation.repository.ColumnOperationsRepository;
@@ -30,6 +32,7 @@ import com.wenox.anonymisation.repository.PerturbationRepository;
 import com.wenox.anonymisation.repository.RandomNumberRepository;
 import com.wenox.anonymisation.repository.RowShuffleRepository;
 import com.wenox.anonymisation.repository.ShorteningRepository;
+import com.wenox.anonymisation.repository.SubstitutionRepository;
 import com.wenox.anonymisation.repository.SuppressionRepository;
 import com.wenox.anonymisation.repository.TokenizationRepository;
 import com.wenox.anonymisation.repository.WorksheetRepository;
@@ -55,6 +58,7 @@ public class ColumnOperationsService {
   private final RandomNumberRepository randomNumberRepository;
   private final HashingRepository hashingRepository;
   private final TokenizationRepository tokenizationRepository;
+  private final SubstitutionRepository substitutionRepository;
 
   public ColumnOperationsService(AuthService authService,
                                  WorksheetRepository worksheetRepository,
@@ -68,7 +72,8 @@ public class ColumnOperationsService {
                                  PerturbationRepository perturbationRepository,
                                  RandomNumberRepository randomNumberRepository,
                                  HashingRepository hashingRepository,
-                                 TokenizationRepository tokenizationRepository) {
+                                 TokenizationRepository tokenizationRepository,
+                                 SubstitutionRepository substitutionRepository) {
     this.authService = authService;
     this.worksheetRepository = worksheetRepository;
     this.columnOperationsRepository = columnOperationsRepository;
@@ -82,6 +87,7 @@ public class ColumnOperationsService {
     this.randomNumberRepository = randomNumberRepository;
     this.hashingRepository = hashingRepository;
     this.tokenizationRepository = tokenizationRepository;
+    this.substitutionRepository = substitutionRepository;
   }
 
   @Transactional
@@ -477,5 +483,41 @@ public class ColumnOperationsService {
     return ApiResponse.ofSuccess("Tokenization operation added successfully.");
   }
 
+  @Transactional
+  public ApiResponse addSubstitutionOperationForColumn(String id, AddSubstitutionRequest dto, Authentication auth) {
+    final var me = authService.getMe(auth);
+    final var worksheet = worksheetRepository.findById(id).orElseThrow();
+    if (!me.getId().equals(worksheet.getUser().getId())) {
+      throw new RuntimeException("The worksheet does not belong to this user.");
+    }
+
+    var columnOperations =
+        columnOperationsRepository.findOperationsForColumn(worksheet, dto.getTableName(), dto.getColumnName())
+            .orElseGet(
+                () -> {
+                  var newColumnOperations = new ColumnOperations();
+                  newColumnOperations.setWorksheet(worksheet);
+                  newColumnOperations.setTableName(dto.getTableName());
+                  newColumnOperations.setColumnName(dto.getColumnName());
+                  newColumnOperations.setColumnType(dto.getColumnType());
+                  newColumnOperations.setPrimaryKeyColumnName(dto.getPrimaryKeyColumnName());
+                  newColumnOperations.setPrimaryKeyColumnType(dto.getPrimaryKeyColumnType());
+                  return newColumnOperations;
+                }
+            );
+
+    if (columnOperations.getSubstitution() != null) {
+      return ApiResponse.ofError("This column already uses substitution operation.");
+    }
+
+    Substitution substitution = new Substitution();
+    substitution.setValues(dto.getValues());
+    substitution.setRememberMappings(dto.getRememberMappings());
+    columnOperations.setSubstitution(substitution);
+    columnOperationsRepository.save(columnOperations);
+    substitutionRepository.save(substitution);
+
+    return ApiResponse.ofSuccess("Substitution operation added successfully.");
+  }
 
 }
