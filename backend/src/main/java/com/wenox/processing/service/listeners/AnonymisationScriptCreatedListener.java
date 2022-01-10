@@ -22,6 +22,7 @@ import com.wenox.processing.service.operations.RandomNumberService;
 import com.wenox.processing.service.operations.RowShuffler;
 import com.wenox.processing.service.operations.ShorteningService;
 import com.wenox.processing.service.operations.SuppressionService;
+import com.wenox.processing.service.operations.TokenizationService;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
@@ -86,7 +87,7 @@ public class AnonymisationScriptCreatedListener {
         if (!columnOperations.getColumnType().equals(String.valueOf(Types.VARCHAR))) {
           try {
             Files.writeString(fileLocation,
-                new Query.QueryBuilder(Query.QueryType.ALTER_COLUMN_TYPE)
+                new Query.QueryBuilder(Query.QueryType.ALTER_COLUMN_TYPE_TEXT)
                     .tableName(columnOperations.getTableName())
                     .columnName(columnOperations.getColumnName())
                     .build()
@@ -236,7 +237,7 @@ public class AnonymisationScriptCreatedListener {
         if (!columnOperations.getColumnType().equals(String.valueOf(Types.VARCHAR))) {
           try {
             Files.writeString(fileLocation,
-                new Query.QueryBuilder(Query.QueryType.ALTER_COLUMN_TYPE)
+                new Query.QueryBuilder(Query.QueryType.ALTER_COLUMN_TYPE_TEXT)
                     .tableName(columnOperations.getTableName())
                     .columnName(columnOperations.getColumnName())
                     .build()
@@ -332,7 +333,7 @@ public class AnonymisationScriptCreatedListener {
         if (!columnOperations.getColumnType().equals(String.valueOf(Types.VARCHAR))) {
           try {
             Files.writeString(fileLocation,
-                new Query.QueryBuilder(Query.QueryType.ALTER_COLUMN_TYPE)
+                new Query.QueryBuilder(Query.QueryType.ALTER_COLUMN_TYPE_TEXT)
                     .tableName(columnOperations.getTableName())
                     .columnName(columnOperations.getColumnName())
                     .build()
@@ -355,6 +356,48 @@ public class AnonymisationScriptCreatedListener {
                     .primaryKeyValue(row.getFirst())
                     .columnName(columnOperations.getColumnName())
                     .columnType(String.valueOf(Types.VARCHAR))
+                    .columnValue(row.getSecond())
+                    .build()
+                    .toString(),
+                StandardOpenOption.APPEND);
+          } catch (Exception ex) {
+            ex.printStackTrace();
+          }
+        }
+      }
+
+
+
+      var tokenization = columnOperations.getTokenization();
+      if (tokenization != null) {
+
+        // 3.0 Handle column type change
+        if (!columnOperations.getColumnType().equals(String.valueOf(Types.INTEGER))) {
+          try {
+            Files.writeString(fileLocation,
+                new Query.QueryBuilder(Query.QueryType.ALTER_COLUMN_TYPE_INTEGER)
+                    .tableName(columnOperations.getTableName())
+                    .columnName(columnOperations.getColumnName())
+                    .build()
+                    .toString(),
+                StandardOpenOption.APPEND);
+          } catch (Exception ex) {
+            ex.printStackTrace();
+          }
+        }
+
+        final List<Pair<String, String>> tokenizedRows = new TokenizationService().tokenize(rows, tokenization);
+
+        for (var row : tokenizedRows) {
+          try {
+            Files.writeString(fileLocation,
+                new Query.QueryBuilder(Query.QueryType.UPDATE)
+                    .tableName(columnOperations.getTableName())
+                    .primaryKeyColumnName(columnOperations.getPrimaryKeyColumnName())
+                    .primaryKeyType(columnOperations.getPrimaryKeyColumnType())
+                    .primaryKeyValue(row.getFirst())
+                    .columnName(columnOperations.getColumnName())
+                    .columnType(String.valueOf(Types.INTEGER))
                     .columnValue(row.getSecond())
                     .build()
                     .toString(),
