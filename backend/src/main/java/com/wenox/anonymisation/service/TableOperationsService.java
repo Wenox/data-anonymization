@@ -136,6 +136,16 @@ public class TableOperationsService {
               columnOperationDto.setId(perturbation.getId());
               listOfColumnOperationDto.add(columnOperationDto);
             });
+        Optional
+            .ofNullable(columnOperations.getPerturbation())
+            .ifPresent(randomNumber -> {
+              ColumnOperationDto columnOperationDto = new ColumnOperationDto();
+              columnOperationDto.setOperationName("RandomNumber");
+              columnOperationDto.setColumnName(column.getColumnName());
+              columnOperationDto.setTableName(tableName);
+              columnOperationDto.setId(randomNumber.getId());
+              listOfColumnOperationDto.add(columnOperationDto);
+            });
 
         item.setListOfColumnOperation(listOfColumnOperationDto);
       }

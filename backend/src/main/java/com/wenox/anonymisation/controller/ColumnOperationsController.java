@@ -4,6 +4,7 @@ import com.wenox.anonymisation.dto.columnoperations.AddColumnShuffleRequest;
 import com.wenox.anonymisation.dto.columnoperations.AddGeneralisationRequest;
 import com.wenox.anonymisation.dto.columnoperations.AddPatternMaskingRequest;
 import com.wenox.anonymisation.dto.columnoperations.AddPerturbationRequest;
+import com.wenox.anonymisation.dto.columnoperations.AddRandomNumberRequest;
 import com.wenox.anonymisation.dto.columnoperations.AddRowShuffleRequest;
 import com.wenox.anonymisation.dto.columnoperations.AddShorteningRequest;
 import com.wenox.anonymisation.dto.columnoperations.AddSuppressionRequest;
@@ -81,5 +82,13 @@ public class ColumnOperationsController {
                                                                        @Valid @RequestBody AddPerturbationRequest dto,
                                                                        Authentication auth) {
     return ResponseEntity.ok(columnOperationsService.addPerturbationOperationForColumn(id, dto, auth));
+  }
+
+  @PreAuthorize("hasAnyAuthority('VERIFIED_USER', 'ADMIN')")
+  @PutMapping("/api/v1/worksheet/{id}/column-operations/add-random-number")
+  public ResponseEntity<ApiResponse> addRandomNumberOperationForColumn(@PathVariable("id") String id,
+                                                                       @Valid @RequestBody AddRandomNumberRequest dto,
+                                                                       Authentication auth) {
+    return ResponseEntity.ok(columnOperationsService.addRandomNumberOperationForColumn(id, dto, auth));
   }
 }
