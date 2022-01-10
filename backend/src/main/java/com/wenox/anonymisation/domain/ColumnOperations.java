@@ -45,6 +45,9 @@ public class ColumnOperations {
   private RandomNumber randomNumber;
 
   @OneToOne
+  private Tokenization tokenization;
+
+  @OneToOne
   private Hashing hashing;
 
   private String tableName;
@@ -183,5 +186,13 @@ public class ColumnOperations {
 
   public void setHashing(Hashing hashing) {
     this.hashing = hashing;
+  }
+
+  public Tokenization getTokenization() {
+    return tokenization;
+  }
+
+  public void setTokenization(Tokenization tokenization) {
+    this.tokenization = tokenization;
   }
 }

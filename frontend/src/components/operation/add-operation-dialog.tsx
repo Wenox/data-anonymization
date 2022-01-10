@@ -25,10 +25,12 @@ import {
   putAddGeneralisationOperation,
   putAddHashingOperation,
   putAddPatternMaskingOperation,
+  putAddPerturbationOperation,
   putAddRandomNumberOperation,
   putAddRowShuffleOperation,
   putAddShorteningOperation,
   putAddSuppressionOperation,
+  putAddTokenizationOperation,
 } from '../../api/requests/column-operations/column-operations.requests';
 import { ColumnOperations } from '../../api/requests/table-operations/table-operations.types';
 import TextField from '@mui/material/TextField';
@@ -99,6 +101,7 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
           <MenuItem value={'Perturbation'}>Perturbation</MenuItem>
           <MenuItem value={'RandomNumber'}>Random number</MenuItem>
           <MenuItem value={'Hashing'}>Hashing</MenuItem>
+          <MenuItem value={'Tokenization'}>Tokenization</MenuItem>
         </Select>
 
         <Divider sx={{ mt: 2, mb: 2 }} />
@@ -746,6 +749,54 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
                     }),
                   );
                 break;
+              case 'Perturbation':
+                putAddPerturbationOperation(worksheetId, {
+                  tableName: tableName,
+                  columnName: columnOperations.column.columnName,
+                  columnType: columnOperations.column.type,
+                  primaryKeyColumnName: primaryKeyColumnName,
+                  primaryKeyColumnType: primaryKeyColumnType,
+                  minValue: minValue,
+                  maxValue: maxValue,
+                  value: perturbationMode === PerturbationMode.PERCENTAGE ? percentageValue : fixedValue,
+                  perturbationMode: perturbationMode,
+                })
+                  .then((response) => {
+                    if (response.data.success) {
+                      toast.success(response.data.message, {
+                        position: 'top-right',
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                      });
+                      handleAddSuccess();
+                    } else {
+                      toast.error(response.data.message, {
+                        position: 'top-right',
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                      });
+                    }
+                  })
+                  .catch((err) =>
+                    toast.error('Failed to add operation: ' + err.data, {
+                      position: 'top-right',
+                      autoClose: 5000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                    }),
+                  );
+                break;
               case 'RandomNumber':
                 putAddRandomNumberOperation(worksheetId, {
                   tableName: tableName,
@@ -800,6 +851,50 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
                   primaryKeyColumnName: primaryKeyColumnName,
                   primaryKeyColumnType: primaryKeyColumnType,
                   hashingMode: hashingMode,
+                })
+                  .then((response) => {
+                    if (response.data.success) {
+                      toast.success(response.data.message, {
+                        position: 'top-right',
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                      });
+                      handleAddSuccess();
+                    } else {
+                      toast.error(response.data.message, {
+                        position: 'top-right',
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                      });
+                    }
+                  })
+                  .catch((err) =>
+                    toast.error('Failed to add operation: ' + err.data, {
+                      position: 'top-right',
+                      autoClose: 5000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                    }),
+                  );
+                break;
+              case 'Tokenization':
+                putAddTokenizationOperation(worksheetId, {
+                  tableName: tableName,
+                  columnName: columnOperations.column.columnName,
+                  columnType: columnOperations.column.type,
+                  primaryKeyColumnName: primaryKeyColumnName,
+                  primaryKeyColumnType: primaryKeyColumnType,
                 })
                   .then((response) => {
                     if (response.data.success) {

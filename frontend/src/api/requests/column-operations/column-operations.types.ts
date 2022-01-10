@@ -73,3 +73,5 @@ export enum HashingMode {
   SHA2 = 'SHA2',
   SHA3 = 'SHA3',
 }
+
+export interface AddTokenizationRequest extends AddOperation {}

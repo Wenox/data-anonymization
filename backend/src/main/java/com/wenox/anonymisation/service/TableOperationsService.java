@@ -147,15 +147,16 @@ public class TableOperationsService {
               listOfColumnOperationDto.add(columnOperationDto);
             });
         Optional
-            .ofNullable(columnOperations.getHashing())
-            .ifPresent(hashing -> {
+            .ofNullable(columnOperations.getTokenization())
+            .ifPresent(tokenization -> {
               ColumnOperationDto columnOperationDto = new ColumnOperationDto();
-              columnOperationDto.setOperationName("Hashing");
+              columnOperationDto.setOperationName("Tokenization");
               columnOperationDto.setColumnName(column.getColumnName());
               columnOperationDto.setTableName(tableName);
-              columnOperationDto.setId(hashing.getId());
+              columnOperationDto.setId(tokenization.getId());
               listOfColumnOperationDto.add(columnOperationDto);
             });
+
 
         item.setListOfColumnOperation(listOfColumnOperationDto);
       }

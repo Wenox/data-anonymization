@@ -9,6 +9,7 @@ import com.wenox.anonymisation.dto.columnoperations.AddRandomNumberRequest;
 import com.wenox.anonymisation.dto.columnoperations.AddRowShuffleRequest;
 import com.wenox.anonymisation.dto.columnoperations.AddShorteningRequest;
 import com.wenox.anonymisation.dto.columnoperations.AddSuppressionRequest;
+import com.wenox.anonymisation.dto.columnoperations.AddTokenizationRequest;
 import com.wenox.anonymisation.service.ColumnOperationsService;
 import com.wenox.users.dto.ApiResponse;
 import javax.validation.Valid;
@@ -56,7 +57,8 @@ public class ColumnOperationsController {
   @PreAuthorize("hasAnyAuthority('VERIFIED_USER', 'ADMIN')")
   @PutMapping("/api/v1/worksheet/{id}/column-operations/add-pattern-masking")
   public ResponseEntity<ApiResponse> addPatternMaskingOperationForColumn(@PathVariable("id") String id,
-                                                                         @Valid @RequestBody AddPatternMaskingRequest dto,
+                                                                         @Valid @RequestBody
+                                                                             AddPatternMaskingRequest dto,
                                                                          Authentication auth) {
     return ResponseEntity.ok(columnOperationsService.addPatternMaskingOperationForColumn(id, dto, auth));
   }
@@ -72,7 +74,8 @@ public class ColumnOperationsController {
   @PreAuthorize("hasAnyAuthority('VERIFIED_USER', 'ADMIN')")
   @PutMapping("/api/v1/worksheet/{id}/column-operations/add-generalisation")
   public ResponseEntity<ApiResponse> addGeneralisationOperationForColumn(@PathVariable("id") String id,
-                                                                         @Valid @RequestBody AddGeneralisationRequest dto,
+                                                                         @Valid @RequestBody
+                                                                             AddGeneralisationRequest dto,
                                                                          Authentication auth) {
     return ResponseEntity.ok(columnOperationsService.addGeneralisationOperationForColumn(id, dto, auth));
   }
@@ -96,8 +99,16 @@ public class ColumnOperationsController {
   @PreAuthorize("hasAnyAuthority('VERIFIED_USER', 'ADMIN')")
   @PutMapping("/api/v1/worksheet/{id}/column-operations/add-hashing")
   public ResponseEntity<ApiResponse> addHashingOperationForColumn(@PathVariable("id") String id,
-                                                                       @Valid @RequestBody AddHashingRequest dto,
-                                                                       Authentication auth) {
+                                                                  @Valid @RequestBody AddHashingRequest dto,
+                                                                  Authentication auth) {
     return ResponseEntity.ok(columnOperationsService.addHashingOperationForColumn(id, dto, auth));
+  }
+
+  @PreAuthorize("hasAnyAuthority('VERIFIED_USER', 'ADMIN')")
+  @PutMapping("/api/v1/worksheet/{id}/column-operations/add-tokenization")
+  public ResponseEntity<ApiResponse> addTokenizationOperationForColumn(@PathVariable("id") String id,
+                                                                       @Valid @RequestBody AddTokenizationRequest dto,
+                                                                       Authentication auth) {
+    return ResponseEntity.ok(columnOperationsService.addTokenizationOperationForColumn(id, dto, auth));
   }
 }
