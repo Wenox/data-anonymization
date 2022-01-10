@@ -23,6 +23,7 @@ import { toast } from 'react-toastify';
 import {
   putAddColumnShuffleOperation,
   putAddGeneralisationOperation,
+  putAddHashingOperation,
   putAddPatternMaskingOperation,
   putAddPerturbationOperation,
   putAddRandomNumberOperation,
@@ -96,6 +97,7 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
           <MenuItem value={'Generalisation'}>Generalisation</MenuItem>
           <MenuItem value={'Perturbation'}>Perturbation</MenuItem>
           <MenuItem value={'RandomNumber'}>Random number</MenuItem>
+          <MenuItem value={'Hashing'}>Hashing</MenuItem>
         </Select>
 
         <Divider sx={{ mt: 2, mb: 2 }} />
@@ -735,6 +737,50 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
                   primaryKeyColumnType: primaryKeyColumnType,
                   minValue: minValue || 0,
                   maxValue: maxValue || 100,
+                })
+                  .then((response) => {
+                    if (response.data.success) {
+                      toast.success(response.data.message, {
+                        position: 'top-right',
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                      });
+                      handleAddSuccess();
+                    } else {
+                      toast.error(response.data.message, {
+                        position: 'top-right',
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                      });
+                    }
+                  })
+                  .catch((err) =>
+                    toast.error('Failed to add operation: ' + err.data, {
+                      position: 'top-right',
+                      autoClose: 5000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                    }),
+                  );
+                break;
+              case 'Hashing':
+                putAddHashingOperation(worksheetId, {
+                  tableName: tableName,
+                  columnName: columnOperations.column.columnName,
+                  columnType: columnOperations.column.type,
+                  primaryKeyColumnName: primaryKeyColumnName,
+                  primaryKeyColumnType: primaryKeyColumnType,
                 })
                   .then((response) => {
                     if (response.data.success) {

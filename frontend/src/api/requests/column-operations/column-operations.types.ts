@@ -64,3 +64,5 @@ export interface AddRandomNumberRequest extends AddOperation {
   minValue: number;
   maxValue: number;
 }
+
+export interface AddHashingRequest extends AddOperation {}

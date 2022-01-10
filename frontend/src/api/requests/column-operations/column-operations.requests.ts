@@ -2,6 +2,7 @@ import axios from 'axios';
 import {
   AddColumnShuffle,
   AddGeneralisationRequest,
+  AddHashingRequest,
   AddPatternMasking,
   AddPerturbationRequest,
   AddRandomNumberRequest,
@@ -41,4 +42,8 @@ export const putAddPerturbationOperation = (worksheetId: string, dto: AddPerturb
 
 export const putAddRandomNumberOperation = (worksheetId: string, dto: AddRandomNumberRequest) => {
   return axios.put<ApiResponse>(`/api/v1/worksheet/${worksheetId}/column-operations/add-random-number`, dto);
+};
+
+export const putAddHashingOperation = (worksheetId: string, dto: AddHashingRequest) => {
+  return axios.put<ApiResponse>(`/api/v1/worksheet/${worksheetId}/column-operations/add-hashing`, dto);
 };
