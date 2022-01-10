@@ -12,6 +12,7 @@ import {
   Radio,
   RadioGroup,
   Select,
+  Switch,
   Tooltip,
   Zoom,
 } from '@mui/material';
@@ -21,6 +22,7 @@ import Typography from '@mui/material/Typography';
 import { toast } from 'react-toastify';
 import {
   putAddColumnShuffleOperation,
+  putAddGeneralisationOperation,
   putAddPatternMaskingOperation,
   putAddRowShuffleOperation,
   putAddShorteningOperation,
@@ -28,8 +30,8 @@ import {
 } from '../../api/requests/column-operations/column-operations.requests';
 import { ColumnOperations } from '../../api/requests/table-operations/table-operations.types';
 import TextField from '@mui/material/TextField';
-import { LetterMode } from '../../api/requests/column-operations/column-operations.types';
-import { HelpOutline, LockOutlined } from '@mui/icons-material';
+import { GeneralisationMode, LetterMode } from '../../api/requests/column-operations/column-operations.types';
+import { HelpOutline } from '@mui/icons-material';
 import { theme } from '../../styles/theme';
 
 interface AddOperationDialogProps {
@@ -62,6 +64,13 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
   const [discardExcessiveCharacters, setDiscardExcessiveCharacters] = useState(false);
   const [length, setLength] = useState<number>(4);
   const [endsWithPeriod, setEndsWithPeriod] = useState(false);
+  const [minValue, setMinValue] = useState<number | null>(null);
+  const [maxValue, setMaxValue] = useState<number | null>(null);
+  const [intervalSize, setIntervalSize] = useState<number | null>(null);
+  const [numberOfDistributions, setNumberOfDistributions] = useState<number | null>(null);
+  const [minValueChecked, setMinValueChecked] = useState(false);
+  const [maxValueChecked, setMaxValueChecked] = useState(false);
+  const [numberOfDistributionsChecked, setNumberOfDistributionsChecked] = useState(false);
 
   return (
     <Dialog fullWidth maxWidth="sm" open={open} onClose={handleCancel} TransitionComponent={Transition}>
@@ -75,6 +84,7 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
           <MenuItem value={'RowShuffle'}>Row shuffle</MenuItem>
           <MenuItem value={'PatternMasking'}>Pattern masking</MenuItem>
           <MenuItem value={'Shortening'}>Shortening</MenuItem>
+          <MenuItem value={'Generalisation'}>Generalisation</MenuItem>
         </Select>
 
         <Divider sx={{ mt: 2, mb: 2 }} />
@@ -197,6 +207,100 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
               control={<Checkbox checked={endsWithPeriod} onChange={(e) => setEndsWithPeriod(e.target.checked)} />}
               label="End abbreviation with a period"
             />
+          </>
+        )}
+
+        {selectedOperation == 'Generalisation' && (
+          <>
+            <Grid container spacing={0}>
+              <Grid item xs={3}>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={minValueChecked}
+                      onChange={(e) => setMinValueChecked(e.target.checked)}
+                      color="secondary"
+                    />
+                  }
+                  label="Minimum value"
+                />
+              </Grid>
+              <Grid item xs={3}>
+                <TextField
+                  label="Minimum value"
+                  disabled={!minValueChecked}
+                  onChange={(e) => setMinValue(Number(e.target.value))}
+                  value={minValue || 0}
+                  variant="outlined"
+                  fullWidth
+                  type="number"
+                  sx={{ backgroundColor: '#fff' }}
+                />
+              </Grid>
+              <Grid item xs={3} sx={{ pl: 1 }}>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={maxValueChecked}
+                      onChange={(e) => setMaxValueChecked(e.target.checked)}
+                      color="secondary"
+                    />
+                  }
+                  label="Maximum value"
+                />
+              </Grid>
+              <Grid item xs={3}>
+                <TextField
+                  disabled={!maxValueChecked}
+                  label="Maximum value"
+                  onChange={(e) => setMaxValue(Number(e.target.value))}
+                  value={maxValue || 0}
+                  variant="outlined"
+                  fullWidth
+                  type="number"
+                  sx={{ backgroundColor: '#fff' }}
+                />
+              </Grid>
+              <Grid item xs={12} textAlign={'right'} sx={{ mb: 2 }}>
+                <Divider sx={{ mt: 2, mb: 2 }} />
+                <FormControlLabel
+                  labelPlacement="start"
+                  control={
+                    <Switch
+                      checked={numberOfDistributionsChecked}
+                      onChange={(e) => setNumberOfDistributionsChecked(e.target.checked)}
+                      color="secondary"
+                      defaultChecked
+                    />
+                  }
+                  label="Number of distributions mode"
+                />
+              </Grid>
+              <Grid item xs={6} sx={{ pr: 0.5 }}>
+                <TextField
+                  label="Interval size"
+                  disabled={numberOfDistributionsChecked}
+                  onChange={(e) => setIntervalSize(Number(e.target.value))}
+                  value={intervalSize || 0}
+                  variant="outlined"
+                  fullWidth
+                  type="number"
+                  sx={{ backgroundColor: '#fff' }}
+                />
+              </Grid>
+              <Grid item xs={6} sx={{ pl: 0.5 }}>
+                <TextField
+                  label="Number of distributions"
+                  disabled={!numberOfDistributionsChecked}
+                  onChange={(e) => setNumberOfDistributions(Number(e.target.value))}
+                  value={numberOfDistributions || 0}
+                  variant="outlined"
+                  fullWidth
+                  type="number"
+                  sx={{ backgroundColor: '#fff' }}
+                />
+              </Grid>
+            </Grid>
           </>
         )}
       </DialogContent>
@@ -435,7 +539,57 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
                     }),
                   );
                 break;
-
+              case 'Generalisation':
+                putAddGeneralisationOperation(worksheetId, {
+                  tableName: tableName,
+                  columnName: columnOperations.column.columnName,
+                  columnType: columnOperations.column.type,
+                  primaryKeyColumnName: primaryKeyColumnName,
+                  primaryKeyColumnType: primaryKeyColumnType,
+                  minValue: minValue,
+                  maxValue: maxValue,
+                  intervalSize: numberOfDistributionsChecked ? null : intervalSize,
+                  numberOfDistributions: numberOfDistributionsChecked ? numberOfDistributions : null,
+                  generalisationMode: numberOfDistributionsChecked
+                    ? GeneralisationMode.DISTRIBUTION
+                    : GeneralisationMode.VALUE,
+                })
+                  .then((response) => {
+                    if (response.data.success) {
+                      toast.success(response.data.message, {
+                        position: 'top-right',
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                      });
+                      handleAddSuccess();
+                    } else {
+                      toast.error(response.data.message, {
+                        position: 'top-right',
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                      });
+                    }
+                  })
+                  .catch((err) =>
+                    toast.error('Failed to add operation: ' + err.data, {
+                      position: 'top-right',
+                      autoClose: 5000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                    }),
+                  );
+                break;
               default:
                 alert('Unsupported operation!');
             }

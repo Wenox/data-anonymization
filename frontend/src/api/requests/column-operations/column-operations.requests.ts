@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {
   AddColumnShuffle,
+  AddGeneralisationRequest,
   AddPatternMasking,
   AddRowShuffle,
   AddShorteningRequest,
@@ -26,4 +27,8 @@ export const putAddPatternMaskingOperation = (worksheetId: string, dto: AddPatte
 
 export const putAddShorteningOperation = (worksheetId: string, dto: AddShorteningRequest) => {
   return axios.put<ApiResponse>(`/api/v1/worksheet/${worksheetId}/column-operations/add-shortening`, dto);
+};
+
+export const putAddGeneralisationOperation = (worksheetId: string, dto: AddGeneralisationRequest) => {
+  return axios.put<ApiResponse>(`/api/v1/worksheet/${worksheetId}/column-operations/add-generalisation`, dto);
 };

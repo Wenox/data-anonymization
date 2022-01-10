@@ -34,3 +34,16 @@ export interface AddShorteningRequest extends AddOperation {
   length: number;
   endsWithPeriod: boolean;
 }
+
+export interface AddGeneralisationRequest extends AddOperation {
+  minValue: number | null;
+  maxValue: number | null;
+  intervalSize: number | null;
+  numberOfDistributions: number | null;
+  generalisationMode: GeneralisationMode;
+}
+
+export enum GeneralisationMode {
+  VALUE = 'VALUE',
+  DISTRIBUTION = 'DISTRIBUTION',
+}

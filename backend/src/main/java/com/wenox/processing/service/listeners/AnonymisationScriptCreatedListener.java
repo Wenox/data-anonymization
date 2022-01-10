@@ -14,6 +14,7 @@ import com.wenox.processing.repository.OutcomeRepository;
 import com.wenox.processing.service.Query;
 import com.wenox.processing.service.QueryExecutor;
 import com.wenox.processing.service.operations.ColumnShuffler;
+import com.wenox.processing.service.operations.GeneralisationService;
 import com.wenox.processing.service.operations.PatternMaskingService;
 import com.wenox.processing.service.operations.RowShuffler;
 import com.wenox.processing.service.operations.ShorteningService;
@@ -224,6 +225,46 @@ public class AnonymisationScriptCreatedListener {
       }
 
 
+
+      var generalisation = columnOperations.getGeneralisation();
+      if (generalisation != null) {
+
+        // 3.0 Handle column type change
+        if (!columnOperations.getColumnType().equals(String.valueOf(Types.VARCHAR))) {
+          try {
+            Files.writeString(fileLocation,
+                new Query.QueryBuilder(Query.QueryType.ALTER_COLUMN_TYPE)
+                    .tableName(columnOperations.getTableName())
+                    .columnName(columnOperations.getColumnName())
+                    .build()
+                    .toString(),
+                StandardOpenOption.APPEND);
+          } catch (Exception ex) {
+            ex.printStackTrace();
+          }
+        }
+
+        final List<Pair<String, String>> generalisedRows = new GeneralisationService().generalise(rows, generalisation);
+
+        for (var row : generalisedRows) {
+          try {
+            Files.writeString(fileLocation,
+                new Query.QueryBuilder(Query.QueryType.UPDATE)
+                    .tableName(columnOperations.getTableName())
+                    .primaryKeyColumnName(columnOperations.getPrimaryKeyColumnName())
+                    .primaryKeyType(columnOperations.getPrimaryKeyColumnType())
+                    .primaryKeyValue(row.getFirst())
+                    .columnName(columnOperations.getColumnName())
+                    .columnType(String.valueOf(Types.VARCHAR))
+                    .columnValue(row.getSecond())
+                    .build()
+                    .toString(),
+                StandardOpenOption.APPEND);
+          } catch (Exception ex) {
+            ex.printStackTrace();
+          }
+        }
+      }
     }
     outcome.setOutcomeStatus(OutcomeStatus.SCRIPT_POPULATION_SUCCESS);
     outcomeRepository.save(outcome);
