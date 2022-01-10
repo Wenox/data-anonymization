@@ -1,5 +1,6 @@
 package com.wenox.uploading.template.dto;
 
+import com.wenox.uploading.template.domain.RestoreMode;
 import com.wenox.users.domain.FileType;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -13,6 +14,9 @@ public class CreateTemplateDto {
   @NotNull
   private FileType type;
 
+  @NotNull
+  private RestoreMode restoreMode;
+
   @NotEmpty
   private String title;
 
@@ -20,6 +24,14 @@ public class CreateTemplateDto {
 
   public MultipartFile getFile() {
     return file;
+  }
+
+  public RestoreMode getRestoreMode() {
+    return restoreMode;
+  }
+
+  public void setRestoreMode(RestoreMode restoreMode) {
+    this.restoreMode = restoreMode;
   }
 
   public void setFile(MultipartFile file) {

@@ -1,6 +1,10 @@
 package com.wenox.uploading.restorer;
 
+import static com.wenox.uploading.template.domain.RestoreMode.ARCHIVE;
+
+
 import com.wenox.infrastructure.service.ProcessExecutorFactory;
+import com.wenox.uploading.template.domain.RestoreMode;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 import org.slf4j.Logger;
@@ -22,10 +26,21 @@ public class PostgreSQLRestoreService implements DatabaseRestoreService {
   @Value("${POSTGRES_HOST_PORT:5007}")
   private String postgresHostPort;
 
-  public void restore(String dumpPath, String databaseName) throws IOException, InterruptedException, TimeoutException {
+  public void restore(String dumpPath, String databaseName, RestoreMode restoreMode)
+      throws IOException, InterruptedException, TimeoutException {
 
     log.info("Restoring new {} using dump located at {}.", databaseName, dumpPath);
 
+    switch (restoreMode) {
+      case ARCHIVE -> restoreFromArchive(dumpPath, databaseName);
+      case SCRIPT -> restoreFromScript(dumpPath, databaseName);
+    }
+
+    log.info("Restored new {} successfully.", databaseName);
+  }
+
+  private void restoreFromArchive(String dumpPath, String databaseName)
+      throws IOException, InterruptedException, TimeoutException {
     if (isRunningOnCloud) {
 
       ProcessExecutorFactory.newProcess(
@@ -66,7 +81,53 @@ public class PostgreSQLRestoreService implements DatabaseRestoreService {
           dumpPath
       ).execute();
     }
-
-    log.info("Restored new {} successfully.", databaseName);
   }
+
+  private void restoreFromScript(String dumpPath, String databaseName)
+      throws IOException, InterruptedException, TimeoutException {
+    System.out.println("Restore from script");
+    if (isRunningOnCloud) {
+
+      ProcessExecutorFactory.newProcess(
+          "createdb",
+          "-h", postgresIpAddress,
+          "-U", "postgres", "--no-password",
+          "-T", "template0",
+          databaseName
+      ).execute();
+
+      ProcessExecutorFactory.newProcess(
+              "psql",
+              "-h", postgresIpAddress,
+              "-U", "postgres", "--no-password",
+              "-d", databaseName,
+              "--echo-all",
+              "-v", "ON_ERROR_STOP=1",
+              "-f", dumpPath)
+          .execute();
+
+    } else {
+
+      ProcessExecutorFactory.newProcess(
+          "createdb",
+          "-h", postgresIpAddress,
+          "-p", postgresHostPort,
+          "-U", "postgres", "--no-password",
+          "-T", "template0",
+          databaseName
+      ).execute();
+
+      ProcessExecutorFactory.newProcess(
+              "psql",
+              "-h", postgresIpAddress,
+              "-p", postgresHostPort,
+              "-U", "postgres", "--no-password",
+              "-d", databaseName,
+              "--echo-all",
+              "-v", "ON_ERROR_STOP=1",
+              "-f", dumpPath)
+          .execute();
+    }
+  }
+
 }

@@ -1,6 +1,7 @@
 package com.wenox.uploading.template.dto;
 
 import com.wenox.uploading.template.domain.FileEntity;
+import com.wenox.uploading.template.domain.RestoreMode;
 import com.wenox.uploading.template.domain.Template;
 import com.wenox.uploading.template.domain.TemplateStatus;
 import com.wenox.users.domain.FileType;
@@ -15,6 +16,7 @@ public class MyTemplateDto {
   private String originalFileName;
   private TemplateStatus status;
   private FileType type;
+  private RestoreMode restoreMode;
   private String title;
   private String description;
   private String createdDate;
@@ -25,6 +27,7 @@ public class MyTemplateDto {
     dto.setId(template.getId());
     dto.setStatus(template.getStatus());
     dto.setType(template.getType());
+    dto.setRestoreMode(template.getRestoreMode());
     dto.setMetadata(template.getMetadata());
     dto.setTitle(template.getTitle());
     dto.setDescription(template.getDescription());
@@ -94,6 +97,14 @@ public class MyTemplateDto {
 
   public String getOriginalFileName() {
     return originalFileName;
+  }
+
+  public RestoreMode getRestoreMode() {
+    return restoreMode;
+  }
+
+  public void setRestoreMode(RestoreMode restoreMode) {
+    this.restoreMode = restoreMode;
   }
 
   public void setOriginalFileName(String originalFileName) {

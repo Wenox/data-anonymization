@@ -49,6 +49,10 @@ public class Template {
   private TemplateStatus status;
 
   @Enumerated(EnumType.STRING)
+  @Column(name = "restore_mode")
+  private RestoreMode restoreMode;
+
+  @Enumerated(EnumType.STRING)
   @Column(name = "type")
   private FileType type;
 
@@ -177,5 +181,13 @@ public class Template {
 
   public void setTitle(String title) {
     this.title = title;
+  }
+
+  public RestoreMode getRestoreMode() {
+    return restoreMode;
+  }
+
+  public void setRestoreMode(RestoreMode restoreMode) {
+    this.restoreMode = restoreMode;
   }
 }

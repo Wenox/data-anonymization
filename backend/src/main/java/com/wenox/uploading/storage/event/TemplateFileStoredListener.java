@@ -35,7 +35,7 @@ public class TemplateFileStoredListener {
     }
 
     try {
-      restoreFacade.restore(template.getTemplateFile().getSavedFileName(), template.getTemplateDatabaseName());
+      restoreFacade.restore(template.getTemplateFile().getSavedFileName(), template.getTemplateDatabaseName(), template.getRestoreMode());
       template.setStatus(TemplateStatus.RESTORE_SUCCESS);
       repository.save(template);
     } catch (final Exception ex) {

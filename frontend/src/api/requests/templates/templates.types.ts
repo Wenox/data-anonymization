@@ -10,6 +10,12 @@ export interface MyTemplate {
   description: string;
   createdDate: string;
   metadata: TemplateMetadata;
+  restoreMode: RestoreMode;
+}
+
+export enum RestoreMode {
+  ARCHIVE = 'ARCHIVE',
+  SCRIPT = 'SCRIPT',
 }
 
 export interface TemplateMetadata {

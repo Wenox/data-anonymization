@@ -1,5 +1,6 @@
 package com.wenox.uploading.restorer;
 
+import com.wenox.uploading.template.domain.RestoreMode;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,8 +18,8 @@ public class PostgreSQLRestoreFacade implements DatabaseRestoreFacade {
     this.restoreService = restoreService;
   }
 
-  public void restore(String templateName, String databaseName) throws IOException, InterruptedException, TimeoutException {
+  public void restore(String templateName, String databaseName, RestoreMode restoreMode) throws IOException, InterruptedException, TimeoutException {
     final String dumpPath = templatesPath + "/" + templateName;
-    restoreService.restore(dumpPath, databaseName);
+    restoreService.restore(dumpPath, databaseName, restoreMode);
   }
 }

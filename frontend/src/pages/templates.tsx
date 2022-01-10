@@ -16,12 +16,14 @@ import { ROUTES } from '../constants/routes';
 interface IFormInputs {
   title: string;
   type: string;
+  restoreMode: string;
   description: string;
 }
 
 const schema = yup.object().shape({
   title: yup.string().required('Title is required'),
   type: yup.string().required('Type is required'),
+  restoreMode: yup.string().required('Restore mode is required'),
   description: yup.string(),
 });
 
@@ -174,7 +176,7 @@ const Templates: FC = () => {
                 )}
               />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={3}>
               <Controller
                 name="type"
                 control={control}
@@ -199,6 +201,36 @@ const Templates: FC = () => {
                     </MenuItem>
                     <MenuItem key={'MYSQL'} value={'MYSQL'}>
                       MySQL
+                    </MenuItem>
+                  </TextField>
+                )}
+              />
+            </Grid>
+            <Grid item xs={3}>
+              <Controller
+                name="restoreMode"
+                control={control}
+                defaultValue="ARCHIVE"
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    label="Restore mode"
+                    select
+                    variant="outlined"
+                    error={!!errors.restoreMode}
+                    helperText={errors.restoreMode ? errors.restoreMode?.message : ''}
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="restoreMode"
+                    name="restoreMode"
+                    autoComplete="restoreMode"
+                  >
+                    <MenuItem key={'ARCHIVE'} value={'ARCHIVE'}>
+                      Compressed archive
+                    </MenuItem>
+                    <MenuItem key={'SCRIPT'} value={'SCRIPT'}>
+                      Script file
                     </MenuItem>
                   </TextField>
                 )}
