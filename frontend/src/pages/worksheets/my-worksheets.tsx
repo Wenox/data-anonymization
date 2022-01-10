@@ -89,7 +89,7 @@ const MyWorksheets: FC = () => {
       headerName: 'Number of tables',
       flex: 1,
       ...centeredColumn(),
-      renderCell: (params) => params.row.template.numberOfTables,
+      renderCell: (params) => params.row.template.metadata.numberOfTables,
     },
     {
       field: 'actions',
