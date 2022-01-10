@@ -23,8 +23,8 @@ import { toast } from 'react-toastify';
 import {
   putAddColumnShuffleOperation,
   putAddGeneralisationOperation,
+  putAddHashingOperation,
   putAddPatternMaskingOperation,
-  putAddPerturbationOperation,
   putAddRandomNumberOperation,
   putAddRowShuffleOperation,
   putAddShorteningOperation,
@@ -34,6 +34,7 @@ import { ColumnOperations } from '../../api/requests/table-operations/table-oper
 import TextField from '@mui/material/TextField';
 import {
   GeneralisationMode,
+  HashingMode,
   LetterMode,
   PerturbationMode,
 } from '../../api/requests/column-operations/column-operations.types';
@@ -80,6 +81,7 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
   const [fixedValue, setFixedValue] = useState(10);
   const [percentageValue, setPercentageValue] = useState(5);
   const [perturbationMode, setPerturbationMode] = useState<PerturbationMode>(PerturbationMode.FIXED);
+  const [hashingMode, setHashingMode] = useState<HashingMode>(HashingMode.SHA3);
 
   return (
     <Dialog fullWidth maxWidth="sm" open={open} onClose={handleCancel} TransitionComponent={Transition}>
@@ -96,6 +98,7 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
           <MenuItem value={'Generalisation'}>Generalisation</MenuItem>
           <MenuItem value={'Perturbation'}>Perturbation</MenuItem>
           <MenuItem value={'RandomNumber'}>Random number</MenuItem>
+          <MenuItem value={'Hashing'}>Hashing</MenuItem>
         </Select>
 
         <Divider sx={{ mt: 2, mb: 2 }} />
@@ -439,6 +442,23 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
             </Grid>
           </>
         )}
+
+        {selectedOperation === 'Hashing' && (
+          <>
+            <h4>Hashing algorithm: {hashingMode === HashingMode.SHA3 ? 'SHA3-256' : 'SHA2-256'}</h4>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={hashingMode == HashingMode.SHA3}
+                  onChange={(e) => setHashingMode(e.target.checked ? HashingMode.SHA3 : HashingMode.SHA2)}
+                  color="secondary"
+                  defaultChecked
+                />
+              }
+              label="SHA3-256"
+            />
+          </>
+        )}
       </DialogContent>
       <DialogActions>
         <Button onClick={handleCancel}>Cancel</Button>
@@ -735,6 +755,51 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
                   primaryKeyColumnType: primaryKeyColumnType,
                   minValue: minValue || 0,
                   maxValue: maxValue || 100,
+                })
+                  .then((response) => {
+                    if (response.data.success) {
+                      toast.success(response.data.message, {
+                        position: 'top-right',
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                      });
+                      handleAddSuccess();
+                    } else {
+                      toast.error(response.data.message, {
+                        position: 'top-right',
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                      });
+                    }
+                  })
+                  .catch((err) =>
+                    toast.error('Failed to add operation: ' + err.data, {
+                      position: 'top-right',
+                      autoClose: 5000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                    }),
+                  );
+                break;
+              case 'Hashing':
+                putAddHashingOperation(worksheetId, {
+                  tableName: tableName,
+                  columnName: columnOperations.column.columnName,
+                  columnType: columnOperations.column.type,
+                  primaryKeyColumnName: primaryKeyColumnName,
+                  primaryKeyColumnType: primaryKeyColumnType,
+                  hashingMode: hashingMode,
                 })
                   .then((response) => {
                     if (response.data.success) {

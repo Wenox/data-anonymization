@@ -15,6 +15,7 @@ import com.wenox.processing.service.Query;
 import com.wenox.processing.service.QueryExecutor;
 import com.wenox.processing.service.operations.ColumnShuffler;
 import com.wenox.processing.service.operations.GeneralisationService;
+import com.wenox.processing.service.operations.HashingService;
 import com.wenox.processing.service.operations.PatternMaskingService;
 import com.wenox.processing.service.operations.PerturbationService;
 import com.wenox.processing.service.operations.RandomNumberService;
@@ -311,6 +312,49 @@ public class AnonymisationScriptCreatedListener {
                     .primaryKeyValue(row.getFirst())
                     .columnName(columnOperations.getColumnName())
                     .columnType(columnOperations.getColumnType())
+                    .columnValue(row.getSecond())
+                    .build()
+                    .toString(),
+                StandardOpenOption.APPEND);
+          } catch (Exception ex) {
+            ex.printStackTrace();
+          }
+        }
+      }
+
+
+
+
+      var hashing = columnOperations.getHashing();
+      if (hashing != null) {
+
+        // 3.0 Handle column type change
+        if (!columnOperations.getColumnType().equals(String.valueOf(Types.VARCHAR))) {
+          try {
+            Files.writeString(fileLocation,
+                new Query.QueryBuilder(Query.QueryType.ALTER_COLUMN_TYPE)
+                    .tableName(columnOperations.getTableName())
+                    .columnName(columnOperations.getColumnName())
+                    .build()
+                    .toString(),
+                StandardOpenOption.APPEND);
+          } catch (Exception ex) {
+            ex.printStackTrace();
+          }
+        }
+
+        final List<Pair<String, String>> hashedRows = new HashingService().hash(rows, hashing);
+
+        for (var row : hashedRows) {
+          try {
+            Files.writeString(fileLocation,
+                new Query.QueryBuilder(Query.QueryType.UPDATE)
+                    .tableName(columnOperations.getTableName())
+                    .primaryKeyColumnName(columnOperations.getPrimaryKeyColumnName())
+                    .primaryKeyType(columnOperations.getPrimaryKeyColumnType())
+                    .primaryKeyValue(row.getFirst())
+                    .columnName(columnOperations.getColumnName())
+                    .columnType(String.valueOf(Types.VARCHAR))
                     .columnValue(row.getSecond())
                     .build()
                     .toString(),

@@ -64,3 +64,12 @@ export interface AddRandomNumberRequest extends AddOperation {
   minValue: number;
   maxValue: number;
 }
+
+export interface AddHashingRequest extends AddOperation {
+  hashingMode: HashingMode;
+}
+
+export enum HashingMode {
+  SHA2 = 'SHA2',
+  SHA3 = 'SHA3',
+}

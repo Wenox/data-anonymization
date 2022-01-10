@@ -2,6 +2,7 @@ package com.wenox.anonymisation.controller;
 
 import com.wenox.anonymisation.dto.columnoperations.AddColumnShuffleRequest;
 import com.wenox.anonymisation.dto.columnoperations.AddGeneralisationRequest;
+import com.wenox.anonymisation.dto.columnoperations.AddHashingRequest;
 import com.wenox.anonymisation.dto.columnoperations.AddPatternMaskingRequest;
 import com.wenox.anonymisation.dto.columnoperations.AddPerturbationRequest;
 import com.wenox.anonymisation.dto.columnoperations.AddRandomNumberRequest;
@@ -90,5 +91,13 @@ public class ColumnOperationsController {
                                                                        @Valid @RequestBody AddRandomNumberRequest dto,
                                                                        Authentication auth) {
     return ResponseEntity.ok(columnOperationsService.addRandomNumberOperationForColumn(id, dto, auth));
+  }
+
+  @PreAuthorize("hasAnyAuthority('VERIFIED_USER', 'ADMIN')")
+  @PutMapping("/api/v1/worksheet/{id}/column-operations/add-hashing")
+  public ResponseEntity<ApiResponse> addHashingOperationForColumn(@PathVariable("id") String id,
+                                                                       @Valid @RequestBody AddHashingRequest dto,
+                                                                       Authentication auth) {
+    return ResponseEntity.ok(columnOperationsService.addHashingOperationForColumn(id, dto, auth));
   }
 }

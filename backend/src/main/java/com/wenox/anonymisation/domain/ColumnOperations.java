@@ -44,6 +44,9 @@ public class ColumnOperations {
   @OneToOne
   private RandomNumber randomNumber;
 
+  @OneToOne
+  private Hashing hashing;
+
   private String tableName;
 
   private String columnName;
@@ -172,5 +175,13 @@ public class ColumnOperations {
 
   public void setRandomNumber(RandomNumber randomNumber) {
     this.randomNumber = randomNumber;
+  }
+
+  public Hashing getHashing() {
+    return hashing;
+  }
+
+  public void setHashing(Hashing hashing) {
+    this.hashing = hashing;
   }
 }
