@@ -12,6 +12,7 @@ import {
   Radio,
   RadioGroup,
   Select,
+  Switch,
   Tooltip,
   Zoom,
 } from '@mui/material';
@@ -209,7 +210,10 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
         {selectedOperation == 'Generalisation' && (
           <>
             <Grid container spacing={0}>
-              <Grid item xs={6}>
+              <Grid item xs={3}>
+                <FormControlLabel control={<Switch color="secondary" />} label="Minimum value" />
+              </Grid>
+              <Grid item xs={3}>
                 <TextField
                   label="Minimum value"
                   onChange={(e) => setMinValue(Number(e.target.value))}
@@ -220,11 +224,44 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
                   sx={{ backgroundColor: '#fff' }}
                 />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={3} sx={{ pl: 1 }}>
+                <FormControlLabel control={<Switch color="secondary" />} label="Maximum value" />
+              </Grid>
+              <Grid item xs={3}>
                 <TextField
                   label="Maximum value"
                   onChange={(e) => setMaxValue(Number(e.target.value))}
                   value={maxValue || 0}
+                  variant="outlined"
+                  fullWidth
+                  type="number"
+                  sx={{ backgroundColor: '#fff' }}
+                />
+              </Grid>
+              <Grid item xs={12} textAlign={'right'} sx={{ mb: 2 }}>
+                <Divider sx={{ mt: 2, mb: 2 }} />
+                <FormControlLabel
+                  labelPlacement="start"
+                  control={<Switch color="secondary" defaultChecked />}
+                  label="Number of distributions mode"
+                />
+              </Grid>
+              <Grid item xs={6} sx={{ pr: 0.5 }}>
+                <TextField
+                  label="Interval size"
+                  onChange={(e) => setIntervalSize(Number(e.target.value))}
+                  value={intervalSize || 0}
+                  variant="outlined"
+                  fullWidth
+                  type="number"
+                  sx={{ backgroundColor: '#fff' }}
+                />
+              </Grid>
+              <Grid item xs={6} sx={{ pl: 0.5 }}>
+                <TextField
+                  label="Number of distributions"
+                  onChange={(e) => setNumberOfDistributions(Number(e.target.value))}
+                  value={numberOfDistributions || 0}
                   variant="outlined"
                   fullWidth
                   type="number"
