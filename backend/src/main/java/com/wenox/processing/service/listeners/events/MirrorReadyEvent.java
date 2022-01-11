@@ -1,16 +1,16 @@
-package com.wenox.processing.domain.events;
+package com.wenox.processing.service.listeners.events;
 
 import com.wenox.processing.domain.Outcome;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class OutcomeGenerationStartedEvent {
+public class MirrorReadyEvent {
 
   private final Outcome outcome;
 
-  private static final Logger log = LoggerFactory.getLogger(OutcomeGenerationStartedEvent.class);
+  private static final Logger log = LoggerFactory.getLogger(MirrorReadyEvent.class);
 
-  public OutcomeGenerationStartedEvent(Outcome outcome) {
+  public MirrorReadyEvent(Outcome outcome) {
     this.outcome = outcome;
     log.info("{} for outcome {}.", this.getClass().getSimpleName(), outcome.getId());
   }

@@ -1,4 +1,4 @@
-package com.wenox.processing.domain.events;
+package com.wenox.processing.service.listeners.events;
 
 import com.wenox.processing.domain.Outcome;
 import org.slf4j.Logger;

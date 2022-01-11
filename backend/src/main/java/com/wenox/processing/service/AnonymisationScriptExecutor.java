@@ -3,8 +3,8 @@ package com.wenox.processing.service;
 import com.wenox.infrastructure.service.ProcessExecutorFactory;
 import com.wenox.processing.domain.Outcome;
 import com.wenox.processing.domain.OutcomeStatus;
-import com.wenox.processing.domain.events.DatabaseAnonymisedEvent;
-import com.wenox.processing.domain.events.AnonymisationScriptPopulatedEvent;
+import com.wenox.processing.service.listeners.events.DatabaseAnonymisedEvent;
+import com.wenox.processing.service.listeners.events.AnonymisationScriptPopulatedEvent;
 import com.wenox.processing.repository.OutcomeRepository;
 import com.wenox.processing.service.listeners.AnonymisationScriptPopulatedListener;
 import org.slf4j.Logger;
@@ -67,16 +67,14 @@ public class AnonymisationScriptExecutor implements AnonymisationScriptPopulated
         ).execute();
       }
     } catch (Exception ex) {
-      log.error("Failed to execute anonymisation script {} for database {}.", event.getScriptPathLocation().toString(),
-          outcome.getMirrorDatabaseName());
+      log.error("Failed to execute anonymisation script {} for database {}.", event.getScriptPathLocation().toString(), outcome.getMirrorDatabaseName());
       ex.printStackTrace();
       outcome.setOutcomeStatus(OutcomeStatus.SCRIPT_EXECUTION_FAILURE);
       outcomeRepository.save(outcome);
       return;
     }
 
-    log.info("Successfully executed anonymisation script {} for database {}.", event.getScriptPathLocation().toString(),
-        outcome.getMirrorDatabaseName());
+    log.info("Successfully executed anonymisation script {} for database {}.", event.getScriptPathLocation().toString(), outcome.getMirrorDatabaseName());
     outcome.setOutcomeStatus(OutcomeStatus.SCRIPT_EXECUTION_SUCCESS);
     outcomeRepository.save(outcome);
 

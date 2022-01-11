@@ -2,8 +2,8 @@ package com.wenox.processing.service.listeners;
 
 import com.wenox.processing.domain.Outcome;
 import com.wenox.processing.domain.OutcomeStatus;
-import com.wenox.processing.domain.events.MirrorReadyEvent;
-import com.wenox.processing.domain.events.OutcomeGenerationStartedEvent;
+import com.wenox.processing.service.listeners.events.MirrorReadyEvent;
+import com.wenox.processing.service.listeners.events.OutcomeGenerationStartedEvent;
 import com.wenox.processing.repository.OutcomeRepository;
 import com.wenox.processing.service.mirror.DatabaseMirrorFacade;
 import com.wenox.processing.service.mirror.PostgreSQLMirrorFacade;

@@ -2,8 +2,8 @@ package com.wenox.processing.service.listeners;
 
 import com.wenox.processing.domain.Outcome;
 import com.wenox.processing.domain.OutcomeStatus;
-import com.wenox.processing.domain.events.MirrorReadyEvent;
-import com.wenox.processing.domain.events.ScriptCreatedEvent;
+import com.wenox.processing.service.listeners.events.MirrorReadyEvent;
+import com.wenox.processing.service.listeners.events.ScriptCreatedEvent;
 import com.wenox.processing.repository.OutcomeRepository;
 import com.wenox.uploading.template.domain.FileEntity;
 import com.wenox.uploading.template.namegenerator.FileNameGenerator;

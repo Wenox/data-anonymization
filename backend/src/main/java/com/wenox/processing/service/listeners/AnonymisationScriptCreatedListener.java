@@ -1,6 +1,6 @@
 package com.wenox.processing.service.listeners;
 
-import com.wenox.processing.domain.events.ScriptCreatedEvent;
+import com.wenox.processing.service.listeners.events.ScriptCreatedEvent;
 
 public interface AnonymisationScriptCreatedListener {
 

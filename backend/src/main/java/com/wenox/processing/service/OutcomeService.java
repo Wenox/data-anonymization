@@ -3,7 +3,7 @@ package com.wenox.processing.service;
 import com.wenox.anonymisation.repository.WorksheetRepository;
 import com.wenox.processing.domain.Outcome;
 import com.wenox.processing.domain.OutcomeStatus;
-import com.wenox.processing.domain.events.OutcomeGenerationStartedEvent;
+import com.wenox.processing.service.listeners.events.OutcomeGenerationStartedEvent;
 import com.wenox.processing.dto.GenerateOutcomeRequest;
 import com.wenox.processing.repository.OutcomeRepository;
 import com.wenox.storage.service.outcome.DumpStorageFactory;

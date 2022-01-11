@@ -1,6 +1,6 @@
 package com.wenox.processing.service.listeners;
 
-import com.wenox.processing.domain.events.AnonymisationScriptPopulatedEvent;
+import com.wenox.processing.service.listeners.events.AnonymisationScriptPopulatedEvent;
 
 public interface AnonymisationScriptPopulatedListener {
 
