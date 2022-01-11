@@ -1,5 +1,6 @@
-package com.wenox.anonymisation.domain;
+package com.wenox.anonymisation.domain.suppression;
 
+import com.wenox.anonymisation.domain.ColumnOperations;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

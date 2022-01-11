@@ -1,6 +1,6 @@
 package com.wenox.anonymisation.dto.columnoperations;
 
-import com.wenox.anonymisation.domain.HashingMode;
+import com.wenox.anonymisation.domain.hashing.HashingMode;
 import javax.validation.constraints.NotNull;
 
 public class AddHashingRequest extends AddOperationRequest {

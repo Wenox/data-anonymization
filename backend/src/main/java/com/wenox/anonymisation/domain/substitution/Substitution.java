@@ -1,5 +1,6 @@
-package com.wenox.anonymisation.domain;
+package com.wenox.anonymisation.domain.substitution;
 
+import com.wenox.anonymisation.domain.ColumnOperations;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,19 +9,19 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "random_numbers")
-public class RandomNumber {
+@Table(name = "substitutions")
+public class Substitution {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   Long id;
 
-  @OneToOne(mappedBy = "randomNumber")
+  @OneToOne(mappedBy = "generalisation")
   ColumnOperations columnOperations;
 
-  private Integer minValue;
+  private String values;
 
-  private Integer maxValue;
+  private Boolean rememberMappings;
 
   public Long getId() {
     return id;
@@ -38,19 +39,19 @@ public class RandomNumber {
     this.columnOperations = columnOperations;
   }
 
-  public Integer getMinValue() {
-    return minValue;
+  public String getValues() {
+    return values;
   }
 
-  public void setMinValue(Integer minValue) {
-    this.minValue = minValue;
+  public void setValues(String values) {
+    this.values = values;
   }
 
-  public Integer getMaxValue() {
-    return maxValue;
+  public Boolean getRememberMappings() {
+    return rememberMappings;
   }
 
-  public void setMaxValue(Integer maxValue) {
-    this.maxValue = maxValue;
+  public void setRememberMappings(Boolean rememberMappings) {
+    this.rememberMappings = rememberMappings;
   }
 }

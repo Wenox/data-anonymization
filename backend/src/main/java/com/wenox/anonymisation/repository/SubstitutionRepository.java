@@ -1,6 +1,6 @@
 package com.wenox.anonymisation.repository;
 
-import com.wenox.anonymisation.domain.Substitution;
+import com.wenox.anonymisation.domain.substitution.Substitution;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

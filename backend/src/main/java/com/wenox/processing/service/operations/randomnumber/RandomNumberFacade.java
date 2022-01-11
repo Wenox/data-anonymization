@@ -1,7 +1,7 @@
 package com.wenox.processing.service.operations.randomnumber;
 
 import com.wenox.anonymisation.domain.ColumnOperations;
-import com.wenox.anonymisation.domain.RandomNumber;
+import com.wenox.anonymisation.domain.randomnumber.RandomNumber;
 import com.wenox.processing.domain.Pair;
 import com.wenox.processing.service.operations.AnonymisationFacade;
 import com.wenox.processing.service.operations.AnonymisationService;

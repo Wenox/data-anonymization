@@ -1,5 +1,6 @@
-package com.wenox.anonymisation.domain;
+package com.wenox.anonymisation.domain.rowshuffle;
 
+import com.wenox.anonymisation.domain.ColumnOperations;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -10,18 +11,20 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "hashings")
-public class Hashing {
+@Table(name = "row_shuffles")
+public class RowShuffle {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   Long id;
 
-  @OneToOne(mappedBy = "patternMasking")
+  @OneToOne(mappedBy = "rowShuffle")
   ColumnOperations columnOperations;
 
   @Enumerated(EnumType.STRING)
-  private HashingMode hashingMode;
+  private LetterMode letterMode;
+
+  private boolean withRepetitions;
 
   public Long getId() {
     return id;
@@ -39,11 +42,25 @@ public class Hashing {
     this.columnOperations = columnOperations;
   }
 
-  public HashingMode getHashingMode() {
-    return hashingMode;
+  public LetterMode getLetterMode() {
+    return letterMode;
   }
 
-  public void setHashingMode(HashingMode hashingMode) {
-    this.hashingMode = hashingMode;
+  public void setLetterMode(LetterMode letterMode) {
+    this.letterMode = letterMode;
+  }
+
+  public boolean isWithRepetitions() {
+    return withRepetitions;
+  }
+
+  public void setWithRepetitions(boolean withRepetitions) {
+    this.withRepetitions = withRepetitions;
+  }
+
+  public enum LetterMode {
+    RETAIN_CASE,
+    TO_LOWERCASE,
+    TO_UPPERCASE
   }
 }

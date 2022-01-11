@@ -1,6 +1,6 @@
 package com.wenox.anonymisation.dto.columnoperations;
 
-import com.wenox.anonymisation.domain.PerturbationMode;
+import com.wenox.anonymisation.domain.perturbation.PerturbationMode;
 import javax.validation.constraints.NotNull;
 
 public class AddPerturbationRequest extends AddOperationRequest {

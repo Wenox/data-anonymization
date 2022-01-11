@@ -1,7 +1,7 @@
 package com.wenox.processing.service.operations.rowshuffle;
 
 import com.wenox.anonymisation.domain.ColumnOperations;
-import com.wenox.anonymisation.domain.RowShuffle;
+import com.wenox.anonymisation.domain.rowshuffle.RowShuffle;
 import com.wenox.processing.domain.Pair;
 import com.wenox.processing.service.operations.AnonymisationFacade;
 import com.wenox.processing.service.operations.AnonymisationService;

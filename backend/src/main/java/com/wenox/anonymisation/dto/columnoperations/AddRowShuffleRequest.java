@@ -1,6 +1,6 @@
 package com.wenox.anonymisation.dto.columnoperations;
 
-import com.wenox.anonymisation.domain.RowShuffle;
+import com.wenox.anonymisation.domain.rowshuffle.RowShuffle;
 import javax.validation.constraints.NotNull;
 
 public class AddRowShuffleRequest extends AddColumnShuffleRequest {

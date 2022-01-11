@@ -1,6 +1,9 @@
-package com.wenox.anonymisation.domain;
+package com.wenox.anonymisation.domain.hashing;
 
+import com.wenox.anonymisation.domain.ColumnOperations;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -8,19 +11,18 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "substitutions")
-public class Substitution {
+@Table(name = "hashings")
+public class Hashing {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   Long id;
 
-  @OneToOne(mappedBy = "generalisation")
+  @OneToOne(mappedBy = "patternMasking")
   ColumnOperations columnOperations;
 
-  private String values;
-
-  private Boolean rememberMappings;
+  @Enumerated(EnumType.STRING)
+  private HashingMode hashingMode;
 
   public Long getId() {
     return id;
@@ -38,19 +40,11 @@ public class Substitution {
     this.columnOperations = columnOperations;
   }
 
-  public String getValues() {
-    return values;
+  public HashingMode getHashingMode() {
+    return hashingMode;
   }
 
-  public void setValues(String values) {
-    this.values = values;
-  }
-
-  public Boolean getRememberMappings() {
-    return rememberMappings;
-  }
-
-  public void setRememberMappings(Boolean rememberMappings) {
-    this.rememberMappings = rememberMappings;
+  public void setHashingMode(HashingMode hashingMode) {
+    this.hashingMode = hashingMode;
   }
 }

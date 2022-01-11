@@ -1,7 +1,7 @@
 package com.wenox.anonymisation.dto.columnoperations;
 
 
-import com.wenox.anonymisation.domain.GeneralisationMode;
+import com.wenox.anonymisation.domain.generalisation.GeneralisationMode;
 import javax.validation.constraints.NotNull;
 
 public class AddGeneralisationRequest extends AddOperationRequest {

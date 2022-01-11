@@ -1,6 +1,6 @@
 package com.wenox.processing.service.operations.shortening;
 
-import com.wenox.anonymisation.domain.Shortening;
+import com.wenox.anonymisation.domain.shortening.Shortening;
 import com.wenox.processing.domain.Pair;
 import com.wenox.processing.service.operations.AnonymisationService;
 import java.util.ArrayList;

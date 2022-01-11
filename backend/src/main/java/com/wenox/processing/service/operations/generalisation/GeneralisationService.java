@@ -1,7 +1,7 @@
 package com.wenox.processing.service.operations.generalisation;
 
-import com.wenox.anonymisation.domain.Generalisation;
-import com.wenox.anonymisation.domain.GeneralisationMode;
+import com.wenox.anonymisation.domain.generalisation.Generalisation;
+import com.wenox.anonymisation.domain.generalisation.GeneralisationMode;
 import com.wenox.processing.domain.Pair;
 import com.wenox.processing.service.operations.AnonymisationService;
 import java.sql.Types;

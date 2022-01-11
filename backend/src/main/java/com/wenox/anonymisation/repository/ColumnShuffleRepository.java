@@ -1,6 +1,6 @@
 package com.wenox.anonymisation.repository;
 
-import com.wenox.anonymisation.domain.ColumnShuffle;
+import com.wenox.anonymisation.domain.columnshuffle.ColumnShuffle;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

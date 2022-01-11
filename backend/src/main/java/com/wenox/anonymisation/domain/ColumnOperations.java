@@ -1,5 +1,16 @@
 package com.wenox.anonymisation.domain;
 
+import com.wenox.anonymisation.domain.columnshuffle.ColumnShuffle;
+import com.wenox.anonymisation.domain.generalisation.Generalisation;
+import com.wenox.anonymisation.domain.hashing.Hashing;
+import com.wenox.anonymisation.domain.patternmasking.PatternMasking;
+import com.wenox.anonymisation.domain.perturbation.Perturbation;
+import com.wenox.anonymisation.domain.randomnumber.RandomNumber;
+import com.wenox.anonymisation.domain.rowshuffle.RowShuffle;
+import com.wenox.anonymisation.domain.shortening.Shortening;
+import com.wenox.anonymisation.domain.substitution.Substitution;
+import com.wenox.anonymisation.domain.suppression.Suppression;
+import com.wenox.anonymisation.domain.tokenization.Tokenization;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;

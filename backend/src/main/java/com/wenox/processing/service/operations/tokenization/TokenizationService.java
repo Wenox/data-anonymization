@@ -1,7 +1,7 @@
 package com.wenox.processing.service.operations.tokenization;
 
 
-import com.wenox.anonymisation.domain.Tokenization;
+import com.wenox.anonymisation.domain.tokenization.Tokenization;
 import com.wenox.processing.domain.Pair;
 import com.wenox.processing.service.operations.AnonymisationService;
 import java.sql.Types;

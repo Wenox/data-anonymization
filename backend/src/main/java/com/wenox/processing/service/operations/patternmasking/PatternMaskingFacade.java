@@ -1,7 +1,7 @@
 package com.wenox.processing.service.operations.patternmasking;
 
 import com.wenox.anonymisation.domain.ColumnOperations;
-import com.wenox.anonymisation.domain.PatternMasking;
+import com.wenox.anonymisation.domain.patternmasking.PatternMasking;
 import com.wenox.processing.domain.Pair;
 import com.wenox.processing.service.operations.AnonymisationFacade;
 import com.wenox.processing.service.operations.AnonymisationService;

@@ -1,6 +1,6 @@
 package com.wenox.anonymisation.repository;
 
-import com.wenox.anonymisation.domain.RandomNumber;
+import com.wenox.anonymisation.domain.randomnumber.RandomNumber;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,5 +1,6 @@
-package com.wenox.anonymisation.domain;
+package com.wenox.anonymisation.domain.shortening;
 
+import com.wenox.anonymisation.domain.ColumnOperations;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,17 +9,19 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "column_shuffles")
-public class ColumnShuffle {
+@Table(name = "shortenings")
+public class Shortening {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   Long id;
 
-  @OneToOne(mappedBy = "columnShuffle")
+  @OneToOne(mappedBy = "shortening")
   ColumnOperations columnOperations;
 
-  private boolean withRepetitions;
+  private Integer length;
+
+  private Boolean endsWithPeriod;
 
   public Long getId() {
     return id;
@@ -36,11 +39,19 @@ public class ColumnShuffle {
     this.columnOperations = columnOperations;
   }
 
-  public boolean isWithRepetitions() {
-    return withRepetitions;
+  public Boolean getEndsWithPeriod() {
+    return endsWithPeriod;
   }
 
-  public void setWithRepetitions(boolean withRepetitions) {
-    this.withRepetitions = withRepetitions;
+  public void setEndsWithPeriod(Boolean endsWithPeriod) {
+    this.endsWithPeriod = endsWithPeriod;
+  }
+
+  public Integer getLength() {
+    return length;
+  }
+
+  public void setLength(Integer length) {
+    this.length = length;
   }
 }

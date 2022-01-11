@@ -1,7 +1,7 @@
 package com.wenox.processing.service.operations.hashing;
 
-import com.wenox.anonymisation.domain.Hashing;
-import com.wenox.anonymisation.domain.HashingMode;
+import com.wenox.anonymisation.domain.hashing.Hashing;
+import com.wenox.anonymisation.domain.hashing.HashingMode;
 import com.wenox.processing.domain.Pair;
 import com.wenox.processing.service.operations.AnonymisationService;
 import java.nio.charset.StandardCharsets;

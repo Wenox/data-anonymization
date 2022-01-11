@@ -1,6 +1,6 @@
 package com.wenox.anonymisation.repository;
 
-import com.wenox.anonymisation.domain.Hashing;
+import com.wenox.anonymisation.domain.hashing.Hashing;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

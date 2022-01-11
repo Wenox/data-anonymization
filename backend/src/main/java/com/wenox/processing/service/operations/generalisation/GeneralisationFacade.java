@@ -1,7 +1,7 @@
 package com.wenox.processing.service.operations.generalisation;
 
 import com.wenox.anonymisation.domain.ColumnOperations;
-import com.wenox.anonymisation.domain.Generalisation;
+import com.wenox.anonymisation.domain.generalisation.Generalisation;
 import com.wenox.processing.domain.Pair;
 import com.wenox.processing.service.operations.AnonymisationFacade;
 import com.wenox.processing.service.operations.AnonymisationService;

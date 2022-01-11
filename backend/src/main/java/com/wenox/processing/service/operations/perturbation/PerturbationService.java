@@ -1,7 +1,7 @@
 package com.wenox.processing.service.operations.perturbation;
 
-import com.wenox.anonymisation.domain.Perturbation;
-import com.wenox.anonymisation.domain.PerturbationMode;
+import com.wenox.anonymisation.domain.perturbation.Perturbation;
+import com.wenox.anonymisation.domain.perturbation.PerturbationMode;
 import com.wenox.processing.domain.Pair;
 import com.wenox.processing.service.operations.AnonymisationService;
 import java.util.ArrayList;

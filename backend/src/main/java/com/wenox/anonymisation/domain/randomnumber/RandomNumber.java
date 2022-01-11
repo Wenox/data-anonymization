@@ -1,8 +1,7 @@
-package com.wenox.anonymisation.domain;
+package com.wenox.anonymisation.domain.randomnumber;
 
+import com.wenox.anonymisation.domain.ColumnOperations;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -10,26 +9,19 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "generalisations")
-public class Generalisation {
+@Table(name = "random_numbers")
+public class RandomNumber {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   Long id;
 
-  @OneToOne(mappedBy = "generalisation")
+  @OneToOne(mappedBy = "randomNumber")
   ColumnOperations columnOperations;
-
-  @Enumerated(EnumType.STRING)
-  private GeneralisationMode generalisationMode;
 
   private Integer minValue;
 
   private Integer maxValue;
-
-  private Integer intervalSize;
-
-  private Integer numberOfDistributions;
 
   public Long getId() {
     return id;
@@ -37,14 +29,6 @@ public class Generalisation {
 
   public void setId(Long id) {
     this.id = id;
-  }
-
-  public GeneralisationMode getGeneralisationMode() {
-    return generalisationMode;
-  }
-
-  public void setGeneralisationMode(GeneralisationMode generalisationMode) {
-    this.generalisationMode = generalisationMode;
   }
 
   public ColumnOperations getColumnOperations() {
@@ -69,21 +53,5 @@ public class Generalisation {
 
   public void setMaxValue(Integer maxValue) {
     this.maxValue = maxValue;
-  }
-
-  public Integer getIntervalSize() {
-    return intervalSize;
-  }
-
-  public void setIntervalSize(Integer interval) {
-    this.intervalSize = interval;
-  }
-
-  public Integer getNumberOfDistributions() {
-    return numberOfDistributions;
-  }
-
-  public void setNumberOfDistributions(Integer numberOfDistributions) {
-    this.numberOfDistributions = numberOfDistributions;
   }
 }
