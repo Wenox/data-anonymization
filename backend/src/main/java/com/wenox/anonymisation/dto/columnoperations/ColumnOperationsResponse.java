@@ -1,6 +1,6 @@
 package com.wenox.anonymisation.dto.columnoperations;
 
-import com.wenox.uploading.extractor.domain.metadata.Column;
+import com.wenox.uploading.domain.metadata.Column;
 import java.util.List;
 
 public class ColumnOperationsResponse {

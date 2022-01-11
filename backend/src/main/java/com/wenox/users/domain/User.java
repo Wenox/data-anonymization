@@ -1,7 +1,7 @@
 package com.wenox.users.domain;
 
 import com.wenox.anonymisation.domain.Worksheet;
-import com.wenox.uploading.template.domain.Template;
+import com.wenox.uploading.domain.template.Template;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;

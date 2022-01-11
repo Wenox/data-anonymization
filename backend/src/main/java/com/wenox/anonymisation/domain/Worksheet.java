@@ -1,7 +1,7 @@
 package com.wenox.anonymisation.domain;
 
 import com.wenox.processing.domain.Outcome;
-import com.wenox.uploading.template.domain.Template;
+import com.wenox.uploading.domain.template.Template;
 import com.wenox.users.domain.User;
 import java.util.ArrayList;
 import java.util.List;

@@ -15,7 +15,7 @@ import com.wenox.processing.service.operations.AnonymisationFacadeFactory;
 import com.wenox.processing.service.operations.AnonymisationOperation;
 import com.wenox.processing.service.query.JdbcTemplateQuerySelector;
 import com.wenox.processing.service.query.QuerySelector;
-import com.wenox.uploading.template.domain.FileEntity;
+import com.wenox.storage.domain.FileEntity;
 import java.nio.file.Path;
 import java.util.List;
 import org.slf4j.Logger;

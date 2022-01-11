@@ -1,7 +1,7 @@
 package com.wenox.anonymisation.dto.tableoperations;
 
 import com.wenox.anonymisation.dto.columnoperations.ColumnOperationsResponse;
-import com.wenox.uploading.extractor.domain.metadata.TemplateMetadata;
+import com.wenox.uploading.domain.metadata.TemplateMetadata;
 import java.util.List;
 
 public class TableOperationsResponse {

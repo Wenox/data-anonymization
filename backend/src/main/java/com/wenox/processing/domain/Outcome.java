@@ -1,7 +1,7 @@
 package com.wenox.processing.domain;
 
 import com.wenox.anonymisation.domain.Worksheet;
-import com.wenox.uploading.template.domain.FileEntity;
+import com.wenox.storage.domain.FileEntity;
 import com.wenox.users.domain.FileType;
 import java.time.LocalDateTime;
 import java.util.UUID;

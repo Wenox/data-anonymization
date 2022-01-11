@@ -1,8 +1,7 @@
 package com.wenox.anonymisation.dto.worksheet;
 
 import com.wenox.anonymisation.domain.Worksheet;
-import com.wenox.processing.domain.Outcome;
-import com.wenox.uploading.template.dto.MyTemplateDto;
+import com.wenox.uploading.dto.MyTemplateDto;
 import java.util.List;
 
 public class WorksheetSummaryResponse {
