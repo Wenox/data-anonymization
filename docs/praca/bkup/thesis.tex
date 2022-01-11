@@ -4,17 +4,8 @@
 %    Engineer thesis LaTeX template      % 
 %                                        %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%  (c) Krzysztof Simiński, 2018-2022     %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% compilation:
 
-% pdflatex thesis
-% biber    thesis
-% pdflatex thesis
-% pdflatex thesis 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \documentclass[a4paper,twoside,12pt]{book}
 \usepackage[utf8]{inputenc}                                      
@@ -26,15 +17,11 @@
 \usepackage{graphicx} 
 \usepackage{hyperref}
 \usepackage{booktabs}
-%\usepackage{tikz}
-%\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{pgfplots}
 \usepackage{mathtools}
 \usepackage{geometry}
 \usepackage[page]{appendix} 
-
-\usepackage{csquotes}
-\usepackage[natbib=true]{biblatex}
-\bibliography{bibliography}
 
 \usepackage{setspace}
 \onehalfspacing
@@ -51,6 +38,7 @@
 }
 
 %%%%%%%%%
+
  
 
 %%%%%%%%%%%% FANCY HEADERS %%%%%%%%%%%%%%%
@@ -164,13 +152,12 @@ escapeinside={@*}{*@},%
 \newcommand{\Consultant}{Name Surname, PhD}
 \newcommand{\Title}{Title of engineer thesis}
 \newcommand{\Polsl}{Silesian University of Technology}
-\newcommand{\Faculty}{Faculty of Automatic Control, Electronics and Computer Science}
-\newcommand{\Programme}{Programme: Informatics}
+\newcommand{\Faculty}{Faculty of Automatic Control, Electronics, and Computer Science}
 
 
 \begin{document} 
-%\kslistofremarks
-%\cleardoublepage
+\kslistofremarks
+\cleardoublepage
 	
 %%%%%%%%%%%%%%%%%%  Title page %%%%%%%%%%%%%%%%%%% 
 \pagestyle{empty}
@@ -183,7 +170,7 @@ escapeinside={@*}{*@},%
 	\rule{0cm}{0cm}
 	
 	\begin{center}
-	\includegraphics[width=45mm]{logo_eng.jpg}
+	\includegraphics[width=0.4\textwidth]{politechnika_sl_logo_bw_poziom_en.eps}
 	\end{center} 
 	\vspace{1cm}
 	\begin{center}
@@ -194,11 +181,7 @@ escapeinside={@*}{*@},%
 	\end{center}
 	\vfill
 	\begin{center}
-   \headerfont \Programme
-	\end{center}
-	\vfill
-	\begin{center}
-	\titlefont Final Project
+	\titlefont Engineer  thesis
 	\end{center}
 	\vfill
 	
@@ -215,8 +198,8 @@ escapeinside={@*}{*@},%
 		\hbox{\otherfont author: \Author}
 		\vspace{12pt}
 		\hbox{\otherfont supervisor: \Supervisor}
-		\vspace{12pt} % only if applicable; otherwise delete the line
-		\hbox{\otherfont consultant: \Consultant} % only if applicable; otherwise delete the line
+		\vspace{12pt}
+		\hbox{\otherfont consultant: \Consultant}
 	}
 	\vfill 
  
@@ -234,6 +217,89 @@ escapeinside={@*}{*@},%
 \normalfont
 
 
+%%%%%%%%%%%% statements required by law and Dean's office %%%%%%%%%%
+\cleardoublepage
+
+\begin{flushright}
+załącznik nr 2 do zarz. nr 97/08/09 
+\end{flushright}
+
+\vfill  
+
+\begin{center}
+\Large\bfseries Oświadczenie
+\end{center}
+
+\vfill
+
+\foreignlanguage{polish}{Wyrażam  zgodę / Nie wyrażam zgody*  na  udostępnienie  mojej  pracy  dyplomowej / rozprawy doktorskiej*.}
+
+\vfill
+
+Gliwice, dnia {\selectlanguage{polish}\today}
+
+\vfill
+
+\rule{0.5\textwidth}{0cm}\dotfill 
+
+\rule{0.5\textwidth}{0cm}
+\begin{minipage}{0.45\textwidth}
+{\begin{center}(podpis)\end{center}}
+\end{minipage} 
+
+\vfill
+
+\rule{0.5\textwidth}{0cm}\dotfill 
+
+\rule{0.5\textwidth}{0cm}
+\begin{minipage}{0.45\textwidth}
+{\begin{center}\rule{0mm}{5mm}(\foreignlanguage{polish}{poświadczenie wiarygodności podpisu przez Dziekanat})\end{center}}
+\end{minipage}
+
+
+\vfill
+
+* podkreślić właściwe
+
+ 
+
+
+%%%%%%%%%%%%%%%%%%%%%  
+%\cleardoublepage
+%
+%\rule{1cm}{0cm}
+%
+%\vfill  
+%
+%\begin{center}
+%\Large\bfseries Oświadczenie promotora
+%\end{center}
+%
+%\vfill
+%
+%\foreignlanguage{polish}{Oświadczam, że praca „\Title” spełnia wymagania formalne pracy dyplomowej inżynierskiej.}
+%
+%\vfill
+%
+%
+%
+%\vfill
+%
+%Gliwice, dnia {\selectlanguage{polish}\today}
+%
+%\rule{0.5\textwidth}{0cm}\dotfill 
+%
+%\rule{0.5\textwidth}{0cm}
+%\begin{minipage}{0.45\textwidth}
+%{\begin{center}(podpis promotora)\end{center}}
+%\end{minipage} 
+%
+%\vfill
+% 
+% 
+
+\cleardoublepage
+
 
 %%%%%%%%%%%%%%%%%% Table of contents %%%%%%%%%%%%%%%%%%%%%%
 \pagenumbering{Roman}
@@ -243,26 +309,14 @@ escapeinside={@*}{*@},%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \setcounter{PagesWithoutNumbers}{\value{page}}
 \mainmatter
-\pagestyle{empty}
-
-\chapter*{Abstract}
-\addcontentsline{toc}{chapter}{Abstract}
-
-The text of the abstract should be copied into a respective field in the APD system. The Abstract with keywords should not exceed one page.
-
-\paragraph{Keywords:} 2-5 keywords, separated by commas
-
-
-
-\cleardoublepage
-
-
 \pagestyle{PageNumbersChapterTitles}
 
 %%%%%%%%%%%%%% body of the thesis %%%%%%%%%%%%%%%%%
 
 
 \chapter{Introduction}
+
+\ksremark{Proszę zaktualizować szablon pracy wg szablonu z repozytorium \url{https://github.com/ksiminski/polsl-aei-theses}.}
 
 \begin{itemize}
 \item introduction into the problem domain
@@ -273,9 +327,12 @@ The text of the abstract should be copied into a respective field in the APD sys
 \item clear description of contribution of the thesis's author – in case of more authors table with enumeration of contribution of authors
 \end{itemize}
 
-\chapter{[Problem analysis]}
+\chapter{Data anonymisation}
 
 \begin{itemize}
+	\item definicja anonimizacji
+	\item rodzaje animonimizacji (od razu odnośniki do literatury (bibliografia))
+	\item metody, narzędzia
 \item  problem analysis
 \item state of the art, problem statement
 \item  literature research (all sources in the thesis have to be referenced \cite{bib:article,bib:book,bib:conference,bib:internet})
@@ -283,9 +340,11 @@ The text of the abstract should be copied into a respective field in the APD sys
 \end{itemize}
 
 
-
+\ksremark{state of the art dla aplikacji sieciowych}
 
 \chapter{Requirements and tools}
+
+\ksremark{Dlaczego aplikacja webowa?}
 
 \begin{itemize}
 \item functional and nonfunctional requirements
@@ -310,8 +369,27 @@ The text of the abstract should be copied into a respective field in the APD sys
 
 \begin{figure}
 \centering
-\includegraphics[width=10cm]{logo_eng.jpg}
-\caption{Figure caption (below the figure).}
+\begin{tikzpicture}
+\begin{axis}[
+    y tick label style={
+        /pgf/number format/.cd,
+            fixed,   
+            fixed zerofill, % 1.0 instead of 1
+            precision=1,
+        /tikz/.cd
+    },
+    x tick label style={
+        /pgf/number format/.cd,
+            fixed,
+            fixed zerofill,
+            precision=2,
+        /tikz/.cd
+    }
+]
+\addplot [domain=0.0:0.1] {rnd};
+\end{axis} 
+\end{tikzpicture}
+\caption{A caption of a figure is \textbf{below} it.}
 \label{fig:2}
 \end{figure}
 
@@ -422,11 +500,8 @@ class descriptor_gaussian : virtual public descriptor
 \pagestyle{onlyPageNumbers}
 
 %%%%%%%%%%% bibliography %%%%%%%%%%%%
-%\bibliographystyle{plplain} % bibtex
-%\bibliography{bibliography} % bibtex
-\printbibliography           % biblatex 
-
-\addcontentsline{toc}{chapter}{Bibliography}
+\bibliographystyle{plain}
+\bibliography{bibliography}
 
 %%%%%%%%%  appendices %%%%%%%%%%%%%%%%%%% 
 
@@ -435,8 +510,7 @@ class descriptor_gaussian : virtual public descriptor
 
  
 
-\chapter*{Index of abbreviations and symbols}
-\addcontentsline{toc}{chapter}{Index of abbreviations and symbols}
+\chapter*{List of abbreviations and symbols}
 
 \begin{itemize}
 \item[DNA] deoxyribonucleic acid
@@ -449,7 +523,6 @@ class descriptor_gaussian : virtual public descriptor
 
 
 \chapter*{Listings}
-\addcontentsline{toc}{chapter}{Listings}
 
 (Put long listings in the appendix.)
 
@@ -531,24 +604,19 @@ partition fcm_possibilistic::doPartition
 }
 \end{lstlisting} 
 
-\chapter*{List of additional files in~electronic submission (if applicable)}
-\addcontentsline{toc}{chapter}{List of additional files in~electronic submission (if applicable)}
+\chapter*{Contents of attached CD}
 
-
-Additional files uploaded to the system include:
+The thesis is accompanied by a CD containing:
 \begin{itemize}
+\item thesis (\LaTeX\ source files and final \texttt{pdf} file),
 \item source code of the application,
-\item test data,
-\item a video file showing how software or hardware developed for thesis is used,
-\item etc.
+\item test data.
 \end{itemize}
  
-\listoffigures
-\addcontentsline{toc}{chapter}{List of figures}
-\listoftables
-\addcontentsline{toc}{chapter}{List of tables}
-	
 
+\listoffigures
+\listoftables
+	
 \end{appendices}
 
 
