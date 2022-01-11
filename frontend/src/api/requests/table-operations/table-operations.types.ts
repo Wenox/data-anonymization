@@ -11,10 +11,10 @@ export interface TableOperations {
 
 export interface ColumnOperations {
   column: Column;
-  listOfColumnOperation: Operation[];
+  listOfColumnOperation: OperationDto[];
 }
 
-export interface Operation {
+export interface OperationDto {
   id: number;
   operationName: string;
   tableName: string;

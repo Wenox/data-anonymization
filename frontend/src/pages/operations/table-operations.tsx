@@ -9,8 +9,10 @@ import { toast } from 'react-toastify';
 import { ROUTES } from '../../constants/routes';
 import { Add, Edit, Key } from '@mui/icons-material';
 import AddOperationDialog from '../../components/operation/add-operation-dialog';
-import { ColumnOperations, Operation } from '../../api/requests/table-operations/table-operations.types';
+import { ColumnOperations, OperationDto } from '../../api/requests/table-operations/table-operations.types';
 import { getTableOperations } from '../../api/requests/table-operations/table-operations.requests';
+import { getColorForOperation } from '../../utils/anonymisation-colors';
+import { Operation } from '../../constants/anonymisation-validation-matrix';
 
 const TableOperations: FC = () => {
   const [tableName, setTableName] = useState<string>('');
@@ -118,13 +120,20 @@ const TableOperations: FC = () => {
       filterable: false,
       renderCell: ({ row }) => {
         const usesSuppression = row.listOfColumnOperation
-          .map((v: Operation) => v.operationName)
+          .map((v: OperationDto) => v.operationName)
           .includes('Suppression');
         const isPrimaryKey = row.column.primaryKey;
         const isForeignKey = row.column.foreignKey;
+        const isUnsupportedType = row.column.type !== '12' && row.column.type !== '4';
         return (
           <Button
-            disabled={isPrimaryKey || isForeignKey || usesSuppression}
+            disabled={
+              isUnsupportedType ||
+              isPrimaryKey ||
+              isForeignKey ||
+              usesSuppression ||
+              row.listOfColumnOperation.length >= 2
+            }
             size="large"
             color="success"
             variant="contained"
@@ -143,20 +152,24 @@ const TableOperations: FC = () => {
     {
       field: 'accumulatedOperations',
       headerName: 'Accumulated operations',
-      width: 360,
+      width: 400,
       ...centeredHeader(),
       sortable: false,
       filterable: false,
       renderCell: ({ row }) => {
         return (
           <>
-            {row.listOfColumnOperation.map(({ operationName }: Operation) => (
+            {row.listOfColumnOperation.map(({ operationName }: OperationDto) => (
               <Button
                 key={operationName}
                 size="large"
-                color="secondary"
                 variant="contained"
-                sx={{ width: '180px' }}
+                sx={{
+                  width: '200px',
+                  ml: 0.5,
+                  mr: 0.5,
+                  backgroundColor: getColorForOperation(operationName as Operation),
+                }}
                 onClick={() => {}}
               >
                 <Edit sx={{ fontSize: '200%', mr: 1 }} />

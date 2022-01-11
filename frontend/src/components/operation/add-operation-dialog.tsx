@@ -43,6 +43,7 @@ import {
 } from '../../api/requests/column-operations/column-operations.types';
 import { HelpOutline } from '@mui/icons-material';
 import { theme } from '../../styles/theme';
+import { Operation, validationMatrix } from '../../constants/anonymisation-validation-matrix';
 
 interface AddOperationDialogProps {
   open: boolean;
@@ -65,7 +66,7 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
   primaryKeyColumnName,
   primaryKeyColumnType,
 }) => {
-  const [selectedOperation, setSelectedOperation] = useState('Suppression');
+  const [selectedOperation, setSelectedOperation] = useState(Operation.SUPPRESSION);
   const [withRepetitions, setWithRepetitions] = useState(false);
   const [suppressionToken, setSuppressionToken] = useState('*');
   const [letterMode, setLetterMode] = useState<LetterMode>(LetterMode.RETAIN_CASE);
@@ -96,19 +97,41 @@ const AddOperationDialog: FC<AddOperationDialogProps> = ({
         Select operation
       </Typography>
       <DialogContent>
-        <Select fullWidth value={selectedOperation} onChange={(e) => setSelectedOperation(e.target.value)}>
-          <MenuItem value={'Suppression'}>Suppression</MenuItem>
-          <MenuItem value={'ColumnShuffle'}>Column shuffle</MenuItem>
-          <MenuItem value={'RowShuffle'}>Row shuffle</MenuItem>
-          <MenuItem value={'PatternMasking'}>Pattern masking</MenuItem>
-          <MenuItem value={'Shortening'}>Shortening</MenuItem>
-          <MenuItem value={'Generalisation'}>Generalisation</MenuItem>
-          <MenuItem value={'Perturbation'}>Perturbation</MenuItem>
-          <MenuItem value={'RandomNumber'}>Random number</MenuItem>
-          <MenuItem value={'Hashing'}>Hashing</MenuItem>
-          <MenuItem value={'Tokenization'}>Tokenization</MenuItem>
-          <MenuItem value={'Substitution'}>Substitution</MenuItem>
-        </Select>
+        <>
+          {columnOperations.listOfColumnOperation.length == 0 ? (
+            <Select
+              fullWidth
+              value={selectedOperation}
+              onChange={(e) => setSelectedOperation(e.target.value as Operation)}
+            >
+              <MenuItem value={Operation.SUPPRESSION}>Suppression</MenuItem>
+              <MenuItem value={Operation.COLUMN_SHUFFLE}>Column shuffle</MenuItem>
+              <MenuItem value={Operation.ROW_SHUFFLE}>Row shuffle</MenuItem>
+              <MenuItem value={Operation.PATTERN_MASKING}>Pattern masking</MenuItem>
+              <MenuItem value={Operation.SHORTENING}>Shortening</MenuItem>
+              <MenuItem value={Operation.GENERALISATION}>Generalisation</MenuItem>
+              <MenuItem value={Operation.PERTURBATION}>Perturbation</MenuItem>
+              <MenuItem value={Operation.RANDOM_NUMBER}>Random number</MenuItem>
+              <MenuItem value={Operation.HASHING}>Hashing</MenuItem>
+              <MenuItem value={Operation.TOKENIZATION}>Tokenization</MenuItem>
+              <MenuItem value={Operation.SUBSTITUTION}>Substitution</MenuItem>
+            </Select>
+          ) : (
+            <Select
+              fullWidth
+              value={selectedOperation}
+              onChange={(e) => setSelectedOperation(e.target.value as Operation)}
+            >
+              {validationMatrix
+                .find((v) => v.operation === columnOperations.listOfColumnOperation[0].operationName)!
+                .compatibleOperations.map((v: Operation) => (
+                  <MenuItem key={v} value={v}>
+                    {v}
+                  </MenuItem>
+                ))}
+            </Select>
+          )}
+        </>
 
         <Divider sx={{ mt: 2, mb: 2 }} />
 
