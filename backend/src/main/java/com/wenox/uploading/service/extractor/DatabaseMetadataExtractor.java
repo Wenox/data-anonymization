@@ -6,12 +6,15 @@ import com.wenox.uploading.domain.metadata.Column;
 import com.wenox.uploading.domain.metadata.PrimaryKey;
 import com.wenox.uploading.domain.metadata.Table;
 import com.wenox.uploading.domain.metadata.TemplateMetadata;
+import com.wenox.uploading.service.listeners.DatabaseRestoredListener;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
 import javax.sql.DataSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
@@ -20,11 +23,15 @@ public class DatabaseMetadataExtractor implements MetadataExtractor {
 
   private final DataSourceFactory dataSourceFactory;
 
-  public DatabaseMetadataExtractor(final DataSourceFactory dataSourceFactory) {
+  private static final Logger log = LoggerFactory.getLogger(DatabaseMetadataExtractor.class);
+
+  public DatabaseMetadataExtractor(DataSourceFactory dataSourceFactory) {
     this.dataSourceFactory = dataSourceFactory;
   }
 
   public TemplateMetadata extractMetadata(DatabaseConnection databaseConnection) throws SQLException {
+
+    log.info("Starting to extract metadata...");
 
     final DataSource dataSource = dataSourceFactory.getDataSource(databaseConnection);
     final JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
@@ -53,12 +60,6 @@ public class DatabaseMetadataExtractor implements MetadataExtractor {
         table.setPrimaryKey(primaryKey);
       }
 
-//      final var exportedKeys = extractor.getExportedKeys(null, "public", tableName);
-//      while (exportedKeys.next()) {
-//        foreignKeyColumns.add(exportedKeys.getString("FKCOLUMN_NAME"));
-//        foreignKeyColumns.add(exportedKeys.getString("PKCOLUMN_NAME"));;
-//      }
-
       final Set<String> foreignKeyColumns = new HashSet<>();
       final var importedKeys = extractor.getImportedKeys(null, "public", tableName);
       while (importedKeys.next()) {
@@ -75,6 +76,7 @@ public class DatabaseMetadataExtractor implements MetadataExtractor {
       }
     }
 
+    log.info("Metadata extracted successfully!");
     return metadata;
   }
 
