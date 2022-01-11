@@ -157,6 +157,16 @@ public class TableOperationsService {
               listOfColumnOperationDto.add(columnOperationDto);
             });
         Optional
+            .ofNullable(columnOperations.getHashing())
+            .ifPresent(hashing -> {
+              ColumnOperationDto columnOperationDto = new ColumnOperationDto();
+              columnOperationDto.setOperationName("Hashing");
+              columnOperationDto.setColumnName(column.getColumnName());
+              columnOperationDto.setTableName(tableName);
+              columnOperationDto.setId(hashing.getId());
+              listOfColumnOperationDto.add(columnOperationDto);
+            });
+        Optional
             .ofNullable(columnOperations.getSubstitution())
             .ifPresent(substitution -> {
               ColumnOperationDto columnOperationDto = new ColumnOperationDto();
