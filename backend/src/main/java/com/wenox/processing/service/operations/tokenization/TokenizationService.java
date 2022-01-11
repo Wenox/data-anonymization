@@ -1,14 +1,22 @@
-package com.wenox.processing.service.operations;
+package com.wenox.processing.service.operations.tokenization;
 
 
 import com.wenox.anonymisation.domain.Tokenization;
 import com.wenox.processing.domain.Pair;
+import com.wenox.processing.service.operations.AnonymisationService;
+import java.sql.Types;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
 public class TokenizationService implements AnonymisationService<Tokenization> {
 
+  @Override
+  public boolean altersTypeToInteger(String type) {
+    return !String.valueOf(Types.INTEGER).equals(type);
+  }
+
+  @Override
   public List<Pair<String, String>> anonymise(List<Pair<String, String>> rows, Tokenization tokenization) {
     List<String> rawValues = rows.stream().map(Pair::getSecond).toList();
 

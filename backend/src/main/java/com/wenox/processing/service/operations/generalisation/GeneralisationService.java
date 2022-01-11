@@ -1,8 +1,10 @@
-package com.wenox.processing.service.operations;
+package com.wenox.processing.service.operations.generalisation;
 
 import com.wenox.anonymisation.domain.Generalisation;
 import com.wenox.anonymisation.domain.GeneralisationMode;
 import com.wenox.processing.domain.Pair;
+import com.wenox.processing.service.operations.AnonymisationService;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +12,12 @@ import java.util.Map;
 
 public class GeneralisationService implements AnonymisationService<Generalisation> {
 
+  @Override
+  public boolean altersTypeToText(String type) {
+    return !String.valueOf(Types.VARCHAR).equals(type);
+  }
+
+  @Override
   public List<Pair<String, String>> anonymise(List<Pair<String, String>> rows, Generalisation generalisation) {
     List<String> rawValues = rows.stream().map(Pair::getSecond).toList();
 

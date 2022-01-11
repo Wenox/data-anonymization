@@ -1,7 +1,9 @@
-package com.wenox.processing.service.operations;
+package com.wenox.processing.service.operations.substitution;
 
 import com.wenox.anonymisation.domain.Substitution;
 import com.wenox.processing.domain.Pair;
+import com.wenox.processing.service.operations.AnonymisationService;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -11,6 +13,12 @@ import java.util.stream.IntStream;
 
 public class SubstitutionService implements AnonymisationService<Substitution> {
 
+  @Override
+  public boolean altersTypeToText(String type) {
+    return !String.valueOf(Types.VARCHAR).equals(type);
+  }
+
+  @Override
   public List<Pair<String, String>> anonymise(List<Pair<String, String>> rows, Substitution substitute) {
     List<String> originalValues = rows.stream().map(Pair::getSecond).toList();
 
