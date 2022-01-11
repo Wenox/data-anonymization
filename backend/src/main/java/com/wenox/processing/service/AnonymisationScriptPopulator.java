@@ -12,7 +12,7 @@ import com.wenox.processing.repository.OutcomeRepository;
 import com.wenox.processing.service.listeners.AnonymisationScriptCreatedListener;
 import com.wenox.processing.service.operations.AnonymisationFacade;
 import com.wenox.processing.service.operations.AnonymisationFacadeFactory;
-import com.wenox.processing.service.operations.AnonymisationOperation;
+import com.wenox.anonymisation.domain.AnonymisationOperation;
 import com.wenox.processing.service.query.JdbcTemplateQuerySelector;
 import com.wenox.processing.service.query.QuerySelector;
 import com.wenox.storage.domain.FileEntity;
@@ -51,6 +51,7 @@ public class AnonymisationScriptPopulator implements AnonymisationScriptCreatedL
 
   @EventListener
   @Transactional
+  @Override
   public void onScriptCreated(ScriptCreatedEvent event) {
     Outcome outcome = event.getOutcome();
     Worksheet worksheet = outcome.getWorksheet();

@@ -26,28 +26,29 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 public class AnonymisationScriptCreator implements MirrorReadyListener {
 
-  private final String anonymisationsScriptsPath;
   private final FileNameGenerator fileNameGenerator;
   private final ApplicationEventPublisher applicationEventPublisher;
   private final OutcomeRepository outcomeRepository;
   private final FileRepository fileRepository;
+  private final String anonymisationsScriptsPath;
 
   private static final Logger log = LoggerFactory.getLogger(AnonymisationScriptCreator.class);
 
-  public AnonymisationScriptCreator(@Value("${processing.anonymisations.scripts.path}") String anonymisationsScriptsPath,
-                                    UuidFileNameGenerator uuidFileNameGenerator,
+  public AnonymisationScriptCreator(UuidFileNameGenerator uuidFileNameGenerator,
                                     FileRepository fileRepository,
                                     OutcomeRepository outcomeRepository,
-                                    ApplicationEventPublisher applicationEventPublisher) {
-    this.anonymisationsScriptsPath = anonymisationsScriptsPath;
+                                    ApplicationEventPublisher applicationEventPublisher,
+                                    @Value("${processing.anonymisations.scripts.path}") String anonymisationsScriptsPath) {
     this.fileNameGenerator = uuidFileNameGenerator;
     this.fileRepository = fileRepository;
     this.outcomeRepository = outcomeRepository;
     this.applicationEventPublisher = applicationEventPublisher;
+    this.anonymisationsScriptsPath = anonymisationsScriptsPath;
   }
 
   @EventListener
   @Transactional
+  @Override
   public void onMirrorReadyEvent(MirrorReadyEvent event) {
     Outcome outcome = event.getOutcome();
 

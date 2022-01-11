@@ -13,6 +13,7 @@ public class JdbcTemplateQuerySelector implements QuerySelector {
     this.jdbcTemplate = new JdbcTemplate(dataSource);
   }
 
+  @Override
   public List<Pair<String, String>> select(String tableName, String primaryKeyColumnName, String columnName) {
     return jdbcTemplate.query(String.format("SELECT %s, %s FROM %s", primaryKeyColumnName, columnName, tableName),
         (rs, n) -> Pair.of(rs.getString(primaryKeyColumnName), rs.getString(columnName))

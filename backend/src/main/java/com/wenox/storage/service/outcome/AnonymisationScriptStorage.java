@@ -8,8 +8,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class AnonymisationScriptStorage extends LocalFileStorage {
 
-  @Value("${processing.anonymisations.scripts.path}")
-  private String anonymisationScriptsPath;
+  private final String anonymisationScriptsPath;
+
+  public AnonymisationScriptStorage(@Value("${processing.anonymisations.scripts.path}") String anonymisationScriptsPath) {
+    this.anonymisationScriptsPath = anonymisationScriptsPath;
+  }
 
   @Override
   public Path getFileDirectoryPath() {

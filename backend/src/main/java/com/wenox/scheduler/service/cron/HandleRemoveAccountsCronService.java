@@ -20,25 +20,26 @@ public class HandleRemoveAccountsCronService implements CronService {
 
   private static final Logger log = LoggerFactory.getLogger(HandleRemoveAccountsCronService.class);
 
-  @Value("${core.handleRemoveAccounts.markedRemoveAfterTimeInSeconds}")
-  private Long removeAfter;
-
-  @Value("${core.handleRemoveAccounts.cron}")
-  private String cronExpression;
-
-  @Value("${core.handleRemoveAccounts.scheduled}")
-  private boolean isScheduled;
-
-  @Value("${core.handleRemoveAccounts.executable}")
-  private boolean isExecutable;
-
-  @Value("${core.handleRemoveAccounts.description}")
-  private String description;
-
+  private final Long removeAfter;
+  private final String cronExpression;
+  private final boolean isScheduled;
+  private final boolean isExecutable;
+  private final String description;
   private final UserRepository userRepository;
   private final MailService mailService;
 
-  public HandleRemoveAccountsCronService(UserRepository userRepository, MailService mailService) {
+  public HandleRemoveAccountsCronService(@Value("${core.handleRemoveAccounts.markedRemoveAfterTimeInSeconds}") Long removeAfter,
+                                         @Value("${core.handleRemoveAccounts.cron}") String cronExpression,
+                                         @Value("${core.handleRemoveAccounts.scheduled}") boolean isScheduled,
+                                         @Value("${core.handleRemoveAccounts.executable}") boolean isExecutable,
+                                         @Value("${core.handleRemoveAccounts.description}") String description,
+                                         UserRepository userRepository,
+                                         MailService mailService) {
+    this.removeAfter = removeAfter;
+    this.cronExpression = cronExpression;
+    this.isScheduled = isScheduled;
+    this.isExecutable = isExecutable;
+    this.description = description;
     this.userRepository = userRepository;
     this.mailService = mailService;
   }
@@ -63,14 +64,17 @@ public class HandleRemoveAccountsCronService implements CronService {
     log.info("Successfully removed {} pending for removal accounts.", removedUsers.size());
   }
 
+  @Override
   public boolean isScheduled() {
     return isScheduled;
   }
 
+  @Override
   public boolean isExecutable() {
     return isExecutable;
   }
 
+  @Override
   public String getDescription() {
     return description;
   }

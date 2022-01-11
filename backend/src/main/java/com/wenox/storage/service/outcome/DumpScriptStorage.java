@@ -8,8 +8,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class DumpScriptStorage extends LocalFileStorage {
 
-  @Value("${processing.dumps.scripts.path}")
-  private String outcomeScriptsPath;
+  private final String outcomeScriptsPath;
+
+  public DumpScriptStorage(@Value("${processing.dumps.scripts.path}") String outcomeScriptsPath) {
+    this.outcomeScriptsPath = outcomeScriptsPath;
+  }
 
   @Override
   public Path getFileDirectoryPath() {

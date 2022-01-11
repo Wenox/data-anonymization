@@ -10,8 +10,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class ResetPasswordTokenService {
 
-  @Value("${core.resetPasswordToken.expireTimeInSeconds}")
-  private Long tokenExpireTime;
+  private final Long tokenExpireTime;
+
+  public ResetPasswordTokenService(@Value("${core.resetPasswordToken.expireTimeInSeconds}") Long tokenExpireTime) {
+    this.tokenExpireTime = tokenExpireTime;
+  }
 
   public ResetPasswordToken generateTokenForUser(User user) {
     ResetPasswordToken token = new ResetPasswordToken();

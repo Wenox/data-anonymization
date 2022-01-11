@@ -31,6 +31,7 @@ public class TemplateStoreFacade implements TemplateCreatedListener {
 
   @Async
   @EventListener
+  @Override
   public void onTemplateCreated(TemplateCreatedEvent event) {
 
     final var template = event.getTemplate();

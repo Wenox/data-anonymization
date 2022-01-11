@@ -27,6 +27,7 @@ public class DatabaseRestoreExecutor implements TemplateStoredListener {
   }
 
   @EventListener
+  @Override
   public void onTemplateStored(TemplateStoredEvent event) {
     final var template = event.getTemplate();
     try {

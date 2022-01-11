@@ -2,7 +2,6 @@ package com.wenox.anonymisation.service;
 
 import com.wenox.anonymisation.domain.Worksheet;
 import com.wenox.anonymisation.dto.worksheet.CreateWorksheetRequest;
-import com.wenox.anonymisation.repository.ColumnOperationsRepository;
 import com.wenox.anonymisation.repository.WorksheetRepository;
 import com.wenox.uploading.domain.template.Template;
 import com.wenox.uploading.repository.TemplateRepository;
@@ -22,16 +21,13 @@ public class WorksheetService {
   private static final Logger log = LoggerFactory.getLogger(WorksheetService.class);
 
   private final WorksheetRepository worksheetRepository;
-  private final ColumnOperationsRepository columnOperationsRepository;
   private final TemplateRepository templateRepository;
   private final AuthService authService;
 
   public WorksheetService(WorksheetRepository worksheetRepository,
-                          ColumnOperationsRepository columnOperationsRepository,
                           TemplateRepository templateRepository,
                           AuthService authService) {
     this.worksheetRepository = worksheetRepository;
-    this.columnOperationsRepository = columnOperationsRepository;
     this.templateRepository = templateRepository;
     this.authService = authService;
   }

@@ -8,8 +8,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class DumpArchiveStorage extends LocalFileStorage {
 
-  @Value("${processing.dumps.archives.path}")
-  private String outcomeArchivesPath;
+  private final String outcomeArchivesPath;
+
+  public DumpArchiveStorage(@Value("${processing.dumps.archives.path}") String outcomeArchivesPath) {
+    this.outcomeArchivesPath = outcomeArchivesPath;
+  }
 
   @Override
   public Path getFileDirectoryPath() {

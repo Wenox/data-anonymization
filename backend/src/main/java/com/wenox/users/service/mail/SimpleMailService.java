@@ -17,6 +17,7 @@ public class SimpleMailService implements MailService {
     this.emailSender = emailSender;
   }
 
+  @Override
   public void sendMail(MailDescription description) {
     SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
     simpleMailMessage.setFrom("data.anonymisation@gmail.com");

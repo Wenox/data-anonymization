@@ -34,6 +34,7 @@ public class DatabaseMirrorCreator implements OutcomeGenerationStartedListener {
 
   @Async
   @EventListener
+  @Override
   public void onOutcomeGenerationStarted(OutcomeGenerationStartedEvent event) {
     Outcome outcome = event.getOutcome();
     try {

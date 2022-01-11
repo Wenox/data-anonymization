@@ -43,6 +43,7 @@ public class DatabaseDumpExecutor implements DatabaseAnonymisedListener {
   }
 
   @EventListener
+  @Override
   public void onDatabaseAnonymised(DatabaseAnonymisedEvent event) {
 
     Outcome outcome = event.getOutcome();

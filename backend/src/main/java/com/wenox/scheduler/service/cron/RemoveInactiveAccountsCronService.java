@@ -18,24 +18,23 @@ public class RemoveInactiveAccountsCronService implements CronService {
 
   private static final Logger log = LoggerFactory.getLogger(RemoveInactiveAccountsCronService.class);
 
-  @Value("${core.removeInactiveAccounts.removeAfterTimeInSeconds}")
-  private Long removeAfter;
-
-  @Value("${core.removeInactiveAccounts.cron}")
-  private String cronExpression;
-
-  @Value("${core.removeInactiveAccounts.scheduled}")
-  private boolean isScheduled;
-
-  @Value("${core.removeInactiveAccounts.executable}")
-  private boolean isExecutable;
-
-  @Value("${core.removeInactiveAccounts.description}")
-  private String description;
-
+  private final Long removeAfter;
+  private final String cronExpression;
+  private final boolean isScheduled;
+  private final boolean isExecutable;
+  private final String description;
   private final UserRepository userRepository;
 
-  public RemoveInactiveAccountsCronService(UserRepository userRepository) {
+  public RemoveInactiveAccountsCronService(@Value("${core.removeInactiveAccounts.removeAfterTimeInSeconds}") Long removeAfter, @Value("${core.removeInactiveAccounts.cron}") String cronExpression,
+                                           @Value("${core.removeInactiveAccounts.scheduled}") boolean isScheduled,
+                                           @Value("${core.removeInactiveAccounts.executable}") boolean isExecutable,
+                                           @Value("${core.removeInactiveAccounts.description}") String description,
+                                           UserRepository userRepository) {
+    this.removeAfter = removeAfter;
+    this.cronExpression = cronExpression;
+    this.isScheduled = isScheduled;
+    this.isExecutable = isExecutable;
+    this.description = description;
     this.userRepository = userRepository;
   }
 

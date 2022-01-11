@@ -25,15 +25,16 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableGlobalMethodSecurity(jsr250Enabled = true, securedEnabled = true, prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-  @Value("${core.api.unprotectedResources}")
-  private String[] unprotectedResources;
-
   private final JwtUserDetailsService userDetailsService;
   private final JwtService jwtService;
+  private final String[] unprotectedResources;
 
-  public SecurityConfiguration(JwtUserDetailsService userDetailsService, JwtService jwtService) {
+  public SecurityConfiguration(JwtUserDetailsService userDetailsService,
+                               JwtService jwtService,
+                               @Value("${core.api.unprotectedResources}") String[] unprotectedResources) {
     this.userDetailsService = userDetailsService;
     this.jwtService = jwtService;
+    this.unprotectedResources = unprotectedResources;
   }
 
   @Bean

@@ -14,18 +14,20 @@ public class PostgreSQLRestoreService implements DatabaseRestoreService {
 
   private static final Logger log = LoggerFactory.getLogger(PostgreSQLRestoreService.class);
 
-  @Value("${POSTGRES_IP_ADDRESS:localhost}")
-  private String postgresIpAddress;
+  private final String postgresIpAddress;
+  private final Boolean isRunningOnCloud;
+  private final String postgresHostPort;
 
-  @Value("${server.environment.cloud}")
-  private Boolean isRunningOnCloud;
+  public PostgreSQLRestoreService(@Value("${server.environment.cloud}") Boolean isRunningOnCloud,
+                                  @Value("${POSTGRES_IP_ADDRESS:localhost}") String postgresIpAddress,
+                                  @Value("${POSTGRES_HOST_PORT:5007}") String postgresHostPort) {
+    this.isRunningOnCloud = isRunningOnCloud;
+    this.postgresIpAddress = postgresIpAddress;
+    this.postgresHostPort = postgresHostPort;
+  }
 
-  @Value("${POSTGRES_HOST_PORT:5007}")
-  private String postgresHostPort;
-
-  public void restore(String dumpPath, String databaseName, RestoreMode restoreMode)
-      throws IOException, InterruptedException, TimeoutException {
-
+  @Override
+  public void restore(String dumpPath, String databaseName, RestoreMode restoreMode) throws IOException, InterruptedException, TimeoutException {
     log.info("Restoring new {} using dump located at {}.", databaseName, dumpPath);
 
     switch (restoreMode) {
@@ -36,8 +38,8 @@ public class PostgreSQLRestoreService implements DatabaseRestoreService {
     log.info("Restored new {} successfully.", databaseName);
   }
 
-  private void restoreFromArchive(String dumpPath, String databaseName)
-      throws IOException, InterruptedException, TimeoutException {
+  private void restoreFromArchive(String dumpPath, String databaseName) throws IOException, InterruptedException, TimeoutException {
+
     if (isRunningOnCloud) {
 
       ProcessExecutorFactory.newProcess(
@@ -80,8 +82,8 @@ public class PostgreSQLRestoreService implements DatabaseRestoreService {
     }
   }
 
-  private void restoreFromScript(String dumpPath, String databaseName)
-      throws IOException, InterruptedException, TimeoutException {
+  private void restoreFromScript(String dumpPath, String databaseName) throws IOException, InterruptedException, TimeoutException {
+
     if (isRunningOnCloud) {
 
       ProcessExecutorFactory.newProcess(
@@ -125,5 +127,4 @@ public class PostgreSQLRestoreService implements DatabaseRestoreService {
           .execute();
     }
   }
-
 }

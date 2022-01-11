@@ -11,12 +11,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class VerifyMailTokenService {
 
-  @Value("${core.verifyMailToken.expireTimeInSeconds}")
-  private Long tokenExpireTime;
-
+  private final Long tokenExpireTime;
   private final VerifyMailTokenRepository repository;
 
-  public VerifyMailTokenService(VerifyMailTokenRepository repository) {
+  public VerifyMailTokenService(@Value("${core.verifyMailToken.expireTimeInSeconds}") Long tokenExpireTime,
+                                VerifyMailTokenRepository repository) {
+    this.tokenExpireTime = tokenExpireTime;
     this.repository = repository;
   }
 

@@ -13,6 +13,7 @@ public class SimpleMetadataExtractedListener implements MetadataExtractedListene
   private static final Logger log = LoggerFactory.getLogger(SimpleMetadataExtractedListener.class);
 
   @EventListener
+  @Override
   public void onMetadataExtracted(MetadataExtractedEvent event) {
     log.info("Template is now ready to be used. Create worksheets with it! :)");
   }

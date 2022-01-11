@@ -1,4 +1,4 @@
-package com.wenox.processing.service.operations;
+package com.wenox.anonymisation.domain;
 
 public enum AnonymisationOperation {
   COLUMN_SHUFFLE,

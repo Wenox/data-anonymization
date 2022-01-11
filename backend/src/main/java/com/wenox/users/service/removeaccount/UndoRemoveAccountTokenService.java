@@ -11,12 +11,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class UndoRemoveAccountTokenService {
 
-  @Value("${core.undoRemoveAccountToken.expireTimeInSeconds}")
-  private Long tokenExpireTime;
-
+  private final Long tokenExpireTime;
   private final UndoRemoveAccountTokenRepository repository;
 
-  public UndoRemoveAccountTokenService(UndoRemoveAccountTokenRepository repository) {
+  public UndoRemoveAccountTokenService(@Value("${core.undoRemoveAccountToken.expireTimeInSeconds}") Long tokenExpireTime,
+                                       UndoRemoveAccountTokenRepository repository) {
+    this.tokenExpireTime = tokenExpireTime;
     this.repository = repository;
   }
 

@@ -38,6 +38,7 @@ public class AnonymisationScriptExecutor implements AnonymisationScriptPopulated
   }
 
   @EventListener
+  @Override
   public void onScriptPopulated(AnonymisationScriptPopulatedEvent event) {
 
     Outcome outcome = event.getOutcome();

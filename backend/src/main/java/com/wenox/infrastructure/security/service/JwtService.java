@@ -18,19 +18,21 @@ import org.springframework.stereotype.Service;
 @Service
 public class JwtService {
 
-  @Value("${core.jwt.secretKey}")
-  private String secretKey;
-
-  @Value("${core.jwt.algorithm}")
-  private SignatureAlgorithm algorithm;
-
-  @Value("${core.jwt.accessToken.expireTimeInSeconds}")
-  private Long accessTokenExpireTime;
-
-  @Value("${core.jwt.refreshToken.expireTimeInSeconds}")
-  private Long refreshTokenExpireTime;
-
+  private final String secretKey;
+  private final SignatureAlgorithm algorithm;
+  private final Long accessTokenExpireTime;
+  private final Long refreshTokenExpireTime;
   private SecretKey signingKey;
+
+  public JwtService(@Value("${core.jwt.secretKey}") String secretKey,
+                    @Value("${core.jwt.algorithm}") SignatureAlgorithm algorithm,
+                    @Value("${core.jwt.accessToken.expireTimeInSeconds}") Long accessTokenExpireTime,
+                    @Value("${core.jwt.refreshToken.expireTimeInSeconds}") Long refreshTokenExpireTime) {
+    this.secretKey = secretKey;
+    this.algorithm = algorithm;
+    this.accessTokenExpireTime = accessTokenExpireTime;
+    this.refreshTokenExpireTime = refreshTokenExpireTime;
+  }
 
   @PostConstruct
   public void init() {
@@ -84,7 +86,7 @@ public class JwtService {
   public String generateAccessTokenFor(UserJwt user) {
     return Jwts.builder()
         .setSubject(user.getUsername())
-        .setIssuer("issuer: todo")
+        .setIssuer("Anonymisation Platform Issuer")
         .setIssuedAt(new Date(System.currentTimeMillis()))
         .setExpiration(new Date(System.currentTimeMillis() + accessTokenExpireTime * 1000))
         .claim("role", user.getRole())
@@ -96,7 +98,7 @@ public class JwtService {
   public String generateRefreshTokenFor(UserJwt user) {
     return Jwts.builder()
         .setSubject(user.getUsername())
-        .setIssuer("issuer: todo")
+        .setIssuer("Anonymisation Platform Issuer")
         .setIssuedAt(new Date(System.currentTimeMillis()))
         .setExpiration(new Date(System.currentTimeMillis() + refreshTokenExpireTime * 1000))
         .claim("type", "refresh")

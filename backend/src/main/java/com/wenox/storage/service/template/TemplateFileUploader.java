@@ -26,6 +26,7 @@ public class TemplateFileUploader implements FileUploader {
     this.fileRepository = fileRepository;
   }
 
+  @Override
   public FileEntity upload(final FileData fileData) throws IOException {
     TemplateFileData templateFileData = (TemplateFileData) fileData;
     templateFileData.setSavedFileName(fileNameGenerator.get());

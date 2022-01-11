@@ -6,7 +6,6 @@ import com.wenox.uploading.domain.metadata.Column;
 import com.wenox.uploading.domain.metadata.PrimaryKey;
 import com.wenox.uploading.domain.metadata.Table;
 import com.wenox.uploading.domain.metadata.TemplateMetadata;
-import com.wenox.uploading.service.listeners.DatabaseRestoredListener;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,8 +28,8 @@ public class DatabaseMetadataExtractor implements MetadataExtractor {
     this.dataSourceFactory = dataSourceFactory;
   }
 
+  @Override
   public TemplateMetadata extractMetadata(DatabaseConnection databaseConnection) throws SQLException {
-
     log.info("Starting to extract metadata...");
 
     final DataSource dataSource = dataSourceFactory.getDataSource(databaseConnection);

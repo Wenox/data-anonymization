@@ -1,5 +1,6 @@
 package com.wenox.processing.service.operations;
 
+import com.wenox.anonymisation.domain.AnonymisationOperation;
 import com.wenox.processing.service.operations.columnshuffle.ColumnShuffleFacade;
 import com.wenox.processing.service.operations.generalisation.GeneralisationFacade;
 import com.wenox.processing.service.operations.hashing.HashingFacade;

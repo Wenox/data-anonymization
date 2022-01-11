@@ -6,14 +6,17 @@ import org.springframework.stereotype.Component;
 @Component
 public class PostgreSQLHostDetails implements DatabaseHostDetails {
 
-  @Value("${POSTGRES_IP_ADDRESS:localhost}")
-  private String postgresIpAddress;
+  private final String postgresIpAddress;
+  private final String postgresHostPort;
+  private final Boolean isRunningOnCloud;
 
-  @Value("${POSTGRES_HOST_PORT:5007}")
-  private String postgresHostPort;
-
-  @Value("${server.environment.cloud}")
-  private Boolean isRunningOnCloud;
+  public PostgreSQLHostDetails(@Value("${POSTGRES_IP_ADDRESS:localhost}") String postgresIpAddress,
+                               @Value("${POSTGRES_HOST_PORT:5007}") String postgresHostPort,
+                               @Value("${server.environment.cloud}") Boolean isRunningOnCloud) {
+    this.postgresIpAddress = postgresIpAddress;
+    this.postgresHostPort = postgresHostPort;
+    this.isRunningOnCloud = isRunningOnCloud;
+  }
 
   @Override
   public String getIpAddress() {

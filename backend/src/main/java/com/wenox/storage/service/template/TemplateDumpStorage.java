@@ -8,8 +8,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class TemplateDumpStorage extends LocalFileStorage {
 
-  @Value("${uploader.templates.path}")
-  private String templatesPath;
+  private final String templatesPath;
+
+  public TemplateDumpStorage(@Value("${uploader.templates.path}") String templatesPath) {
+    this.templatesPath = templatesPath;
+  }
 
   @Override
   public Path getFileDirectoryPath() {

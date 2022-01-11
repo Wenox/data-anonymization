@@ -5,7 +5,6 @@ import com.wenox.anonymisation.dto.columnoperations.ColumnOperationsResponse;
 import com.wenox.anonymisation.dto.columnoperations.ColumnOperationDto;
 import com.wenox.anonymisation.dto.tableoperations.TableOperationsResponse;
 import com.wenox.anonymisation.repository.ColumnOperationsRepository;
-import com.wenox.anonymisation.repository.SuppressionRepository;
 import com.wenox.anonymisation.repository.WorksheetRepository;
 import com.wenox.uploading.domain.metadata.Column;
 import com.wenox.uploading.domain.metadata.Table;
@@ -24,15 +23,13 @@ public class TableOperationsService {
   private final AuthService authService;
   private final WorksheetRepository worksheetRepository;
   private final ColumnOperationsRepository columnOperationsRepository;
-  private final SuppressionRepository suppressionRepository;
 
-  public TableOperationsService(AuthService authService, WorksheetRepository worksheetRepository,
-                                ColumnOperationsRepository columnOperationsRepository,
-                                SuppressionRepository suppressionRepository) {
+  public TableOperationsService(AuthService authService,
+                                WorksheetRepository worksheetRepository,
+                                ColumnOperationsRepository columnOperationsRepository) {
     this.authService = authService;
     this.worksheetRepository = worksheetRepository;
     this.columnOperationsRepository = columnOperationsRepository;
-    this.suppressionRepository = suppressionRepository;
   }
 
   public TableOperationsResponse getTableOperations(String id, String tableName, Authentication auth) {

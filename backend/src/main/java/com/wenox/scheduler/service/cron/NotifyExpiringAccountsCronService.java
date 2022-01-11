@@ -20,25 +20,26 @@ public class NotifyExpiringAccountsCronService implements CronService {
 
   private static final Logger log = LoggerFactory.getLogger(NotifyExpiringAccountsCronService.class);
 
-  @Value("${core.notifyExpiringAccounts.notifyAfterTimeInSeconds}")
-  private Long notifyAfter;
-
-  @Value("${core.notifyExpiringAccounts.scheduled}")
-  private boolean isScheduled;
-
-  @Value("${core.notifyExpiringAccounts.cron}")
-  private String cronExpression;
-
-  @Value("${core.notifyExpiringAccounts.executable}")
-  private boolean isExecutable;
-
-  @Value("${core.notifyExpiringAccounts.description}")
-  private String description;
-
+  private final Long notifyAfter;
+  private final String cronExpression;
+  private final boolean isScheduled;
+  private final boolean isExecutable;
+  private final String description;
   private final UserRepository userRepository;
   private final MailService mailService;
 
-  public NotifyExpiringAccountsCronService(UserRepository userRepository, MailService mailService) {
+  public NotifyExpiringAccountsCronService(@Value("${core.notifyExpiringAccounts.notifyAfterTimeInSeconds}") Long notifyAfter,
+                                           @Value("${core.notifyExpiringAccounts.cron}") String cronExpression,
+                                           @Value("${core.notifyExpiringAccounts.scheduled}") boolean isScheduled,
+                                           @Value("${core.notifyExpiringAccounts.executable}") boolean isExecutable,
+                                           @Value("${core.notifyExpiringAccounts.description}") String description,
+                                           UserRepository userRepository,
+                                           MailService mailService) {
+    this.notifyAfter = notifyAfter;
+    this.cronExpression = cronExpression;
+    this.isScheduled = isScheduled;
+    this.isExecutable = isExecutable;
+    this.description = description;
     this.userRepository = userRepository;
     this.mailService = mailService;
   }
