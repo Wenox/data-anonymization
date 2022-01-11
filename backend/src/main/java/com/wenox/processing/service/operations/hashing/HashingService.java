@@ -1,11 +1,13 @@
-package com.wenox.processing.service.operations;
+package com.wenox.processing.service.operations.hashing;
 
 import com.wenox.anonymisation.domain.Hashing;
 import com.wenox.anonymisation.domain.HashingMode;
 import com.wenox.processing.domain.Pair;
+import com.wenox.processing.service.operations.AnonymisationService;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -25,6 +27,12 @@ public class HashingService implements AnonymisationService<Hashing> {
     }
   }
 
+  @Override
+  public boolean altersTypeToText(String type) {
+    return !String.valueOf(Types.VARCHAR).equals(type);
+  }
+
+  @Override
   public List<Pair<String, String>> anonymise(List<Pair<String, String>> rows, Hashing hashing) {
     List<String> unhashedValues = rows.stream().map(Pair::getSecond).toList();
 

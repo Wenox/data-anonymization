@@ -1,7 +1,8 @@
-package com.wenox.processing.service.operations;
+package com.wenox.processing.service.operations.rowshuffle;
 
 import com.wenox.anonymisation.domain.RowShuffle;
 import com.wenox.processing.domain.Pair;
+import com.wenox.processing.service.operations.AnonymisationService;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -13,6 +14,7 @@ public class RowShuffleService implements AnonymisationService<RowShuffle> {
 
   private final Random rng = new Random(System.currentTimeMillis());
 
+  @Override
   public List<Pair<String, String>> anonymise(List<Pair<String, String>> rows, RowShuffle rowShuffle) {
     List<String> shuffled = rows.stream()
         .map(Pair::getSecond)

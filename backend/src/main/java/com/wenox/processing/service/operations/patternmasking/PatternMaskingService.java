@@ -1,7 +1,9 @@
-package com.wenox.processing.service.operations;
+package com.wenox.processing.service.operations.patternmasking;
 
 import com.wenox.anonymisation.domain.PatternMasking;
 import com.wenox.processing.domain.Pair;
+import com.wenox.processing.service.operations.AnonymisationService;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -12,6 +14,12 @@ public class PatternMaskingService implements AnonymisationService<PatternMaskin
 
   private final Random rng = new Random(System.currentTimeMillis());
 
+  @Override
+  public boolean altersTypeToText(String type) {
+    return !String.valueOf(Types.VARCHAR).equals(type);
+  }
+
+  @Override
   public List<Pair<String, String>> anonymise(List<Pair<String, String>> rows, PatternMasking patternMasking) {
     List<String> unmaskedValues = rows.stream().map(Pair::getSecond).toList();
 

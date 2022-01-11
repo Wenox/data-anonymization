@@ -1,7 +1,8 @@
-package com.wenox.processing.service.operations;
+package com.wenox.processing.service.operations.columnshuffle;
 
 import com.wenox.anonymisation.domain.ColumnShuffle;
 import com.wenox.processing.domain.Pair;
+import com.wenox.processing.service.operations.AnonymisationService;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -13,6 +14,7 @@ public class ColumnShuffleService implements AnonymisationService<ColumnShuffle>
 
   private final Random rng = new Random(System.currentTimeMillis());
 
+  @Override
   public List<Pair<String, String>> anonymise(List<Pair<String, String>> rows, ColumnShuffle columnShuffle) {
     List<String> values = rows.stream().map(Pair::getSecond).collect(Collectors.toList());
     if (!columnShuffle.isWithRepetitions()) {
