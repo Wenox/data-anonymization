@@ -1,6 +1,7 @@
 package com.wenox.uploading.restorer.event;
 
 import com.wenox.infrastructure.service.DatabaseConnection;
+import com.wenox.uploading.template.domain.Template;
 import com.wenox.uploading.template.repository.TemplateRepository;
 import com.wenox.uploading.template.domain.TemplateStatus;
 import com.wenox.uploading.extractor.event.MetadataExtractedEvent;
@@ -30,18 +31,13 @@ public class DatabaseRestoredListener {
   }
 
   @EventListener
-  public void onDatabaseRestoreSuccessEvent(final DatabaseRestoreSuccessEvent event) {
-    final var connectionDetails = new DatabaseConnection();
-    connectionDetails.setDatabaseType(event.getTemplate().getType());
-    connectionDetails.setDatabaseName(event.getTemplate().getTemplateDatabaseName());
-    connectionDetails.setUsername("postgres");
-    connectionDetails.setPassword("postgres");
-
-    final var template = event.getTemplate();
+  public void onDatabaseRestoreSuccessEvent(DatabaseRestoreSuccessEvent event) {
+    DatabaseConnection connection = DatabaseConnection.newPostgreSQLConnection(event.getTemplate().getTemplateDatabaseName());
+    Template template = event.getTemplate();
 
     try {
       log.info("Starting to extract metadata...");
-      final TemplateMetadata metadata = metadataExtractor.extractMetadata(connectionDetails);
+      final TemplateMetadata metadata = metadataExtractor.extractMetadata(connection);
       template.setStatus(TemplateStatus.METADATA_READY);
       template.setMetadata(metadata);
       log.info("Metadata extracted successfully!");
@@ -56,6 +52,6 @@ public class DatabaseRestoredListener {
 
   @EventListener
   public void onDatabaseRestoreFailureEvent(final DatabaseRestoreFailureEvent event) {
-    System.out.println("DatabaseRestoreFailureEvent");
+    log.error("Database restore failure event: {}.", event.getException().toString());
   }
 }
