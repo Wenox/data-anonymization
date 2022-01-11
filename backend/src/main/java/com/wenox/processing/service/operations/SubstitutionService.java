@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.IntStream;
 
-public class SubstitutionService {
+public class SubstitutionService implements AnonymisationService<Substitution> {
 
-  public List<Pair<String, String>> substitute(List<Pair<String, String>> rows, Substitution substitute) {
+  public List<Pair<String, String>> anonymise(List<Pair<String, String>> rows, Substitution substitute) {
     List<String> originalValues = rows.stream().map(Pair::getSecond).toList();
 
     List<String> substitutions = Arrays.asList(substitute.getValues().split("\\s*,\\s*"));

@@ -12,13 +12,13 @@ import com.wenox.processing.domain.events.AnonymisationScriptPopulatedEvent;
 import com.wenox.processing.repository.OutcomeRepository;
 import com.wenox.processing.service.query.Query;
 import com.wenox.processing.service.query.QueryExecutor;
-import com.wenox.processing.service.operations.ColumnShuffler;
+import com.wenox.processing.service.operations.ColumnShuffleService;
 import com.wenox.processing.service.operations.GeneralisationService;
 import com.wenox.processing.service.operations.HashingService;
 import com.wenox.processing.service.operations.PatternMaskingService;
 import com.wenox.processing.service.operations.PerturbationService;
 import com.wenox.processing.service.operations.RandomNumberService;
-import com.wenox.processing.service.operations.RowShuffler;
+import com.wenox.processing.service.operations.RowShuffleService;
 import com.wenox.processing.service.operations.ShorteningService;
 import com.wenox.processing.service.operations.SubstitutionService;
 import com.wenox.processing.service.operations.SuppressionService;
@@ -76,13 +76,12 @@ public class AnonymisationScriptCreatedListener {
     for (ColumnOperations columnOperations : listOfColumnOperations) {
 
       // 1. Get data.
-      final var rows = queryExecutor.select(columnOperations.getTableName(), columnOperations.getPrimaryKeyColumnName(),
-          columnOperations.getColumnName());
+      final var rows = queryExecutor.select(columnOperations.getTableName(), columnOperations.getPrimaryKeyColumnName(), columnOperations.getColumnName());
 
       // 2. Transform
       var suppression = columnOperations.getSuppression();
       if (suppression != null) {
-        var suppressedRows = new SuppressionService().suppress(rows, suppression.getSuppressionToken());
+        var suppressedRows = new SuppressionService().anonymise(rows, suppression);
 
         // 3.0 Handle column type change
         if (!columnOperations.getColumnType().equals(String.valueOf(Types.VARCHAR))) {
@@ -120,14 +119,11 @@ public class AnonymisationScriptCreatedListener {
         }
       }
 
+
+
       var columnShuffle = columnOperations.getColumnShuffle();
       if (columnShuffle != null) {
-        final List<Pair<String, String>> shuffledRows;
-        if (columnShuffle.isWithRepetitions()) {
-          shuffledRows = new ColumnShuffler().shuffleWithRepetitions(rows);
-        } else {
-          shuffledRows = new ColumnShuffler().shuffle(rows);
-        }
+        final List<Pair<String, String>> shuffledRows = new ColumnShuffleService().anonymise(rows, columnShuffle);
 
         for (var row : shuffledRows) {
           try {
@@ -152,12 +148,7 @@ public class AnonymisationScriptCreatedListener {
 
       var rowShuffle = columnOperations.getRowShuffle();
       if (rowShuffle != null) {
-        final List<Pair<String, String>> shuffledRows;
-        if (rowShuffle.isWithRepetitions()) {
-          shuffledRows = new RowShuffler().shuffleWithRepetitions(rows, rowShuffle.getLetterMode());
-        } else {
-          shuffledRows = new RowShuffler().shuffle(rows, rowShuffle.getLetterMode());
-        }
+        final List<Pair<String, String>> shuffledRows = new RowShuffleService().anonymise(rows, rowShuffle);
 
         for (var row : shuffledRows) {
           try {
@@ -182,7 +173,7 @@ public class AnonymisationScriptCreatedListener {
 
       var patternMasking = columnOperations.getPatternMasking();
       if (patternMasking != null) {
-        final List<Pair<String, String>> maskedRows = new PatternMaskingService().mask(rows, patternMasking);
+        final List<Pair<String, String>> maskedRows = new PatternMaskingService().anonymise(rows, patternMasking);
 
         for (var row : maskedRows) {
           try {
@@ -207,7 +198,7 @@ public class AnonymisationScriptCreatedListener {
 
       var shortening = columnOperations.getShortening();
       if (shortening != null) {
-        final List<Pair<String, String>> shortenedRows = new ShorteningService().shorten(rows, shortening);
+        final List<Pair<String, String>> shortenedRows = new ShorteningService().anonymise(rows, shortening);
 
         for (var row : shortenedRows) {
           try {
@@ -249,7 +240,7 @@ public class AnonymisationScriptCreatedListener {
           }
         }
 
-        final List<Pair<String, String>> generalisedRows = new GeneralisationService().generalise(rows, generalisation);
+        final List<Pair<String, String>> generalisedRows = new GeneralisationService().anonymise(rows, generalisation);
 
         for (var row : generalisedRows) {
           try {
@@ -275,7 +266,7 @@ public class AnonymisationScriptCreatedListener {
       var perturbation = columnOperations.getPerturbation();
       if (perturbation != null) {
 
-        final List<Pair<String, String>> perturbatedRows = new PerturbationService().perturb(rows, perturbation);
+        final List<Pair<String, String>> perturbatedRows = new PerturbationService().anonymise(rows, perturbation);
 
         for (var row : perturbatedRows) {
           try {
@@ -302,7 +293,7 @@ public class AnonymisationScriptCreatedListener {
       var randomNumber = columnOperations.getRandomNumber();
       if (randomNumber != null) {
 
-        final List<Pair<String, String>> randomizedRows = new RandomNumberService().randomize(rows, randomNumber);
+        final List<Pair<String, String>> randomizedRows = new RandomNumberService().anonymise(rows, randomNumber);
 
         for (var row : randomizedRows) {
           try {
@@ -345,7 +336,7 @@ public class AnonymisationScriptCreatedListener {
           }
         }
 
-        final List<Pair<String, String>> hashedRows = new HashingService().hash(rows, hashing);
+        final List<Pair<String, String>> hashedRows = new HashingService().anonymise(rows, hashing);
 
         for (var row : hashedRows) {
           try {
@@ -387,7 +378,7 @@ public class AnonymisationScriptCreatedListener {
           }
         }
 
-        final List<Pair<String, String>> tokenizedRows = new TokenizationService().tokenize(rows, tokenization);
+        final List<Pair<String, String>> tokenizedRows = new TokenizationService().anonymise(rows, tokenization);
 
         for (var row : tokenizedRows) {
           try {
@@ -428,7 +419,7 @@ public class AnonymisationScriptCreatedListener {
           }
         }
 
-        final List<Pair<String, String>> substitutions = new SubstitutionService().substitute(rows, substitution);
+        final List<Pair<String, String>> substitutions = new SubstitutionService().anonymise(rows, substitution);
 
         for (var row : substitutions) {
           try {

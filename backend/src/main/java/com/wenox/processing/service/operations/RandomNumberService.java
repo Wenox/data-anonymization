@@ -5,11 +5,11 @@ import com.wenox.processing.domain.Pair;
 import java.util.List;
 import java.util.Random;
 
-public class RandomNumberService {
+public class RandomNumberService implements AnonymisationService<RandomNumber> {
 
   Random rng = new Random(System.currentTimeMillis());
 
-  public List<Pair<String, String>> randomize(List<Pair<String, String>> rows, RandomNumber randomNumber) {
+  public List<Pair<String, String>> anonymise(List<Pair<String, String>> rows, RandomNumber randomNumber) {
     Integer userMin = randomNumber.getMinValue();
     Integer userMax = randomNumber.getMaxValue();
 

@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
 
-public class PerturbationService {
+public class PerturbationService implements AnonymisationService<Perturbation> {
 
   Random rng = new Random(System.currentTimeMillis());
 
-  public List<Pair<String, String>> perturb(List<Pair<String, String>> rows, Perturbation perturbation) {
+  public List<Pair<String, String>> anonymise(List<Pair<String, String>> rows, Perturbation perturbation) {
     List<String> rawValues = rows.stream().map(Pair::getSecond).toList();
 
     Integer userMin = perturbation.getMinValue();

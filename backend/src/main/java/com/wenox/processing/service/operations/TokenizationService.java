@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class TokenizationService {
+public class TokenizationService implements AnonymisationService<Tokenization> {
 
-  public List<Pair<String, String>> tokenize(List<Pair<String, String>> rows, Tokenization tokenization) {
+  public List<Pair<String, String>> anonymise(List<Pair<String, String>> rows, Tokenization tokenization) {
     List<String> rawValues = rows.stream().map(Pair::getSecond).toList();
 
     final int step = tokenization.getStep();

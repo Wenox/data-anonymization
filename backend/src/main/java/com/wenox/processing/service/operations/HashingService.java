@@ -12,7 +12,7 @@ import java.util.stream.IntStream;
 import org.bouncycastle.jcajce.provider.digest.Keccak;
 import org.bouncycastle.util.encoders.Hex;
 
-public class HashingService {
+public class HashingService implements AnonymisationService<Hashing> {
 
   private final Keccak.Digest256 digestSha3 = new Keccak.Digest256();
   private static MessageDigest digestSha2;
@@ -25,7 +25,7 @@ public class HashingService {
     }
   }
 
-  public List<Pair<String, String>> hash(List<Pair<String, String>> rows, Hashing hashing) {
+  public List<Pair<String, String>> anonymise(List<Pair<String, String>> rows, Hashing hashing) {
     List<String> unhashedValues = rows.stream().map(Pair::getSecond).toList();
 
     List<String> hashedValues = new ArrayList<>();

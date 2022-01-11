@@ -8,11 +8,11 @@ import java.util.Random;
 import java.util.stream.IntStream;
 import org.apache.commons.lang3.RandomStringUtils;
 
-public class PatternMaskingService {
+public class PatternMaskingService implements AnonymisationService<PatternMasking> {
 
   private final Random rng = new Random(System.currentTimeMillis());
 
-  public List<Pair<String, String>> mask(List<Pair<String, String>> rows, PatternMasking patternMasking) {
+  public List<Pair<String, String>> anonymise(List<Pair<String, String>> rows, PatternMasking patternMasking) {
     List<String> unmaskedValues = rows.stream().map(Pair::getSecond).toList();
 
     String pattern = patternMasking.getPattern();

@@ -8,9 +8,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class GeneralisationService {
+public class GeneralisationService implements AnonymisationService<Generalisation> {
 
-  public List<Pair<String, String>> generalise(List<Pair<String, String>> rows, Generalisation generalisation) {
+  public List<Pair<String, String>> anonymise(List<Pair<String, String>> rows, Generalisation generalisation) {
     List<String> rawValues = rows.stream().map(Pair::getSecond).toList();
 
     int rawMin = rawValues.stream().mapToInt(Integer::valueOf).min().getAsInt();

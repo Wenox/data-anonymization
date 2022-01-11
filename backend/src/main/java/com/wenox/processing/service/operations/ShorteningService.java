@@ -1,15 +1,14 @@
 package com.wenox.processing.service.operations;
 
-import com.wenox.anonymisation.domain.RowShuffle;
 import com.wenox.anonymisation.domain.Shortening;
 import com.wenox.processing.domain.Pair;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
-public class ShorteningService {
+public class ShorteningService implements AnonymisationService<Shortening> {
 
-  public List<Pair<String, String>> shorten(List<Pair<String, String>> rows, Shortening shortening) {
+  public List<Pair<String, String>> anonymise(List<Pair<String, String>> rows, Shortening shortening) {
     List<String> fullValues = rows.stream().map(Pair::getSecond).toList();
 
     List<String> shortenedValues = new ArrayList<>(fullValues.size());
