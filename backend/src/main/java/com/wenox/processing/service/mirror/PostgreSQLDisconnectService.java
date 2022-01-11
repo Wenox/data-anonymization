@@ -1,6 +1,6 @@
 package com.wenox.processing.service.mirror;
 
-import com.wenox.infrastructure.service.ConnectionDetails;
+import com.wenox.infrastructure.service.DatabaseConnection;
 import com.wenox.infrastructure.service.DataSourceFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +19,7 @@ public class PostgreSQLDisconnectService implements DatabaseDisconnectService {
   }
 
   @Override
-  public void disconnect(ConnectionDetails details) {
+  public void disconnect(DatabaseConnection details) {
     log.info("Disconnecting all users from {}.", details.getDatabaseName());
     JdbcTemplate template = new JdbcTemplate(dataSourceFactory.getDataSource(details));
     template.execute(getDisconnectQuery(details.getDatabaseName()));

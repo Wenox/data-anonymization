@@ -5,11 +5,11 @@ import java.util.List;
 import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-public class QueryExecutor {
+public class JdbcTemplateQuerySelector implements QuerySelector {
 
   private final JdbcTemplate jdbcTemplate;
 
-  public QueryExecutor(DataSource dataSource) {
+  public JdbcTemplateQuerySelector(DataSource dataSource) {
     this.jdbcTemplate = new JdbcTemplate(dataSource);
   }
 

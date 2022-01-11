@@ -1,6 +1,6 @@
 package com.wenox.processing.service.mirror;
 
-import com.wenox.infrastructure.service.ConnectionDetails;
+import com.wenox.infrastructure.service.DatabaseConnection;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,7 @@ public class PostgreSQLMirrorFacade implements DatabaseMirrorFacade {
 
   @Override
   public String cloneDatabase(String databaseName) throws IOException, InterruptedException, TimeoutException {
-    disconnectService.disconnect(ConnectionDetails.newPostgreSQLConnection(databaseName));
+    disconnectService.disconnect(DatabaseConnection.newPostgreSQLConnection(databaseName));
     return mirrorService.cloneDatabase(hostDetails, databaseName);
   }
 }

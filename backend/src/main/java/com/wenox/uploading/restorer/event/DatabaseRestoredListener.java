@@ -1,6 +1,6 @@
 package com.wenox.uploading.restorer.event;
 
-import com.wenox.infrastructure.service.ConnectionDetails;
+import com.wenox.infrastructure.service.DatabaseConnection;
 import com.wenox.uploading.template.repository.TemplateRepository;
 import com.wenox.uploading.template.domain.TemplateStatus;
 import com.wenox.uploading.extractor.event.MetadataExtractedEvent;
@@ -31,7 +31,7 @@ public class DatabaseRestoredListener {
 
   @EventListener
   public void onDatabaseRestoreSuccessEvent(final DatabaseRestoreSuccessEvent event) {
-    final var connectionDetails = new ConnectionDetails();
+    final var connectionDetails = new DatabaseConnection();
     connectionDetails.setDatabaseType(event.getTemplate().getType());
     connectionDetails.setDatabaseName(event.getTemplate().getTemplateDatabaseName());
     connectionDetails.setUsername("postgres");

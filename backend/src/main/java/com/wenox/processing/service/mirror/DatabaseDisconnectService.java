@@ -1,8 +1,8 @@
 package com.wenox.processing.service.mirror;
 
-import com.wenox.infrastructure.service.ConnectionDetails;
+import com.wenox.infrastructure.service.DatabaseConnection;
 
 public interface DatabaseDisconnectService {
 
-  void disconnect(ConnectionDetails newPostgreSQLConnection);
+  void disconnect(DatabaseConnection newPostgreSQLConnection);
 }

@@ -1,9 +1,8 @@
 package com.wenox.uploading.extractor;
 
-import com.wenox.infrastructure.service.ConnectionDetails;
+import com.wenox.infrastructure.service.DatabaseConnection;
 import com.wenox.infrastructure.service.DataSourceFactory;
 import com.wenox.uploading.extractor.domain.metadata.Column;
-import com.wenox.uploading.extractor.domain.metadata.ForeignKey;
 import com.wenox.uploading.extractor.domain.metadata.PrimaryKey;
 import com.wenox.uploading.extractor.domain.metadata.Table;
 import com.wenox.uploading.extractor.domain.metadata.TemplateMetadata;
@@ -25,9 +24,9 @@ public class DatabaseMetadataExtractor implements MetadataExtractor {
     this.dataSourceFactory = dataSourceFactory;
   }
 
-  public TemplateMetadata extractMetadata(ConnectionDetails connectionDetails) throws SQLException {
+  public TemplateMetadata extractMetadata(DatabaseConnection databaseConnection) throws SQLException {
 
-    final DataSource dataSource = dataSourceFactory.getDataSource(connectionDetails);
+    final DataSource dataSource = dataSourceFactory.getDataSource(databaseConnection);
     final JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
     final DatabaseMetaData extractor = dataSource.getConnection().getMetaData();
     final TemplateMetadata metadata = new TemplateMetadata();

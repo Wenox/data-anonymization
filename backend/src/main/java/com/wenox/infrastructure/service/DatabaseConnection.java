@@ -2,26 +2,22 @@ package com.wenox.infrastructure.service;
 
 import com.wenox.users.domain.FileType;
 
-public class ConnectionDetails {
+public class DatabaseConnection {
 
   private FileType databaseType;
   private String databaseName;
   private String username;
   private String password;
 
-  public ConnectionDetails() {
-
-  }
-
-  private ConnectionDetails(FileType databaseType, String databaseName, String username, String password) {
+  private DatabaseConnection(FileType databaseType, String databaseName, String username, String password) {
     this.databaseType = databaseType;
     this.databaseName = databaseName;
     this.username = username;
     this.password = password;
   }
 
-  public static ConnectionDetails newPostgreSQLConnection(String databaseName) {
-    return new ConnectionDetails(FileType.PSQL, databaseName, "postgres", "postgres");
+  public static DatabaseConnection newPostgreSQLConnection(String databaseName) {
+    return new DatabaseConnection(FileType.PSQL, databaseName, "postgres", "postgres");
   }
 
   public FileType getDatabaseType() {

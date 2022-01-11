@@ -20,31 +20,31 @@ public class DataSourceFactory {
   @Value("${POSTGRES_CONTAINER_PORT:5432}")
   private String postgresContainerPort;
 
-  public DataSource getDataSource(final ConnectionDetails connectionDetails) {
+  public DataSource getDataSource(final DatabaseConnection databaseConnection) {
     DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
-    switch (connectionDetails.getDatabaseType()) {
+    switch (databaseConnection.getDatabaseType()) {
       case PSQL:
         dataSource.setDriverClassName("org.postgresql.Driver");
         if (isRunningOnCloud) {
-          dataSource.setUrl("jdbc:postgresql://" + postgresIpAddress + ":" + postgresContainerPort + "/" + connectionDetails.getDatabaseName());
+          dataSource.setUrl("jdbc:postgresql://" + postgresIpAddress + ":" + postgresContainerPort + "/" + databaseConnection.getDatabaseName());
         } else {
-          dataSource.setUrl("jdbc:postgresql://" + postgresIpAddress + ":" + postgresHostPort + "/" + connectionDetails.getDatabaseName());
+          dataSource.setUrl("jdbc:postgresql://" + postgresIpAddress + ":" + postgresHostPort + "/" + databaseConnection.getDatabaseName());
         }
         break;
       case MYSQL:
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
         if (isRunningOnCloud) {
-          dataSource.setUrl("jdbc:mysql://" + postgresIpAddress + ":" + postgresContainerPort + "/" + connectionDetails.getDatabaseName());
+          dataSource.setUrl("jdbc:mysql://" + postgresIpAddress + ":" + postgresContainerPort + "/" + databaseConnection.getDatabaseName());
         } else {
-          dataSource.setUrl("jdbc:mysql://" + postgresIpAddress + ":" + postgresHostPort + "/" + connectionDetails.getDatabaseName());
+          dataSource.setUrl("jdbc:mysql://" + postgresIpAddress + ":" + postgresHostPort + "/" + databaseConnection.getDatabaseName());
         }
       default:
-        throw new RuntimeException("Unsupported database type: " + connectionDetails.getDatabaseName());
+        throw new RuntimeException("Unsupported database type: " + databaseConnection.getDatabaseName());
     }
 
-    dataSource.setUsername(connectionDetails.getUsername());
-    dataSource.setPassword(connectionDetails.getPassword());
+    dataSource.setUsername(databaseConnection.getUsername());
+    dataSource.setPassword(databaseConnection.getPassword());
 
     return dataSource;
   }
