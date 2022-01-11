@@ -12,7 +12,7 @@ public class PatternMaskingFacade extends AnonymisationFacade {
   private final AnonymisationService<PatternMasking> anonymisationService = new PatternMaskingService();
 
   @Override
-  List<Pair<String, String>> getAnonymisedRows(ColumnOperations operations, List<Pair<String, String>> rows) {
+  protected List<Pair<String, String>> getAnonymisedRows(ColumnOperations operations, List<Pair<String, String>> rows) {
     PatternMasking patternMasking = operations.getPatternMasking();
     if (patternMasking == null) {
       return null;
@@ -21,7 +21,7 @@ public class PatternMaskingFacade extends AnonymisationFacade {
   }
 
   @Override
-  AnonymisationService<PatternMasking> getAnonymisationService() {
+  protected AnonymisationService<PatternMasking> getAnonymisationService() {
     return anonymisationService;
   }
 }

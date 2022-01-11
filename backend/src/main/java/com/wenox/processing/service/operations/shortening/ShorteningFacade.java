@@ -12,7 +12,7 @@ public class ShorteningFacade extends AnonymisationFacade {
   private final AnonymisationService<Shortening> anonymisationService = new ShorteningService();
 
   @Override
-  List<Pair<String, String>> getAnonymisedRows(ColumnOperations operations, List<Pair<String, String>> rows) {
+  protected List<Pair<String, String>> getAnonymisedRows(ColumnOperations operations, List<Pair<String, String>> rows) {
     Shortening shortening = operations.getShortening();
     if (shortening == null) {
       return null;
@@ -21,7 +21,7 @@ public class ShorteningFacade extends AnonymisationFacade {
   }
 
   @Override
-  AnonymisationService<Shortening> getAnonymisationService() {
+  protected AnonymisationService<Shortening> getAnonymisationService() {
     return anonymisationService;
   }
 }

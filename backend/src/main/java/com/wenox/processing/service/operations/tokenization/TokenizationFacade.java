@@ -12,7 +12,7 @@ public class TokenizationFacade extends AnonymisationFacade {
   private final AnonymisationService<Tokenization> anonymisationService = new TokenizationService();
 
   @Override
-  List<Pair<String, String>> getAnonymisedRows(ColumnOperations operations, List<Pair<String, String>> rows) {
+  protected List<Pair<String, String>> getAnonymisedRows(ColumnOperations operations, List<Pair<String, String>> rows) {
     Tokenization tokenization = operations.getTokenization();
     if (tokenization == null) {
       return null;
@@ -21,7 +21,7 @@ public class TokenizationFacade extends AnonymisationFacade {
   }
 
   @Override
-  AnonymisationService<Tokenization> getAnonymisationService() {
+  protected AnonymisationService<Tokenization> getAnonymisationService() {
     return anonymisationService;
   }
 }

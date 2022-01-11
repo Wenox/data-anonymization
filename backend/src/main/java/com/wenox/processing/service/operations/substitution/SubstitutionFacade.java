@@ -12,7 +12,7 @@ public class SubstitutionFacade extends AnonymisationFacade {
   private final AnonymisationService<Substitution> anonymisationService = new SubstitutionService();
 
   @Override
-  List<Pair<String, String>> getAnonymisedRows(ColumnOperations operations, List<Pair<String, String>> rows) {
+  protected List<Pair<String, String>> getAnonymisedRows(ColumnOperations operations, List<Pair<String, String>> rows) {
     Substitution substitution = operations.getSubstitution();
     if (substitution == null) {
       return null;
@@ -21,7 +21,7 @@ public class SubstitutionFacade extends AnonymisationFacade {
   }
 
   @Override
-  AnonymisationService<Substitution> getAnonymisationService() {
+  protected AnonymisationService<Substitution> getAnonymisationService() {
     return anonymisationService;
   }
 }

@@ -12,7 +12,7 @@ public class PerturbationFacade extends AnonymisationFacade {
   private final AnonymisationService<Perturbation> anonymisationService = new PerturbationService();
 
   @Override
-  List<Pair<String, String>> getAnonymisedRows(ColumnOperations operations, List<Pair<String, String>> rows) {
+  protected List<Pair<String, String>> getAnonymisedRows(ColumnOperations operations, List<Pair<String, String>> rows) {
     Perturbation perturbation = operations.getPerturbation();
     if (perturbation == null) {
       return null;
@@ -21,7 +21,7 @@ public class PerturbationFacade extends AnonymisationFacade {
   }
 
   @Override
-  AnonymisationService<Perturbation> getAnonymisationService() {
+  protected AnonymisationService<Perturbation> getAnonymisationService() {
     return anonymisationService;
   }
 }

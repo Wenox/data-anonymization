@@ -12,7 +12,7 @@ public class RandomNumberFacade extends AnonymisationFacade {
   private final AnonymisationService<RandomNumber> anonymisationService = new RandomNumberService();
 
   @Override
-  List<Pair<String, String>> getAnonymisedRows(ColumnOperations operations, List<Pair<String, String>> rows) {
+  protected List<Pair<String, String>> getAnonymisedRows(ColumnOperations operations, List<Pair<String, String>> rows) {
     RandomNumber randomNumber = operations.getRandomNumber();
     if (randomNumber == null) {
       return null;
@@ -21,7 +21,7 @@ public class RandomNumberFacade extends AnonymisationFacade {
   }
 
   @Override
-  AnonymisationService<RandomNumber> getAnonymisationService() {
+  protected AnonymisationService<RandomNumber> getAnonymisationService() {
     return anonymisationService;
   }
 }

@@ -12,7 +12,7 @@ public class SuppressionFacade extends AnonymisationFacade {
   private final AnonymisationService<Suppression> anonymisationService = new SuppressionService();
 
   @Override
-  List<Pair<String, String>> getAnonymisedRows(ColumnOperations operations, List<Pair<String, String>> rows) {
+  protected List<Pair<String, String>> getAnonymisedRows(ColumnOperations operations, List<Pair<String, String>> rows) {
     Suppression suppression = operations.getSuppression();
     if (suppression == null) {
       return null;
@@ -21,7 +21,7 @@ public class SuppressionFacade extends AnonymisationFacade {
   }
 
   @Override
-  AnonymisationService<Suppression> getAnonymisationService() {
+  protected AnonymisationService<Suppression> getAnonymisationService() {
     return anonymisationService;
   }
 }

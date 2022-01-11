@@ -12,7 +12,7 @@ public class GeneralisationFacade extends AnonymisationFacade {
   private final AnonymisationService<Generalisation> anonymisationService = new GeneralisationService();
 
   @Override
-  List<Pair<String, String>> getAnonymisedRows(ColumnOperations operations, List<Pair<String, String>> rows) {
+  protected List<Pair<String, String>> getAnonymisedRows(ColumnOperations operations, List<Pair<String, String>> rows) {
     Generalisation generalisation = operations.getGeneralisation();
     if (generalisation == null) {
       return null;
@@ -21,7 +21,7 @@ public class GeneralisationFacade extends AnonymisationFacade {
   }
 
   @Override
-  AnonymisationService<Generalisation> getAnonymisationService() {
+  protected AnonymisationService<Generalisation> getAnonymisationService() {
     return anonymisationService;
   }
 }

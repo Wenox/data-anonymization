@@ -12,7 +12,7 @@ public class HashingFacade extends AnonymisationFacade {
   private final AnonymisationService<Hashing> anonymisationService = new HashingService();
 
   @Override
-  List<Pair<String, String>> getAnonymisedRows(ColumnOperations operations, List<Pair<String, String>> rows) {
+  protected List<Pair<String, String>> getAnonymisedRows(ColumnOperations operations, List<Pair<String, String>> rows) {
     var hashing = operations.getHashing();
     if (hashing == null) {
       return null;
@@ -21,7 +21,7 @@ public class HashingFacade extends AnonymisationFacade {
   }
 
   @Override
-  AnonymisationService<Hashing> getAnonymisationService() {
+  protected AnonymisationService<Hashing> getAnonymisationService() {
     return anonymisationService;
   }
 }

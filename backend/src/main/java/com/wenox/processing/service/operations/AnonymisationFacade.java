@@ -12,9 +12,10 @@ import java.util.List;
 
 public abstract class AnonymisationFacade {
 
-  abstract List<Pair<String, String>> getAnonymisedRows(ColumnOperations operations, List<Pair<String, String>> rows);
+  protected abstract List<Pair<String, String>> getAnonymisedRows(ColumnOperations operations,
+                                                                  List<Pair<String, String>> rows);
 
-  abstract AnonymisationService<?> getAnonymisationService();
+  protected abstract AnonymisationService<?> getAnonymisationService();
 
   public void handleAnonymisation(ColumnOperations operations, List<Pair<String, String>> rows, Path fileLocation) {
     var anonymisedRows = getAnonymisedRows(operations, rows);

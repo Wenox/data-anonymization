@@ -12,7 +12,7 @@ public class ColumnShuffleFacade extends AnonymisationFacade {
   private final AnonymisationService<ColumnShuffle> anonymisationService = new ColumnShuffleService();
 
   @Override
-  List<Pair<String, String>> getAnonymisedRows(ColumnOperations operations, List<Pair<String, String>> rows) {
+  protected List<Pair<String, String>> getAnonymisedRows(ColumnOperations operations, List<Pair<String, String>> rows) {
     ColumnShuffle columnShuffle = operations.getColumnShuffle();
     if (columnShuffle == null) {
       return null;
@@ -21,7 +21,7 @@ public class ColumnShuffleFacade extends AnonymisationFacade {
   }
 
   @Override
-  AnonymisationService<ColumnShuffle> getAnonymisationService() {
+  protected AnonymisationService<ColumnShuffle> getAnonymisationService() {
     return anonymisationService;
   }
 }
