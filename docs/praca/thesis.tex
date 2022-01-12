@@ -33,7 +33,7 @@
 \usepackage[page]{appendix} 
 
 \usepackage{csquotes}
-\usepackage[natbib=true,sorting=none]{biblatex}
+\usepackage[natbib=true]{biblatex}
 \bibliography{bibliography}
 
 
@@ -221,8 +221,8 @@ escapeinside={@*}{*@},%
 		\hbox{\otherfont author: \Author}
 		\vspace{12pt}
 		\hbox{\otherfont supervisor: \Supervisor}
-		\vspace{12pt} % only if applicable; otherwise delete the line
-		\hbox{\otherfont consultant: \Consultant} % only if applicable; otherwise delete the line
+	%	\vspace{12pt} % only if applicable; otherwise delete the line
+	%	\hbox{\otherfont consultant: \Consultant} % only if applicable; otherwise delete the line
 	}
 	\vfill 
  
@@ -273,9 +273,9 @@ The text of the abstract should be copied into a respective field in the APD sys
 Technological advancement being observed in the past years fundamentally changed the relevance of data in today's digitalized world. Information became an innovation stimulus in the area of research and development.
 
 
-The quantity of data that organizations produce, process, store and share is at a continuous growth. An enormous amount of 1.8 zettabytes ($1.8 \cdot 10^{21}$ bytes) of new data was produced only in the 2011, and every two consecutive years this number was doubling.\cite{bib:big_data_security} The ever increasing volume of data being collected globally is further excited by improvements to the overall population's accessibility to the digital technology. Cisco Systems estimates within its annual report that 66 percent of the world population will have an access to the web by the 2023, compared to 51 percent in 2018, whereas the number of devices that are connected to the web will reach a staggering value of three times as many as the entire population size – demonstrating a total of 60 percent expansion when compared to 2018. Even the area of mobile connection, which was established long ago, is still sustaining a growth – by 2023, a mobile connectivity will be a privilege for 70 percent of the world's population, compared to 66 percent in 2018. The global average mobile network speeds will be tripled through a rapid increase from 13.2 Mbps in 2018 to 43.9 Mbps in 2023.\cite{bib:cisco_annual}
+The quantity of data that organizations produce, process, store and share is at a continuous growth. An enormous amount of 1.8 zettabytes ($1.8 \cdot 10^{21}$ bytes) of new data was produced only in the 2011, and every two consecutive years this number was doubling.\cite{bib:big_data_security} \ksremark{cytowanie przed kropką} The ever increasing volume of data being collected globally is further excited by improvements to the overall population's accessibility to the digital technology. Cisco Systems estimates within its annual report \ksremark{cytowanie} that 66 percent of the world population will have an access to the web by the 2023, compared to 51 percent in 2018, whereas the number of devices that are connected to the web will reach a staggering value of three times as many as the entire population size – demonstrating a total of 60 percent expansion when compared to 2018. Even the area of mobile connection, which was established long ago, is still sustaining a growth – by 2023, a mobile connectivity will be a privilege for 70 percent of the world's population, compared to 66 percent in 2018. The global average mobile network speeds will be tripled through a rapid increase from 13.2 Mbps in 2018 to 43.9 Mbps in 2023.\cite{bib:cisco_annual}
 
-After decades of observed technological advancement and innovation, the global internet traffic finally entered the Zettabyte-era, as it had reached a magnitude of one Zettabyte in 2016, and in the calender month being as early as September.\cite{bib:cisco_blog}
+After decades of observed technological advancement and innovation, the global internet traffic finally entered the zettabyte-era, as it had reached a magnitude of one zettabyte in 2016, and in the calender month being as early as September.\cite{bib:cisco_blog}
 
 The vast quantities of processed information allowed for brand new research fields to form, e.g. big data analytics, which is also considered as a field that will entirely alter all parts of civilization such as businesses or society.\cite{bib:big_data_in_practice} The applications of big data analytics and its impact can be observed already today in a wide spectrum of domains.
 
@@ -302,7 +302,7 @@ Następne do zrobienia, w uproszczeniu i w podanej kolejności:
 \item Jak widać, dane są używane wszędzie. Przeciętna osoba sobie nawet nie zdaje sprawy.
 \item Istota prywatności danych, ochrona danych osobowych.
 \item Prawo wolno reaguje na uregulowanie ochrony danych osobowych: GDPR dopiero w 2018. Prawo różnie działa w różnych krajach.
-\item W czasach narastających danych, dane muszą być zanimizowane, bo...
+\item W czasach narastających danych, dane muszą być zanominizowane, bo...
 \item ...ale:
 \end{itemize}
 
@@ -337,6 +337,8 @@ Wniosek: generyczny sposób anonimizacji - nie ma takiego.
 \color{black}
 \normalsize
 
+\ksremark{Wstęp jest za długi. Wstęp ma mieć 2-3 strony. Wstęp i zakończenie piszemy na końcu, gdy cała reszta jest już napisana.}
+
 
 \begin{itemize}
 \item introduction into the problem domain
@@ -346,6 +348,8 @@ Wniosek: generyczny sposób anonimizacji - nie ma takiego.
 \item short description of chapters
 \item clear description of contribution of the thesis's author – in case of more authors table with enumeration of contribution of authors
 \end{itemize}
+
+
 
 \chapter{Data anonymisation}
 
@@ -377,7 +381,7 @@ Protection of personal data is a fundamental right and freedom of people as defi
 One of the primary objectives of GDPR is personal data privacy protection. Implementation of this law had immediately increased the significance of data anonymisation as an information sanitization process in today's world.\cite{bib:anonymization_for_research} Anonymisation being a specific form of data masking suddenly became more relevant in today's world for the reason that the strict regulations defined in GDPR do not apply to the anonymized information. Data protection principles covered throughout GDPR concern only the processing of information that is identified to a natural person, or that is yet to be identified. Given the fact that anonymised information is by definition not relating to a person and hence it can be altogether exempted from the requirements of the GDPR, that applies only to personal data, as stated under Recital 26\cite{bib:recital26}:
 
 \begin{displayquote}
-	\textit{The principles of data protection should apply to any information concerning an identified or identifiable natural person. [...] The principles of data protection should therefore not apply to anonymous information, namely information which does not relate to an identified or identifiable natural person or to personal data rendered anonymous in such a manner that the data subject is not or no longer identifiable. This Regulation does not therefore concern the processing of such anonymous information, including for statistical or research purposes.}
+	\textit{The principles of data protection should apply to any information concerning an identified or identifiable natural person. [...]\ksremark{[\ldots]} The principles of data protection should therefore not apply to anonymous information, namely information which does not relate to an identified or identifiable natural person or to personal data rendered anonymous in such a manner that the data subject is not or no longer identifiable. This Regulation does not therefore concern the processing of such anonymous information, including for statistical or research purposes.}\ksremark{bez kursywy}
 \end{displayquote}
 
 
