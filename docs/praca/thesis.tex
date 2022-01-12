@@ -18,7 +18,7 @@
 
 \documentclass[a4paper,twoside,12pt]{book}
 \usepackage[utf8]{inputenc}                                      
-\usepackage[T1]{fontenc}  
+\usepackage[T1]{fontenc}
 \usepackage{amsmath,amsfonts,amssymb,amsthm}
 \usepackage[polish,british]{babel} 
 \usepackage{indentfirst}
@@ -31,6 +31,14 @@
 \usepackage{mathtools}
 \usepackage{geometry}
 \usepackage[page]{appendix} 
+
+
+%%% My packages %%%
+\usepackage{minted}  
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 \usepackage{csquotes}
 \usepackage[natbib=true]{biblatex}
@@ -45,7 +53,7 @@
 
 \usepackage{listings}
 \lstset{
-	language={},
+	language={java},
 	basicstyle=\ttfamily,
 	keywordstyle=\lst@ifdisplaystyle\color{blue}\fi,
 	commentstyle=\color{gray}
@@ -532,6 +540,32 @@ class descriptor_gaussian : virtual public descriptor
  
 
 \chapter{Conclusions}
+
+
+\begin{figure}[h]
+\begin{minted}[fontsize=\footnotesize, xleftmargin=-8pt, baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=lines, breaklines=true, framesep=1mm]{java}
+public class ColumnShuffleFacade extends AnonymisationFacade {
+
+  AnonymisationService<ColumnShuffle> anonymisationService = new ColumnShuffleService();
+
+  @Override
+  List<Pair<String, String>> getAnonymisedRows(ColumnOperations oper, List<Pair<String, String>> rows) {
+    ColumnShuffle columnShuffle = oper.getColumnShuffle();
+    if (columnShuffle == null) {
+      return null;
+    }
+    return anonymisationService.anonymise(rows, columnShuffle);
+  }
+
+  @Override
+  protected AnonymisationService<ColumnShuffle> getAnonymisationService() {
+    return anonymisationService;
+  }
+}
+\end{minted}
+\caption{Java code gets easily verbose.}
+\label{fig:lalrpopExemplaryRule}
+\end{figure}
 \begin{itemize}
 \item achieved results with regard to objectives of the thesis and requirements
 \item path of further development (eg functional extension …)
