@@ -33,8 +33,9 @@
 \usepackage[page]{appendix} 
 
 \usepackage{csquotes}
-\usepackage[natbib=true]{biblatex}
+\usepackage[natbib=true,sorting=none]{biblatex}
 \bibliography{bibliography}
+
 
 \usepackage{setspace}
 \onehalfspacing
@@ -168,6 +169,11 @@ escapeinside={@*}{*@},%
 \newcommand{\Programme}{Programme: Informatics}
 
 
+\addbibresource{bibliography.bib}
+
+
+
+
 \begin{document}
 \kslistofremarks
 \cleardoublepage
@@ -264,7 +270,73 @@ The text of the abstract should be copied into a respective field in the APD sys
 
 \chapter{Introduction}
 
-\ksremark{Proszę zaktualizować szablon pracy wg szablonu z repozytorium \url{https://github.com/ksiminski/polsl-aei-theses}.}
+Technological advancement being observed in the past years fundamentally changed the relevance of data in today's digitalized world. Information became an innovation stimulus in the area of research and development.
+
+
+The quantity of data that organizations produce, process, store and share is at a continuous growth. An enormous amount of 1.8 zettabytes ($1.8 \cdot 10^{21}$ bytes) of new data was produced only in the 2011, and every two consecutive years this number was doubling.\cite{bib:big_data_security} The ever increasing volume of data being collected globally is further excited by improvements to the overall population's accessibility to the digital technology. Cisco Systems estimates within its annual report that 66 percent of the world population will have an access to the web by the 2023, compared to 51 percent in 2018, whereas the number of devices that are connected to the web will reach a staggering value of three times as many as the entire population size – demonstrating a total of 60 percent expansion when compared to 2018. Even the area of mobile connection, which was established long ago, is still sustaining a growth – by 2023, a mobile connectivity will be a privilege for 70 percent of the world's population, compared to 66 percent in 2018. The global average mobile network speeds will be tripled through a rapid increase from 13.2 Mbps in 2018 to 43.9 Mbps in 2023.\cite{bib:cisco_annual}
+
+After decades of observed technological advancement and innovation, the global internet traffic finally entered the Zettabyte-era, as it had reached a magnitude of one Zettabyte in 2016, and in the calender month being as early as September.\cite{bib:cisco_blog}
+
+The vast quantities of processed information allowed for brand new research fields to form, e.g. big data analytics, which is also considered as a field that will entirely alter all parts of civilization such as businesses or society.\cite{bib:big_data_in_practice} The applications of big data analytics and its impact can be observed already today in a wide spectrum of domains.
+
+Organizations collect and process the information to derive new insights and enhance the services they provide to the customers through statistical analysis or newly developed computer science processes such as data mining.
+The utility of delivered services is increased at a lower cost and improved efficiency through the insights derived from the collected information about how the service is consumed.\cite{bib:anonymization_pipeline}
+
+
+Information that was deidentified may flow from system to a system. Various types of organizations collect data to take advantage from the insights derived out of the data. Leading technology companies, such as Google and Facebook to name a few, sell anonymised collected user data access to their partner advertisers.\cite{bib:big_data_in_practice} Large Hadron Collider (LHC) located in CERN, being the largest physical experiment, annually produce approximately 30 petabytes of data. LHC takes an advantage of light sensors that monitor the collisions of hundreds of millions of particles accelerated nearly to the speed of light. The collisions create enormous amount of data to be processed by computer algorithms in the hope of discovering new particles, e.g. a Nobel prize awarding discovery of Higgs boson had taken place in 2012.\cite{bib:cern}
+
+
+Enterprise stores such as Amazon or SAP Commerce Cloud collect the information regarding the way of how the visitors browse and interact with these stores. Collected information may involve the behavioral data related to customer engagement, such as the pages we visit, event clicks, or the way we scroll the page. The insights derived from the collected information enable making future improvements of these services - for example by improving the digital marketing or performance improvements based on the metrics.\cite{bib:sap} The customer experience is also improved as based on the collected data the advertisements or item recommendations can be taylored to the specific user's preferences. The recommendation engine may also attempt to match your profile data to people of similiar profile to provide better recommendations. Services attempt to analyze the behavioural patterns such as time of day we browse the store or what circumstances caused our last visit to finish. Even the details such as the exact neighbourhood location we live in, combined with its estimated wealth, organizations may attempt to guess our potential income level.\cite{bib:big_data_in_practice} These data analytics are performed to increase the change of buying yet another item.
+
+
+
+Services of enterprise organizations are running on all the collected data which can take various forms such as database entries, metrics, logs or outgoing messages. New data streaming technologies working at a large scale needed to be engineered to handle the continuous flow of data between systems and databases. An example of such technology includes Apache Kafka which generates even more than a trillion of messages per day for individual large enterprise organizations taking advantage of it.\cite{bib:kafka_online}\cite{bib:kafka}
+
+
+\vfill
+
+\footnotesize
+\color{blue}
+Następne do zrobienia, w uproszczeniu i w podanej kolejności:
+\begin{itemize}
+\item Jak widać, dane są używane wszędzie. Przeciętna osoba sobie nawet nie zdaje sprawy.
+\item Istota prywatności danych, ochrona danych osobowych.
+\item Prawo wolno reaguje na uregulowanie ochrony danych osobowych: GDPR dopiero w 2018. Prawo różnie działa w różnych krajach.
+\item W czasach narastających danych, dane muszą być zanimizowane, bo...
+\item ...ale:
+\end{itemize}
+
+\normalsize
+\color{black}
+
+It is not possible to predetermine – in a general fashion and without an extra context – the data masking techniques that need to be combined together in order to achieve an actual anonymisation of the previously identifiable information. Instead, a context consisting of:
+\begin{itemize}
+	\item exact representation form of the data being processed \textit{(What is the data?)}
+	\item data processors who use the data \textit{(Who will use the data?)}
+	\item processing purpose, e.g. research objective \textit{(How will the data be used?)}
+\end{itemize}
+is always required when considering an effective way to anonymise data under that context.\cite{bib:anonymizing_health_data}
+
+\footnotesize
+\color{blue}
+Wniosek: generyczny sposób anonimizacji - nie ma takiego.
+
+\begin{itemize}
+\item Mogą istnieć dobre algorytmy anonimizacji, ale są optymalale jedynie w określonych kontekstach
+
+\item \textbf{Cel pracy}: stworzenie generycznego rozwiązania do anonimizacji baz danych w dowolnej formie danych (nieważne co dane reprezentują).
+
+\item Kontroler danych zna swoje dane i sam dostosowuje optymalny sposób anonimizacji.
+
+\item Rozwiązanie może być dostarczone jako free-access (research), B2C lub nawet B2B.
+
+\item Zakres pracy, opis rozdziałów - na samym końcu, po zrobieniu innych rozdziałów.
+\normalsize
+
+\end{itemize}
+\color{black}
+\normalsize
+
 
 \begin{itemize}
 \item introduction into the problem domain
@@ -276,6 +348,81 @@ The text of the abstract should be copied into a respective field in the APD sys
 \end{itemize}
 
 \chapter{Data anonymisation}
+
+\color{blue}
+Personal data is...
+Anonymisation is... what, why.
+\color{black}
+
+\section{Data protection}
+
+\color{blue}
+Data protection: what is, why, goals.
+Other definitions: data subject, data controller, data processor.
+\color{black}
+
+\subsection{Consent}
+Majority of data protection regulations are based on a consent of an individual, i.e. information can be used for secondary purposes only if an individual explicitly acknowledge their consent for that. This may sound easier said than done due to the unobvious difficulties data controllers would be facing when obtainining such a broad authorization consent for all possible secondary purpose usages. Consider a patient entering medical facility for an ordinary appointment. The patient could find it unusual, disturbing or even shocking if upon his entrance to the facility he was to receive an overwhelming form including dozens of independent consent authorization requests. The consents could give the impression of being seemingly unrelated to his visit in the first place, e.g. a constent to share the data with researchers of an university located on another continent. In the end that could destroy the data subject's trust – in this case patient's trust.
+
+This theoretical scenario may not easily be implemented in the real world counterpart, as it could be even impossible to know or predict all possible secondary purpose usages in the first place, and consent based authorization is all about knowing the usages.
+
+Consider a newly discovered purpose to process personal information of an already existing database. Getting a consent after the data had already been collected, i.e. backwards in time, would be impossible to accomplish as the data controller would need to contact potentially hundreds of thousands of people for their explicit consent. New purpose can be discovered years after the data collection.
+
+Having that in mind, no consent is required when processing the data that is already anonymised. A data that was stripped from personal identifying or identifiable information data can be used in any way and can be shared with third parties without previously agreed consent. Data controllers now face a realistic to solve problem of information anonymisation rather than an unrealistic problem of consents collection.\cite{bib:anonymizing_health_data}
+
+\subsection{General Data Protection Regulation}
+
+Protection of personal data is a fundamental right and freedom of people as defined under the Recital 1 of General Data Protection Regulation (GDPR) and the Charter of Fundamental Rights of the European Union.\cite{bib:recital1}\cite{bib:charter} Newly discovered challenges for the protection of personal data arise due to the ongoing globalization and quick development of digital technologies. This in turn vastly had increased both the scope of the gathering of the data, and the sharing of thereof. General Data Protection Regulation (GDPR) is a data protection law that was introduced on May 25, 2018 to addresses these data privacy related issues.\cite{bib:recital6}
+
+One of the primary objectives of GDPR is personal data privacy protection. Implementation of this law had immediately increased the significance of data anonymisation as an information sanitization process in today's world.\cite{bib:anonymization_for_research} Anonymisation being a specific form of data masking suddenly became more relevant in today's world for the reason that the strict regulations defined in GDPR do not apply to the anonymized information. Data protection principles covered throughout GDPR concern only the processing of information that is identified to a natural person, or that is yet to be identified. Given the fact that anonymised information is by definition not relating to a person and hence it can be altogether exempted from the requirements of the GDPR, that applies only to personal data, as stated under Recital 26\cite{bib:recital26}:
+
+\begin{displayquote}
+	\textit{The principles of data protection should apply to any information concerning an identified or identifiable natural person. [...] The principles of data protection should therefore not apply to anonymous information, namely information which does not relate to an identified or identifiable natural person or to personal data rendered anonymous in such a manner that the data subject is not or no longer identifiable. This Regulation does not therefore concern the processing of such anonymous information, including for statistical or research purposes.}
+\end{displayquote}
+
+
+\section{Anonymisation and pseudonymisation}
+
+\color{blue}
+What is pseudonymization? How does it differ?
+\color{black}
+
+\section{Data masking techniques}
+
+\color{blue}
+Generalisation, suppression, etc.
+\color{black}
+
+\section{Deidentification}
+
+\color{blue}
+Nawet jeśli dane personall identifiable information PII są usunięte, to można połączyć osobe z pomocą istniejących nieusuniętych danych np. płeć oraz external informacjach np. social media. Komputery są coraz szybsze, źródeł danych coraz więcej - napastnikom coraz łatwiej.
+
+Przykłady takich ataków (Netflix Prize, IMDB).
+
+
+// todo
+Conclusion: Anonymisation = false sense of security! All the known examples of this type of identification are from the research world — no commercial or malicious uses have yet come to light — but they prove that anonymization is not an absolute protection.
+\normalsize
+
+Why you can't really anonymize the data:
+
+https://web.archive.org/web/20140109052803/http://strata.oreilly.com/2011/05/anonymize-data-limits.html
+\color{black}
+
+
+
+
+\section{Existing solutions}
+
+\color{blue}
+List of existing solutions.
+\color{black}
+
+
+
+
+
 
 \begin{itemize}
 	\item definicja anonimizacji
