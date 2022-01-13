@@ -278,27 +278,9 @@ The text of the abstract should be copied into a respective field in the APD sys
 
 \chapter{Introduction}
 
-Technological advancement being observed in the past years fundamentally changed the relevance of data in today's digitalized world. Information became an innovation stimulus in the area of research and development.
+Technological advancement being observed in the past years fundamentally changed the relevance of data in today's digitalized world. Information became an innovation stimulus in the area of research and development. The quantity of data that organizations produce, process, store and share is at a continuous growth. An enormous amount of 1.8 zettabytes ($1.8 \cdot 10^{21}$ bytes) of new data was produced only in the 2011, and every two consecutive years this number is doubling \cite{bib:big_data_security}. After decades of observed technological advancement and innovation, the global internet traffic finally entered the zettabyte-era, as it had reached a magnitude of one zettabyte in 2016, and in the calender month being as early as September \cite{bib:cisco_blog}.
 
-
-The quantity of data that organizations produce, process, store and share is at a continuous growth. An enormous amount of 1.8 zettabytes ($1.8 \cdot 10^{21}$ bytes) of new data was produced only in the 2011, and every two consecutive years this number was doubling \cite{bib:big_data_security}. The ever increasing volume of data being collected globally is further excited by improvements to the overall population's accessibility to the digital technology. Cisco Systems estimates within its annual report \ksremark{cytowanie} that 66 percent of the world population will have an access to the web by the 2023, compared to 51 percent in 2018, whereas the number of devices that are connected to the web will reach a staggering value of three times as many as the entire population size – demonstrating a total of 60 percent expansion when compared to 2018. Even the area of mobile connection, which was established long ago, is still sustaining a growth – by 2023, a mobile connectivity will be a privilege for 70 percent of the world's population, compared to 66 percent in 2018. The global average mobile network speeds will be tripled through a rapid increase from 13.2 Mbps in 2018 to 43.9 Mbps in 2023 \cite{bib:cisco_annual}.
-
-After decades of observed technological advancement and innovation, the global internet traffic finally entered the zettabyte-era, as it had reached a magnitude of one zettabyte in 2016, and in the calender month being as early as September \cite{bib:cisco_blog}.
-
-The vast quantities of processed information allowed for brand new research fields to form, e.g. big data analytics, which is also considered as a field that will entirely alter all parts of civilization such as businesses or society \cite{bib:big_data_in_practice}. The applications of big data analytics and its impact can be observed already today in a wide spectrum of domains.
-
-Organizations collect and process the information to derive new insights and enhance the services they provide to the customers through statistical analysis or newly developed computer science processes such as data mining.
-The utility of delivered services is increased at a lower cost and improved efficiency through the insights derived from the collected information about how the service is consumed \cite{bib:anonymization_pipeline}.
-
-
-Information that was deidentified may flow from system to a system. Various types of organizations collect data to take advantage from the insights derived out of the data. Leading technology companies, such as Google and Facebook to name a few, sell anonymised collected user data access to their partner advertisers \cite{bib:big_data_in_practice}. Large Hadron Collider (LHC) located in CERN, being the largest physical experiment, annually produce approximately 30 petabytes of data. LHC takes an advantage of light sensors that monitor the collisions of hundreds of millions of particles accelerated nearly to the speed of light. The collisions create enormous amount of data to be processed by computer algorithms in the hope of discovering new particles, e.g. a Nobel prize awarding discovery of Higgs boson had taken place in 2012 \cite{bib:cern}.
-
-
-Enterprise stores such as Amazon or SAP Commerce Cloud collect the information regarding the way of how the visitors browse and interact with these stores. Collected information may involve the behavioral data related to customer engagement, such as the pages we visit, event clicks, or the way we scroll the page. The insights derived from the collected information enable making future improvements of these services - for example by improving the digital marketing or performance improvements based on the metrics \cite{bib:sap}. The customer experience is also improved as based on the collected data the advertisements or item recommendations can be taylored to the specific user's preferences. The recommendation engine may also attempt to match your profile data to people of similiar profile to provide better recommendations. Services attempt to analyze the behavioural patterns such as time of day we browse the store or what circumstances caused our last visit to finish. Even the details such as the exact neighbourhood location we live in, combined with its estimated wealth, organizations may attempt to guess our potential income level \cite{bib:big_data_in_practice}. These data analytics are performed to increase the change of buying yet another item.
-
-
-
-Services of enterprise organizations are running on all the collected data which can take various forms such as database entries, metrics, logs or outgoing messages. New data streaming technologies working at a large scale needed to be engineered to handle the continuous flow of data between systems and databases. An example of such technology includes Apache Kafka which generates even more than a trillion of messages per day for individual large enterprise organizations taking advantage of it \cite{bib:kafka_online}\cite{bib:kafka}.
+The vast quantities of processed information allowed for brand new research fields such as data science or big data analytics to form, which are used by organizations to derive new insights in a way that was previously impossible. Organizations collect and process the data to enhance the services they provide to the customers through statistical analysis or newly developed computer science processes including data mining and machine learning. The utility of delivered services is increased at a lower cost and improved efficiency through the insights extracted from the collected information about how the services are consumed \cite{bib:anonymization_pipeline}.
 
 
 \vfill
@@ -361,10 +343,43 @@ Wniosek: generyczny sposób anonimizacji - nie ma takiego.
 
 \chapter{Data anonymisation}
 
-\color{blue}
-Personal data is...
-Anonymisation is... what, why.
-\color{black}
+
+\section{Data explosion}
+
+\subsection{Technology advancement}
+The continuous and rapid exponential growth of data being collected globally is further excited by improvements to the overall population's accessibility to the digital technology \cite{bib:big_data_analytics}. Cisco Systems estimates within its annual report \ksremark{cytowanie} that 66 percent of the world population will have an access to the web by the 2023, compared to 51 percent in 2018, whereas the number of devices that are connected to the web will reach a staggering value of three times as many as the entire population size – demonstrating a total of 60 percent expansion when compared to 2018. Even the area of mobile connection, which was established long ago, is still sustaining a growth – by 2023, a mobile connectivity will be a privilege for 70 percent of the world's population, compared to 66 percent in 2018. The global average mobile network speeds will be tripled through a rapid increase from 13.2 Mbps in 2018 to 43.9 Mbps in 2023 \cite{bib:cisco_annual}.
+
+\subsection{Data analytics}
+Raw representation form of the data is not interpretable until it is put under a context and processed into practical information.
+Acquiring relevant insights and conclusions from the information can be achieved through a wide term of analytics, which encompasses the actions needed to be performed to produce new information, including: analysis, filtering, processing, grouping and contextualizing the information. Newly discovered knowledge is infered from the produced information.
+Apart from the processes, analytics also includes the technologies, methodologies and algorithms to use and could be divided into descriptive analytics, diagnostic analytics, prescriptive analytics and predictive analytics \cite{bib:big_data_analytics}.
+
+\subsection{Big data}
+
+Big data analytics deals with the difficulties of managing the observed exponentially increasing collected volumes of data. Its purpose is not only to handle the processing and analysis of the data through specialized software tools and frameworks, but also to handle the means on how this enormous amount of data is collected and stored in the first place. It is in its nature that big data is all about massive volumes of information that require specialized hardware infrastructure to store it \cite{bib:big_data_analytics}.
+
+Services of enterprise organizations are running on all the collected data which can take various forms such as database entries, metrics, logs or outgoing messages. New data streaming technologies working at a large scale needed to be engineered to handle the continuous flow of data between systems and databases. An example of such technology includes Apache Kafka which generates even more than a trillion of messages per day for individual large enterprise organizations taking advantage of it \cite{bib:kafka_online}\cite{bib:kafka}.
+
+This only proves that big data deals not only with massive volumes - it has also to deal with the high velocities of data generation, which is yet another characteristic of data \cite{bib:big_data_analytics}. According to DOMO report published back in 2020, 90\% of world's data was generated just in the preceding two years, and on average every person in the world created 1.7 megabytes of data per second - which yields 2.5 quintillion ($2.5 \cdot 10^{18}$) bytes of new data each day \cite{bib:domo}.
+
+
+
+The momentum of the immense big data interest growth among organizations is not fading away yet, as more and more new businesses and researches are drawn to this subject. The benefits of big data especially concern scientific organizations and large enterprises of which financial domain and IT industry are the common consumers \cite{bib:anonymization_chaos}. The organizations find the interest in information analytics for remarkably diversified reasons. It is is recognized as a field that will entirely alter all parts of civilization such as businesses or society as a whole \cite{bib:big_data_in_practice}.
+
+\subsubsection{Applications}
+
+Various types of organizations collect data to take advantage from the insights derived out of the data. The applications of big data analytics and its impact can be observed already today and in a wide spectrum of domains. 
+
+
+Leading technology companies, such as Google and Facebook, to name a few, sell anonymised collected user data access to their partner advertisers \cite{bib:big_data_in_practice}. This is legally possible as the information that was anonymised, i.e. deidentified in a way that it is no longer bound to an individual, may flow from a system to a system.
+
+Large Hadron Collider (LHC) located in CERN, being the largest physical experiment, annually produce approximately 30 petabytes of data. LHC takes an advantage of light sensors that monitor the collisions of hundreds of millions of particles accelerated nearly to the speed of light. The collisions create enormous amount of data to be processed by computer algorithms in the hope of discovering new particles, e.g. a Nobel prize awarding discovery of Higgs boson had taken place in 2012 \cite{bib:cern}.
+
+Enterprise stores such as Amazon or SAP Commerce Cloud collect the information regarding the way of how the visitors browse and interact with these stores. Collected information may involve the behavioral data related to customer engagement, such as the pages we visit, event clicks, or the way we scroll the page. The insights derived from the collected information enable making future improvements of these services - for example by improving the digital marketing or performance improvements based on the metrics \cite{bib:sap}. The customer experience is also improved as based on the collected data the advertisements or item recommendations can be taylored to the specific user's preferences. The recommendation engine may also attempt to match your profile data to people of similiar profile to provide better recommendations. Services attempt to analyze the behavioural patterns such as time of day we browse the store or what circumstances caused our last visit to finish. Even the details such as the exact neighbourhood location we live in, combined with its estimated wealth, organizations may attempt to guess our potential income level \cite{bib:big_data_in_practice}. These data analytics are performed to improve the possibility of customer buying yet another item.
+
+
+
+
 
 \section{Data protection}
 
@@ -392,6 +407,13 @@ One of the primary objectives of GDPR is personal data privacy protection. Imple
 	The principles of data protection should apply to any information concerning an identified or identifiable natural person. [\ldots] The principles of data protection should therefore not apply to anonymous information, namely information which does not relate to an identified or identifiable natural person or to personal data rendered anonymous in such a manner that the data subject is not or no longer identifiable. This Regulation does not therefore concern the processing of such anonymous information, including for statistical or research purposes.
 \end{displayquote}
 
+
+\section{Data anonymisation}
+
+\color{blue}
+Personal data is...
+Anonymisation is... what, why.
+\color{black}
 
 \section{Anonymisation and pseudonymisation}
 
@@ -617,7 +639,6 @@ public class ColumnShuffleFacade extends AnonymisationFacade {
 %\bibliographystyle{plplain} % bibtex
 %\bibliography{bibliography} % bibtex
 \printbibliography           % biblatex 
-
 \addcontentsline{toc}{chapter}{Bibliography}
 
 %%%%%%%%%  appendices %%%%%%%%%%%%%%%%%%% 
