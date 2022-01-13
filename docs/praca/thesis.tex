@@ -399,9 +399,13 @@ Having that in mind, no consent is required when processing the data that is alr
 
 \subsection{General Data Protection Regulation}
 
-Protection of personal data is a fundamental right and freedom of people as defined under the Recital 1 of General Data Protection Regulation (GDPR) and the Charter of Fundamental Rights of the European Union \cite{bib:recital1}\cite{bib:charter}. Newly discovered challenges for the protection of personal data arise due to the ongoing globalization and quick development of digital technologies. This in turn vastly had increased both the scope of the gathering of the data, and the sharing of thereof. General Data Protection Regulation (GDPR) is a data protection law that was introduced on May 25, 2018 to addresses these data privacy related issues \cite{bib:recital6}.
+One of the primary objectives of GDPR is personal data privacy protection which is a fundamental right and freedom of people as defined under the Recital 1 of General Data Protection Regulation (GDPR) and the Charter of Fundamental Rights of the European Union \cite{bib:recital1}\cite{bib:charter}. Newly discovered challenges for the protection of personal data arise due to the ongoing globalization and quick development of digital technologies. This in turn vastly had increased both the scope of the gathering of the data, and the sharing of thereof. General Data Protection Regulation (GDPR) is a data protection law that came into force on May 25, 2018 to addresses these data privacy related issues \cite{bib:recital6}.
 
-One of the primary objectives of GDPR is personal data privacy protection. Implementation of this law had immediately increased the significance of data anonymisation as an information sanitization process in today's world \cite{bib:anonymization_for_research}. Anonymisation being a specific form of data masking suddenly became more relevant in today's world for the reason that the strict regulations defined in GDPR do not apply to the anonymized information. Data protection principles covered throughout GDPR concern only the processing of information that is identified to a natural person, or that is yet to be identified. Given the fact that anonymised information is by definition not relating to a person and hence it can be altogether exempted from the requirements of the GDPR, that applies only to personal data, as stated under Recital 26 \cite{bib:recital26}:
+Compliance with GDPR law is critical for organizations in the view of significant administrative fines they face. Violations of the data processor and data controller obligations defined in GPDR are subject to penalties imposed by European authorities. Non compliance with technical rules imply a penalty of 2 percent of the total annual turnover of the previous year, or €10 milion, whichever is higher, whereas non compliance with basic data protection principles imply a higher penalty of 4 percent of the total annual turnover of the previous year, or €20 million  \cite{bib:art83}\cite{bib:gdpr_managing_data_risk}.
+
+Implementation of this law had immediately increased the significance of data anonymisation as an information sanitization process in today's world \cite{bib:anonymization_for_research}. Anonymisation being a specific form of data masking suddenly became more relevant in today's world for the reason that the strict regulations, and therefore administrative fines, defined in GDPR do not apply to the anonymized information. Data protection principles covered throughout GDPR concern only the processing of information that is identified to a natural person, or that is yet to be identified. Given the fact that anonymised information is by definition not relating to a person and hence it can be altogether exempted from the requirements of the GDPR, that applies only to personal data, as stated under Recital 26 \cite{bib:recital26}:
+
+The information that had gone through pseudonymisation processes still falls under the regulations of GDPR, due to the relevant possibility of re-identification of the data subjects, whereas in case of the anonymised data, such re-identification is by definition either impossible or extremely impractical, and the anonymisation is irreversible by definition. Anonymised data is completely exempted from GDPR, whereas pseudonymisation is one of many possibilities for the data controllers and data processors to be GDPR compliant \cite{bib:gdpr_practical}.
 
 \begin{displayquote}
 	The principles of data protection should apply to any information concerning an identified or identifiable natural person. [\ldots] The principles of data protection should therefore not apply to anonymous information, namely information which does not relate to an identified or identifiable natural person or to personal data rendered anonymous in such a manner that the data subject is not or no longer identifiable. This Regulation does not therefore concern the processing of such anonymous information, including for statistical or research purposes.
@@ -410,11 +414,6 @@ One of the primary objectives of GDPR is personal data privacy protection. Imple
 
 \section{Data anonymisation}
 
-\color{blue}
-Personal data is...
-Anonymisation is... what, why.
-\color{black}
-
 \subsection{Background}
 Consider a collection of medical data concerning patients' clinical information. Processing and sharing of medical data volumes is crucial for the evolution of world's healthcare services. Medical researchers and doctors take an advantage of the collected data sets to improve their comprehension of diseases and explore new possibilities to treat these diseases, and hence both the overall capability to treat the diseases and the general efficiency of health services are improved. At last it is the patients who benefit from the research conducted on their data since the services they are offered with continuously improve. Nevertheless, it is known that medical data is exceptionally sensitive in its nature due to the details that include e.g. patient data, laboratory tests results, diagnosis details, prescribed medications and history of diseases [EMR].
 
@@ -422,6 +421,12 @@ Having understood how sensitive is the patient information and the vital needs t
 
 \subsection{Definition}
 
+The data anonymisation is considered to be an effective one only if both of the following criteries hold true:
+\begin{itemize}
+\item performed anonymisation operations are irreversible
+\item data subject re-identification is impossible or impractical 
+[https://gdpr.eu/data-anonymization-taxa-4x35/].
+\end{itemize}
 
 \section{Anonymisation and pseudonymisation}
 
