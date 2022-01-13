@@ -341,7 +341,7 @@ Wniosek: generyczny sposób anonimizacji - nie ma takiego.
 
 
 
-\chapter{Data anonymisation}
+\chapter{Problem analysis}
 
 
 \section{Data explosion}
@@ -381,15 +381,15 @@ Enterprise stores such as Amazon or SAP Commerce Cloud collect the information r
 
 
 
-\section{Data protection}
+\section{Data privacy}
 
 \color{blue}
 Data protection: what is, why, goals.
 Other definitions: data subject, data controller, data processor.
 \color{black}
 
-\subsection{Consent}
-Majority of data protection regulations are based on a consent of an individual, i.e. information can be used for secondary purposes only if an individual explicitly acknowledge their consent for that. This may sound easier said than done due to the unobvious difficulties data controllers would be facing when obtainining such a broad authorization consent for all possible secondary purpose usages. Consider a patient entering medical facility for an ordinary appointment. The patient could find it unusual, disturbing or even shocking if upon his entrance to the facility he was to receive an overwhelming form including dozens of independent consent authorization requests. The consents could give the impression of being seemingly unrelated to his visit in the first place, e.g. a constent to share the data with researchers of an university located on another continent. In the end that could destroy the data subject's trust – in this case patient's trust.
+\subsection{Authorization to share data}
+Majority of data privacy regulations are based on a consent of an individual, i.e. information can be used for secondary purposes only if an individual explicitly acknowledge their consent for that. This may sound easier said than done due to the unobvious difficulties data controllers would be facing when obtainining such a broad authorization consent for all possible secondary purpose usages. Consider a patient entering medical facility for an ordinary appointment. The patient could find it unusual, disturbing or even shocking if upon his entrance to the facility he was to receive an overwhelming form including dozens of independent consent authorization requests. The consents could give the impression of being seemingly unrelated to his visit in the first place, e.g. a constent to share the data with researchers of an university located on another continent. In the end that could destroy the data subject's trust – in this case patient's trust.
 
 This theoretical scenario may not easily be implemented in the real world counterpart, as it could be even impossible to know or predict all possible secondary purpose usages in the first place, and consent based authorization is all about knowing the usages.
 
@@ -415,10 +415,12 @@ Personal data is...
 Anonymisation is... what, why.
 \color{black}
 
-Consider a collection of medical data concerning patients' clinical information. Processing and sharing of medical data volumes is crucial for the evolution of world's healthcare services. Medical researchers and doctors take an advantage of the collected data sets to improve their comprehension of diseases and explore new possibilities to treat these diseases, and hence both the overall capability to treat the diseases and the general efficiency of health services. At last it is the patients who benefit from the conducted research as the services they are offered with improve. Nevertheless, it is known that medical data is exceptionally sensitive in its nature due to the details that include e.g. patient data, laboratory tests results, diagnosis details, prescribed medications and history of diseases [EMR].
+\subsection{Background}
+Consider a collection of medical data concerning patients' clinical information. Processing and sharing of medical data volumes is crucial for the evolution of world's healthcare services. Medical researchers and doctors take an advantage of the collected data sets to improve their comprehension of diseases and explore new possibilities to treat these diseases, and hence both the overall capability to treat the diseases and the general efficiency of health services are improved. At last it is the patients who benefit from the research conducted on their data since the services they are offered with continuously improve. Nevertheless, it is known that medical data is exceptionally sensitive in its nature due to the details that include e.g. patient data, laboratory tests results, diagnosis details, prescribed medications and history of diseases [EMR].
 
 Having understood how sensitive is the patient information and the vital needs to share this data, this is where data anonymisation plays an indeed crucial role. It would be impossible to disseminate patient information without prior anonymization of thereof.
 
+\subsection{Definition}
 
 
 \section{Anonymisation and pseudonymisation}
