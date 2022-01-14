@@ -39,7 +39,7 @@
 \usepackage{algpseudocode}
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
+\usepackage{booktabs}
 \usepackage{csquotes}
 \usepackage[natbib=true]{biblatex}
 \bibliography{bibliography}
@@ -166,6 +166,13 @@ escapeinside={@*}{*@},%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\algnewcommand{\algorithmicand}{\textbf{ and }}
+\algnewcommand{\algorithmicor}{\textbf{ or }}
+\algnewcommand{\algorithmiceq}{\textbf{ == }}
+\algnewcommand{\OR}{\algorithmicor}
+\algnewcommand{\AND}{\algorithmicand}
+\algnewcommand{\EQ}{\algorithmiceq}
+\algnewcommand{\var}{\texttt}
 
 
 \newcommand{\Author}{Name Surname}
@@ -425,7 +432,7 @@ Having understood how sensitive by its essence is the patient information and th
 
 Anonymisation is a statistical disclosure control method of a particular importance. The ultimate anonymisation goal is to deidentify the data by pruning the personal information in such a way that the relation between data subject and corresponding records is blurred.
 
-The commonly adopted approach when attempting to anonymise the data is to first classify the data attributes as personal identifying confidential attributes and quasi-identifying attributes \cite{bib:privacy_unesco}. The prerequisite is to understand the context of what does the data represent and by whom - in addition to how - will it be processed [13], as it is all up to this context to determine which attributes are quasi-identifiers - and what anonymisation techniques need to be used. Virtually, even the most unexpected attributes could be quasi-identifiers. Ignoring such fields when preparing for anonymisation may eventually lead to future re-identification of the data subjects, as demonstrated during the [Netflix 2005]. On the other hand, too much anonymisation strips the data out of utility.
+The commonly adopted approach when attempting to anonymise the data is to first classify the data attributes as personal identifying confidential attributes and quasi-identifying attributes \cite{bib:privacy_unesco_bigdata}. The prerequisite is to understand the context of what does the data represent and by whom - in addition to how - will it be processed [13], as it is all up to this context to determine which attributes are quasi-identifiers - and what anonymisation techniques need to be used. Virtually, even the most unexpected attributes could be quasi-identifiers. Ignoring such fields when preparing for anonymisation may eventually lead to future re-identification of the data subjects, as demonstrated during the [Netflix 2005]. On the other hand, too much anonymisation strips the data out of utility.
 
 
 The data anonymisation is considered to be an effective one only if both of the following criteries hold true:
@@ -478,7 +485,129 @@ It is not possible to predetermine – in a general fashion and without an extra
 \end{itemize}
 is always required when considering an effective way to anonymise data under that context \cite{bib:anonymizing_health_data}.
 
+\subsection{Suppression}
+
+Suppression is..
+
 \subsection{Generalisation}
+
+Generalisation is the second most common non-perturbative anonymisation technique \cite{bib:privacy_unesco_bigdata}. This technique processes the raw data by aggregating and substituting the initial values of a given attribute to the values that are more general \cite{bib:privacy_unesco_rule_based}. The process of generalisation constitutes a conversion of any value to a more general scope.
+
+The proposed software solution includes two generalisation strategies, namely:
+\begin{itemize}
+\item based on the size of distributions
+\item based on the number of distributions
+\end{itemize}
+
+Consider the raw data of the three attributes presented in table \ref{id:tab:generalisation_raw} to be put under the process of generalisation.
+
+\begin{table}[h]
+\centering
+\caption{Data before generalisation.}
+\label{id:tab:generalisation_raw}
+\begin{tabular}{@{}cll@{}}
+\toprule
+\multicolumn{1}{l}{Age} & Salary  & Location    \\ \midrule
+27                      & 36 000  & Poland      \\
+52                      & 54 000  & Canada      \\
+30                      & 180 000 & Poland      \\
+68                      & 128 000 & Switzerland \\ \bottomrule
+\end{tabular}
+\end{table}
+
+Results shown in table \ref{id:tab:generalisation} include exemplary possible values after being processed by the generalisation method. As depicted in the table, all three attributes have been grouped into broader value ranges, hence undergoing the generalisation, yet every column was generalised with a different generalisation strategy.
+
+
+\begin{table}[h]
+\centering
+\caption{Generalised data.}
+\label{id:tab:generalisation}
+\begin{tabular}{lll}
+\toprule
+Age   & Salary          & Location      \\ \hline
+26 – 30 & 1 – 60000       & Europe        \\
+51 – 55 & 1 – 60000       & North America \\
+26 – 30 & 120001 – 180000 & Europe        \\
+66 – 70 & 120001 – 180000 & Europe        \\ \hline
+\end{tabular}
+\end{table}
+
+Age column was generalised with a strategy based on the size of distribution. In this case the size of distribution was defined as 5, as every interval aggregates five distinct increasing integer values.
+
+On the other hand, salary data was generalised with a strategy based on the number of distributions - the values were aggregared to three even distributions.
+
+Finally, the generalisation does not necessarily concern only numerical values as observed in the generalisation of location attribute. To better understand this type of generalisation, consider that the age attribute could be generalised into the values of e.g. \textit{young adult, adult, senior}. This type of generalisation is not supported by the developed software, however an illustration of existence of such method is necessary. The fundamental assumption of the developed software is to be generic, i.e. data context-agnostic, and this generalisation method is too specific in its essence to be implemented in a generic fashion.
+
+Both supported generalisation strategies were further enhanced with customizations. The data processor is allowed to predefine minimum and maximum boundary values for the generalised intervals. The computed starting value for the distribution concerning lowest interval is either minimum raw value or user predefined minimum value, whichever is lower. The maximal value for the highest interval is computed in an analogic way.
+
+\begin{figure}[h]
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=lines, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
+procedure generalise(strategy, values, configuration)
+  computedMin := min(values.min(), configuration.userMin())
+  computedMax := max(values.max(), configuration.userMax())
+
+  // Phase 1: Generate empty intervals.
+  intervals := <Interval, Values>
+  i := computedMin
+  distributionSize := configuration.distributionSize()
+  while (i < computedMax)
+    interval := asEmptyInterval(i, i + distributionSize)
+    insert interval into intervals
+    i += distributionSize
+
+  // Phase 2: Populate intervals.
+  for (value in values)
+    for (interval in intervals)
+      if (value is within interval)
+        interval := get interval from intervals
+        add value to interval
+  return intervals
+\end{minted}
+\caption{Generalisation based on distribution size.}
+\label{fig:code:generalisation1}
+\end{figure}
+
+The generalisation strategies can be summarized with the pseudocodes shown in \ref{fig:code:generalisation1} and \ref{fig:code:generalisation2}.
+
+
+\begin{figure}[h]
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=lines, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
+procedure generalise(strategy, values, configuration)
+  computedMin := min(values.min(), configuration.userMin())
+  computedMax := max(values.max(), configuration.userMax())
+
+  // Phase 1: Generate empty intervals.
+  intervals := <Interval, Values>
+  i := computedMin
+  
+  numberOfDistributions = configuration.numberOfDistributions()
+  distributionSize := (computedMax - computedMin) / numberOfDistributions
+  j := 0    
+  while (j < numberOfDistributions)
+    interval := asEmptyInterval(i, i + distributionSize)
+    insert interval into intervals
+    i += distributionSize
+    j += 1
+
+  // Phase 2: Populate intervals.
+  for (value in values)
+    for (interval in intervals)
+      if (value is within interval)
+        interval := get interval from intervals
+        add value to interval
+  return intervals
+\end{minted}
+\caption{Generalisation based on number of distributions.}
+\label{fig:code:generalisation2}
+\end{figure}
+
+
+
+Generalisation may be applied on a global level or local level \cite{bib:anonymization_extensive_study}. In terms of database related vocabulary, as this paper primarily concerns an anonymisation of databases, we say generalisation on a column or record level, respectively.
+
+
+
+
 \subsection{Suppression}
 \subsection{Perturbation}
 \subsection{Pattern masking}
