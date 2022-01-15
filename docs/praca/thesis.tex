@@ -776,9 +776,102 @@ Why web platform, state of the art for web.
 
 \ksremark{state of the art dla aplikacji sieciowych}
 
-\chapter{Requirements and tools}
+\chapter{Design specification}
 
 \ksremark{Dlaczego aplikacja webowa?}
+
+\section{Requirements engineering}
+
+\subsection{Functional requirements}
+\subsection{Non-functional requirements}
+
+\section{System engineering}
+\subsection{Use cases}
+\subsection{REST API}
+
+\section{Software tools and technologies}
+
+The following listings are presented to give an overview of the designed system in terms of tools and technologies involved to engineer it. This is a brief summary – should a particular technology receive a greater detail of explanation, e.g., exemplary usage, it will be described in another dedicated unit.
+
+\subsection{Tools}
+
+This section encompasses technologies needed to develop, build, and maintain the system.
+
+\subsubsection{Docker}
+
+Docker is a virtualization software used to develop, run and manage applications in the form of containers taking advantage of Linux kernel features namespaces and cgroups. It consists of three components: the runtime, the daemon engine and the orchaestrator. 
+
+To run the production environment of anonymisation platform, only prior installation of Docker on the host system is required, because containerization technologies like Docker enable a separation of the software from the infrastructure the software is running on \cite{bib:docker_docs}\cite{bib:docker_book}.
+
+\subsubsection{Apache Maven}
+
+Apache Maven is an open source that automates the build process of foremostly Java based projects. Primary Maven objectives include ensuring an easy build process and an uniformly established build system which is achieved through Maven's build lifecycle (i.e., predefined build steps, e.g., \textit{validate}, \textit{compile}, \textit{test} or \textit{install}) \cite{bib:maven_docs}.
+
+Anonymisation platform uses this tool to build the backend server. Maven is put into service in one of the two ways – depending on the selected environment – i.e.:
+\begin{itemize}
+\item internally from the Docker container where Maven can be considered as an abstraction that the system administrator does not have be aware of
+\item on the host system itself
+\end{itemize}
+
+Maven is also used to run the tests.
+
+
+\subsubsection{Yarn}
+
+\subsubsection{Nodejs}
+
+\subsubsection{Nginx}
+
+\subsubsection{Maven}
+
+
+\begin{itemize}
+\item Docker
+
+
+
+\item Maven
+\item Yarn
+\item Nodejs
+\item Nginx
+\item IntelliJ and Webstorm
+\item Git
+\item GithubActions
+\item SonarQube
+\item ESLint and Prettier
+
+\end{itemize}
+
+\subsection{Server}
+
+\begin{itemize}
+\item Java 17
+\item Spring Framework (Boot: Web, Data, Security, Test, Validation, Mail)
+\item Hibernate + Hibernate types55
+\item PostgreSQL Server
+\item PostgreSQL Client
+\item Junit5
+\item Testcontainers
+\item Rest assured
+\item Swagger
+\item Other libraries: commons lang3, bouncycastle, jjwt, ztexec
+\end{itemize}
+
+\subsection{Client}
+\begin{itemize}
+\item Typescript
+\item React
+\item React router
+\item React query
+\item React hook form
+\item Yup
+\item Material ui
+\item Axios
+
+
+\end{itemize}
+
+\section{Development methodology}
 
 \begin{itemize}
 \item functional and nonfunctional requirements
