@@ -807,22 +807,34 @@ To run the production environment of anonymisation platform, only prior installa
 
 Apache Maven is an open source that automates the build process of foremostly Java based projects. Primary Maven objectives include ensuring an easy build process and an uniformly established build system which is achieved through Maven's build lifecycle (i.e., predefined build steps, e.g., \textit{validate}, \textit{compile}, \textit{test} or \textit{install}) \cite{bib:maven_docs}.
 
-Anonymisation platform uses this tool to build the backend server. Maven is put into service in one of the two ways – depending on the selected environment – i.e.:
+Anonymisation platform uses this tool to build the backend server. Maven is put into service in one of the two ways – depending on the selected environment – namely:
 \begin{itemize}
 \item internally from the Docker container where Maven can be considered as an abstraction that the system administrator does not have be aware of
 \item on the host system itself
 \end{itemize}
 
-Maven is also used to run the tests.
+Maven is also used to run the tests. Gradle could be a great alternative to Maven, the choice being preference based in usual scenarios.
+
+\subsubsection{Node.js}
+
+Node.js is a Javascript runtime engine encapsulating V8 engine developed by Google which implements ECMAScript \cite{bib:v8_docs}. While node.js may function as a dedicated backend server, in the case of anonymisation platform it is used merely to build the client application with yarn.
+
+\subsubsection{yarn}
+
+Yet another resource negotiator (yarn for short) is a package manager developed by Facebook, Google and others \cite{bib:yarn_fb}, whose primary purpose is – similarly to \textit{npm} – installation and management of dependencies used by Node.js runtime environment based projects. Yarn also focuses on ensuring high level of security, performance and reliability \cite{bib:yarn_docs}.
+
+While the purpose of Maven is to build and run the backend server, yarn's purpose is to build and run the frontend client application. Consequently, yarn is used in the same way as Maven – either internally in Docker or on the host system – depending on the chosen environment.
+
+\subsubsection{nginx}
+
+Nginx is an open-source that works as a reverse proxy, web server and HTTP load balancer with the first one being the primary function for anonymisation platform. Reverse proxies improve resiliency, security, scalability and performance of the software systems. This is particularly relevant when designing systems that scale horizontally \cite{bib:nginx_cookbook}.
+
+\subsubsection{git}
+
+It's been a while since most developers had already started using git for development, which is the leading software for version control, however not everyone knows it was originally invented by Linus Torvalds specifically for Linux kernel development needs \cite{bib:git_techtalk}. It is clearly necessary to use git during software development due to the essential needs to publish, stash or revert the code changes \cite{bib:git_pro}.
 
 
-\subsubsection{Yarn}
 
-\subsubsection{Nodejs}
-
-\subsubsection{Nginx}
-
-\subsubsection{Maven}
 
 
 \begin{itemize}
