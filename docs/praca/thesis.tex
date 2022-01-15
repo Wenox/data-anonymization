@@ -175,10 +175,10 @@ escapeinside={@*}{*@},%
 \algnewcommand{\var}{\texttt}
 
 
-\newcommand{\Author}{Name Surname}
+\newcommand{\Author}{Szymon Pluta}
 \newcommand{\Supervisor}{Name Surname, DSc PhD}
 \newcommand{\Consultant}{Name Surname, PhD}
-\newcommand{\Title}{Title of engineer thesis}
+\newcommand{\Title}{Data anonymisation web platform}
 \newcommand{\Polsl}{Silesian University of Technology}
 \newcommand{\Faculty}{Faculty of Automatic Control, Electronics and Computer Science}
 \newcommand{\Programme}{Programme: Informatics}
@@ -357,7 +357,7 @@ Big data analytics deals with the difficulties of managing the observed exponent
 
 Services of enterprise organizations are running on all the collected data which can take various forms such as database entries, metrics, logs or outgoing messages. New data streaming technologies working at a large scale needed to be engineered to handle the continuous flow of data between systems and databases. An example of such technology includes Apache Kafka which generates even more than a trillion of messages per day for individual large enterprise organizations taking advantage of it \cite{bib:kafka_online}\cite{bib:kafka}.
 
-This only proves that big data deals not only with massive volumes - it has also to deal with the high velocities of data generation, which is yet another characteristic of data \cite{bib:big_data_analytics}. According to DOMO report published back in 2020, 90\% of world's data was generated just in the preceding two years, and on average every person in the world created 1.7 megabytes of data per second - which yields 2.5 quintillion ($2.5 \cdot 10^{18}$) bytes of new data each day \cite{bib:domo}.
+This only proves that big data deals not only with massive volumes – it has also to deal with the high velocities of data generation, which is yet another characteristic of data \cite{bib:big_data_analytics}. According to DOMO report published back in 2020, 90\% of world's data was generated just in the preceding two years, and on average every person in the world created 1.7 megabytes of data per second – which yields 2.5 quintillion ($2.5 \cdot 10^{18}$) bytes of new data each day \cite{bib:domo}.
 
 
 
@@ -368,11 +368,11 @@ The momentum of the immense big data interest growth among organizations is not 
 Various types of organizations collect data to take advantage from the insights derived out of the data. The big data analytics applications' impact can be observed already today in a broad spectrum of domains. 
 
 
-Leading technology companies, such as Google and Facebook, to name a few, sell anonymised collected user data access to their partner advertisers \cite{bib:big_data_in_practice}. This is legally possible as the information that was anonymised, i.e. deidentified in a way that it is no longer bound to an individual, may flow from a system to a system.
+Leading technology companies, such as Google and Facebook, to name a few, sell anonymised collected user data access to their partner advertisers \cite{bib:big_data_in_practice}. This is legally possible as the information that was anonymised, i.e., deidentified in a way that it is no longer bound to an individual, may flow from a system to a system.
 
-Large Hadron Collider (LHC) located in CERN, being the largest physical experiment, annually produce approximately 30 petabytes of data. LHC takes an advantage of light sensors that monitor the collisions of hundreds of millions of particles accelerated nearly to the speed of light. The collisions create enormous amount of data to be processed by computer algorithms in the hope of discovering new particles, e.g. a Nobel prize awarding discovery of Higgs boson had taken place in 2012 \cite{bib:cern}.
+Large Hadron Collider (LHC) located in CERN, being the largest physical experiment, annually produce approximately 30 petabytes of data. LHC takes an advantage of light sensors that monitor the collisions of hundreds of millions of particles accelerated nearly to the speed of light. The collisions create enormous amount of data to be processed by computer algorithms in the hope of discovering new particles, e.g., a Nobel prize awarding discovery of Higgs boson had taken place in 2012 \cite{bib:cern}.
 
-Enterprise stores such as Amazon or SAP Commerce Cloud collect the information regarding the way of how the visitors browse and interact with these stores. Collected information may involve the behavioral data related to customer engagement, such as the pages we visit, event clicks, or the way we scroll the page. The insights derived from the collected information enable making future improvements of these services - for example by improving the digital marketing or performance improvements based on the metrics \cite{bib:sap}. The customer experience is also improved as based on the collected data the advertisements or item recommendations can be taylored to the specific user's preferences. The recommendation engine may also attempt to match your profile data to people of similiar profile to provide better recommendations. Services attempt to analyze the behavioural patterns such as time of day we browse the store or what circumstances caused our last visit to finish. Even the details such as the exact neighbourhood location we live in, combined with its estimated wealth, organizations may attempt to guess our potential income level \cite{bib:big_data_in_practice}. These data analytics are performed to improve the possibility of customer buying yet another item.
+Enterprise stores such as Amazon or SAP Commerce Cloud collect the information regarding the way of how the visitors browse and interact with these stores. Collected information may involve the behavioral data related to customer engagement, such as the pages we visit, event clicks, or the way we scroll the page. The insights derived from the collected information enable making future improvements of these services – for example by improving the digital marketing or performance improvements based on the metrics \cite{bib:sap}. The customer experience is also improved as based on the collected data the advertisements or item recommendations can be taylored to the specific user's preferences. The recommendation engine may also attempt to match your profile data to people of similiar profile to provide better recommendations. Services attempt to analyze the behavioural patterns such as time of day we browse the store or what circumstances caused our last visit to finish. Even the details such as the exact neighbourhood location we live in, combined with its estimated wealth, organizations may attempt to guess our potential income level \cite{bib:big_data_in_practice}. These data analytics are performed to improve the possibility of customer buying yet another item.
 
 
 
@@ -388,22 +388,22 @@ Although the use of our personal information existed ever since the very first c
 
 It is argued that the data privacy should be centered only around the data usages that have the potential to be a privacy breach. On the other hand, it is argued that merely a collection of the data is already a privacy harm. The information that was collected is endangered by many threats, including data misuse, data breach, data leak or even authorities accesses without legal obligations. Anonymisation is the best method to mitigate conflicts raised by big data with respect to data privacy and data protection \cite{bib:big_data_privacy}.
 
-Luckily the law had finally caught up to the circumstances of the increasing data usages and the associated risks. New European regulations were adopted in 2018 in the form of General Data Protection Regulation (GDPR) to protect our data privacy in a refined fashion. The data subjects, i.e. the individuals represented by the data \cite{bib:anonymization_pipeline}, now have a better control over their personal information – we are now entitled to know what information concerning us is being  processed and for what purpose. We are also entitled to withdraw at any time the consent for the processing of our data. In case of violations we have the right to complain to authorities and seek justice against both the data controllers, i.e. the entities that determine the intention and means of processing the personal information, and the data processors, i.e. the entities that process the personal information on behalf of the data controllers \cite{bib:gdpr_compliance}.
+Luckily the law had finally caught up to the circumstances of the increasing data usages and the associated risks. New European regulations were adopted in 2018 in the form of General Data Protection Regulation (GDPR) to protect our data privacy in a refined fashion. The data subjects, i.e., the individuals represented by the data \cite{bib:anonymization_pipeline}, now have a better control over their personal information – we are now entitled to know what information concerning us is being  processed and for what purpose. We are also entitled to withdraw at any time the consent for the processing of our data. In case of violations we have the right to complain to authorities and seek justice against both the data controllers, i.e., the entities that determine the intention and means of processing the personal information, and the data processors, i.e., the entities that process the personal information on behalf of the data controllers \cite{bib:gdpr_compliance}.
 
 An overall awareness of the data privacy significance had improved in the society, and the means to achieve the data privacy through data protection had also improved as organizations needed to adopt to the new situation by applying enhanced measures to their protection of data – anonymisation and pseudonymisation being the notable examples of such measures.
 
 \subsection{Authorization to share data}
-Majority of data privacy regulations are based on a consent of an individual, i.e. it is lawful to process and use the information for secondary purposes only if an individual explicitly acknowledge their consent for that \cite{bib:gdpr_practical_guide}. This may appear easier said than done due to the unobvious difficulties data controllers face when trying to obtain such a broad authorization consent that will take into account all possible secondary purpose usages.
+Majority of data privacy regulations are based on a consent of an individual, i.e., it is lawful to process and use the information for secondary purposes only if an individual explicitly acknowledge their consent for that \cite{bib:gdpr_practical_guide}. This may appear easier said than done due to the unobvious difficulties data controllers face when trying to obtain such a broad authorization consent that will take into account all possible secondary purpose usages.
 
-Consider a patient entering medical facility for an ordinary appointment. The patient would likely find it unusual, disturbing or even shocking if upon his entrance to the facility he was to receive an overwhelming form that included dozens of independent consent authorization requests. The consents could give the impression of being seemingly unrelated to his visit in the first place, e.g. a constent to share the data with researchers of an university located on another continent. In the end that could destroy the data subject's trust – in this case patient's trust.
+Consider a patient entering medical facility for an ordinary appointment. The patient would likely find it unusual, disturbing or even shocking if upon his entrance to the facility he was to receive an overwhelming form that included dozens of independent consent authorization requests. The consents could give the impression of being seemingly unrelated to his visit in the first place, e.g., a constent to share the data with researchers of an university located on another continent. In the end that could destroy the data subject's trust – in this case patient's trust.
 
 This theoretical scenario may not easily be implemented in the real world counterpart, as it could be even impossible to know or predict all possible secondary purpose usages in the first place, and consent based authorization is all about knowing the usages.
 
-Consider a newly discovered purpose to process personal information of an already existing database. Getting a consent after the data had already been collected, i.e. backwards in time, would be impossible to accomplish as the data controller would need to contact potentially hundreds of thousands of people for their explicit consent. New purpose can be discovered years after the data collection.
+Consider a newly discovered purpose to process personal information of an already existing database. Getting a consent after the data had already been collected, i.e., backwards in time, would be impossible to accomplish as the data controller would need to contact potentially hundreds of thousands of people for their explicit consent. New purpose can be discovered years after the data collection.
 
 Having that in mind, no consent is required when processing the data that is already anonymised. A data that was stripped from personal identifying or identifiable information data can be used in any way and can be shared with third parties without previously agreed consent. Data controllers now face a realistic to solve problem of information anonymisation rather than an unrealistic problem of consents collection \cite{bib:anonymizing_health_data}.
 
-It is worth mentioning that there exists cases which are defined under Article 6 of General Data Protection Regulation (GDPR) \cite{bib:art6} when consent is not required to process the data, e.g. if the processing is required to defend the data subject's interests or in order not to break the compliance with legal obligations as a data controller. GDPR is a new European law that replaces the preceeding Data Protection Directive regulation adopted by European Community in 1995 \cite{bib:gdpr_practical_guide}. 
+It is worth mentioning that there exists cases which are defined under Article 6 of General Data Protection Regulation (GDPR) \cite{bib:art6} when consent is not required to process the data, e.g., if the processing is required to defend the data subject's interests or in order not to break the compliance with legal obligations as a data controller. GDPR is a new European law that replaces the preceeding Data Protection Directive regulation adopted by European Community in 1995 \cite{bib:gdpr_practical_guide}. 
 
 \subsection{General Data Protection Regulation}
 
@@ -411,7 +411,7 @@ One of the primary objectives of GDPR is personal data privacy protection which 
 
 Compliance with GDPR law is critical for organizations in the view of significant administrative fines they face. Violations of the data processor and data controller obligations defined in GPDR are subject to costly penalties that are imposed by European authorities. Non compliance with technical rules imply a penalty of 2 percent of the total annual turnover of the previous year, or €10 milion, whichever one is higher, whereas non compliance with basic data protection principles imply an even higher penalty of 4 percent of the total annual turnover of the previous year, or €20 million, whichever one is higher \cite{bib:art83}\cite{bib:gdpr_managing_data_risk}.
 
-Implementation of this law had immediately increased the significance of data anonymisation as an information sanitization process in today's world \cite{bib:anonymization_for_research}. Anonymisation being a specific form of data masking suddenly became more relevant in today's world for the reason that the strict regulations, and therefore administrative fines, defined in GDPR do not apply to the anonymised information. Data protection principles covered throughout GDPR concern only the processing of information that is already identified to a natural person, or that is identifiable to a natural person, i.e. an individual is yet to be identified. Given the fact that anonymised information is by definition not relating to a person, hence it can be completely exempted from falling under the GDPR requirements, which apply only to personal data, as stated under Recital 26 \cite{bib:recital26}:
+Implementation of this law had immediately increased the significance of data anonymisation as an information sanitization process in today's world \cite{bib:anonymization_for_research}. Anonymisation being a specific form of data masking suddenly became more relevant in today's world for the reason that the strict regulations, and therefore administrative fines, defined in GDPR do not apply to the anonymised information. Data protection principles covered throughout GDPR concern only the processing of information that is already identified to a natural person, or that is identifiable to a natural person, i.e., an individual is yet to be identified. Given the fact that anonymised information is by definition not relating to a person, hence it can be completely exempted from falling under the GDPR requirements, which apply only to personal data, as stated under Recital 26 \cite{bib:recital26}:
 
 \begin{displayquote}
 	The principles of data protection should apply to any information concerning an identified or identifiable natural person. [\ldots] The principles of data protection should therefore not apply to anonymous information, namely information which does not relate to an identified or identifiable natural person or to personal data rendered anonymous in such a manner that the data subject is not or no longer identifiable. This Regulation does not therefore concern the processing of such anonymous information, including for statistical or research purposes.
@@ -421,26 +421,32 @@ GDPR distinguishes personal data, anonymised data and pseudonymised data as dist
 
 \section{Data anonymisation}
 
-The data released by organizations exclude identity related information such as names, addresses, telephone numbers or credit card numbers. Personal data is stripped from disseminated data sets through anonymisation to protect the anonymity of the individuals, i.e. data subjects \cite{bib:anonymization_extensive_study}.
+The data released by organizations exclude identity related information such as names, addresses, telephone numbers or credit card numbers. Personal data is stripped from disseminated data sets through anonymisation to protect the anonymity of the individuals, i.e., data subjects \cite{bib:anonymization_extensive_study}.
 
 \subsection{Background}
-Consider a collection of medical data concerning patients' clinical information. Processing and sharing of medical data volumes is crucial for the evolution of world's healthcare services. Medical researchers and doctors take an advantage of the collected data sets to improve their comprehension of diseases and explore new possibilities to treat these diseases, and hence both the overall capability to treat the diseases and the general efficiency of health services are improved. At last it is the patients who benefit from the research conducted on their data since the services they are offered with continuously improve. Nevertheless, it is known that medical data is exceptionally sensitive by its nature due to the details that include e.g. patient data, laboratory tests results, diagnosis details, prescribed medications and history of diseases \cite{bib:anonymization_emr}.
+Consider a collection of medical data concerning patients' clinical information. Processing and sharing of medical data volumes is crucial for the evolution of world's healthcare services. Medical researchers and doctors take an advantage of the collected data sets to improve their comprehension of diseases and explore new possibilities to treat these diseases, and hence both the overall capability to treat the diseases and the general efficiency of health services are improved. At last it is the patients who benefit from the research conducted on their data since the services they are offered with continuously improve. Nevertheless, it is known that medical data is exceptionally sensitive by its nature due to the details that include e.g., patient data, laboratory tests results, diagnosis details, prescribed medications and history of diseases \cite{bib:anonymization_emr}.
 
 Having understood how sensitive by its essence is the patient information and the vital needs to share this data, this is where data anonymisation plays an indeed crucial role. It would be impossible to disseminate patient information without prior anonymization of thereof.
 
 \subsection{Definition}
 
-Anonymisation is a statistical disclosure control method of a particular importance. The ultimate anonymisation goal is to deidentify the data by pruning the personal information in such a way that the relation between data subject and corresponding records is blurred.
+Anonymisation is a statistical disclosure control method of a particular importance. The ultimate anonymisation goal is to de-identify the data by pruning the personal information in such a way that the relation between data subject and corresponding records is blurred.
 
-The commonly adopted approach when attempting to anonymise the data is to first classify the data attributes as personal identifying confidential attributes and quasi-identifying attributes \cite{bib:privacy_unesco_bigdata}. The prerequisite is to understand the context of what does the data represent and by whom - in addition to how - will it be processed [13], as it is all up to this context to determine which attributes are quasi-identifiers - and what anonymisation techniques need to be used. Virtually, even the most unexpected attributes could be quasi-identifiers. Ignoring such fields when preparing for anonymisation may eventually lead to future re-identification of the data subjects, as demonstrated during the [Netflix 2005]. On the other hand, too much anonymisation strips the data out of utility.
-
-
-The data anonymisation is considered to be an effective one only if both of the following criteries hold true:
+The data anonymisation is considered to be an effective one only if both of the following criterias hold true \cite{bib:anonymization_taxa}:
 \begin{itemize}
 \item performed anonymisation operations are irreversible
 \item data subject re-identification is impossible or impractical 
-[https://gdpr.eu/data-anonymization-taxa-4x35/].
 \end{itemize}
+
+\subsection{Data classification}
+
+The prerequisite for anonymisation is to understand the context of what does the data represent and by whom – in addition to how – will it be processed [13]. 
+
+The commonly adopted approach when attempting to anonymise the data is to first classify the data attributes as direct identifiers (i.e., personal identifying confidential attributes unique to an individual, such as address or tax identification number), indirect identifiers (i.e., so called quasi-identifiers that when combined can discover the individual's identity – such as sex or date of birth) and non identifiers \cite{bib:privacy_unesco_bigdata}\cite{bib:anonymizing_health_data}.
+
+It is context dependent to determine which attributes are quasi-identifiers – and finally which techniques need to be combined to achieve anonymisation. Virtually, even the most unexpected attributes could be quasi-identifiers. Ignoring such fields when preparing for anonymisation may eventually lead to future re-identification of the data subjects, as successfully demonstrated, e.g., when breaking the anonymity of the Netflix Prize dataset back in 2006 \cite{bib:netflix}. Since then significant advancements in the field of de-identification were yielded – and in various domains \cite{bib:netflix_decade_later}.
+
+On the other hand, too much anonymisation of quasi-identifiers strips the data out of utility.
 
 \subsection{Utility trade-off}
 
@@ -463,6 +469,9 @@ What is pseudonymization? How does it differ?
 Nawet jeśli dane personall identifiable information PII są usunięte, to można połączyć osobe z pomocą istniejących nieusuniętych danych np. płeć oraz external informacjach np. social media. Komputery są coraz szybsze, źródeł danych coraz więcej - napastnikom coraz łatwiej.
 
 Przykłady takich ataków (Netflix Prize, IMDB).
+https://www.cs.princeton.edu/~arvindn/publications/de-anonymization-retrospective.pdf
+https://arxiv.org/abs/1512.08546
+
 
 
 // todo
@@ -481,13 +490,62 @@ It is not possible to predetermine – in a general fashion and without an extra
 \begin{itemize}
 	\item exact representation form of the data being processed \textit{(What is the data?)}
 	\item data processors who use the data \textit{(Who will use the data?)}
-	\item processing purpose, e.g. research objective \textit{(How will the data be used?)}
+	\item processing purpose, e.g., research objective \textit{(How will the data be used?)}
 \end{itemize}
 is always required when considering an effective way to anonymise data under that context \cite{bib:anonymizing_health_data}.
 
 \subsection{Suppression}
 
-Suppression is..
+Suppression is the strongest anonymisation technique which completely removes all the values associated with the given attribute, hence rendering the complete protection of the data and therefore enforcing the best data subjects privacy. It is guaranteed that no further implication attacks can be performed against this data \cite{bib:anonymization_extensive_study}. Nevertheless, suppression being the strongest privacy preserving method implies the highest (i.e., worst) data utility loss as a inseparable consequence – the ultimate cost of complete anonymisation that is to be paid.
+
+Consider the raw data of the three attributes presented in table \ref{id:tab:suppression_raw} to be put under the process of suppression.
+
+\begin{table}[h]
+\centering
+\caption{Data prior to suppression.}
+\label{id:tab:suppression_raw}
+\begin{tabular}{ccc}
+\toprule
+Sex & \multicolumn{1}{l}{PIN codes} & Phone number \\ \hline
+F   & 3248                          & 1212 – 345345  \\
+F   & 8090                          & 4000 – 303030  \\
+M   & 1337                          & 5191 – 915100 
+\end{tabular}
+\end{table}
+
+Exemplary results of performed suppression are depicted in table \ref{id:tab:suppression}. All of the three attributes values were suppressed to the value of the suppression token supplied by the data controller.
+
+\begin{table}[h]
+\centering
+\caption{Data after suppression.}
+\label{id:tab:suppression}
+\begin{tabular}{ccc}
+\toprule
+Sex & PIN codes & Phone number \\ \hline
+F/M & \#\#\#\#  & 3000 – 123123  \\
+F/M & \#\#\#\#  & 3000 – 123123  \\
+F/M & \#\#\#\#  & 3000 – 123123
+\end{tabular}
+\end{table}
+
+Phone number suppression deserves a brief discussion. Consider a context in which an attacker successfully obtained the information of exactly one individual data subject of his interest. Consider that the attacker decided to call the anonymised phone number. This number could be suppressed in a way to specifically protect against this attack and the attacker could call someone intentionally most definitely did not, i.e., data protection officer or authorities. In this scenario it could be trivial to trace the call and find the potential attacker. As demonstrated, suppressed could be used in unobvious ways.
+
+Suppression is typically applied on the column level of an attribute, however it is also applicable to the individual records. When compared to plain generalisation, suppression yields a higher information loss and can be though of as a particular case of generalisation \cite{bib:anonymization_emr}. 
+
+The designed software offers column level suppression with a user specified value (i.e., suppression token). The values are transformed to this user specified value using a simple algorithm shown in \ref{fig:code:suppression}.
+
+
+\begin{figure}[h]
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=lines, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
+procedure suppression(values, token)
+  for (value in values)
+    value := token
+  return values
+\end{minted}
+\caption{Suppression pseudocode.}
+\label{fig:code:suppression}
+\end{figure}
+
 
 \subsection{Generalisation}
 
@@ -503,7 +561,7 @@ Consider the raw data of the three attributes presented in table \ref{id:tab:gen
 
 \begin{table}[h]
 \centering
-\caption{Data before generalisation.}
+\caption{Data prior to generalisation.}
 \label{id:tab:generalisation_raw}
 \begin{tabular}{@{}cll@{}}
 \toprule
@@ -534,9 +592,9 @@ Age   & Salary          & Location      \\ \hline
 
 Age column was generalised with a strategy based on the size of distribution. In this case the size of distribution was defined as 5, as every interval aggregates five distinct increasing integer values.
 
-On the other hand, salary data was generalised with a strategy based on the number of distributions - the values were aggregared to three even distributions.
+On the other hand, salary data was generalised with a strategy based on the number of distributions – the values were aggregared to three even distributions.
 
-Finally, the generalisation does not necessarily concern only numerical values as observed in the generalisation of location attribute. To better understand this type of generalisation, consider that the age attribute could be generalised into the values of e.g. \textit{young adult, adult, senior}. This type of generalisation is not supported by the developed software, however an illustration of existence of such method is necessary. The fundamental assumption of the developed software is to be generic, i.e. data context-agnostic, and this generalisation method is too specific in its essence to be implemented in a generic fashion.
+Finally, the generalisation does not necessarily concern only numerical values as observed in the generalisation of location attribute. To better understand this type of generalisation, consider that the age attribute could be generalised into the values of e.g., \textit{young adult, adult, senior}. This type of generalisation is not supported by the developed software, however an illustration of existence of such method is necessary. The fundamental assumption of the developed software is to be generic, i.e., data context-agnostic, and this generalisation method is too specific in its essence to be implemented in a generic fashion.
 
 Both supported generalisation strategies were further enhanced with customizations. The data processor is allowed to predefine minimum and maximum boundary values for the generalised intervals. The computed starting value for the distribution concerning lowest interval is either minimum raw value or user predefined minimum value, whichever is lower. The maximal value for the highest interval is computed in an analogic way.
 
@@ -563,7 +621,7 @@ procedure generalise(strategy, values, configuration)
         add value to interval
   return intervals
 \end{minted}
-\caption{Generalisation based on distribution size.}
+\caption{Pseudocode for generalisation based on distribution size.}
 \label{fig:code:generalisation1}
 \end{figure}
 
@@ -597,7 +655,7 @@ procedure generalise(strategy, values, configuration)
         add value to interval
   return intervals
 \end{minted}
-\caption{Generalisation based on number of distributions.}
+\caption{Pseudocode for generalisation based on number of distributions.}
 \label{fig:code:generalisation2}
 \end{figure}
 
@@ -607,9 +665,14 @@ Generalisation may be applied on a global level or local level \cite{bib:anonymi
 
 
 
-
-\subsection{Suppression}
 \subsection{Perturbation}
+
+Perturbation is a data masking technique which encompasses the process of swapping the original values with artificial ones in a way that the statistical factors of the data are similar to the initial data. Perturbation is typically achieved by adding noise to the information so that the values are slightly different \cite{bib:anonymization_directory_structured}. 
+
+This technique works the best with continuous values - it is an effective method for de-identification of quasi-identifiers such as dates and numbers \cite{bib:anonymisation_techniques_singapore}. Scientifically advanced perturbation approaches are divided into linear and non-linear perturbation models \cite{bib:perturbation_methods}.
+
+
+
 \subsection{Pattern masking}
 \subsection{Randomisation}
 \subsubsection{Column shuffle}
