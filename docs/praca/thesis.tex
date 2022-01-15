@@ -176,7 +176,7 @@ escapeinside={@*}{*@},%
 
 
 \newcommand{\Author}{Szymon Pluta}
-\newcommand{\Supervisor}{Name Surname, DSc PhD}
+\newcommand{\Supervisor}{Krzysztof Simiński, DSc PhD}
 \newcommand{\Consultant}{Name Surname, PhD}
 \newcommand{\Title}{Data anonymisation web platform}
 \newcommand{\Polsl}{Silesian University of Technology}
@@ -498,7 +498,7 @@ is always required when considering an effective way to anonymise data under tha
 
 Suppression is the strongest anonymisation technique which completely removes all the values associated with the given attribute, hence rendering the complete protection of the data and therefore enforcing the best data subjects privacy. It is guaranteed that no further implication attacks can be performed against this data \cite{bib:anonymization_extensive_study}. Nevertheless, suppression being the strongest privacy preserving method implies the highest (i.e., worst) data utility loss as a inseparable consequence – the ultimate cost of complete anonymisation that is to be paid.
 
-Consider the raw data of the three attributes presented in table \ref{id:tab:suppression_raw} to be put under the process of suppression.
+Consider the raw data of the three attributes presented in the table \ref{id:tab:suppression_raw} to be put under the process of suppression.
 
 \begin{table}[h]
 \centering
@@ -513,7 +513,7 @@ M   & 1337                          & 5191 – 915100
 \end{tabular}
 \end{table}
 
-Exemplary results of performed suppression are depicted in table \ref{id:tab:suppression}. All of the three attributes values were suppressed to the value of the suppression token supplied by the data controller.
+Exemplary results of performed suppression are depicted in the table \ref{id:tab:suppression}. All of the three attributes values were suppressed to the value of the suppression token supplied by the data controller.
 
 \begin{table}[h]
 \centering
@@ -557,7 +557,7 @@ The proposed software solution includes two generalisation strategies, namely:
 \item based on the number of distributions
 \end{itemize}
 
-Consider the raw data of the three attributes presented in table \ref{id:tab:generalisation_raw} to be put under the process of generalisation.
+Consider the raw data of the three attributes presented in the table \ref{id:tab:generalisation_raw} to be put under the process of generalisation.
 
 \begin{table}[h]
 \centering
@@ -573,7 +573,7 @@ Consider the raw data of the three attributes presented in table \ref{id:tab:gen
 \end{tabular}
 \end{table}
 
-Results shown in table \ref{id:tab:generalisation} include exemplary possible values after being processed by the generalisation method. As depicted in the table, all three attributes have been grouped into broader value ranges, hence undergoing the generalisation, yet every column was generalised with a different generalisation strategy.
+Results shown in the table \ref{id:tab:generalisation} include exemplary possible values after being processed by the generalisation method. As depicted in the table, all three attributes have been grouped into broader value ranges, hence undergoing the generalisation, yet every column was generalised with a different generalisation strategy.
 
 
 \begin{table}[h]
@@ -592,22 +592,22 @@ Age   & Salary          & Location      \\ \hline
 
 Age column was generalised with a strategy based on the size of distribution. In this case the size of distribution was defined as 5, as every interval aggregates five distinct increasing integer values.
 
-On the other hand, salary data was generalised with a strategy based on the number of distributions – the values were aggregared to three even distributions.
+On the other hand, salary data was generalised with a strategy based on the number of distributions – the values were aggregated to three even distributions.
 
 Finally, the generalisation does not necessarily concern only numerical values as observed in the generalisation of location attribute. To better understand this type of generalisation, consider that the age attribute could be generalised into the values of e.g., \textit{young adult, adult, senior}. This type of generalisation is not supported by the developed software, however an illustration of existence of such method is necessary. The fundamental assumption of the developed software is to be generic, i.e., data context-agnostic, and this generalisation method is too specific in its essence to be implemented in a generic fashion.
 
-Both supported generalisation strategies were further enhanced with customizations. The data processor is allowed to predefine minimum and maximum boundary values for the generalised intervals. The computed starting value for the distribution concerning lowest interval is either minimum raw value or user predefined minimum value, whichever is lower. The maximal value for the highest interval is computed in an analogic way.
+Both supported generalisation strategies were further enhanced with customizations. The data processor is allowed to predefine minimum and maximum boundary values for the generalised intervals. The computed starting value for the distribution concerning lowest interval is either minimum raw value or user predefined minimum value, whichever is lower. The maximal value for the highest interval is computed in an analogical way.
 
 \begin{figure}[h]
 \begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=lines, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
-procedure generalise(strategy, values, configuration)
+procedure generalise(values, configuration)
   computedMin := min(values.min(), configuration.userMin())
   computedMax := max(values.max(), configuration.userMax())
+  distributionSize := configuration.distributionSize()
 
   // Phase 1: Generate empty intervals.
   intervals := <Interval, Values>
   i := computedMin
-  distributionSize := configuration.distributionSize()
   while (i < computedMax)
     interval := asEmptyInterval(i, i + distributionSize)
     insert interval into intervals
@@ -630,15 +630,15 @@ The generalisation strategies can be summarized with the pseudocodes shown in \r
 
 \begin{figure}[h]
 \begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=lines, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
-procedure generalise(strategy, values, configuration)
+procedure generalise(values, configuration)
   computedMin := min(values.min(), configuration.userMin())
   computedMax := max(values.max(), configuration.userMax())
+  numberOfDistributions = configuration.numberOfDistributions()
 
   // Phase 1: Generate empty intervals.
   intervals := <Interval, Values>
   i := computedMin
   
-  numberOfDistributions = configuration.numberOfDistributions()
   distributionSize := (computedMax - computedMin) / numberOfDistributions
   j := 0    
   while (j < numberOfDistributions)
@@ -669,10 +669,76 @@ Generalisation may be applied on a global level or local level \cite{bib:anonymi
 
 Perturbation is a data masking technique which encompasses the process of swapping the original values with artificial ones in a way that the statistical factors of the data are similar to the initial data. Perturbation is typically achieved by adding noise to the information so that the values are slightly different \cite{bib:anonymization_directory_structured}. 
 
-This technique works the best with continuous values - it is an effective method for de-identification of quasi-identifiers such as dates and numbers \cite{bib:anonymisation_techniques_singapore}. Scientifically advanced perturbation approaches are divided into linear and non-linear perturbation models \cite{bib:perturbation_methods}.
+Consider weight and height data shown in the table \ref{id:tab:perturbation_raw}.
+
+\begin{table}[h]
+\centering
+\caption{Data prior to perturbation.}
+\label{id:tab:perturbation_raw}
+\begin{tabular}{rr}
+\hline
+\multicolumn{1}{l}{Height} & \multicolumn{1}{l}{Weight} \\ \hline
+166                        & 58                         \\
+170                        & 66                         \\
+194                        & 91                        
+\end{tabular}
+\end{table}
+
+The table \ref{id:tab:perturbation} shows the data after it was perturbed using the two different perturbation methods that are supported by the engineered software.
+
+\begin{table}[h]
+\centering
+\caption{Perturbed data.}
+\label{id:tab:perturbation}
+\begin{tabular}{rr}
+\hline
+\multicolumn{1}{l}{Height} & \multicolumn{1}{l}{Weight} \\ \hline
+169                        & 57                         \\
+168                        & 67                         \\
+193                        & 91                        
+\end{tabular}
+\end{table}
+
+The supported methods include adding the noise based on the strategies of:
+\begin{itemize}
+\item fixed value
+\item percentage value
+\end{itemize}
+
+Height attribute values could have been perturbed using the former (i.e., fixed noise of $\pm 3$), whereas weight attribute values could have been perturbed using the latter (i.e., percentage value of $\pm 5 \%$). In either case, the linkage between individual records is blurred with this technique. 
+
+\begin{figure}[h]
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=lines, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
+procedure perturbation(values, noise)
+  for (value in values)
+    random := pick random from [value - noise, value + noise] interval
+    value := random
+    value := fit value within boundaries
+  return values
+\end{minted}
+\caption{Pseudocode for perturbation based on fixed noise.}
+\label{fig:code:suppression}
+\end{figure}
+
+Similarly to generalisation, both perturbation techniques allow the user to explicitly specify the minimum and maximum accepted boundary values.
+
+\begin{figure}[h]
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=lines, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
+procedure perturbation(values, noise)
+  for (value in values)
+    coeff := pick random from [1 - noise, 1 + noise] interval
+    value := value * coeff
+    value := fit value within boundaries
+  return values
+\end{minted}
+\caption{Pseudocode for perturbation based on percentage noise.}
+\label{fig:code:suppression}
+\end{figure}
+
+Perturbation technique works the best with continuous values - it is an effective method for de-identification of quasi-identifiers such as dates and numbers \cite{bib:anonymisation_techniques_singapore}. Scientifically advanced perturbation approaches are further divided into linear and non-linear perturbation models \cite{bib:perturbation_methods}.
 
 
-
+\color{blue}
 \subsection{Pattern masking}
 \subsection{Randomisation}
 \subsubsection{Column shuffle}
@@ -685,20 +751,15 @@ This technique works the best with continuous values - it is an effective method
 \subsection{Tokenisation}
 
 
-\color{blue}
-Generalisation, suppression, etc.
-\color{black}
-
-
 
 \section{Existing solutions}
 
-\color{blue}
 List of existing solutions.
+
+\section{Platform}
+
+Why web platform, state of the art for web.
 \color{black}
-
-
-
 
 
 
