@@ -791,11 +791,11 @@ Why web platform, state of the art for web.
 
 \section{Software tools and technologies}
 
-The following listings are presented to give an overview of the designed system in terms of tools and technologies involved to engineer it. This is a brief summary – should a particular technology receive a greater detail of explanation, e.g., exemplary usage, it will be described in another dedicated unit.
+The following listings are presented to give an overview of the designed system in terms of tools and technologies involved to engineer it without diving into the implementation details. This is a brief summary that merely presents the technological landscape of the designed system – should a particular technology receive a greater detail of explanation, e.g., exemplary usage, it will be described in another dedicated unit.
 
 \subsection{Tools}
 
-This section encompasses technologies needed to develop, build, and maintain the system.
+This section encompasses a summary of tools needed to develop, build, and maintain the system.
 
 \subsubsection{Docker}
 
@@ -857,32 +857,74 @@ For an unified code formatting standard to be established for the client's appli
 
 \subsection{Server}
 
+This section encompasses a summary of technologies used for the implementation of modular and REST driven server.
+
+\subsubsection{Java}
+
+Anonymisation server uses the newest long-term support JDK 17 version released in September 2021, although the server is backwards compatible to JDK 11.
+
+Java is still globally the most widely adopted development language \cite{bib:java25years}, even after the 25 years that had passed after its first release – it is a truly mature language, accompanied by all types of frameworks and libraries that one can imagine.
+
+\subsubsection{Spring Framework}
+
+Spring projects can be viewed together as a modular toolkit that addresses the concerns of modern software development \cite{bib:spring_in_action}.
+
+Spring driven software system may include the following Spring projects \cite{bib:spring_docs}:
 \begin{itemize}
-\item Java 17
-\item Spring Framework (Boot: Web, Data, Security, Test, Validation, Mail)
-\item Hibernate + Hibernate types55
-\item PostgreSQL Server
-\item PostgreSQL Client
-\item Junit5
-\item Testcontainers
-\item Rest assured
-\item Swagger
-\item Other libraries: commons lang3, bouncycastle, jjwt, ztexec
+\item Spring Framework - the core supporting e.g., dependency injection and web applications
+\item Spring Boot – to achieve an easier setup of the Spring driven system
+\item Spring Data – to retrieve information from databases in a consistent, database-agnostic way
+\item Spring Security – to secure the application with authentication and authorization
 \end{itemize}
+
+Java based systems typically employ Spring technologies, and so does the anonymisation server, which extensively uses all of the listed above projects. 
+
+\subsubsection{Hibernate}
+
+Hibernate – a JPA implementation – which is a well tested and high performant \cite{bib:hibernate_high_performance} object-relational mapper was a natural choice for the engineered system given the fact that Spring has a built-in support for this library. It is used to map the database entities to the corresponding database tables \cite{bib:hibernate_docs}.
+
+Hibernate functionality was additionally enhanced with Hibernate Types library \cite{bib:hibernate_types} to provide the support for JSON column type – which is not supported by the plain Hibernate but is greatly supported by the underlying PostgreSQL database \cite{bib:postgresql_json}.
+
+\subsubsection{PostgreSQL – Server}
+
+The choice of appropriate database was of particular importance for due to domain of the designed system.
+
+PostgreSQL was fourth most popular database management system worldwide back in 2017 as shown in the annual Stack Overflow Developer Survey report \cite{bib:stackoverflow2017}. Each consequtive report demonstrated further growth of PostgreSQL. As PostgreSQL is at continuous growth, MySQL (i.e., the most popular database) is at continuous decline. Latest report published in 2021 \cite{bib:stackoverflow2021} placed PostgreSQL on the second place and it is believed that it will at last beat MySQL this year.
+
+For this reason PostgreSQL was chosen as the database for the server system. This database was also chosen as the supported database type for the data dumps uploaded by data controllers for the purpose of anonymisation.
+
+
+\subsubsection{PostgreSQL – Client}
+
+\subsubsection{JUnit 5}
+
+\subsubsection{Testcontainers}
+
+\subsubsection{REST Assured}
+
+\subsubsection{Swagger}
+
+\subsubsection{JJWT}
+
+\subsubsection{Bouncy Castle}
+
+\subsubsection{Processor Executor}
+
+\subsubsection{Apache Commons Lang}
 
 \subsection{Client}
-\begin{itemize}
-\item Typescript
-\item React
-\item React router
-\item React query
-\item React hook form
-\item Yup
-\item Material ui
-\item Axios
 
+This section encompasses a summary of technologies used for the implementation of React based client.
 
-\end{itemize}
+\subsubsection{TypeScript}
+\subsubsection{React}
+\subsubsection{React Router}
+\subsubsection{React Query}
+\subsubsection{React Hook Form}
+\subsubsection{Yup}
+\subsubsection{Material UI}
+\subsubsection{Axios}
+
 
 \section{Development methodology}
 
