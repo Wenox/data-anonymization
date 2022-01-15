@@ -833,26 +833,27 @@ Nginx is an open-source that works as a reverse proxy, web server and HTTP load 
 
 It's been a while since most developers had already started using git for development, which is the leading software for version control, however not everyone knows it was originally invented by Linus Torvalds specifically for Linux kernel development needs \cite{bib:git_techtalk}. It is clearly necessary to use git during software development due to the essential needs to publish, stash or revert the code changes \cite{bib:git_pro}.
 
+\subsubsection{GitHub Actions}
 
+GitHub Actions is a continuous integration (CI) and continuous delivery (CD) tool that enable creating workflows which automate development processes such as building, testing and deployment of the system.
 
+Developed software uses three distinct workflows to ensure an automation of testing, quality assurance and security resilience.
 
+\subsubsection{SonarQube}
 
-\begin{itemize}
-\item Docker
+SonarQube is a large scale open-source tool to conduct the code inspection through static analysis methods. This tool platform can reliably detect vulnerabilities, security hotspots, code smells and bugs. 
 
+In the context of designed anonymisation platform, this software is integrated together with Github Actions to ensure quality and security of developed software. Two distinct instances of SonarQube are configured, independently for the client and the server.
 
+\subsubsection{ESLint}
 
-\item Maven
-\item Yarn
-\item Nodejs
-\item Nginx
-\item IntelliJ and Webstorm
-\item Git
-\item GithubActions
-\item SonarQube
-\item ESLint and Prettier
+ESLint is yet another tool for static code analysis for JavaScript applications.
 
-\end{itemize}
+It had been necessary to enhance this tool with TypeScript extension in order to successfully integrate it with client application and Github Actions workflow concerning quality.
+
+\subsubsection{Prettier}
+
+For an unified code formatting standard to be established for the client's application, prettier tool which is a modern code formatter was configured within JetBrains Webstorm IDE.
 
 \subsection{Server}
 
