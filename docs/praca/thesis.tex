@@ -926,7 +926,7 @@ This state-of-the-art library is used by the integration tests to bootstrap the 
 
 \subsubsection{REST Assured}
 
-REST Assured is an integration tests library which allows sending true HTTP requests to the test server (bootstrapped by Testcontainers library). This library also offers the means to validate received HTTP responses.
+REST Assured is an integration tests library and a HTTP client which allows sending true HTTP requests to the test server (bootstrapped by Testcontainers library). This library also offers the means to validate received HTTP responses.
 
 The library is used by the integration tests.
 
@@ -955,14 +955,37 @@ The sole purpose of this library is a generation of random alphabetic and alphan
 This section encompasses a summary of technologies used for the implementation of React based client.
 
 \subsubsection{TypeScript}
-\subsubsection{React}
-\subsubsection{React Router}
-\subsubsection{React Query}
-\subsubsection{React Hook Form}
+
+TypeScript is a transcompiled superset of JavaScript that the developers want to work with the most unless already doing so \cite{bib:stackoverflow2021}. The language was designed by Microsoft to extend JavaScript with types, interfaces and generics.
+
+The language is powering the frontend client application and React.
+
+\subsubsection{React.js}
+
+React.js was the most popular web framework as of 2021 \cite{bib:stackoverflow2021} as it has finally surpassed the obsolete jQuery library. This is an open source library developed by Facebook to build user interfaces for the web. As a high level overview – React centers around the concept of virtual DOM\cite{modern_fullstack}.
+
+\subsubsection{React ecosystem}
+
+Independent authors create many external libraries to drive the React with extended functionalities. React ecosystem is rich in various libraries which typically include \textit{React} word in their names.
+
+Anonymisation client code extensively uses the following popular libraries:
+\begin{itemize}
+\item React Router – to handle the URL related concepts including routing, navigation and query parameters
+\item React Query – as an abstraction and improvement layer for fetching the data
+\item React Hook Form – to provide user input validation in the forms based on Yup defined rules
+\end{itemize}
+
 \subsubsection{Yup}
+
+Yup is a validation schema builder. In the case of engineered software, the schemas created by Yup are consumed by React Hook Form library to validate the forms.
+
 \subsubsection{Material UI}
+
+Material UI is yet another React library and a large one. This library is responsible for the appearence of the application.
+
 \subsubsection{Axios}
 
+Axios is an asynchronous HTTP client used for sending the requests to the anonymisation server.
 
 \section{Development methodology}
 
