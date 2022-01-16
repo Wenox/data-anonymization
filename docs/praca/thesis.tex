@@ -176,7 +176,7 @@ escapeinside={@*}{*@},%
 
 
 \newcommand{\Author}{Szymon Pluta}
-\newcommand{\Supervisor}{Krzysztof Simiński, DSc PhD}
+\newcommand{\Supervisor}{Krzysztof Simiński, PhD DSc}
 \newcommand{\Consultant}{Name Surname, PhD}
 \newcommand{\Title}{Data anonymisation web platform}
 \newcommand{\Polsl}{Silesian University of Technology}
@@ -348,14 +348,14 @@ The continuous and rapid exponential growth of data being collected globally is 
 
 \subsection{Data analytics}
 Raw representation form of the data is not interpretable until it is put under a context and processed into practical information.
-Acquiring relevant insights and conclusions from the information can be achieved through a wide term of analytics, which encompasses the actions needed to be performed to produce new information, including: analysis, filtering, processing, grouping and contextualizing the information. Newly discovered knowledge is infered from the produced information.
+Acquiring relevant insights and conclusions from the information can be achieved through a wide term of analytics, which encompasses the actions needed to be performed to produce new information, including: analysis, filtering, processing, grouping and contextualizing the information. Newly discovered knowledge is infered \ksremark{inferred} from the produced information.
 Apart from the processes, analytics also includes the technologies, methodologies and algorithms to use and could be divided into descriptive analytics, diagnostic analytics, prescriptive analytics and predictive analytics \cite{bib:big_data_analytics}.
 
 \subsection{Big data}
 
 Big data analytics deals with the difficulties of managing the observed exponentially increasing collected volumes of data. Its purpose is not only to handle the processing and analysis of the data through specialized software tools and frameworks, but also to handle the means on how this enormous amount of data is collected and stored in the first place. It is in its nature that big data is all about massive volumes of information that require specialized hardware infrastructure to store it \cite{bib:big_data_analytics}.
 
-Services of enterprise organizations are running on all the collected data which can take various forms such as database entries, metrics, logs or outgoing messages. New data streaming technologies working at a large scale needed to be engineered to handle the continuous flow of data between systems and databases. An example of such technology includes Apache Kafka which generates even more than a trillion of messages per day for individual large enterprise organizations taking advantage of it \cite{bib:kafka_online}\cite{bib:kafka}.
+Services of enterprise organizations are running on all the collected data which can take various forms such as database entries, metrics, logs or outgoing messages. New data streaming technologies working at a large scale needed to be engineered to handle the continuous flow of data between systems and databases. An example of such technology includes Apache Kafka which generates even more than a trillion of messages per day for individual large enterprise organizations taking advantage of it \cite{bib:kafka_online,bib:kafka}.
 
 This only proves that big data deals not only with massive volumes – it has also to deal with the high velocities of data generation, which is yet another characteristic of data \cite{bib:big_data_analytics}. According to DOMO report published back in 2020, 90\% of world's data was generated just in the preceding two years, and on average every person in the world created 1.7 megabytes of data per second – which yields 2.5 quintillion ($2.5 \cdot 10^{18}$) bytes of new data each day \cite{bib:domo}.
 
@@ -370,9 +370,9 @@ Various types of organizations collect data to take advantage from the insights 
 
 Leading technology companies, such as Google and Facebook, to name a few, sell anonymised collected user data access to their partner advertisers \cite{bib:big_data_in_practice}. This is legally possible as the information that was anonymised, i.e., deidentified in a way that it is no longer bound to an individual, may flow from a system to a system.
 
-Large Hadron Collider (LHC) located in CERN, being the largest physical experiment, annually produce approximately 30 petabytes of data. LHC takes an advantage of light sensors that monitor the collisions of hundreds of millions of particles accelerated nearly to the speed of light. The collisions create enormous amount of data to be processed by computer algorithms in the hope of discovering new particles, e.g., a Nobel prize awarding discovery of Higgs boson had taken place in 2012 \cite{bib:cern}.
+Large Hadron Collider (LHC) located in CERN, being the largest physical experiment, annually produces approximately 30 petabytes of data. LHC takes an advantage of light sensors that monitor the collisions of hundreds of millions of particles accelerated nearly to the speed of light. The collisions create enormous amount of data to be processed by computer algorithms in the hope of discovering new particles, e.g., a Nobel prize awarding discovery of Higgs boson had taken place in 2012 \cite{bib:cern}.
 
-Enterprise stores such as Amazon or SAP Commerce Cloud collect the information regarding the way of how the visitors browse and interact with these stores. Collected information may involve the behavioral data related to customer engagement, such as the pages we visit, event clicks, or the way we scroll the page. The insights derived from the collected information enable making future improvements of these services – for example by improving the digital marketing or performance improvements based on the metrics \cite{bib:sap}. The customer experience is also improved as based on the collected data the advertisements or item recommendations can be taylored to the specific user's preferences. The recommendation engine may also attempt to match your profile data to people of similiar profile to provide better recommendations. Services attempt to analyze the behavioural patterns such as time of day we browse the store or what circumstances caused our last visit to finish. Even the details such as the exact neighbourhood location we live in, combined with its estimated wealth, organizations may attempt to guess our potential income level \cite{bib:big_data_in_practice}. These data analytics are performed to improve the possibility of customer buying yet another item.
+Enterprise stores such as Amazon or SAP Commerce Cloud collect the information regarding the way of how the visitors browse and interact with these stores. Collected information may involve the behavioral data related to customer engagement, such as the pages we visit, event clicks, or the way we scroll the page. The insights derived from the collected information enable making future improvements of these services – for example by improving the digital marketing or performance improvements based on the metrics \cite{bib:sap}. The customer experience is also improved as based on the collected data the advertisements or item recommendations can be taylored \ksremark{tailored} to the specific user's preferences. The recommendation engine may also attempt to match your profile data to people of similiar \ksremark{similar} profile to provide better recommendations. Services attempt to analyze the behavioural patterns such as time of day we browse the store or what circumstances caused our last visit to finish. Even the details such as the exact neighbourhood location we live in, combined with its estimated wealth, organizations may attempt to guess our potential income level \cite{bib:big_data_in_practice}. These data analytics are performed to improve the possibility of customer buying yet another item.
 
 
 
@@ -430,7 +430,7 @@ Having understood how sensitive by its essence is the patient information and th
 
 \subsection{Definition}
 
-Anonymisation is a statistical disclosure control method of a particular importance. The ultimate anonymisation goal is to de-identify the data by pruning the personal information in such a way that the relation between data subject and corresponding records is blurred.
+Anonymisation is a statistical disclosure control method of a particular importance. The ultimate anonymisation goal is to de-identify \ksremark{To słowo pojawia się w pracy w różnych wersjach: `deidentify' i `de-identify'. Trzeba to ujednolicić.} the data by pruning the personal information in such a way that the relation between data subject and corresponding records is blurred.
 
 The data anonymisation is considered to be an effective one only if both of the following criterias hold true \cite{bib:anonymization_taxa}:
 \begin{itemize}
@@ -440,9 +440,9 @@ The data anonymisation is considered to be an effective one only if both of the 
 
 \subsection{Data classification}
 
-The prerequisite for anonymisation is to understand the context of what does the data represent and by whom – in addition to how – will it be processed [13]. 
+The prerequisite for anonymisation is to understand the context of what does the data represent and by whom – in addition to how – will it be processed [13] \ksremark{??}. 
 
-The commonly adopted approach when attempting to anonymise the data is to first classify the data attributes as direct identifiers (i.e., personal identifying confidential attributes unique to an individual, such as address or tax identification number), indirect identifiers (i.e., so called quasi-identifiers that when combined can discover the individual's identity – such as sex or date of birth) and non identifiers \cite{bib:privacy_unesco_bigdata}\cite{bib:anonymizing_health_data}.
+The commonly adopted approach when attempting to anonymise the data is to first classify the data attributes as direct identifiers (i.e., personal identifying confidential attributes unique to an individual, such as address or tax identification number), indirect identifiers (i.e., so called quasi-identifiers that when combined can discover the individual's identity – such as sex or date of birth) and non identifiers \cite{bib:privacy_unesco_bigdata,bib:anonymizing_health_data}.
 
 It is context dependent to determine which attributes are quasi-identifiers – and finally which techniques need to be combined to achieve anonymisation. Virtually, even the most unexpected attributes could be quasi-identifiers. Ignoring such fields when preparing for anonymisation may eventually lead to future re-identification of the data subjects, as successfully demonstrated, e.g., when breaking the anonymity of the Netflix Prize dataset back in 2006 \cite{bib:netflix}. Since then significant advancements in the field of de-identification were yielded – and in various domains \cite{bib:netflix_decade_later}.
 
@@ -506,12 +506,14 @@ Consider the raw data of the three attributes presented in the table \ref{id:tab
 \label{id:tab:suppression_raw}
 \begin{tabular}{ccc}
 \toprule
-Sex & \multicolumn{1}{l}{PIN codes} & Phone number \\ \hline
+Sex & \multicolumn{1}{l}{PIN codes} & Phone number \\ \midrule
 F   & 3248                          & 1212 – 345345  \\
 F   & 8090                          & 4000 – 303030  \\
-M   & 1337                          & 5191 – 915100 
+M   & 1337                          & 5191 – 915100 \\
+\bottomrule
 \end{tabular}
 \end{table}
+\ksremark{Uwaga do tabel. Jeżeli używamy toprule, to zamiast hline trzeba uzyc midrule i na koncu bottomrule. Przykład w tabeli \ref{id:tab:suppression_raw}.}
 
 Exemplary results of performed suppression are depicted in the table \ref{id:tab:suppression}. All of the three attributes values were suppressed to the value of the suppression token supplied by the data controller.
 
@@ -532,7 +534,7 @@ Phone number suppression deserves a brief discussion. Consider a context in whic
 
 Suppression is typically applied on the column level of an attribute, however it is also applicable to the individual records. When compared to plain generalisation, suppression yields a higher information loss and can be though of as a particular case of generalisation \cite{bib:anonymization_emr}. 
 
-The designed software offers column level suppression with a user specified value (i.e., suppression token). The values are transformed to this user specified value using a simple algorithm shown in \ref{fig:code:suppression}.
+The designed software offers column level suppression with a user specified value (i.e., suppression token). The values are transformed to this user specified value using a simple algorithm shown in \ksremark{Fig.} \ref{fig:code:suppression} \ksremark{Nieprawidłowy numer}.
 
 
 \begin{figure}[h]
@@ -549,7 +551,7 @@ procedure suppression(values, token)
 
 \subsection{Generalisation}
 
-Generalisation is the second most common non-perturbative anonymisation technique \cite{bib:privacy_unesco_bigdata}. This technique processes the raw data by aggregating and substituting the initial values of a given attribute to the values that are more general \cite{bib:privacy_unesco_rule_based}. The process of generalisation constitutes a conversion of any value to a more general scope.
+Generalisation is the second most common non-perturbative anonymisation technique \cite{bib:privacy_unesco_bigdata}. This technique processes the raw data by aggregating and substituting the initial values of a given attribute to the values that are more general~\cite{bib:privacy_unesco_rule_based}. The process of generalisation constitutes a conversion of any value to a more general scope.
 
 The proposed software solution includes two generalisation strategies, namely:
 \begin{itemize}
