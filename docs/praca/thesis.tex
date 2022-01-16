@@ -896,21 +896,59 @@ For this reason PostgreSQL was chosen as the database for the server system. Thi
 
 \subsubsection{PostgreSQL – Client}
 
+PostgreSQL client is installed in the containerized anonymisation server to execute \textit{psql} processes throughout the application's runtime, hence providing the communication capabilities with the potentially remote PostgreSQL server.
+
+The client is used by the ZT Processor Executor library – directly from the Java code.
+
+\subsubsection{ZT Processor Executor}
+
+ZT Process Executor provides capabilities to run external processes directly from the Java code.
+
+This library found many domain-critical applications related to PostgreSQL resources management. The library executes PostgreSQL client processes including:
+\begin{itemize}
+\item creation of a new database
+\item replication of an existing databases
+\item database dump restoration
+\item anonymisation script execution
+\item database dump to script or to archive
+\end{itemize}
+
 \subsubsection{JUnit 5}
+
+JUnit 5 is the new and refined version of the worldwide recognized Java testing framework. It is used to drive the unit and integration tests.
+
 
 \subsubsection{Testcontainers}
 
+Testcontainers is a cutting edge Java library to support instantiation of lightweight Docker containers for the tests needs. Effectively – the tests run in a containerized environment just like the real application hence blurring the technical differences between real and test environments \cite{bib:testcontainers}.
+
+This state-of-the-art library is used by the integration tests to bootstrap the PostgreSQL database for the tests.
+
 \subsubsection{REST Assured}
 
-\subsubsection{Swagger}
+REST Assured is an integration tests library which allows sending true HTTP requests to the test server (bootstrapped by Testcontainers library). This library also offers the means to validate received HTTP responses.
+
+The library is used by the integration tests.
+
+\subsubsection{Swagger UI}
+
+One of many Swagger modules is Swagger UI which deals with the design, description and documentation of REST APIs. The library allows visualization and interaction with the API \cite{bib:swagger}.
+
+This library is relevant due to the complexity of the designed system, as it provides the API documentation for the client.
 
 \subsubsection{JJWT}
 
+JSON Web Tokens are required to transport the implemented access and refresh tokens necessary for authentication and authorization purposes. This popular library deals with the creation and validation of the tokens.
+
 \subsubsection{Bouncy Castle}
 
-\subsubsection{Processor Executor}
+One of many cryptographic APIs offered by Bouncy Castle library is SHA 3 which internally implements Keccak-f[1600] algorithm.
+
+This library is used by the hashing data masking technique.
 
 \subsubsection{Apache Commons Lang}
+
+The sole purpose of this library is a generation of random alphabetic and alphanumeric characters for pattern masking anonymisation technique.
 
 \subsection{Client}
 
