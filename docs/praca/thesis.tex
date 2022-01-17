@@ -783,6 +783,140 @@ Why web platform, state of the art for web.
 \section{Requirements engineering}
 
 \subsection{Functional requirements}
+
+\subsubsection{Account creation}
+
+
+To create a new account, an anonymous user needs to provide valid information including e-mail address, password and confirmation, name, surname, and optionally the purpose for anonymisation. Creating an account with an e-mail that is already in use must be prohibited. A new user described by the account should require verification.
+
+\subsubsection{Account verification}
+
+Upon successful account creation, the user must receive an e-mail with a link to verify the account. User role should change from \textit{unverified} to \textit{verified} due to confirmation.
+
+
+\subsubsection{Admin verification}
+
+Admin has the means to verify the specified user on his behalf from the users panel.
+
+\subsubsection{Verification expiration}
+
+The verification link that is sent to the user after creating a new account should contain a token that expires after a set amount of time. The system administrator has to have a possibility of runtime configuration of the expiration time.
+
+\subsubsection{Mark account for removal}
+
+User must be able to initiate the process involving the removal of his account along with all the associated data, hence ensuring GDPR compliance.
+
+The process is started by an explicit user's requests to do so. The system should warn the user with a detailed message and a prompt to type in both the confirmation and the password. If successful, the account is marked for future removal - the account is removed by a dedicated cron-based data pruning service.
+
+\subsubsection{Data pruning}
+
+A service responsible for deleting accounts that were marked for removal should be executed in a periodic manner. Such service should prune the user data. The frequency of how often is the service executed is described as a cron expression. It should be a system administrator runtime configurable property.
+
+
+\subsubsection{Forcing account removal}
+
+Admin must have the possibility to force the account to be removed in case of urgent needs e.g. due to reasons concerning system security or performance.
+
+\subsubsection{Revert marking account for removal}
+
+A scenario in which user changes his mind to delete his account needs to be supported. The user can revoke his request to remove the account by accessing the link that was earlier sent to his e-mail address.
+
+The revert action should be possible only if all three conditions are met:
+\begin{itemize}
+\item the link has not yet expired
+\item the admin did not explicitly force the account removal
+\item the account has not already been removed by the pruning service
+\end{itemize}
+
+\subsubsection{Revert account removal expiration}
+
+The undo removal link sent to the user after requesting his account removal contains a token that expires after a set amount of time. The time of exactly how long is the link valid should be determined by the runtime configurable by the system administrator.
+
+\subsubsection{User login}
+
+User should be able to login to the system and access his account's resources.
+
+\subsubsection{Access token}
+
+A successful authentication should generate an access token which encompasses all the information necessary for the user authentication and authorization. The token should be valid for a brief duration, e.g., 5 minutes - which should be a matter of runtime configuration conducted by the system administrator. The token should be implemented using JSON Web Token (JWT) standard and should be stored on the client's side.
+
+\subsubsection{Refresh Token}
+
+The refresh token which is generated together with access token during authentication should be used to periodically generate a new pair of the access and refresh tokens. There should exist a REST endpoint that will accept current valid refresh token and will output a new access and refresh token - effectively prolonging user's session. This token should be valid for a very long duration, e.g., 6 months - which should be a matter of runtime configuration.
+
+\subsubsection{User logout}
+
+Discarding the access and refresh tokens permits user logout.
+
+\subsubsection{Remember me}
+
+The user should not have to login to his account when starting a new visit unless
+\begin{itemize}
+\item the refresh token has expired after e.g., 6 months of inactivity
+\item the user has cleared browser cache
+\item the user is logging from a new device
+\end{itemize}
+
+Restarting the anonymisation platform should not logout the user.
+
+\subsubsection{Seamless tokens re-generation}
+
+Axios HTTP client should be configured in such a manner that it will detect a state of expired access token and will seamlessly generate new tokens. When the access token expires, the client should invoke refresh token service to generate a new tokens pairings in such a manner that the user does not even notice this implementation related behaviour. It is required that no unnecessary page refreshes, errors, logouts or prompts to login show up to the user.
+
+\subsubsection{Password encryption}
+
+User password should be stored in the database in an ecrypted form using e.g., bcrypt hashing.
+
+
+\subsubsection{Request validation - client}
+
+The system should disallow sending HTTP requests that fail to meet the validation criterias preset with Yup library.
+
+
+\subsubsection{In-depth validation - client}
+
+Validation rules set by Yup library for the client forms should be enforced by React Hook Forms. 
+
+The client should have the possibility to specify required and optional fields and use custom validation rules such as e-mail or file presence validation.
+
+
+\subsubsection{Display validation errors}
+
+Client displays validation errors below the concerning HTML inputs.
+
+\subsubsection{Error notifications}
+
+Client uses toast pop-ups to display client and server HTTP errors https://developer.mozilla.org/en-US/docs/Web/HTTP/Status - for example 400 Bad Request. The notifications along with the associated message are displayed in the upper-right corner. The pop-ups are red to underline its purpose and the purpose should be further emphasized - by adding more red color - when displaying the errors of extreme importance e.g. database restore failure.
+
+\subsubsection{Success notifications}
+
+Client sent HTTP requests that finished with a successful response[https://developer.mozilla.org/en-US/docs/Web/HTTP/Status] - for example 201 - Accepted - should be displayed in a green colored pop-up along with the associated message.
+
+
+\subsubsection{Block user}
+
+Admin should have the means to block the user  from the users panel, effectively disabling the possibility of logging in.
+
+\subsubsection{Unblock user}
+
+Admin will have the means to unblock the blocked user from the users panel, restoring the login capabilities.
+
+
+
+\subsubsection{Request validation - server}
+
+The system must validate the HTTP requests on the server to secure passing invalid requests by external HTTP clients.
+
+\subsubsection{In-depth validation - server}
+
+
+
+
+\subsubsection{Mail notifications}
+
+The system has the capabilities of sending e-mails notifying about various actions such as expiring account. This functionality should be runtime configurable by the system administrator.
+
+
 \subsection{Non-functional requirements}
 
 \section{System engineering}
