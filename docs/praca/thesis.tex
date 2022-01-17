@@ -348,7 +348,7 @@ The continuous and rapid exponential growth of data being collected globally is 
 
 \subsection{Data analytics}
 Raw representation form of the data is not interpretable until it is put under a context and processed into practical information.
-Acquiring relevant insights and conclusions from the information can be achieved through a wide term of analytics, which encompasses the actions needed to be performed to produce new information, including: analysis, filtering, processing, grouping and contextualizing the information. Newly discovered knowledge is infered \ksremark{inferred} from the produced information.
+Acquiring relevant insights and conclusions from the information can be achieved through a wide term of analytics, which encompasses the actions needed to be performed to produce new information, including: analysis, filtering, processing, grouping and contextualizing the information. Newly discovered knowledge is inferred from the produced information.
 Apart from the processes, analytics also includes the technologies, methodologies and algorithms to use and could be divided into descriptive analytics, diagnostic analytics, prescriptive analytics and predictive analytics \cite{bib:big_data_analytics}.
 
 \subsection{Big data}
@@ -368,11 +368,11 @@ The momentum of the immense big data interest growth among organizations is not 
 Various types of organizations collect data to take advantage from the insights derived out of the data. The big data analytics applications' impact can be observed already today in a broad spectrum of domains. 
 
 
-Leading technology companies, such as Google and Facebook, to name a few, sell anonymised collected user data access to their partner advertisers \cite{bib:big_data_in_practice}. This is legally possible as the information that was anonymised, i.e., deidentified in a way that it is no longer bound to an individual, may flow from a system to a system.
+Leading technology companies, such as Google and Facebook, to name a few, sell anonymised collected user data access to their partner advertisers \cite{bib:big_data_in_practice}. This is legally possible as the information that was anonymised, i.e., de-identified in a way that it is no longer bound to an individual, may flow from a system to a system.
 
 Large Hadron Collider (LHC) located in CERN, being the largest physical experiment, annually produces approximately 30 petabytes of data. LHC takes an advantage of light sensors that monitor the collisions of hundreds of millions of particles accelerated nearly to the speed of light. The collisions create enormous amount of data to be processed by computer algorithms in the hope of discovering new particles, e.g., a Nobel prize awarding discovery of Higgs boson had taken place in 2012 \cite{bib:cern}.
 
-Enterprise stores such as Amazon or SAP Commerce Cloud collect the information regarding the way of how the visitors browse and interact with these stores. Collected information may involve the behavioral data related to customer engagement, such as the pages we visit, event clicks, or the way we scroll the page. The insights derived from the collected information enable making future improvements of these services – for example by improving the digital marketing or performance improvements based on the metrics \cite{bib:sap}. The customer experience is also improved as based on the collected data the advertisements or item recommendations can be taylored \ksremark{tailored} to the specific user's preferences. The recommendation engine may also attempt to match your profile data to people of similiar \ksremark{similar} profile to provide better recommendations. Services attempt to analyze the behavioural patterns such as time of day we browse the store or what circumstances caused our last visit to finish. Even the details such as the exact neighbourhood location we live in, combined with its estimated wealth, organizations may attempt to guess our potential income level \cite{bib:big_data_in_practice}. These data analytics are performed to improve the possibility of customer buying yet another item.
+Enterprise stores such as Amazon or SAP Commerce Cloud collect the information regarding the way of how the visitors browse and interact with these stores. Collected information may involve the behavioural data related to customer engagement, such as the pages we visit, event clicks, or the way we scroll the page. The insights derived from the collected information enable making future improvements of these services – for example by improving the digital marketing or performance improvements based on the metrics \cite{bib:sap}. The customer experience is also improved as based on the collected data the advertisements or item recommendations can be tailored to the specific user's preferences. The recommendation engine may also attempt to match your profile data to people of similar profile to provide better recommendations. Services attempt to analyse the behavioural patterns such as time of day we browse the store or what circumstances caused our last visit to finish. Even the details such as the exact neighbourhood location we live in, combined with its estimated wealth, organizations may attempt to guess our potential income level \cite{bib:big_data_in_practice}. These data analytics are performed to improve the possibility of customer buying yet another item.
 
 
 
@@ -430,7 +430,7 @@ Having understood how sensitive by its essence is the patient information and th
 
 \subsection{Definition}
 
-Anonymisation is a statistical disclosure control method of a particular importance. The ultimate anonymisation goal is to de-identify \ksremark{To słowo pojawia się w pracy w różnych wersjach: `deidentify' i `de-identify'. Trzeba to ujednolicić.} the data by pruning the personal information in such a way that the relation between data subject and corresponding records is blurred.
+Anonymisation is a statistical disclosure control method of a particular importance. The ultimate anonymisation goal is to de-identify the data by pruning the personal information in such a way that the relation between data subject and corresponding records is blurred.
 
 The data anonymisation is considered to be an effective one only if both of the following criterias hold true \cite{bib:anonymization_taxa}:
 \begin{itemize}
@@ -440,7 +440,7 @@ The data anonymisation is considered to be an effective one only if both of the 
 
 \subsection{Data classification}
 
-The prerequisite for anonymisation is to understand the context of what does the data represent and by whom – in addition to how – will it be processed [13] \ksremark{??}. 
+The prerequisite for anonymisation is to understand the context of what does the data represent and by whom – in addition to how – will it be processed \cite{bib:anonymizing_health_data}. 
 
 The commonly adopted approach when attempting to anonymise the data is to first classify the data attributes as direct identifiers (i.e., personal identifying confidential attributes unique to an individual, such as address or tax identification number), indirect identifiers (i.e., so called quasi-identifiers that when combined can discover the individual's identity – such as sex or date of birth) and non identifiers \cite{bib:privacy_unesco_bigdata,bib:anonymizing_health_data}.
 
@@ -463,7 +463,7 @@ Clearly the data must not be released in its original state – strict GDPR that
 What is pseudonymization? How does it differ?
 \color{black}
 
-\subsection{Deidentification}
+\subsection{De-identification}
 
 \color{blue}
 Nawet jeśli dane personall identifiable information PII są usunięte, to można połączyć osobe z pomocą istniejących nieusuniętych danych np. płeć oraz external informacjach np. social media. Komputery są coraz szybsze, źródeł danych coraz więcej - napastnikom coraz łatwiej.
@@ -513,7 +513,6 @@ M   & 1337                          & 5191 – 915100 \\
 \bottomrule
 \end{tabular}
 \end{table}
-\ksremark{Uwaga do tabel. Jeżeli używamy toprule, to zamiast hline trzeba uzyc midrule i na koncu bottomrule. Przykład w tabeli \ref{id:tab:suppression_raw}.}
 
 Exemplary results of performed suppression are depicted in the table \ref{id:tab:suppression}. All of the three attributes values were suppressed to the value of the suppression token supplied by the data controller.
 
@@ -523,10 +522,11 @@ Exemplary results of performed suppression are depicted in the table \ref{id:tab
 \label{id:tab:suppression}
 \begin{tabular}{ccc}
 \toprule
-Sex & PIN codes & Phone number \\ \hline
+Sex & PIN codes & Phone number \\ \midrule
 F/M & \#\#\#\#  & 3000 – 123123  \\
 F/M & \#\#\#\#  & 3000 – 123123  \\
-F/M & \#\#\#\#  & 3000 – 123123
+F/M & \#\#\#\#  & 3000 – 123123 \\
+\bottomrule
 \end{tabular}
 \end{table}
 
@@ -534,7 +534,7 @@ Phone number suppression deserves a brief discussion. Consider a context in whic
 
 Suppression is typically applied on the column level of an attribute, however it is also applicable to the individual records. When compared to plain generalisation, suppression yields a higher information loss and can be though of as a particular case of generalisation \cite{bib:anonymization_emr}. 
 
-The designed software offers column level suppression with a user specified value (i.e., suppression token). The values are transformed to this user specified value using a simple algorithm shown in \ksremark{Fig.} \ref{fig:code:suppression} \ksremark{Nieprawidłowy numer}.
+The designed software offers column level suppression with a user specified value (i.e., suppression token). The values are transformed to this user specified value using a simple algorithm shown in Fig. \ref{fig:code:suppression}.
 
 
 \begin{figure}[h]
@@ -584,11 +584,11 @@ Results shown in the table \ref{id:tab:generalisation} include exemplary possibl
 \label{id:tab:generalisation}
 \begin{tabular}{lll}
 \toprule
-Age   & Salary          & Location      \\ \hline
+Age   & Salary          & Location      \\ \midrule
 26 – 30 & 1 – 60000       & Europe        \\
 51 – 55 & 1 – 60000       & North America \\
 26 – 30 & 120001 – 180000 & Europe        \\
-66 – 70 & 120001 – 180000 & Europe        \\ \hline
+66 – 70 & 120001 – 180000 & Europe        \\ \bottomrule
 \end{tabular}
 \end{table}
 
@@ -627,7 +627,7 @@ procedure generalise(values, configuration)
 \label{fig:code:generalisation1}
 \end{figure}
 
-The generalisation strategies can be summarized with the pseudocodes shown in \ref{fig:code:generalisation1} and \ref{fig:code:generalisation2}.
+The generalisation strategies can be summarized with the pseudocodes shown in Fig. \ref{fig:code:generalisation1} and Fig. \ref{fig:code:generalisation2}.
 
 
 \begin{figure}[h]
@@ -678,11 +678,11 @@ Consider weight and height data shown in the table \ref{id:tab:perturbation_raw}
 \caption{Data prior to perturbation.}
 \label{id:tab:perturbation_raw}
 \begin{tabular}{rr}
-\hline
-\multicolumn{1}{l}{Height} & \multicolumn{1}{l}{Weight} \\ \hline
+\toprule
+Height & Weight \\ \midrule
 166                        & 58                         \\
 170                        & 66                         \\
-194                        & 91                        
+194                        & 91                        \\ \bottomrule
 \end{tabular}
 \end{table}
 
@@ -693,11 +693,11 @@ The table \ref{id:tab:perturbation} shows the data after it was perturbed using 
 \caption{Perturbed data.}
 \label{id:tab:perturbation}
 \begin{tabular}{rr}
-\hline
-\multicolumn{1}{l}{Height} & \multicolumn{1}{l}{Weight} \\ \hline
+\toprule
+Height & Weight \\ \midrule
 169                        & 57                         \\
 168                        & 67                         \\
-193                        & 91                        
+193                        & 91                        \\ \bottomrule
 \end{tabular}
 \end{table}
 
@@ -719,7 +719,7 @@ procedure perturbation(values, noise)
   return values
 \end{minted}
 \caption{Pseudocode for perturbation based on fixed noise.}
-\label{fig:code:suppression}
+\label{fig:code:perturbation_fixed}
 \end{figure}
 
 Similarly to generalisation, both perturbation techniques allow the user to explicitly specify the minimum and maximum accepted boundary values.
@@ -734,7 +734,7 @@ procedure perturbation(values, noise)
   return values
 \end{minted}
 \caption{Pseudocode for perturbation based on percentage noise.}
-\label{fig:code:suppression}
+\label{fig:code:perturbation_percentage}
 \end{figure}
 
 Perturbation technique works the best with continuous values - it is an effective method for de-identification of quasi-identifiers such as dates and numbers \cite{bib:anonymisation_techniques_singapore}. Scientifically advanced perturbation approaches are further divided into linear and non-linear perturbation models \cite{bib:perturbation_methods}.
@@ -1113,7 +1113,7 @@ The language is powering the frontend client application and React.
 
 \subsubsection{React.js}
 
-React.js was the most popular web framework as of 2021 \cite{bib:stackoverflow2021} as it has finally surpassed the obsolete jQuery library. This is an open source library developed by Facebook to build user interfaces for the web. As a high level overview – React centers around the concept of virtual DOM\cite{modern_fullstack}.
+React.js was the most popular web framework as of 2021 \cite{bib:stackoverflow2021} as it has finally surpassed the obsolete jQuery library. This is an open source library developed by Facebook to build user interfaces for the web. As a high level overview – React centers around the concept of virtual DOM \cite{bib:modern_fullstack}.
 
 \subsubsection{React ecosystem}
 
