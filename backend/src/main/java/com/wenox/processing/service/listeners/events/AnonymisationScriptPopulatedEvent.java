@@ -10,7 +10,7 @@ public class AnonymisationScriptPopulatedEvent {
   private final Outcome outcome;
   private final Path scriptPathLocation;
 
-  private static final Logger log = LoggerFactory.getLogger(OutcomeGenerationStartedEvent.class);
+  private static final Logger log = LoggerFactory.getLogger(AnonymisationScriptPopulatedEvent.class);
 
   public AnonymisationScriptPopulatedEvent(Outcome outcome, Path scriptPathLocation) {
     this.outcome = outcome;
