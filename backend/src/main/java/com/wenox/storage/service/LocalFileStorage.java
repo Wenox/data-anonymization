@@ -15,8 +15,9 @@ abstract public class LocalFileStorage implements FileStorage {
   public byte[] retrieve(String savedFileName) throws IOException {
     Path directory = getFileDirectoryPath();
     Path pathToFile = directory.resolve(savedFileName);
-    InputStream reader = Files.newInputStream(pathToFile);
-    return reader.readAllBytes();
+    try (InputStream reader = Files.newInputStream(pathToFile)) {
+      return reader.readAllBytes();
+    }
   }
 
   @Override
