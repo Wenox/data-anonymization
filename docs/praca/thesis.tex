@@ -1223,56 +1223,27 @@ The system should collect metrics about e.g. processing time of outcomes.
 \subsubsection{Modern}
 The system must not use obsolete technologies or software engineering design techniques.
 
-\subsection{Non-functional requirements}
-
-\begin{itemize}
-\item Modular - server should be divided into modular architecture where each module has its own responsibiltiy. Modules have to be further divided into layers or packages. System implements client-server architecture.
-
-\item Secure - achieved through, e.g., vulenarability scanning, token based authentication enhanced with refresh token functionality, client and server validation, containerization, role based endpoint protection.
-
-\item Configurable- system should be highly configurable by the system administrator. The software can be separately configured on the server, client and containers side.
-
-\item Confidential - data sent by the users should not be accessible by the admins.
-
-\item Extensible - the system should be engineered in a way to be easily extensible with new features such as supporting new database types or new data masking techniques.
-
-\item Adaptable - the system should be able to easily adapt to changing requirements by the means of clean code practices such as modularity and testability.
-
-\item Performant - achieved through, e.g., using lazy loading of the relations and individual optimisations.
-
-\item Responsive - achieved through, e.g., performant client routing.
-
-\item Engaging - achieved by displaying skeletons, spinners and notifications.
-
-\item Usable - the system should not be confusing to be used.
-
-\item Testable - the system code should be written in a testable manner
-
-\item Reliable - achieved through continuous integration testing and using well known secure libraries 
-
-\item User experience - achieved through client functionalities such as intuitiveness and uniform design of the system
-
-\item Measurable - the system should collect metrics about e.g. processing time of outcomes.
-
-\item Modern - the system must not use obsolete technologies or software engineering design techniques.
-\end{itemize}
-
-
 \section{System engineering}
 \subsection{Use cases}
+
+The use cases were split into two distinct diagrams which group together the use cases concerning:
+\begin{itemize}
+\item management – shown in Fig. \ref{fig:use_cases_management}
+\item anonymisation – shown in Fig. \ref{fig:use_cases_anonymisation} 
+\end{itemize}
 
 \begin{figure}
   \centering
   \includegraphics[width=\linewidth]{img/use_cases_core.png}
   \caption{Use cases concerning management}
-  \label{fig:2}
+  \label{fig:use_cases_management}
 \end{figure}
 
 \begin{figure}
   \centering
   \includegraphics[width=\linewidth]{img/use_cases_anonymisation.png}
   \caption{Use cases concerning anonymisation}
-  \label{fig:2}
+  \label{fig:use_cases_anonymisation}
 \end{figure}
 
 \subsection{REST API}
