@@ -789,7 +789,7 @@ Why web platform, state of the art for web.
 \subsubsection{Account creation}
 
 
-To create a new account, an anonymous user needs to provide valid information including e-mail address, password and confirmation, name, surname, and optionally the purpose for anonymisation. Creating an account with an e-mail that is already in use must be prohibited. A new user described by the account should require verification.
+To create a new account, an anonymous user needs to provide valid information including e-mail address, password and confirmation, name, surname, and optionally the purpose for anonymisation. Creating an account with an e-mail that is already in use must be prohibited. A new account must be verified to access the broad functionalities.
 
 \subsubsection{Account verification}
 
@@ -840,11 +840,11 @@ User should be able to login to the system and access his account's resources.
 
 \subsubsection{Access token}
 
-A successful authentication should generate an access token which encompasses all the information necessary for the user authentication and authorization. The token should be valid for a brief duration, e.g., 5 minutes - which should be a matter of runtime configuration conducted by the system administrator. The token should be implemented using JSON Web Token (JWT) standard and should be stored on the client's side.
+A successful authentication should generate an access token which encompasses all the information necessary for the user authentication and authorization. The token should be valid for a brief duration, e.g., 5 minutes – which should be a matter of runtime configuration conducted by the system administrator. The token should be implemented using JSON Web Token (JWT) standard and should be stored on the client's side.
 
 \subsubsection{Refresh Token}
 
-The refresh token which is generated together with access token during authentication should be used to periodically generate a new pair of the access and refresh tokens. There should exist a REST endpoint that will accept current valid refresh token and will output a new access and refresh token - effectively prolonging user's session. This token should be valid for a very long duration, e.g., 6 months - which should be a matter of runtime configuration.
+The refresh token which is generated together with access token during authentication should be used to periodically generate a new pair of the access and refresh tokens. There should exist a REST endpoint that will accept current valid refresh token and will output a new access and refresh token - effectively prolonging user's session. This token should be valid for a very long duration, e.g., 6 months – which should be a matter of runtime configuration.
 
 \subsubsection{User logout}
 
@@ -870,12 +870,12 @@ Axios HTTP client should be configured in such a manner that it will detect a st
 User password should be stored in the database in an ecrypted form using e.g., bcrypt hashing.
 
 
-\subsubsection{Request validation - client}
+\subsubsection{Request validation – client}
 
-The system should disallow sending HTTP requests that fail to meet the validation criterias preset with Yup library.
+The system should disallow sending HTTP requests that fail to meet the validation criterias set with Yup library.
 
 
-\subsubsection{In-depth validation - client}
+\subsubsection{In-depth validation – client}
 
 Validation rules set by Yup library for the client forms should be enforced by React Hook Forms. 
 
@@ -888,16 +888,16 @@ Client displays validation errors below the concerning HTML inputs.
 
 \subsubsection{Error notifications}
 
-Client uses toast pop-ups to display client and server HTTP errors https://developer.mozilla.org/en-US/docs/Web/HTTP/Status - for example 400 Bad Request. The notifications along with the associated message are displayed in the upper-right corner. The pop-ups are red to underline its purpose and the purpose should be further emphasized - by adding more red color - when displaying the errors of extreme importance e.g. database restore failure.
+Client uses toast pop-ups to display client and server HTTP errors \cite{bib:rfc7231} – for example 400 Bad Request. The notifications along with the associated message are displayed in the upper-right corner. The pop-ups are red to underline its purpose and the purpose should be further emphasized - by adding more red color – when displaying the errors of extreme importance e.g. database restore failure.
 
 \subsubsection{Success notifications}
 
-Client sent HTTP requests that finished with a successful response[https://developer.mozilla.org/en-US/docs/Web/HTTP/Status] - for example 201 - Accepted - should be displayed in a green colored pop-up along with the associated message.
+Client sent HTTP requests that finished with a successful response \cite{bib:rfc7231} – for example 201 Accepted - should be displayed in a green coloured pop-up along with the associated message.
 
 
 \subsubsection{Block user}
 
-Admin should have the means to block the user  from the users panel, effectively disabling the possibility of logging in.
+Admin should have the means to block the user from the users panel, effectively disabling the possibility of logging in.
 
 \subsubsection{Unblock user}
 
@@ -905,18 +905,249 @@ Admin will have the means to unblock the blocked user from the users panel, rest
 
 
 
-\subsubsection{Request validation - server}
+\subsubsection{Request validation – server}
 
-The system must validate the HTTP requests on the server to secure passing invalid requests by external HTTP clients.
+The system must validate the HTTP requests on the server to protect the system from passing malformed requests sent by the malicious external HTTP clients. The validations should be declaratively used on the Data Transfer Object (DTO) classes. 
 
-\subsubsection{In-depth validation - server}
+Exemplary validation constraints could include checking for values that meet any of the following criterias:
+\begin{itemize}
+\item not null
+\item not blank
+\item not empty
+\item for integers – of a value in an allowed range
+\item for strings – of size in an allowed range
+\item non-standard such as e-mail
+\end{itemize}
+
+\subsubsection{Maximum file size}
+
+System administrator should be in control of configuration of the maximum accepted sizes of the files sent to the system (i.e. database dumps). The file sizes that are too large must not be accepted.
 
 
+\subsubsection{In-depth validation – server}
+
+Server should perform numerous other advanced validations specific to individual scenarios.
+
+Exemplary cases related to infrastructure should check if:
+\begin{itemize}
+\item the system is running in cloud environment
+\item an entity non compliant with the database schema is trying to be persisted
+\item database connection is established
+\end{itemize}
+
+Exemplary cases related to authorization should check if:
+\begin{itemize}
+\item user is trying to access another user's resource
+\item user is unauthorized to access the resource due to lack of privileges
+\item long lasting refresh token has expired
+\end{itemize}
+
+Exemplary cases related to domain should check if:
+\begin{itemize}
+\item anonymisation operation is applicable the particular column
+\item column is a primary or foreign key
+\item a given task is manually executable
+
+\end{itemize}
+
+\subsubsection{Client tables settings}
+The tables presented used extensively by the client application should offer the functionalities of:
+
+\begin{itemize}
+\item pagination to a set page size
+\item filtering by attribute
+\item sorting by attribute
+\item hiding and showing of columns
+\end{itemize}
+
+\subsubsection{Navigation menu}
+
+The client application should have a navigation menu. The panel should be located on the left side of the screen. Each navigation item should consist of a large icon and a text label. The entire panel should be hideable – the entire page content should seamlessly adapt to this. Optionally, smooth transition animation should be configurable during TypeScript compilation time.
+
+The items should be easily defined, ordered and configured by adopting a standard. Visibility of a particular item must be role-based, e.g. only admin can see \textit{users} item.
+
+
+\subsubsection{User profile}
+
+The user should be able to view and edit his profile details. The user must not be able to change his e-mail address.
+
+\subsubsection{Timestamp data collection}
+
+The system should collect timestamp data about various resources such as users or templates. Some of the data should be client renderable, and some of the data should be merely collected.
+
+Exemplary dates concern:
+\begin{itemize}
+\item account registration, block, request for removal, removal
+\item template generation
+\end{itemize}
+
+\subsubsection{Requests data collection}
+
+All HTTP requests to the anonymisation server should be logged in the system. The logged information should include HTTP method, HTTP response status and the request URI.	
+
+
+\subsubsection{File selector}
+
+There should be a custom file selector input that will allow uploading files i.e., database dumps. The component should show the upload progress bar and success or error message upon completion.
+
+\subsubsection{Uniform design}
+
+The user must not be surprised with a particular page looking in an unexpected way. There should be established a uniform design for the client pages. The design should uniformise, e.g., colors, borders, paddings, margins, shadows or components.
 
 
 \subsubsection{Mail notifications}
 
 The system has the capabilities of sending e-mails notifying about various actions such as expiring account. This functionality should be runtime configurable by the system administrator.
+
+
+\subsubsection{Role-based authorization}
+
+All non-whitelisted REST resources should be protected with declarative role-based authorization.
+
+\subsubsection{Resources whitelist}
+
+System administrator should be able to configure whitelisted (i.e., unprotected) REST resources. Unprotected endpoints do not require to be authenticated (i.e., logged in) to access them.
+
+
+\subsubsection{Database preloader}
+
+There should be a functionality to preloaded the system with prepared data. A new system instance must include at least one administrator account.
+
+\subsubsection{Dynamic database connection}
+
+There should exist a factory for data sources that will establish a connection to the dynamically created databases restored from dump files uploaded by the users.
+
+\subsubsection{Prune connection pool}
+
+There should be a functionality to drop all existing database connections, effectively allowing to create the database mirrors dynamically.
+
+\subsubsection{Environment based configuration}
+
+Different environments, i.e., production, develop and local should use different configurations of the environment and anonymisation server.
+
+\subsubsection{Running processes from Java}
+
+There should be the possibility of running external processes such as \textit{psql} directly from the Java code.
+
+
+\subsubsection{Asynchronous events}
+
+There should be a configuration for handling asynchronous events. \textit{Uploading} and \textit{processing} server modules should be started with an asynchronous non-blocking event.
+
+\subsubsection{Scheduling}
+
+There should be a functionality for defining schedulable task services. The services should rely on the cron expression based triggers. Individual tasks should be runtime configurable in terms of their:
+
+\begin{itemize}
+\item cron expression
+\item whether the task is enabled for automated scheduling
+\item whether the task is enabled for manual execution
+\item displayed description in the panel
+\end{itemize}
+
+\subsubsection{Tasks panel}
+
+There should be a tasks panel for the admin to retrieve and monitor them. The panel should allow a non-blocking on demand execution of the selected individual tasks.
+
+\subsubsection{Users panel}
+
+There should be a users panel for the admin to present an overview and manage the users' accounts.
+
+\subsubsection{Generate template}
+
+The system should have the functionality to 
+
+
+\subsubsection{Secrets}
+
+There should be a functionality prepared to load the secrets (i.e., password for the database, JWT secret key, mail service password) from an external file non-published to the public git repository. Continuous Integration related secrets should be configured directly in GitHub.
+
+\subsubsection{SonarQube}
+
+Both the client and the server should be scanned by the SonarQube static analysis tool. This software should be integrated into Quality CI workflow.
+
+\subsubsection{CodeQL}
+
+Application should be scanned by CodeQL for security issues as a part of Security CI workflow.
+
+\subsubsection{Containerization}
+
+Software components of the system should be containerized. All services should be running as containers when running the system in production environment.
+
+\subsubsection{Multiple environments}
+
+The designed system has to be runnable in multiple environments, i.e.:
+
+\begin{itemize}
+\item production
+\item development
+\item development with the \textit{server} profile enabled
+\item locally on the host with a database container
+\item fully locally on the host
+\end{itemize}
+
+Distinct configuration files must exist for the distinct environments.
+
+
+
+\subsubsection{Swagger}
+
+The REST API of the anonymisation server is to be documented with Swagger UI.
+
+
+\subsubsection{Starting template generation}
+
+The user should be able to start the generation of a new template based on the database dump file he provides. The acceptable dump files should include compressed archive or plain script file. The user must successfully upload the dump before starting the template generation.
+
+
+\subsubsection{Template generation progress}
+
+The template generation should involve the sequence of three steps: persisting the dump file, restoring a new database from the dump, extracting metadata about the restored database. The user should be able to view the template generation progress.
+
+This should be presented as a progress panel containing a visualization of three steps. Completion of a step either marks it as a success or error. Currently processing step should be shown. Errors informing about e.g. invalid databases must be reported to the user. The generation progress should internally update status of the template and should be performed as a sequence of events.
+
+
+\subsubsection{Restore database}
+
+The system should be able to restore a new database from a dump file of either compressed archive or script file.
+
+\subsubsection{Mirror database}
+
+The system should be able to create a mirror of an existing user database. The mirror should be used for writing the anonymisation script into and then dumping into the final outcome result.
+
+\subsubsection{Extract metadata}
+
+The system should extract the metadata from the uploaded database when creating a new template. The metadata must include information concerning the structure of the database, e.g., the tables, columns and primary keys the database contains. Extracted metadata should be persisted in the server database as JSON type. 
+
+\subsubsection{Inspecting metadata}
+
+The user should be able to inspect the extracted metadata.
+
+\subsubsection{Download metadata}
+
+The user should be able to download the extract metadata.
+
+
+\subsubsection{Viewing templates}
+
+The user should be able to view his templates.
+
+\subsubsection{Producing worksheet}
+
+The user should be able to produce a new worksheet from the templates he created earlier on. Worksheet should be used for building up the anonymisation setup. The worksheet must not be accessible to other users.
+
+\subsubsection{Viewing summary}
+
+There should be a summary view which is an overview for the given worksheet. It should contain four distinct sections of information of the worksheet: template section, tables section, operations section and outcomes section.
+
+
+
+
+
+
+\subsubsection{}
+
+
 
 
 \subsection{Non-functional requirements}
