@@ -340,7 +340,6 @@ Wniosek: generyczny sposób anonimizacji - nie ma takiego.
 
 \chapter{Problem analysis}
 
-
 \section{Data explosion}
 
 \subsection{Technology advancement}
@@ -359,24 +358,17 @@ Services of enterprise organizations are running on all the collected data which
 
 This only proves that big data deals not only with massive volumes – it has also to deal with the high velocities of data generation, which is yet another characteristic of data \cite{bib:big_data_analytics}. According to DOMO report published back in 2020, 90\% of world's data was generated just in the preceding two years, and on average every person in the world created 1.7 megabytes of data per second – which yields 2.5 quintillion ($2.5 \cdot 10^{18}$) bytes of new data each day \cite{bib:domo}.
 
-
-
 The momentum of the immense big data interest growth among organizations is not fading away yet, as more and more new businesses and researches are drawn to this subject. The benefits of big data especially concern scientific organizations and large enterprises of which financial domain and IT industry are the common consumers \cite{bib:anonymization_chaos}. The organizations find the interest in information analytics for remarkably diversified reasons. It is recognized as a field that will entirely alter all parts of civilization such as businesses or society as a whole \cite{bib:big_data_in_practice}.
 
 \subsubsection{Applications}
 
 Various types of organizations collect data to take advantage from the insights derived out of the data. The big data analytics applications' impact can be observed already today in a broad spectrum of domains. 
 
-
 Leading technology companies, such as Google and Facebook, to name a few, sell anonymised collected user data access to their partner advertisers \cite{bib:big_data_in_practice}. This is legally possible as the information that was anonymised, i.e., de-identified in a way that it is no longer bound to an individual, may flow from a system to a system.
 
 Large Hadron Collider (LHC) located in CERN, being the largest physical experiment, annually produces approximately 30 petabytes of data. LHC takes an advantage of light sensors that monitor the collisions of hundreds of millions of particles accelerated nearly to the speed of light. The collisions create enormous amount of data to be processed by computer algorithms in the hope of discovering new particles, e.g., a Nobel prize awarding discovery of Higgs boson had taken place in 2012 \cite{bib:cern}.
 
 Enterprise stores such as Amazon or SAP Commerce Cloud collect the information regarding the way of how the visitors browse and interact with these stores. Collected information may involve the behavioural data related to customer engagement, such as the pages we visit, event clicks, or the way we scroll the page. The insights derived from the collected information enable making future improvements of these services – for example by improving the digital marketing or performance improvements based on the metrics \cite{bib:sap}. The customer experience is also improved as based on the collected data the advertisements or item recommendations can be tailored to the specific user's preferences. The recommendation engine may also attempt to match your profile data to people of similar profile to provide better recommendations. Services attempt to analyse the behavioural patterns such as time of day we browse the store or what circumstances caused our last visit to finish. Even the details such as the exact neighbourhood location we live in, combined with its estimated wealth, organizations may attempt to guess our potential income level \cite{bib:big_data_in_practice}. These data analytics are performed to improve the possibility of customer buying yet another item.
-
-
-
-
 
 \section{Data privacy}
 
@@ -393,6 +385,7 @@ Luckily the law had finally caught up to the circumstances of the increasing dat
 An overall awareness of the data privacy significance had improved in the society, and the means to achieve the data privacy through data protection had also improved as organizations needed to adopt to the new situation by applying enhanced measures to their protection of data – anonymisation and pseudonymisation being the notable examples of such measures. 
 
 \subsection{Authorization to share data}
+
 Majority of data privacy regulations are based on a consent of an individual, i.e., it is lawful to process and use the information for secondary purposes only if an individual explicitly acknowledge their consent for that \cite{bib:gdpr_practical_guide}. This may appear easier said than done due to the unobvious difficulties data controllers face when trying to obtain such a broad authorization consent that will take into account all possible secondary purpose usages.
 
 Consider a patient entering medical facility for an ordinary appointment. The patient would likely find it unusual, disturbing or even shocking if upon his entrance to the facility he was to receive an overwhelming form that included dozens of independent consent authorization requests. The consents could give the impression of being seemingly unrelated to his visit in the first place, e.g., a constent to share the data with researchers of an university located on another continent. In the end that could destroy the data subject's trust – in this case patient's trust.
@@ -456,7 +449,6 @@ Consider the two theoretical boundary cases of either releasing data in its orig
 
 Clearly the data must not be released in its original state – strict GDPR that imposes large administrative fines \cite{bib:art83} exists to mitigate such violations. On the other hand, data that completely suppresses all the information has no value. The data controllers therefore need to strike a balance between the two cases. An appropriate anonymisation strategy maximizing the utility without endangering the privacy must be adopted.
 
-
 \subsection{Pseudonymisation}
 
 \color{blue}
@@ -482,7 +474,6 @@ Why you can't really anonymize the data:
 
 https://web.archive.org/web/20140109052803/http://strata.oreilly.com/2011/05/anonymize-data-limits.html
 \color{black}
-
 
 \section{Data masking techniques}
 
@@ -536,7 +527,6 @@ Suppression is typically applied on the column level of an attribute, however it
 
 The designed software offers column level suppression with a user specified value (i.e., suppression token). The values are transformed to this user specified value using a simple algorithm shown in Fig. \ref{fig:code:suppression}.
 
-
 \begin{figure}[h]
 \begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=lines, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
 procedure suppression(values, token)
@@ -547,7 +537,6 @@ procedure suppression(values, token)
 \caption{Suppression pseudocode.}
 \label{fig:code:suppression}
 \end{figure}
-
 
 \subsection{Generalisation}
 
@@ -576,7 +565,6 @@ Consider the raw data of the three attributes presented in the table \ref{id:tab
 \end{table}
 
 Results shown in the table \ref{id:tab:generalisation} include exemplary possible values after being processed by the generalisation method. As depicted in the table, all three attributes have been grouped into broader value ranges, hence undergoing the generalisation, yet every column was generalised with a different generalisation strategy.
-
 
 \begin{table}[h]
 \centering
@@ -629,7 +617,6 @@ procedure generalise(values, configuration)
 
 The generalisation strategies can be summarized with the pseudocodes shown in Fig. \ref{fig:code:generalisation1} and Fig. \ref{fig:code:generalisation2}.
 
-
 \begin{figure}[h]
 \begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=lines, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
 procedure generalise(values, configuration)
@@ -661,11 +648,7 @@ procedure generalise(values, configuration)
 \label{fig:code:generalisation2}
 \end{figure}
 
-
-
 Generalisation may be applied on a global level or local level \cite{bib:anonymization_extensive_study}. In terms of database related vocabulary, as this paper primarily concerns an anonymisation of databases, we say generalisation on a column or record level, respectively.
-
-
 
 \subsection{Perturbation}
 
@@ -739,7 +722,6 @@ procedure perturbation(values, noise)
 
 Perturbation technique works the best with continuous values - it is an effective method for de-identification of quasi-identifiers such as dates and numbers \cite{bib:anonymisation_techniques_singapore}. Scientifically advanced perturbation approaches are further divided into linear and non-linear perturbation models \cite{bib:perturbation_methods}.
 
-
 \color{blue}
 \subsection{Pattern masking}
 \subsection{Randomisation}
@@ -752,26 +734,21 @@ Perturbation technique works the best with continuous values - it is an effectiv
 \subsection{Encryption}
 \subsection{Tokenisation}
 
-
-
 \section{Existing solutions}
 
 List of existing solutions.
 
 \section{Platform}
 
-Why web platform, state of the art for web.
 \color{black}
-
-
 \ksremark{state of the art dla aplikacji sieciowych}
 \ksremark{Dlaczego aplikacja webowa?}
 
-\chapter{Requirements engineering}
+\chapter{Design specification}
 
-\section{Domain requirements}
+\section{Requirements engineering}
 
-\subsection{Functional requirements}
+\subsection{Functional requirements – domain}
 
 \subsubsection{Data masking}
 
@@ -946,11 +923,8 @@ There should be a way to reset the password that was forgotten. The link should 
 
 There should be a tasks panel for the admin to retrieve and monitor the tasks. The panel should permit a non-blocking on demand execution of the selected individual tasks.
 
-\subsection{Non-functional requirements}
 
-\section{Infrastructure requirements}
-
-\subsection{Functional requirements}
+\subsection{Functional requirements – infrastructure}
 
 \subsubsection{Login}
 
@@ -1204,19 +1178,85 @@ There should be a script pruning the Docker data from the host system.
 
 \subsection{Non-functional requirements}
 
+\subsubsection{Modular}
+Server should be divided into modular architecture where each module has its own responsibiltiy. Modules have to be further divided into layers or packages. System implements client-server architecture.
 
+\subsubsection{Secure}
+Achieved through, e.g., vulenarability scanning, token based authentication enhanced with refresh token functionality, client and server validation, containerization, role based endpoint protection.
 
+\subsubsection{Configurable}
+System should be highly configurable by the system administrator. The software can be separately configured on the server, client and containers side.
 
+\subsubsection{Confidential}
+Data sent by the users should not be accessible by the admins.
 
+\subsubsection{Extensible}
+The system should be engineered in a way to be easily extensible with new features such as supporting new database types or new data masking techniques.
 
+\subsubsection{Adaptable}
+The system should be able to easily adapt to changing requirements by the means of clean code practices such as modularity and testability.
 
+\subsubsection{Performant}
+Achieved through, e.g., using lazy loading of the relations and individual optimisations.
 
+\subsubsection{Responsive}
+Achieved through, e.g., performant client routing.
 
+\subsubsection{Engaging}
+Achieved by displaying skeletons, spinners and notifications that catch user's attention.
 
+\subsubsection{Usable}
+The system features should be easily understandable – the functionalities must not be confusing to be used.
 
+\subsubsection{Testable}
+The system code should be written in a testable manner, e.g. by ensuring high quality of the code and separation of concerns.
 
+\subsubsection{Reliable}
+Achieved through continuous integration testing and using well known secure libraries 
+
+\subsubsection{User experience}
+Achieved through client functionalities such as intuitiveness and uniform design of the system
+
+\subsubsection{Measurable} 
+The system should collect metrics about e.g. processing time of outcomes.
+
+\subsubsection{Modern}
+The system must not use obsolete technologies or software engineering design techniques.
 
 \subsection{Non-functional requirements}
+
+\begin{itemize}
+\item Modular - server should be divided into modular architecture where each module has its own responsibiltiy. Modules have to be further divided into layers or packages. System implements client-server architecture.
+
+\item Secure - achieved through, e.g., vulenarability scanning, token based authentication enhanced with refresh token functionality, client and server validation, containerization, role based endpoint protection.
+
+\item Configurable- system should be highly configurable by the system administrator. The software can be separately configured on the server, client and containers side.
+
+\item Confidential - data sent by the users should not be accessible by the admins.
+
+\item Extensible - the system should be engineered in a way to be easily extensible with new features such as supporting new database types or new data masking techniques.
+
+\item Adaptable - the system should be able to easily adapt to changing requirements by the means of clean code practices such as modularity and testability.
+
+\item Performant - achieved through, e.g., using lazy loading of the relations and individual optimisations.
+
+\item Responsive - achieved through, e.g., performant client routing.
+
+\item Engaging - achieved by displaying skeletons, spinners and notifications.
+
+\item Usable - the system should not be confusing to be used.
+
+\item Testable - the system code should be written in a testable manner
+
+\item Reliable - achieved through continuous integration testing and using well known secure libraries 
+
+\item User experience - achieved through client functionalities such as intuitiveness and uniform design of the system
+
+\item Measurable - the system should collect metrics about e.g. processing time of outcomes.
+
+\item Modern - the system must not use obsolete technologies or software engineering design techniques.
+\end{itemize}
+
 
 \section{System engineering}
 \subsection{Use cases}
@@ -1489,37 +1529,9 @@ Axios is an asynchronous HTTP client used for sending the requests to the anonym
 \item UML diagrams
 \end{itemize}
 
+Use special environment for inline code, eg \lstinline|descriptor| or \lstinline|descriptor_gaussian|.
 
-Use special environment for inline code, eg \lstinline|descriptor| or \lstinline|descriptor_gaussian|. 
-Longer parts of code put in the figure environment, eg. code in Fig. \ref{fig:pseudokod}. Very long listings–move to an appendix.
 
-\begin{figure}
-\centering
-\begin{lstlisting}
-class descriptor_gaussian : virtual public descriptor
-{
-   protected:
-      /** core of the gaussian fuzzy set */
-      double _mean;
-      /** fuzzyfication of the gaussian fuzzy set */
-      double _stddev;
-      
-   public:
-      /** @param mean core of the set
-          @param stddev standard deviation */
-      descriptor_gaussian (double mean, double stddev);
-      descriptor_gaussian (const descriptor_gaussian & w);
-      virtual ~descriptor_gaussian();
-      virtual descriptor * clone () const;
-      
-      /** The method elaborates membership to the gaussian fuzzy set. */
-      virtual double getMembership (double x) const;
-     
-};
-\end{lstlisting}
-\caption{The \lstinline|descriptor_gaussian| class.}
-\label{fig:pseudokod}
-\end{figure}
 
 
 \chapter{Verification and validation}
@@ -1536,67 +1548,7 @@ class descriptor_gaussian : virtual public descriptor
 \chapter{Conclusions}
 
 
-\begin{figure}[h]
-\begin{minted}[fontsize=\footnotesize, xleftmargin=-8pt, baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=lines, breaklines=true, framesep=1mm]{java}
-public class ColumnShuffleFacade extends AnonymisationFacade {
 
-  AnonymisationService<ColumnShuffle> anonymisationService = new ColumnShuffleService();
-
-  @Override
-  List<Pair<String, String>> getAnonymisedRows(ColumnOperations oper, List<Pair<String, String>> rows) {
-    ColumnShuffle columnShuffle = oper.getColumnShuffle();
-    if (columnShuffle == null) {
-      return null;
-    }
-    return anonymisationService.anonymise(rows, columnShuffle);
-  }
-
-  @Override
-  protected AnonymisationService<ColumnShuffle> getAnonymisationService() {
-    return anonymisationService;
-  }
-}
-\end{minted}
-\caption{Java code gets easily verbose.}
-\label{fig:lalrpopExemplaryRule}
-\end{figure}
-\begin{itemize}
-\item achieved results with regard to objectives of the thesis and requirements
-\item path of further development (eg functional extension …)
-\item encountered difficulties and problems
-\end{itemize}
-
- 
-\begin{table}
-\centering
-\caption{A caption of a table is \textbf{above} it.}
-\label{id:tab:wyniki}
-\begin{tabular}{rrrrrrrr}
-\toprule
-	         &                                     \multicolumn{7}{c}{method}                                      \\
-	         \cmidrule{2-8}
-	         &         &         &        \multicolumn{3}{c}{alg. 3}        & \multicolumn{2}{c}{alg. 4, $\gamma = 2$} \\
-	         \cmidrule(r){4-6}\cmidrule(r){7-8}
-	$\zeta$ &     alg. 1 &   alg. 2 & $\alpha= 1.5$ & $\alpha= 2$ & $\alpha= 3$ &   $\beta = 0.1$  &   $\beta = -0.1$ \\
-\midrule
-	       0 &  8.3250 & 1.45305 &       7.5791 &    14.8517 &    20.0028 & 1.16396 &                       1.1365 \\
-	       5 &  0.6111 & 2.27126 &       6.9952 &    13.8560 &    18.6064 & 1.18659 &                       1.1630 \\
-	      10 & 11.6126 & 2.69218 &       6.2520 &    12.5202 &    16.8278 & 1.23180 &                       1.2045 \\
-	      15 &  0.5665 & 2.95046 &       5.7753 &    11.4588 &    15.4837 & 1.25131 &                       1.2614 \\
-	      20 & 15.8728 & 3.07225 &       5.3071 &    10.3935 &    13.8738 & 1.25307 &                       1.2217 \\
-	      25 &  0.9791 & 3.19034 &       5.4575 &     9.9533 &    13.0721 & 1.27104 &                       1.2640 \\
-	      30 &  2.0228 & 3.27474 &       5.7461 &     9.7164 &    12.2637 & 1.33404 &                       1.3209 \\
-	      35 & 13.4210 & 3.36086 &       6.6735 &    10.0442 &    12.0270 & 1.35385 &                       1.3059 \\
-	      40 & 13.2226 & 3.36420 &       7.7248 &    10.4495 &    12.0379 & 1.34919 &                       1.2768 \\
-	      45 & 12.8445 & 3.47436 &       8.5539 &    10.8552 &    12.2773 & 1.42303 &                       1.4362 \\
-	      50 & 12.9245 & 3.58228 &       9.2702 &    11.2183 &    12.3990 & 1.40922 &                       1.3724 \\
-\bottomrule
-\end{tabular}
-\end{table}  
-
- 
-
- 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1625,100 +1577,13 @@ public class ColumnShuffleFacade extends AnonymisationFacade {
 
 \begin{itemize}
 \item[DNA] deoxyribonucleic acid
-\item[MVC] model--view--controller 
-\item[$N$] cardinality of data set
-\item[$\mu$] membership function of a fuzzy set
-\item[$\mathbb{E}$] set of edges of a graph
-\item[$\mathcal{L}$] Laplace transformation
 \end{itemize}
 
 
-\chapter*{Listings}
-\addcontentsline{toc}{chapter}{Listings}
 
-(Put long listings in the appendix.)
-
-\begin{lstlisting}
-partition fcm_possibilistic::doPartition
-                             (const dataset & ds)
-{
-   try
-   {
-      if (_nClusters < 1)
-         throw std::string ("unknown number of clusters");
-      if (_nIterations < 1 and _epsilon < 0)
-         throw std::string ("You should set a maximal number of iteration or minimal difference -- epsilon.");
-      if (_nIterations > 0 and _epsilon > 0)
-         throw std::string ("Both number of iterations and minimal epsilon set -- you should set either number of iterations or minimal epsilon.");
-   
-      auto mX = ds.getMatrix();
-      std::size_t nAttr = ds.getNumberOfAttributes();
-      std::size_t nX    = ds.getNumberOfData();
-      std::vector<std::vector<double>> mV;
-      mU = std::vector<std::vector<double>> (_nClusters);
-      for (auto & u : mU)
-         u = std::vector<double> (nX);
-      randomise(mU);
-      normaliseByColumns(mU);
-      calculateEtas(_nClusters, nX, ds);
-      if (_nIterations > 0)
-      {
-         for (int iter = 0; iter < _nIterations; iter++)
-         {
-            mV = calculateClusterCentres(mU, mX);
-            mU = modifyPartitionMatrix (mV, mX);
-         }
-      }
-      else if (_epsilon > 0)
-      {
-         double frob;
-         do 
-         {
-            mV = calculateClusterCentres(mU, mX);
-            auto mUnew = modifyPartitionMatrix (mV, mX);
-            
-            frob = Frobenius_norm_of_difference (mU, mUnew);
-            mU = mUnew;
-         } while (frob > _epsilon);
-      }
-      mV = calculateClusterCentres(mU, mX);
-      std::vector<std::vector<double>> mS = calculateClusterFuzzification(mU, mV, mX);
-      
-      partition part;
-      for (int c = 0; c < _nClusters; c++)
-      {
-         cluster cl; 
-         for (std::size_t a = 0; a < nAttr; a++)
-         {
-            descriptor_gaussian d (mV[c][a], mS[c][a]);
-            cl.addDescriptor(d);
-         }
-         part.addCluster(cl);
-      }
-      return part;
-   }
-   catch (my_exception & ex)                                  
-   {                                                       
-      throw my_exception (__FILE__, __FUNCTION__, __LINE__, ex.what()); 
-   }                                                          
-   catch (std::exception & ex)                                 
-   {                                                            
-      throw my_exceptionn (__FILE__, __FUNCTION__, __LINE__, ex.what()); 
-   }                                                            
-   catch (std::string & ex)                                     
-   {                                                            
-      throw my_exception (__FILE__, __FUNCTION__, __LINE__, ex);        
-   }                                                             
-   catch (...)                                                   
-   {                                                             
-      throw my_exception (__FILE__, __FUNCTION__, __LINE__, "unknown expection");       
-   }  
-}
-\end{lstlisting} 
 
 \chapter*{List of additional files in~electronic submission (if applicable)}
 \addcontentsline{toc}{chapter}{List of additional files in~electronic submission (if applicable)}
-
 
 Additional files uploaded to the system include:
 \begin{itemize}
@@ -1732,10 +1597,8 @@ Additional files uploaded to the system include:
 \addcontentsline{toc}{chapter}{List of figures}
 \listoftables
 \addcontentsline{toc}{chapter}{List of tables}
-	
 
 \end{appendices}
-
 
 \end{document}
 
