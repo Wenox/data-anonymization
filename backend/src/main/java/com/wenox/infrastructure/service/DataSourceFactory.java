@@ -42,6 +42,7 @@ public class DataSourceFactory {
         } else {
           dataSource.setUrl("jdbc:mysql://" + postgresIpAddress + ":" + postgresHostPort + "/" + databaseConnection.getDatabaseName());
         }
+        break;
       default:
         throw new RuntimeException("Unsupported database type: " + databaseConnection.getDatabaseName());
     }
