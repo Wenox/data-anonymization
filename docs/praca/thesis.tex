@@ -31,6 +31,7 @@
 \usepackage{mathtools}
 \usepackage{geometry}
 \usepackage[page]{appendix} 
+\usepackage{multirow}
 
 
 %%% My packages %%%
@@ -205,7 +206,7 @@ escapeinside={@*}{*@},%
 	
 	\begin{center}
 	\includegraphics[width=45mm]{logo_eng.jpg}
-	\end{center} 
+	\end{center}
 	\vspace{1cm}
 	\begin{center}
 	\headerfont \Polsl
@@ -744,7 +745,7 @@ List of existing solutions.
 \ksremark{state of the art dla aplikacji sieciowych}
 \ksremark{Dlaczego aplikacja webowa?}
 
-\chapter{Design specification}
+\chapter{Requirements and tools}
 
 \section{Requirements engineering}
 
@@ -1247,6 +1248,95 @@ The use cases were split into two distinct diagrams which group together the use
 \end{figure}
 
 \subsection{REST API}
+
+The communication with the anonymisation server is driven by the RESTful APIs. Available endpoints are listed in the table \ref{id:tab:rest_api}.
+
+\begin{table}[]
+\centering
+\caption{Available REST resources.}
+\label{id:tab:rest_api}
+\begin{tabular}{|c|l|l|}
+\hline
+\textbf{Controller}                                                & \multicolumn{1}{c|}{\textbf{Type}}   & \multicolumn{1}{c|}{\textbf{Endpoint}} \\ \hline
+
+% Auth
+\multicolumn{1}{|c|}{\multirow{2}{*}{Auth}}                        & \multicolumn{1}{l|}{POST}           & /api/v1/auth/login                    \\
+\multicolumn{1}{|c|}{}                                             & \multicolumn{1}{l|}{POST}           & /api/v1/auth/refresh-token \\ \hline
+
+%%%%%%%%%%%%%%%%%%
+% User
+%%%%%%%%%%%%%%%%%%
+\multicolumn{1}{|c|}{\multirow{5}{*}{User}}                        & \multicolumn{1}{l|}{GET}            & /api/v1/users\\
+\multicolumn{1}{|c|}{}                                             & \multicolumn{1}{l|}{POST}           & /api/v1/users/register \\
+\multicolumn{1}{|c|}{}                                             & \multicolumn{1}{l|}{PUT}            & /api/v1/users/{id}/block \\  
+\multicolumn{1}{|c|}{}                                             & \multicolumn{1}{l|}{PUT}            & /api/v1/users/{id}/unblock \\ 
+\multicolumn{1}{|c|}{}                                             & \multicolumn{1}{l|}{PUT}            & /api/v1/users/{id}/force-removal \\ \hline
+
+%%%%%%%%%%%%%%%%%%
+% Verify
+%%%%%%%%%%%%%%%%%%
+\multicolumn{1}{|c|}{\multirow{3}{*}{Verify}}                      & \multicolumn{1}{l|}{POST}           & /api/v1/users/verify-mail  \\
+\multicolumn{1}{|c|}{}                                             & \multicolumn{1}{l|}{POST}           & /api/v1/users/verify-mail/send-again \\
+\multicolumn{1}{|c|}{}                                             & \multicolumn{1}{l|}{POST}           & /api/v1/users/\{id\}/confirm-mail-verification \\ \hline
+
+%%%%%%%%%%%%%%%%%%
+% ResetPassword
+%%%%%%%%%%%%%%%%%%
+\multicolumn{1}{|c|}{\multirow{3}{*}{ResetPassword}}               & \multicolumn{1}{l|}{POST}           & /api/v1/reset-password/request-reset  \\
+\multicolumn{1}{|c|}{}                                             & \multicolumn{1}{l|}{POST}           & /api/v1/reset-password/change-password \\
+\multicolumn{1}{|c|}{}                                             & \multicolumn{1}{l|}{GET}            & /api/v1/reset-password/show-change-password-form \\  \hline
+
+%%%%%%%%%%%%%%%%%%
+% Task
+%%%%%%%%%%%%%%%%%%
+\multicolumn{1}{|c|}{\multirow{2}{*}{Task}}                        & \multicolumn{1}{l|}{GET}            & /api/v1/tasks \\
+\multicolumn{1}{|c|}{}                                             & \multicolumn{1}{l|}{POST}           & /api/v1/tasks/\{task\}/execute \\ \hline
+
+%%%%%%%%%%%%%%%%%%
+% Template
+%%%%%%%%%%%%%%%%%%
+\multicolumn{1}{|c|}{\multirow{5}{*}{Template}}                    & \multicolumn{1}{l|}{POST}           & /api/v1/templates  \\
+\multicolumn{1}{|c|}{}                                             & \multicolumn{1}{l|}{GET}            & /api/v1/templates/me \\
+\multicolumn{1}{|c|}{}                                             & \multicolumn{1}{l|}{GET}            & /api/v1/templates/\{id\}/status \\  
+\multicolumn{1}{|c|}{}                                             & \multicolumn{1}{l|}{GET}            & /api/v1/templates/\{id\}/metadata \\ 
+\multicolumn{1}{|c|}{}                                             & \multicolumn{1}{l|}{GET}            & /api/v1/templates/\{id\}/dump/download \\ \hline
+
+%%%%%%%%%%%%%%%%%%
+% Worksheet
+%%%%%%%%%%%%%%%%%%
+\multicolumn{1}{|c|}{\multirow{3}{*}{Worksheet}}                   & \multicolumn{1}{l|}{POST}           & /api/v1/worksheets  \\
+\multicolumn{1}{|c|}{}                                             & \multicolumn{1}{l|}{GET}            & /api/v1/worksheets/me \\
+\multicolumn{1}{|c|}{}                                             & \multicolumn{1}{l|}{GET}            & /api/v1/worksheets/me/\{id\}/summary \\  \hline
+
+%%%%%%%%%%%%%%%%%%
+% TableOperation
+%%%%%%%%%%%%%%%%%%
+\multicolumn{1}{|c|}{TableOperation}                               & \multicolumn{1}{l|}{GET}            & /api/v1/worksheet/\{id\}/table-operations/\{table\}  \\ \hline
+
+% ColumnOperations
+\multicolumn{1}{|c|}{\multirow{11}{*}{\footnotesize ColumnOperation}} & \multicolumn{1}{l|}{\footnotesize PUT}                      & \footnotesize /api/v1/worksheet/\{id\}/column-operations/add-suppression.  \\
+\multicolumn{1}{|c|}{}                                             & \multicolumn{1}{l|}{\footnotesize PUT}            & \footnotesize /api/v1/worksheet/\{id\}/column-operations/add-generalisati.     \\
+\multicolumn{1}{|c|}{}                                             & \multicolumn{1}{l|}{\footnotesize PUT}            & \footnotesize /api/v1/worksheet/\{id\}/column-operations/add-perturbation  \\
+\multicolumn{1}{|c|}{}                                             & \multicolumn{1}{l|}{\footnotesize PUT}            & \footnotesize /api/v1/worksheet/\{id\}/column-operations/add-column-shuff.    \\
+\multicolumn{1}{|c|}{}                                             & \multicolumn{1}{l|}{\footnotesize PUT}            & \footnotesize /api/v1/worksheet/\{id\}/column-operations/add-hashing         \\
+\multicolumn{1}{|c|}{}                                             & \multicolumn{1}{l|}{\footnotesize PUT}            & \footnotesize /api/v1/worksheet/\{id\}/column-operations/add-pattern-mas. \\
+\multicolumn{1}{|c|}{}                                             & \multicolumn{1}{l|}{\footnotesize PUT}            & \footnotesize /api/v1/worksheet/\{id\}/column-operations/add-random-num   \\
+\multicolumn{1}{|c|}{}                                             & \multicolumn{1}{l|}{\footnotesize PUT}            & \footnotesize /api/v1/worksheet/\{id\}/column-operations/add-row-shuffle     \\
+\multicolumn{1}{|c|}{}                                             & \multicolumn{1}{l|}{\footnotesize PUT}            & \footnotesize /api/v1/worksheet/\{id\}/column-operations/add-shortening      \\
+\multicolumn{1}{|c|}{}                                             & \multicolumn{1}{l|}{\footnotesize PUT}            & \footnotesize /api/v1/worksheet/\{id\}/column-operations/add-substitution    \\
+\multicolumn{1}{|c|}{}                                             & \multicolumn{1}{l|}{\footnotesize PUT}            & \footnotesize /api/v1/worksheet/\{id\}/column-operations/add-tokenization    \\ \hline
+
+%%%%%%%%%%%%%%%%%%
+% Outcome
+%%%%%%%%%%%%%%%%%%
+\multicolumn{1}{|c|}{\multirow{5}{*}{Outcome}}                     & \multicolumn{1}{l|}{POST}           & /api/v1/outcomes/generate  \\
+\multicolumn{1}{|c|}{}                                             & \multicolumn{1}{l|}{GET}            & /api/v1/outcomes/me \\
+\multicolumn{1}{|c|}{}                                             & \multicolumn{1}{l|}{GET}            & /api/v1/outcomes/\{id\}/status \\  
+\multicolumn{1}{|c|}{}                                             & \multicolumn{1}{l|}{GET}            & \footnotesize /api/v1/outcomes/\{id\}/anonymisation-script/download \\ 
+\multicolumn{1}{|c|}{}                                             & \multicolumn{1}{l|}{GET}            & /api/v1/outcomes/\{id\}/dump/download \\ \hline
+
+\end{tabular}
+\end{table}
 
 \section{Software tools and technologies}
 
