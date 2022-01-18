@@ -494,7 +494,7 @@ Consider the raw data of the three attributes presented in the table \ref{id:tab
 
 \begin{table}[h]
 \centering
-\caption{Data prior to suppression.}
+\caption{Suppression – input data.}
 \label{id:tab:suppression_raw}
 \begin{tabular}{ccc}
 \toprule
@@ -510,7 +510,7 @@ Exemplary results of performed suppression are depicted in the table \ref{id:tab
 
 \begin{table}[h]
 \centering
-\caption{Data after suppression.}
+\caption{Suppression  – masked data.}
 \label{id:tab:suppression}
 \begin{tabular}{ccc}
 \toprule
@@ -535,7 +535,7 @@ procedure suppression(values, token)
     value := token
   return values
 \end{minted}
-\caption{Suppression pseudocode.}
+\caption{Pseudocode – suppression.}
 \label{fig:code:suppression}
 \end{figure}
 
@@ -553,7 +553,7 @@ Consider the raw data of the three attributes presented in the table \ref{id:tab
 
 \begin{table}[h]
 \centering
-\caption{Data prior to generalisation.}
+\caption{Generalisation – input data.}
 \label{id:tab:generalisation_raw}
 \begin{tabular}{@{}cll@{}}
 \toprule
@@ -569,7 +569,7 @@ Results shown in the table \ref{id:tab:generalisation} include exemplary possibl
 
 \begin{table}[h]
 \centering
-\caption{Generalised data.}
+\caption{Generalised – masked data.}
 \label{id:tab:generalisation}
 \begin{tabular}{lll}
 \toprule
@@ -612,7 +612,7 @@ procedure generalise(values, configuration)
         add value to interval
   return intervals
 \end{minted}
-\caption{Pseudocode for generalisation based on distribution size.}
+\caption{Pseudocode – generalisation based on distribution size.}
 \label{fig:code:generalisation1}
 \end{figure}
 
@@ -645,7 +645,7 @@ procedure generalise(values, configuration)
         add value to interval
   return intervals
 \end{minted}
-\caption{Pseudocode for generalisation based on number of distributions.}
+\caption{Pseudocode – generalisation based on number of distributions.}
 \label{fig:code:generalisation2}
 \end{figure}
 
@@ -659,7 +659,7 @@ Consider weight and height data shown in the table \ref{id:tab:perturbation_raw}
 
 \begin{table}[h]
 \centering
-\caption{Data prior to perturbation.}
+\caption{Perturbation – input data.}
 \label{id:tab:perturbation_raw}
 \begin{tabular}{rr}
 \toprule
@@ -674,7 +674,7 @@ The table \ref{id:tab:perturbation} shows the data after it was perturbed using 
 
 \begin{table}[h]
 \centering
-\caption{Perturbed data.}
+\caption{Perturbation – masked data.}
 \label{id:tab:perturbation}
 \begin{tabular}{rr}
 \toprule
@@ -702,7 +702,7 @@ procedure perturbation(values, noise)
     value := fit value within boundaries
   return values
 \end{minted}
-\caption{Pseudocode for perturbation based on fixed noise.}
+\caption{Pseudocode – perturbation based on fixed noise.}
 \label{fig:code:perturbation_fixed}
 \end{figure}
 
@@ -717,7 +717,7 @@ procedure perturbation(values, noise)
     value := fit value within boundaries
   return values
 \end{minted}
-\caption{Pseudocode for perturbation based on percentage noise.}
+\caption{Pseudocode – perturbation based on percentage noise.}
 \label{fig:code:perturbation_percentage}
 \end{figure}
 
@@ -726,13 +726,13 @@ Perturbation technique works the best with continuous values - it is an effectiv
 
 \subsection{Pattern masking}
 
-Pattern masking is a data distortion technique designed to be used when only some parts of the data should be masked.
+Pattern masking is a data distortion technique designed to be used when only some parts of the data should be masked. This technique is typically used to mask e.g., codes of various forms, phone numbers, credit card numbers and other structured data. 
 
 Consider the data shown in the table \ref{id:tab:pattern_masking_raw} to be masked using the patterns from the table \ref{id:tab:pattern_masking_patterns}.
 
 \begin{table}[h]
 \centering
-\caption{Pattern masking – raw data.}
+\caption{Pattern masking – input data.}
 \label{id:tab:pattern_masking_raw}
 \begin{tabular}{lll}
 \toprule
@@ -773,15 +773,87 @@ Analysis of pattern masking possibilities has yielded the need to create a versa
 
 User can specify the masking character, e.g., \textit{\#}, and can also decide whether the result is truncated to the pattern length (as shown in the masking of software version in the table \ref{id:tab:pattern_masking_masked}).
 
-
 \subsection{Randomisation}
 \subsubsection{Column shuffle}
+
+
+
 \subsubsection{Row shuffle}
 \subsection{Artificial data}
 \subsubsection{Substitution}
 \subsubsection{Random data}
 \subsection{Shortening}
+Consider the surnames from the table \ref{id:tab:shortening_raw} to be shortened to a length of 5 characters.
+
+\begin{table}[h]
+\centering
+\caption{Shortening – input data.}
+\label{id:tab:shortening_raw}
+\begin{tabular}{l}
+\toprule
+Surname    \\ \midrule
+Kowalski   \\
+Kowalewski \\
+Nowak      \\ \bottomrule
+\end{tabular}
+\end{table}
+
+The shortened data is visible in the table \ref{id:tab:shortening_masked}.
+
+\begin{table}[h]
+\centering
+\caption{Shortening – masked data.}
+\label{id:tab:shortening_masked}
+\begin{tabular}{l}
+\toprule
+Surname    \\ \midrule
+Kowal.     \\
+Kowal.     \\
+Nowak      \\ \bottomrule
+\end{tabular}
+\end{table}
+
+It is possible to specify whether or not the each data record should be terminated with a dot.
+
 \subsection{Hashing}
+
+Hashing is a deterministic masking technique \cite{bib:anonymization_for_research} which transforms the data to the fixed length output. This technique is best used for unstructured data. Available implementations include SHA2 and SHA3.
+
+Consider the server logs depicted in the table \ref{id:tab:hashing_raw}.
+
+\begin{table}[h]
+\centering
+\caption{Hashing – input data.}
+\label{id:tab:hashing_raw}
+\begin{tabular}{l}
+\toprule
+\multicolumn{1}{c}{Server logs} \\ \midrule
+185.184.2.198 — 200 POST: /api/v1/auth/refresh-token    \\
+185.184.2.198 — 200 POST: /api/v1/worksheets \\
+255.7.141.233 — 200 POST: /api/v1/outcomes/generate \\ \bottomrule
+\end{tabular}
+\end{table}
+
+Exemplary hashed values are located in the table \ref{id:tab:hashing_masked}.
+
+\begin{table}[h]
+\centering
+\caption{Hashing – masked data.}
+\label{id:tab:hashing_masked}
+\begin{tabular}{l}
+\toprule
+\multicolumn{1}{c}{Server logs} \\ \midrule
+b27ffd54e5b05a538f333157363f18df0a2aaae5754dfd9ec9daad9cc4ccd7a2 \\
+477784538ed600c38f586079a7d5e99aac4af97d1cb322888de54edeb600b14d \\
+2cd3e1912285c765f1746d5b68b1fdbbff6be9460e305acc18a1d9d777d89b5e \\ \bottomrule
+\end{tabular}
+\end{table}
+
+Although a mere inspection of the generated hash value does not immediately trace back to the original value, an attack to de-anonymise the data can be easily performed when the attacker knows what the hashed data represents, e.g. a structured birth date \cite{bib:hash}. Like in the case of all techniques, the decision to use this technique is context dependent.
+
+
+
+
 \subsection{Tokenisation}
 
 \color{blue}
@@ -1286,14 +1358,14 @@ The use cases were split into two distinct diagrams which group together the use
 \begin{figure}
   \centering
   \includegraphics[width=\linewidth]{img/use_cases_core.png}
-  \caption{Use cases concerning management}
+  \caption{Use cases – core domain}
   \label{fig:use_cases_management}
 \end{figure}
 
 \begin{figure}
   \centering
   \includegraphics[width=\linewidth]{img/use_cases_anonymisation.png}
-  \caption{Use cases concerning anonymisation}
+  \caption{Use cases – anonymisation domain}
   \label{fig:use_cases_anonymisation}
 \end{figure}
 
@@ -1303,7 +1375,7 @@ The communication with the anonymisation server is driven by the RESTful APIs. A
 
 \begin{table}[]
 \centering
-\caption{Summary of available REST resources.}
+\caption{REST resources – summary.}
 \label{id:tab:rest_api}
 \begin{tabular}{|c|l|l|}
 \hline
@@ -1604,7 +1676,7 @@ Furthermore, the labels with the increasing values of \textit{XS}, \textit{S}, \
 \begin{figure}
   \centering
   \includegraphics[width=0.65\linewidth]{img/github_issues_sizes.png}
-  \caption{Issues estimations distribution.}
+  \caption{GitHub – distribution of tasks estimations.}
   \label{fig:img:estimations}
 \end{figure}
 
@@ -1613,7 +1685,7 @@ The non-epic tasks were marked either as resolved or as cancelled when closing t
 \begin{figure}
   \centering
   \includegraphics[width=0.5\linewidth]{img/github_issues_finished.png}
-  \caption{Resolved and cancelled tasks}
+  \caption{GitHub – distribution of resolved tasks}
   \label{fig:img:resolved_tasks}
 \end{figure}
 
@@ -1634,19 +1706,9 @@ The non-epic tasks were marked either as resolved or as cancelled when closing t
 \begin{figure}
   \centering
   \includegraphics[width=\linewidth]{img/environments.png}
-  \caption{Supported environments}
+  \caption{Environments}
   \label{fig:img:environments}
 \end{figure}
-
-
-
-\begin{figure}
-\centering
-\includegraphics[width=10cm]{logo_eng.jpg}
-\caption{Figure caption (below the figure).}
-\label{fig:2}
-\end{figure}
-
 
 \chapter{Internal specification}
 
