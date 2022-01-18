@@ -420,7 +420,7 @@ The data released by organizations exclude identity related information such as 
 \subsection{Background}
 Consider a collection of medical data concerning patients' clinical information. Processing and sharing of medical data volumes is crucial for the evolution of world's healthcare services. Medical researchers and doctors take an advantage of the collected data sets to improve their comprehension of diseases and explore new possibilities to treat these diseases, and hence both the overall capability to treat the diseases and the general efficiency of health services are improved. At last it is the patients who benefit from the research conducted on their data since the services they are offered with continuously improve. Nevertheless, it is known that medical data is exceptionally sensitive by its nature due to the details that include e.g., patient data, laboratory tests results, diagnosis details, prescribed medications and history of diseases \cite{bib:anonymization_emr}.
 
-Having understood how sensitive by its essence is the patient information and the vital needs to share this data, this is where data anonymisation plays an indeed crucial role. It would be impossible to disseminate patient information without prior anonymization of thereof.
+Having understood how sensitive by its essence is the patient information and the vital needs to share this data, this is where data anonymisation plays an indeed crucial role. It would be impossible to disseminate patient information without prior anonymisation of thereof.
 
 \subsection{Definition}
 
@@ -774,7 +774,48 @@ Analysis of pattern masking possibilities has yielded the need to create a versa
 User can specify the masking character, e.g., \textit{\#}, and can also decide whether the result is truncated to the pattern length (as shown in the masking of software version in the table \ref{id:tab:pattern_masking_masked}).
 
 \subsection{Randomisation}
+
+Randomisation methods offers the best middle ground between maintaining the data utility and preserving the privacy \cite{bib:data_shuffling}. This method can be performed on a column or a row level.
+
 \subsubsection{Column shuffle}
+
+Column shuffle is an exceptionally effective method for breaking the strong links of the data belonging to the individual data subjects. All of that is achieved while preserving the data utility \cite{bib:gdpr_handbook}, hence this technique is great for maintaining the analytical value of the data \cite{bib:data_shuffling}.
+
+Consider the medical data from the table \ref{id:tab:column_randomisation_raw}
+
+\begin{table}[h]
+\centering
+\caption{Randomisation – column – raw data.}
+\label{id:tab:column_randomisation_raw}
+\begin{tabular}{ll}
+\toprule
+Identity & Virus \\ \midrule
+John & Influenza A \\
+Marc & Pneumonia \\
+Stephen & Bronchitis \\ \bottomrule
+\end{tabular}
+\end{table}
+
+An exemplary randomised data is shown in the table \ref{id:tab:column_randomisation_masked}.
+
+\begin{table}[h]
+\centering
+\caption{Randomisation – column – masked data.}
+\label{id:tab:column_randomisation_masked}
+\begin{tabular}{ll}
+\toprule
+Identity & Virus \\ \midrule
+Stephen & Influenza A \\
+Marc & Pneumonia \\
+John & Bronchitis \\ \bottomrule
+\end{tabular}
+\end{table}
+
+This technique can be used in two ways:
+\begin{itemize}
+\item shuffle without repetitions which preserves the data distribution
+\item shuffle with repetitions which distorts the data distribution
+\end{itemize}
 
 
 
