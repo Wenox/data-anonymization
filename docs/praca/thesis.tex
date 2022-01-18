@@ -1213,10 +1213,10 @@ The system features should be easily understandable – the functionalities must
 The system code should be written in a testable manner, e.g. by ensuring high quality of the code and separation of concerns.
 
 \subsubsection{Reliable}
-Achieved through continuous integration testing and using well known secure libraries 
+Achieved through continuous integration testing and using well known secure libraries.
 
 \subsubsection{User experience}
-Achieved through client functionalities such as intuitiveness and uniform design of the system
+Achieved through client functionalities such as intuitiveness, responsive design and uniform styling of the system.
 
 \subsubsection{Measurable} 
 The system should collect metrics about e.g. processing time of outcomes.
@@ -1538,13 +1538,34 @@ Axios is an asynchronous HTTP client used for sending the requests to the anonym
 
 \section{Development methodology}
 
-\begin{itemize}
-\item functional and nonfunctional requirements
-\item use cases (UML diagrams)
-\item description of tools
-\item methodology of design and implementation
-\end{itemize} 
+The development was driven by git like in the case of any software project that is of a non-trivial size. A total number of 6XX \textbf{todo} commits\footnote{the data as of 21.01.2022} were pushed to the master branch. Conventional Commits specification was followed in a simplified way.
 
+There were three possible issue types:
+\begin{itemize}
+\item feature – describing a new functionality
+\item improvement – describing an upgrade to the existing functionality
+\item epic – describing a big user story that aggregates other issues\cite{bib:agile_essentials}
+\end{itemize}
+
+Note that an improvement to the functionality that is still under development is considered a \textit{feature} and not \textit{improvement}.
+
+Furthermore, the labels with the increasing values of \textit{XS}, \textit{S}, \textit{M}, \textit{L} and \textit{XL} were being added to all the tasks upon creation to estimate the time-to-finish complexities. The distribution of the estimations is shown in Fig. \ref{fig:img:estimations}. \textbf{todo updated pie chart}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.65\linewidth]{img/github_issues_sizes.png}
+  \caption{Issues estimations distribution.}
+  \label{fig:img:estimations}
+\end{figure}
+
+The non-epic tasks were marked either as resolved or as cancelled when closing the tasks. Vast majority of tasks was successfully resolved as shown in Fig. \ref{fig:img:resolved_tasks}. Exemplary reasons to close a given task include changing requirements or task duplication.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.5\linewidth]{img/github_issues_finished.png}
+  \caption{Resolved and cancelled tasks}
+  \label{fig:img:resolved_tasks}
+\end{figure}
 
 \chapter{External specification}
 \begin{itemize}
@@ -1564,7 +1585,7 @@ Axios is an asynchronous HTTP client used for sending the requests to the anonym
   \centering
   \includegraphics[width=\linewidth]{img/environments.png}
   \caption{Supported environments}
-  \label{fig:2}
+  \label{fig:img:environments}
 \end{figure}
 
 
