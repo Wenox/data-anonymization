@@ -723,18 +723,68 @@ procedure perturbation(values, noise)
 
 Perturbation technique works the best with continuous values - it is an effective method for de-identification of quasi-identifiers such as dates and numbers \cite{bib:anonymisation_techniques_singapore}. Scientifically advanced perturbation approaches are further divided into linear and non-linear perturbation models \cite{bib:perturbation_methods}.
 
-\color{blue}
+
 \subsection{Pattern masking}
+
+Pattern masking is a data distortion technique designed to be used when only some parts of the data should be masked.
+
+Consider the data shown in the table \ref{id:tab:pattern_masking_raw} to be masked using the patterns from the table \ref{id:tab:pattern_masking_patterns}.
+
+\begin{table}[h]
+\centering
+\caption{Pattern masking – raw data.}
+\label{id:tab:pattern_masking_raw}
+\begin{tabular}{lll}
+\toprule
+PIN code & Software version & Product code  \\ \midrule
+54850185 & 2.7.1            & BAR/service/1 \\
+03013844 & 2.4.0-rc.3       & FOO/service/7 \\
+76590209 & 1.0.1-alpha      & QUX/utility/0 \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\centering
+\caption{Pattern masking – exemplary patterns.}
+\label{id:tab:pattern_masking_patterns}
+\begin{tabular}{ccc}
+\toprule
+PIN code & Software version & Product code  \\ \midrule
+OOXXXXXO & OOXOX            & UUUOOOOOOOOON \\ \bottomrule
+\end{tabular}
+\end{table}
+
+Exemplary masked output is shown in the table \ref{id:tab:pattern_masking_masked}.
+
+\begin{table}[h]
+\centering
+\caption{Pattern masking – masked data.}
+\label{id:tab:pattern_masking_masked}
+\begin{tabular}{lll}
+\toprule
+PIN code & Software version & Product code  \\ \midrule
+54\verb|#####|5 & 2.0.0 & RAN/service/0 \\
+03\verb|#####|4 & 2.7.1 & DOM/service/7 \\
+76\verb|#####|9 & 0.1.9 & IZE/utility/1 \\ \bottomrule
+\end{tabular}
+\end{table}
+
+Analysis of pattern masking possibilities has yielded the need to create a versatile pattern configuration. This technique is therefore highly configurable, i.e., available pattern tokens include: \textit{O} – preserve the character, \textit{X} - mask the character, \textit{U} – mask with random uppercase letter, \textit{L} – mask with random lowercase letter, \textit{N} – mask with random digit, \textit{A} – mask with random alphabetic character and \textit{C} – mask with random alphanumeric character.
+
+User can specify the masking character, e.g., \textit{\#}, and can also decide whether the result is truncated to the pattern length (as shown in the masking of software version in the table \ref{id:tab:pattern_masking_masked}).
+
+
 \subsection{Randomisation}
 \subsubsection{Column shuffle}
 \subsubsection{Row shuffle}
 \subsection{Artificial data}
+\subsubsection{Substitution}
 \subsubsection{Random data}
 \subsection{Shortening}
 \subsection{Hashing}
-\subsection{Encryption}
 \subsection{Tokenisation}
 
+\color{blue}
 \section{Existing solutions}
 
 List of existing solutions.
@@ -768,7 +818,7 @@ There should exist data transforming services that will offer the functionalitie
 \item pattern masking
 \end{itemize}
 
-There should a validation standard established that will determine if particular anonymisation techniques are applicable together or applicable to the given data type. The techniques should be configurable.
+There should be a validation standard established and enforced that will determine if a particular anonymisation technique is compatible with another technique. The techniques should be configurable.
 
 \subsubsection{Starting template generation}
 
