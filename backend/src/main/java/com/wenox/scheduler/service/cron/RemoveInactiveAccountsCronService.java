@@ -25,10 +25,11 @@ public class RemoveInactiveAccountsCronService implements CronService {
   private final String description;
   private final UserRepository userRepository;
 
-  public RemoveInactiveAccountsCronService(@Value("${core.removeInactiveAccounts.removeAfterTimeInSeconds}") Long removeAfter, @Value("${core.removeInactiveAccounts.cron}") String cronExpression,
-                                           @Value("${core.removeInactiveAccounts.scheduled}") boolean isScheduled,
-                                           @Value("${core.removeInactiveAccounts.executable}") boolean isExecutable,
-                                           @Value("${core.removeInactiveAccounts.description}") String description,
+  public RemoveInactiveAccountsCronService(@Value("${scheduler.removeInactiveAccounts.removeAfterTimeInSeconds}") Long removeAfter,
+                                           @Value("${scheduler.removeInactiveAccounts.cron}") String cronExpression,
+                                           @Value("${scheduler.removeInactiveAccounts.scheduled}") boolean isScheduled,
+                                           @Value("${scheduler.removeInactiveAccounts.executable}") boolean isExecutable,
+                                           @Value("${scheduler.removeInactiveAccounts.description}") String description,
                                            UserRepository userRepository) {
     this.removeAfter = removeAfter;
     this.cronExpression = cronExpression;
@@ -39,7 +40,7 @@ public class RemoveInactiveAccountsCronService implements CronService {
   }
 
   @Override
-  @Scheduled(cron = "${core.removeInactiveAccounts.cron}")
+  @Scheduled(cron = "${scheduler.removeInactiveAccounts.cron}")
   public void execute() {
     log.info("Started removing inactive accounts...");
 

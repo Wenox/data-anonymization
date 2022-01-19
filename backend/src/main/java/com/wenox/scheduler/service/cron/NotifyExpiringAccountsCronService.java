@@ -28,11 +28,11 @@ public class NotifyExpiringAccountsCronService implements CronService {
   private final UserRepository userRepository;
   private final MailService mailService;
 
-  public NotifyExpiringAccountsCronService(@Value("${core.notifyExpiringAccounts.notifyAfterTimeInSeconds}") Long notifyAfter,
-                                           @Value("${core.notifyExpiringAccounts.cron}") String cronExpression,
-                                           @Value("${core.notifyExpiringAccounts.scheduled}") boolean isScheduled,
-                                           @Value("${core.notifyExpiringAccounts.executable}") boolean isExecutable,
-                                           @Value("${core.notifyExpiringAccounts.description}") String description,
+  public NotifyExpiringAccountsCronService(@Value("${scheduler.notifyExpiringAccounts.notifyAfterTimeInSeconds}") Long notifyAfter,
+                                           @Value("${scheduler.notifyExpiringAccounts.cron}") String cronExpression,
+                                           @Value("${scheduler.notifyExpiringAccounts.scheduled}") boolean isScheduled,
+                                           @Value("${scheduler.notifyExpiringAccounts.executable}") boolean isExecutable,
+                                           @Value("${scheduler.notifyExpiringAccounts.description}") String description,
                                            UserRepository userRepository,
                                            MailService mailService) {
     this.notifyAfter = notifyAfter;
@@ -45,7 +45,7 @@ public class NotifyExpiringAccountsCronService implements CronService {
   }
 
   @Override
-  @Scheduled(cron = "${core.notifyExpiringAccounts.cron}")
+  @Scheduled(cron = "${scheduler.notifyExpiringAccounts.cron}")
   public void execute() {
     log.info("Started cron service: notifying expiring accounts...");
 

@@ -28,11 +28,11 @@ public class HandleRemoveAccountsCronService implements CronService {
   private final UserRepository userRepository;
   private final MailService mailService;
 
-  public HandleRemoveAccountsCronService(@Value("${core.handleRemoveAccounts.markedRemoveAfterTimeInSeconds}") Long removeAfter,
-                                         @Value("${core.handleRemoveAccounts.cron}") String cronExpression,
-                                         @Value("${core.handleRemoveAccounts.scheduled}") boolean isScheduled,
-                                         @Value("${core.handleRemoveAccounts.executable}") boolean isExecutable,
-                                         @Value("${core.handleRemoveAccounts.description}") String description,
+  public HandleRemoveAccountsCronService(@Value("${scheduler.handleRemoveAccounts.markedRemoveAfterTimeInSeconds}") Long removeAfter,
+                                         @Value("${scheduler.handleRemoveAccounts.cron}") String cronExpression,
+                                         @Value("${scheduler.handleRemoveAccounts.scheduled}") boolean isScheduled,
+                                         @Value("${scheduler.handleRemoveAccounts.executable}") boolean isExecutable,
+                                         @Value("${scheduler.handleRemoveAccounts.description}") String description,
                                          UserRepository userRepository,
                                          MailService mailService) {
     this.removeAfter = removeAfter;
@@ -45,7 +45,7 @@ public class HandleRemoveAccountsCronService implements CronService {
   }
 
   @Override
-  @Scheduled(cron = "${core.handleRemoveAccounts.cron}")
+  @Scheduled(cron = "${scheduler.handleRemoveAccounts.cron}")
   public void execute() {
     log.info("Started cron service: handling the removal of accounts...");
 
