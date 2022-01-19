@@ -520,7 +520,7 @@ Suppression is typically applied on the column level of an attribute, however it
 The designed software offers column level suppression with a user specified value (i.e., suppression token). The values are transformed to this user specified value using a simple algorithm shown in Fig. \ref{fig:code:suppression}.
 
 \begin{figure}[H]
-\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=lines, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
 procedure suppression(values, token)
   for (value in values)
     value := token
@@ -581,7 +581,7 @@ Finally, the generalisation does not necessarily concern only numerical values a
 Both supported generalisation strategies were further enhanced with customizations. The data processor is allowed to predefine minimum and maximum boundary values for the generalised intervals. The computed starting value for the distribution concerning lowest interval is either minimum raw value or user predefined minimum value, whichever is lower. The maximal value for the highest interval is computed in an analogical way.
 
 \begin{figure}[h]
-\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=lines, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
 procedure generalise(values, configuration)
   computedMin := min(values.min(), configuration.userMin())
   computedMax := max(values.max(), configuration.userMax())
@@ -610,7 +610,7 @@ procedure generalise(values, configuration)
 The generalisation strategies can be summarized with the pseudocodes shown in Fig. \ref{fig:code:generalisation1} and Fig. \ref{fig:code:generalisation2}.
 
 \begin{figure}[h]
-\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=lines, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
 procedure generalise(values, configuration)
   computedMin := min(values.min(), configuration.userMin())
   computedMax := max(values.max(), configuration.userMax())
@@ -685,7 +685,7 @@ The supported methods include adding the noise based on the strategies of:
 Height attribute values could have been perturbed using the former (i.e., fixed noise of $\pm 3$), whereas weight attribute values could have been perturbed using the latter (i.e., percentage value of $\pm 5 \%$). In either case, the linkage between individual records is blurred with this technique. 
 
 \begin{figure}[H]
-\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=lines, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
 procedure perturbation(values, noise)
   for (value in values)
     random := pick random from [value - noise, value + noise] interval
@@ -700,7 +700,7 @@ procedure perturbation(values, noise)
 Similarly to generalisation, both perturbation techniques allow the user to explicitly specify the minimum and maximum accepted boundary values.
 
 \begin{figure}[h]
-\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=lines, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
 procedure perturbation(values, noise)
   for (value in values)
     coeff := pick random from [1 - noise, 1 + noise] interval
@@ -1895,6 +1895,30 @@ The non-epic tasks were marked either as resolved or as cancelled when closing t
   \caption{GitHub – distribution of resolved tasks}
   \label{fig:img:resolved_tasks}
 \end{figure}
+
+\subsection{Activation}
+
+New instance of the system database is preloaded with at least one admin account. The of this initial account can be configured from the properties and must be overriden in production:
+
+\begin{itemize}
+% application.yml
+core.preloader.admin.login=admin@admin.com
+core.preloader.admin.password=admin
+\end{itemize}
+
+
+
+\subsection{Types of users}
+
+Four types of users can interact with the system:
+\begin{itemize}
+\item admin
+\item verified user
+\item unverified user
+\item anonymous user
+\end{itemize}
+
+
 
 \chapter{External specification}
 \begin{itemize}
