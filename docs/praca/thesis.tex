@@ -1220,6 +1220,10 @@ Admin should have the means to block the user from the users panel, effectively 
 
 Admin will have the means to unblock the blocked user from the users panel, restoring the login capabilities.
 
+\subsubsection{Expiring accounts}
+
+Users that do not login to the platform for a configured amount of time should be deleted due to the account expiration. The user should receive a notification e-mail prompting him to login to prevent the removal action.
+
 \subsubsection{Mark account for removal}
 
 User must be able to initiate the process involving the removal of his account along with all the associated data, hence ensuring GDPR compliance.
@@ -1917,11 +1921,12 @@ Four types of users can interact with the system:
 \item anonymous user
 \end{itemize}
 
-It is very important to note that while the admin user can manage other users accounts, he is not authorized to access the users' confidential data such as anonymisation scripts. The \text{admin user} who may be a non technical business person must not be confused with the \textit{system administrator}.
+It is very important to note that while the admin user can manage other users' accounts, he is not authorized to access the users' confidential data such as anonymisation scripts. The admin user who may be a non technical business person must not be confused with the system administrator.
 
 The relation between the users and their use-cases are summarized in Fig. \ref{fig:use_cases_management} and \ref{fig:use_cases_anonymisation}.
 
 \subsection{System administration}
+
 
 \chapter{External specification}
 \begin{itemize}
