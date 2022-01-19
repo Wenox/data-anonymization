@@ -32,7 +32,8 @@
 \usepackage{geometry}
 \usepackage[page]{appendix} 
 \usepackage{multirow}
-
+\usepackage{subcaption}
+   
 
 %%% My packages %%%
 \usepackage{minted}  
@@ -355,8 +356,9 @@ Wniosek: generyczny sposób anonimizacji - nie ma takiego.
 
 
 \chapter{Problem analysis}
-
+\ksremark{Jedno, dwa zdania wstępu, żeby nie było zderzenia nagłówków.}
 \section{Data explosion}
+\ksremark{Jedno, dwa zdania wstępu, żeby nie było zderzenia nagłówków.}
 
 \subsection{Technology advancement}
 The continuous and rapid exponential growth of data being collected globally is further excited by improvements to the overall population's accessibility to the digital technology \cite{bib:big_data_analytics}. Cisco Systems estimates within its annual report \cite{bib:cisco_annual} that 66 percent of the world population will have an access to the web by the 2023, compared to 51 percent in 2018, whereas the number of devices that are connected to the web will reach a staggering value of three times as many as the entire population size – demonstrating a total of 60 percent expansion when compared to 2018. Even the area of mobile connection, which was established long ago, is still sustaining a growth – by 2023, a mobile connectivity will be a privilege for 70 percent of the world's population, compared to 66 percent in 2018. The global average mobile network speeds will be tripled through a rapid increase from 13.2 Mbps in 2018 to 43.9 Mbps in 2023.
@@ -441,10 +443,10 @@ Having understood how sensitive by its essence is the patient information and th
 
 Anonymisation is a statistical disclosure control method of a particular importance. The ultimate anonymisation goal is to de-identify the data by pruning the personal information in such a way that the relation between data subject and corresponding records is blurred.
 
-The data anonymisation is considered to be an effective one only if both of the following criterias hold true \cite{bib:anonymization_taxa}:
+The data anonymisation is considered to be an effective one only if both of the following criterias \ksremark{l. poj. criterion, l. mn. criteria} hold true \cite{bib:anonymization_taxa}:
 \begin{itemize}
-\item performed anonymisation operations are irreversible
-\item data subject re-identification is impossible or impractical 
+\item performed anonymisation operations are irreversible \ksremark{,}  
+\item data subject re-identification is impossible or impractical \ksremark{.} 
 \end{itemize}
 
 \subsection{Data classification}
@@ -458,7 +460,7 @@ It is context dependent to determine which attributes are quasi-identifiers – 
 On the other hand, too much anonymisation of quasi-identifiers strips the data out of utility.
 
 \subsection{Utility trade-off}
-
+\ksremark{Może lepiej: “Utility vs privacy trade-off”? Są wtedy podane oba kryteria.}
 The organizations need to compromise between the utility and privacy when releasing the data. As anonymisation level increases when more and more restrictive techniques are applied, the utility of the same data decreases.
 
 Consider the two theoretical boundary cases of either releasing data in its original form which maximizes the utility at the cost of discarding the protection of the data subjects' privacy altogether, and the second case of not releasing any data at all which completely preserves the privacy \cite{bib:privacy_digital_world}.
@@ -466,6 +468,8 @@ Consider the two theoretical boundary cases of either releasing data in its orig
 Clearly the data must not be released in its original state – strict GDPR that imposes large administrative fines \cite{bib:art83} exists to mitigate such violations. On the other hand, data that completely suppresses all the information has no value. The data controllers therefore need to strike a balance between the two cases. An appropriate anonymisation strategy maximizing the utility without endangering the privacy must be adopted.
 
 For this reason the data controllers must select appropriate data masking techniques.
+
+\ksremark{Zanim będziemy opisywać różne techniki, trzeba je wymienić, podzielić / sklasyfikować.}
 
 \section{Data masking techniques}
 
@@ -483,7 +487,7 @@ Suppression is the strongest anonymisation technique which completely removes al
 
 Consider the raw data of the three attributes presented in the table \ref{id:tab:suppression_raw} to be put under the process of suppression.
 
-\begin{table}[H]
+\begin{table}%[h]
 \centering
 \caption{Suppression – input data.}
 \label{id:tab:suppression_raw}
@@ -499,7 +503,7 @@ M   & 1337                          & 5191 – 915100 \\
 
 Exemplary results of performed suppression are depicted in the table \ref{id:tab:suppression}. All of the three attributes values were suppressed to the value of the suppression token supplied by the data controller.
 
-\begin{table}[H]
+\begin{table}%[h]
 \centering
 \caption{Suppression  – masked data.}
 \label{id:tab:suppression}
@@ -536,13 +540,13 @@ Generalisation is the second most common non-perturbative anonymisation techniqu
 
 The proposed software solution includes two generalisation strategies, namely:
 \begin{itemize}
-\item based on the size of distributions
-\item based on the number of distributions
+\item based on the size of distributions \ksremark{,}
+\item based on the number of distributions \ksremark{.}
 \end{itemize}
 
-Consider the raw data of the three attributes presented in the table \ref{id:tab:generalisation_raw} to be put under the process of generalisation.
+Consider the raw data of the three attributes presented in the table \ref{id:tab:generalisation_raw} \ksremark{Tu i gdzie indziej: bez „the” i ze skrótem „Tab.”, np. in Tab. \ref{id:tab:generalisation_raw}, analogicznie „in Fig. 123”.} to be put under the process of generalisation.
 
-\begin{table}[H]
+\begin{table}%[h]
 \centering
 \caption{Generalisation – input data.}
 \label{id:tab:generalisation_raw}
@@ -558,7 +562,7 @@ Consider the raw data of the three attributes presented in the table \ref{id:tab
 
 Results shown in the table \ref{id:tab:generalisation} include exemplary possible values after being processed by the generalisation method. As depicted in the table, all three attributes have been grouped into broader value ranges, hence undergoing the generalisation, yet every column was generalised with a different generalisation strategy.
 
-\begin{table}[H]
+\begin{table}%[h]
 \centering
 \caption{Generalised – masked data.}
 \label{id:tab:generalisation}
@@ -648,7 +652,7 @@ Perturbation is a data masking technique which encompasses the process of swappi
 
 Consider weight and height data shown in the table \ref{id:tab:perturbation_raw}.
 
-\begin{table}[h]
+\begin{table}%[h]
 \centering
 \caption{Perturbation – input data.}
 \label{id:tab:perturbation_raw}
@@ -663,7 +667,7 @@ Height & Weight \\ \midrule
 
 The table \ref{id:tab:perturbation} shows the data after it was perturbed using the two different perturbation methods that are supported by the engineered software.
 
-\begin{table}[h]
+\begin{table}%[h]
 \centering
 \caption{Perturbation – masked data.}
 \label{id:tab:perturbation}
@@ -678,8 +682,8 @@ Height & Weight \\ \midrule
 
 The supported methods include adding the noise based on the strategies of:
 \begin{itemize}
-\item fixed value
-\item percentage value
+\item fixed value \ksremark{,}
+\item percentage value \ksremark{.}
 \end{itemize}
 
 Height attribute values could have been perturbed using the former (i.e., fixed noise of $\pm 3$), whereas weight attribute values could have been perturbed using the latter (i.e., percentage value of $\pm 5 \%$). In either case, the linkage between individual records is blurred with this technique. 
@@ -712,7 +716,7 @@ procedure perturbation(values, noise)
 \label{fig:code:perturbation_percentage}
 \end{figure}
 
-Perturbation technique works the best with continuous values - it is an effective method for de-identification of quasi-identifiers such as dates and numbers \cite{bib:anonymisation_techniques_singapore}. Scientifically advanced perturbation approaches are further divided into linear and non-linear perturbation models \cite{bib:perturbation_methods}.
+Perturbation technique works the best with continuous values - \ksremark{--} it is an effective method for de-identification of quasi-identifiers such as dates and numbers \cite{bib:anonymisation_techniques_singapore}. Scientifically advanced perturbation approaches are further divided into linear and non-linear perturbation models \cite{bib:perturbation_methods}.
 
 
 \subsection{Pattern masking}
@@ -721,7 +725,7 @@ Pattern masking is a data distortion technique designed to be used when only som
 
 Consider the data shown in the table \ref{id:tab:pattern_masking_raw} to be masked using the patterns from the table \ref{id:tab:pattern_masking_patterns}.
 
-\begin{table}[h]
+\begin{table}%[h]
 \centering
 \caption{Pattern masking – input data.}
 \label{id:tab:pattern_masking_raw}
@@ -734,7 +738,7 @@ PIN code & Software version & Product code  \\ \midrule
 \end{tabular}
 \end{table}
 
-\begin{table}[h]
+\begin{table}%[h]
 \centering
 \caption{Pattern masking – exemplary patterns.}
 \label{id:tab:pattern_masking_patterns}
@@ -747,7 +751,7 @@ OOXXXXXO & OOXOX            & UUUOOOOOOOOON \\ \bottomrule
 
 Exemplary masked output is shown in the table \ref{id:tab:pattern_masking_masked}.
 
-\begin{table}[h]
+\begin{table}%[h]
 \centering
 \caption{Pattern masking – masked data.}
 \label{id:tab:pattern_masking_masked}
@@ -766,11 +770,11 @@ User can specify the masking character, e.g., \textit{\#}, and can also decide w
 
 \subsection{Hashing}
 
-Hashing is a deterministic masking technique \cite{bib:anonymization_for_research} which transforms the data to the fixed length output. This technique is best used for unstructured data. Available implementations include SHA2 and SHA3.
+Hashing is a deterministic masking technique \cite{bib:anonymization_for_research} which transforms data to the fixed length output. This technique is best used for unstructured data. Available implementations include SHA2 and SHA3.
 
 Consider the server logs depicted in the table \ref{id:tab:hashing_raw}.
-
-\begin{table}[h]
+%
+\begin{table}%[h]
 \centering
 \caption{Hashing – input data.}
 \label{id:tab:hashing_raw}
@@ -782,10 +786,10 @@ Consider the server logs depicted in the table \ref{id:tab:hashing_raw}.
 255.7.141.233 — 200 POST: /api/v1/outcomes/generate \\ \bottomrule
 \end{tabular}
 \end{table}
-
+%
 Exemplary hashed values are located in the table \ref{id:tab:hashing_masked}.
-
-\begin{table}[h]
+%
+\begin{table}%[h]
 \centering
 \caption{Hashing – masked data.}
 \label{id:tab:hashing_masked}
@@ -806,13 +810,13 @@ Randomisation methods offers the best middle ground between maintaining the data
 
 \subsubsection{Column shuffle}
 
-Column shuffle is an exceptionally effective method for breaking the strong links of the data belonging to the individual data subjects. All of that is achieved while preserving the data utility \cite{bib:gdpr_handbook}, hence this technique is great for maintaining the analytical value of the data \cite{bib:data_shuffling}.
+Column shuffle is an exceptionally effective method for breaking strong links of data belonging to individual data subjects. All of that is achieved while preserving the data utility \cite{bib:gdpr_handbook}, hence this technique is great for maintaining the analytical value of the data \cite{bib:data_shuffling}.
 
 Consider the medical data from the table \ref{id:tab:attribute_randomisation_raw}
 
-\begin{table}[h]
+\begin{table}%[h]
 \centering
-\caption{Randomisation – attribute - input data.}
+\caption{Randomisation – attribute -- input data.}
 \label{id:tab:attribute_randomisation_raw}
 \begin{tabular}{ll}
 \toprule
@@ -825,7 +829,7 @@ Stephen  & Bronchitis   \\ \bottomrule
 
 An exemplary randomised data is shown in the table \ref{id:tab:attribute_randomisation_masked}.
 
-\begin{table}[h]
+\begin{table}%[h]
 \centering
 \caption{Randomisation – attribute – masked data.}
 \label{id:tab:attribute_randomisation_masked}
@@ -840,8 +844,8 @@ John     & Bronchitis    \\ \bottomrule
 
 This technique can be used in two ways:
 \begin{itemize}
-\item shuffle without repetitions which preserves the data distribution
-\item shuffle with repetitions which distorts the data distribution
+\item shuffle without repetitions which preserves the data distribution \ksremark{,}
+\item shuffle with repetitions which distorts the data distribution \ksremark{.}
 \end{itemize}
 
 \subsubsection{Row shuffle}
@@ -850,7 +854,7 @@ The data may also be needed to be shuffled on a record level – similarly, with
 
 Consider shuffling the characters of an RGB colour described in hexadecimal format. Furthermore, consider a concept of storing a set of abstract decisions (e.g., willingness to participate in the election voting) as a sequence of bits where each bit represents an individual boolean decision. The table \ref{id:tab:record_randomisation_raw} shows the data.
 
-\begin{table}[h]
+\begin{table}%[h]
 \centering
 \caption{Randomisation – record – input data.}
 \label{id:tab:record_randomisation_raw}
@@ -865,7 +869,7 @@ E5E5E5      & 0000             \\ \bottomrule
 
 The table \ref{id:tab:record_randomisation_masked} shows the data after the masking process. The colours were processed without preserving the original characters distribution.
 
-\begin{table}[h]
+\begin{table}%[h]
 \centering
 \caption{Randomisation – record – masked data.}
 \label{id:tab:record_randomisation_masked}
@@ -887,12 +891,46 @@ Replacing the original data with an artificial data can be achieved through subs
 \subsubsection{Substitution}
 
 Substitution is of a particular relevance when the masked data needs to be realistic \cite{bib:anonymization_planning}.
-
+%
 Consider the data from the table \ref{id:tab:substitution_raw} undergoing the substitution process.
-
-\begin{table}[h]
+%
+%\begin{table}%[h]
+%\centering
+%\caption{Substitution – input data.}
+%\label{id:tab:substitution_raw}
+%\begin{tabular}{ll}
+%\toprule
+%Name   & Surname  \\ \midrule
+%Jan    & Gold     \\
+%Bob    & Ng       \\
+%Bob    & Xi       \\ 
+%Maria  & Robin    \\ \bottomrule
+%\end{tabular}
+%\end{table}
+%
+Consider that the data controller provides the following data for the name parameter: \textit{Lucius}, \textit{Decimus}, \textit {Amanda}, and the following data for the surname parameter: \textit{Lucci}, \textit{Rector}. The table \ref{id:tab:substitution_masked} presents an exemplary possible masked result.
+%
+%\begin{table}%[h]
+%\centering
+%\caption{Substitution – masked data.}
+%\label{id:tab:substitution_masked}
+%\begin{tabular}{ll}
+%\toprule
+%Name    & Surname   \\ \midrule
+%Lucius  & Lucci     \\
+%Decimus & Rector    \\
+%Decimus & Lucci     \\ 
+%Amanda  & Rector    \\ \bottomrule
+%\end{tabular}
+%\end{table}
+%
+%
+\begin{figure}
 \centering
-\caption{Substitution – input data.}
+\caption{Substitution.}
+\begin{subfigure}{.4\textwidth}
+\centering
+\caption{Input data.}
 \label{id:tab:substitution_raw}
 \begin{tabular}{ll}
 \toprule
@@ -902,13 +940,10 @@ Bob    & Ng       \\
 Bob    & Xi       \\ 
 Maria  & Robin    \\ \bottomrule
 \end{tabular}
-\end{table}
-
-Consider that the data controller provides the following data for the name parameter: \textit{Lucius}, \textit{Decimus}, \textit {Amanda}, and the following data for the surname parameter: \textit{Lucci}, \textit{Rector}. The table \ref{id:tab:substitution_masked} presents an exemplary possible masked result.
-
-\begin{table}[h]
+\end{subfigure}
+\begin{subfigure}{.4\textwidth}
 \centering
-\caption{Substitution – masked data.}
+\caption{Masked data.}
 \label{id:tab:substitution_masked}
 \begin{tabular}{ll}
 \toprule
@@ -918,10 +953,11 @@ Decimus & Rector    \\
 Decimus & Lucci     \\ 
 Amanda  & Rector    \\ \bottomrule
 \end{tabular}
-\end{table}
-
+\end{subfigure}
+\end{figure}
+%
 The name attribute is masked without memorylessness, and the masking occurs in a circular manner.
-
+%
 The method is designed to be used with or without memorylessness in mind. Duplicate entries of the same unmasked data values may always be altered to the same masked data values. This technique is also a great extension point for data controller customisations, as the external data set needs to be provided, therefore the data controller can have full control over the data.
 
 \subsubsection{Tokenisation}
@@ -930,61 +966,92 @@ In comparison to the substitution technique, this operation is relevant when the
 
 Consider the data from a survey question shown in the table \ref{id:tab:tokenisation_raw}.
 
-\begin{table}[h]
+%\begin{table}%[h]
+%\centering
+%\caption{Tokenisation – input data.}
+%\label{id:tab:tokenisation_raw}
+%\begin{tabular}{l}
+%\toprule
+%\multicolumn{1}{c}{Survey response} \\ \midrule
+%Agree                               \\
+%Not sure                            \\
+%Agree                               \\
+%Strongly disagree                   \\ \bottomrule
+%\end{tabular}
+%\end{table}
+
+
+\begin{figure}
 \centering
-\caption{Tokenisation – input data.}
-\label{id:tab:tokenisation_raw}
-\begin{tabular}{l}
-\toprule
-\multicolumn{1}{c}{Survey response} \\ \midrule
-Agree                               \\
-Not sure                            \\
-Agree                               \\
-Strongly disagree                   \\ \bottomrule
-\end{tabular}
-\end{table}
+\caption{Tokenisation.}
+\begin{subfigure}{.4\textwidth}
+	\centering
+	\caption{Input data.}
+	\label{id:tab:tokenisation_raw}
+	\begin{tabular}{l}
+	\toprule
+	\multicolumn{1}{c}{Survey response} \\ \midrule
+	Agree                               \\
+	Not sure                            \\
+	Agree                               \\
+	Strongly disagree                   \\ \bottomrule
+	\end{tabular}
+\end{subfigure}
+\begin{subfigure}{.4\textwidth}
+	\centering
+	\caption{Masked data.}
+	\label{id:tab:tokenisation_masked}
+	\begin{tabular}{l}
+	\toprule
+	
+	\multicolumn{1}{c}{Survey response} \\ \midrule
+	1                                   \\
+	2                                   \\
+	1                                   \\
+	3                                   \\ \bottomrule
+	\end{tabular}
+\end{subfigure}
+\end{figure}
 
 The tokenised data is shown in the table \ref{id:tab:tokenisation_masked}. The \textit{agree} value was tokenised to the same token value hence conserving the frequency characteristics of the data.
 
-\begin{table}[h]
-\centering
-\caption{Tokenisation – masked data.}
-\label{id:tab:tokenisation_masked}
-\begin{tabular}{l}
-\toprule
-
-\multicolumn{1}{c}{Survey response} \\ \midrule
-1                                   \\
-2                                   \\
-1                                   \\
-3                                   \\ \bottomrule
-\end{tabular}
-\end{table}
+%\begin{table}%[h]
+%\centering
+%\caption{Tokenisation – masked data.}
+%\label{id:tab:tokenisation_masked}
+%\begin{tabular}{l}
+%\toprule
+%
+%\multicolumn{1}{c}{Survey response} \\ \midrule
+%1                                   \\
+%2                                   \\
+%1                                   \\
+%3                                   \\ \bottomrule
+%\end{tabular}
+%\end{table}
 
 \subsubsection{Random number}
 
-The fundamental requirement of anonymisation platform is to be a versatile software to anonymise the data, hence even a simple random number technique needs to be supported to possibly cover a broader range of the business needs.
 
-Consider the data of customer satisfaction described as a value ranging from 1 to 5 shown in the table \ref{id:tab:random_number_raw}.
-
-\begin{table}[H]
+<<<<<<< HEAD
+\begin{figure}
 \centering
-\caption{Random number – input data.}
-\label{id:tab:random_number_raw}
-\begin{tabular}{c}
-\toprule
-Customer satisfaction \\ \midrule
-2                     \\
-1                     \\
-3                     \\ \bottomrule
-\end{tabular}
-\end{table}
-
-The values from the table \ref{id:tab:random_number_masked} show the new masked values.
-
-\begin{table}[H]
+\caption{Random number.}
+\begin{subfigure}{.4\textwidth}
+	\centering
+	\caption{Input data.}
+	\label{id:tab:random_number_raw}
+	\begin{tabular}{c}
+	\toprule
+	Customer satisfaction \\ \midrule
+	2                     \\
+	1                     \\
+	3                     \\ \bottomrule
+	\end{tabular}
+\end{subfigure}
+\begin{subfigure}{.4\textwidth}
 \centering
-\caption{Random number – masked data.}
+\caption{Masked data.}
 \label{id:tab:random_number_masked}
 \begin{tabular}{c}
 \toprule
@@ -993,15 +1060,82 @@ Customer satisfaction \\ \midrule
 5                     \\
 4                     \\ \bottomrule
 \end{tabular}
-\end{table}
+\end{subfigure}
+\end{figure}
+
+The fundamental requirement of anonymisation platform is to be a versatile software to anonymise the data, hence even a simple random number technique needs to be supported to possibly cover a broader range of the business needs.
+
+Consider the data of customer satisfaction described as a value ranging from 1 to 5 shown in the table \ref{id:tab:random_number_raw}.
+%
+%\begin{table}%[h]
+%\centering
+%\caption{Random number – input data.}
+%\label{id:tab:random_number_raw}
+%\begin{tabular}{c}
+%\toprule
+%Customer satisfaction \\ \midrule
+%2                     \\
+%1                     \\
+%3                     \\ \bottomrule
+%\end{tabular}
+%\end{table}
+%
+The values from the table \ref{id:tab:random_number_masked} show the new masked values.
+%
+%\begin{table}%[h]
+%\centering
+%\caption{Random number – masked data.}
+%\label{id:tab:random_number_masked}
+%\begin{tabular}{c}
+%\toprule
+%Customer satisfaction \\ \midrule
+%5                     \\
+%5                     \\
+%4                     \\ \bottomrule
+%\end{tabular}
+%\end{table}
 
 
 \subsection{Shortening}
 Consider the surnames from the table \ref{id:tab:shortening_raw} to be shortened to a length of 5 characters.
+%
+%\begin{table}%[h]
+%\centering
+%\caption{Shortening – input data.}
+%\label{id:tab:shortening_raw}
+%\begin{tabular}{l}
+%\toprule
+%Surname    \\ \midrule
+%Kowalski   \\
+%Kowalewski \\
+%Nowak      \\ \bottomrule
+%\end{tabular}
+%\end{table}
+%
+The shortened data is visible in the table \ref{id:tab:shortening_masked}.
+%
+%\begin{table}%[h]
+%\centering
+%\caption{Shortening – masked data.}
+%\label{id:tab:shortening_masked}
+%\begin{tabular}{l}
+%\toprule
+%Surname    \\ \midrule
+%Kowal.     \\
+%Kowal.     \\
+%Nowak      \\ \bottomrule
+%\end{tabular}
+%\end{table}
+%
+It is possible to specify whether or not the each data record should be terminated with a dot.
 
-\begin{table}[H]
+
+\begin{figure}
 \centering
-\caption{Shortening – input data.}
+\caption{Shortening.}
+\begin{subfigure}{.4\textwidth}
+\centering
+\caption{Input data.}
 \label{id:tab:shortening_raw}
 \begin{tabular}{l}
 \toprule
@@ -1010,13 +1144,10 @@ Kowalski   \\
 Kowalewski \\
 Nowak      \\ \bottomrule
 \end{tabular}
-\end{table}
-
-The shortened data is visible in the table \ref{id:tab:shortening_masked}.
-
-\begin{table}[H]
+\end{subfigure}
+\begin{subfigure}{.4\textwidth}
 \centering
-\caption{Shortening – masked data.}
+\caption{Masked data.}
 \label{id:tab:shortening_masked}
 \begin{tabular}{l}
 \toprule
@@ -1025,9 +1156,8 @@ Kowal.     \\
 Kowal.     \\
 Nowak      \\ \bottomrule
 \end{tabular}
-\end{table}
-
-It is possible to specify whether or not the each data record should be terminated with a dot.
+\end{subfigure}
+\end{figure}
 
 \section{Existing solutions}
 
@@ -1038,7 +1168,7 @@ Of course as the data privacy concerns are increasing in the society, the needs 
 \subsection{Open source software}
 
 \subsubsection{Anonimatron}
-Anonimatron is a Java tool designed for anonymisation of the databases specifically for the development purposes. The idea behind the tool is that the software developers may not be authorized to access the production data, yet may be required to reproduce, e.g., data related performance problems. Internally, anonimatron uses the concept of synonyms.
+Anonimatron \ksremark{odnośnik do dokumentacji, strony www} is a Java tool designed for anonymisation of the databases specifically for the development purposes. The idea behind the tool is that the software developers may not be authorized to access the production data, yet may be required to reproduce, e.g., data related performance problems. Internally, anonimatron uses the concept of synonyms.
 
 
 \subsubsection{Anonymizer}
@@ -1068,11 +1198,11 @@ This tool primarily oscillates between the encryption method to protect the sens
 
 \section{Anonymisation as a platform}
 
-The people who were software enginers back in 1990s remember how the web had changed everything and how it dominated the marketed and the way business systems are now engineered \cite{bib:clean_architecture}.
+The people who were software enginers \ksremark{engineers} back in 1990s remember how the web had changed everything and how it dominated the marketed and the way business systems are now engineered \cite{bib:clean_architecture}.
 
-The companies started to massively migrate their services to the cloud with the quite recent rise of the containerization and microservice architecture. Trending software concepts such as serverless or event-storming and tools such as Kubernetes — all of them are oscillating around the web, which is really the only clear and technologically available choice to build a new system. All this technological evolvement is enabled by the open source which is also continuously growing together with the web based software systems, in a feedback loop manner \cite{bib:distributed_systems}. The start of the decline in the web's growth is yet to be discovered, and likely will not emerge in the foreseeable future.
+The companies started to massively migrate their services to a cloud with the quite recent rise of the containerization and microservice architecture. Trending software concepts such as serverless or event-storming and tools such as Kubernetes — all of them are oscillating around the web, which is really the only clear and technologically available choice to build a new system. All this technological evolvement is enabled by the open source which is also continuously growing together with the web based software systems, in a feedback loop manner \cite{bib:distributed_systems}. The start of the decline in the web's growth is yet to be discovered, and likely will not emerge in the foreseeable future.
 
-With that being said, the designed software system is categorized and delivered as Platform as a Service (PaaS) and runs in the cloud. The fundamental and the most significant objective of the system is to design an innovative platform that will offer anonymisation capabilities through a broad variety of highly configurable anonymisation techniques in such a way that the data controllers can fit their unique business needs easily.
+With that being said, the designed software system is categorized and delivered as Platform as a Service (PaaS) and runs in a cloud. The fundamental and the most significant objective of the system is to design an innovative platform that will offer anonymisation capabilities through a broad variety of highly configurable anonymisation techniques in such a way that the data controllers can fit their unique business needs easily.
 
 \chapter{Requirements and tools}
 
@@ -1226,9 +1356,9 @@ Users that do not login to the platform for a configured amount of time should b
 
 \subsubsection{Mark account for removal}
 
-User must be able to initiate the process involving the removal of his account along with all the associated data, hence ensuring GDPR compliance.
+User must be able to initiate the process involving the removal of his account along with all the associated data, hence ensuring the GDPR compliance.
 
-The process is started by an explicit user's requests to do so. The system should warn the user with a detailed message and a prompt to type in both the confirmation and the password. If successful, the account is marked for future removal - the account is removed by a dedicated cron-based data pruning service.
+The process is started by an explicit user's requests to do so. The system should warn the user with a detailed message and a prompt to type in both the confirmation and the password. If successful, the account is marked for future removal - \ksremark{--} the account is removed by a dedicated cron-based data pruning service.
 
 \subsubsection{Forcing account removal}
 
@@ -1291,7 +1421,7 @@ The user should not have to login to his account when starting a new visit unles
 
 Restarting the anonymisation platform should not logout the user.
 
-\subsubsection{Seamless tokens re-generation}
+\subsubsection{Seamless tokens regeneration}
 
 Axios HTTP client should be configured in such a manner that it will detect a state of expired access token and will seamlessly generate new tokens. When the access token expires, the client should invoke refresh token service to generate a new tokens pairings in such a manner that the user does not even notice this implementation related behaviour. It is required that no unnecessary page refreshes, errors, logouts or prompts to login show up to the user.
 
@@ -1685,7 +1815,7 @@ This section encompasses a summary of tools needed to develop, build, and mainta
 
 \subsubsection{Docker}
 
-Docker is a virtualization software used to develop, run and manage applications in the form of containers taking advantage of Linux kernel features namespaces and cgroups. It consists of three components: the runtime, the daemon engine and the orchaestrator. 
+Docker is a virtualization software used to develop, run and manage applications in the form of containers taking advantage of Linux kernel features namespaces and cgroups. It consists of three components: a runtime, a daemon engine and an orchaestrator. 
 
 To run the production environment of anonymisation platform, only prior installation of Docker on the host system is required, because containerization technologies like Docker enable a separation of the software from the infrastructure the software is running on \cite{bib:docker_docs}\cite{bib:docker_book}.
 
@@ -1695,8 +1825,8 @@ Apache Maven is an open source that automates the build process of foremostly Ja
 
 Anonymisation platform uses this tool to build the backend server. Maven is put into service in one of the two ways – depending on the selected environment – namely:
 \begin{itemize}
-\item internally from the Docker container where Maven can be considered as an abstraction that the system administrator does not have be aware of
-\item on the host system itself
+\item internally from the Docker container where Maven can be considered as an abstraction that the system administrator does not have be aware of \ksremark{;}
+\item on the host system itself \ksremark{.}
 \end{itemize}
 
 Maven is also used to run the tests. Gradle could be a great alternative to Maven, the choice being preference based in usual scenarios.
@@ -1792,16 +1922,16 @@ ZT Process Executor provides capabilities to run external processes directly fro
 
 This library found many domain-critical applications related to PostgreSQL resources management. The library executes PostgreSQL client processes including:
 \begin{itemize}
-\item creation of a new database
-\item replication of an existing databases
-\item database dump restoration
-\item anonymisation script execution
-\item database dump to script or to archive
+\item creation of a new database \ksremark{,}
+\item replication of an existing databases\ksremark{,}
+\item database dump restoration\ksremark{,}
+\item anonymisation script execution\ksremark{,}
+\item database dump to script or to archive\ksremark{.}
 \end{itemize}
 
 \subsubsection{JUnit 5}
 
-JUnit 5 is the new and refined version of the worldwide recognized Java testing framework. It is used to drive the unit and integration tests.
+JUnit 5 is the new and refined version of the worldwide recognized Java testing framework. It is used to drive the unit and integration tests. \ksremark{jakiś odnośnik}
 
 
 \subsubsection{Testcontainers}
@@ -1812,7 +1942,7 @@ This state-of-the-art library is used by the integration tests to bootstrap the 
 
 \subsubsection{REST Assured}
 
-REST Assured is an integration tests library and a HTTP client which allows sending true HTTP requests to the test server (bootstrapped by Testcontainers library). This library also offers the means to validate received HTTP responses.
+REST Assured is an integration tests library and a HTTP client which allows sending true HTTP requests to the test server (bootstrapped by Testcontainers library). This library also offers the means to validate received HTTP responses. \ksremark{jakiś odnośnik}
 
 The library is used by the integration tests.
 
@@ -1824,17 +1954,17 @@ This library is relevant due to the complexity of the designed system, as it pro
 
 \subsubsection{JJWT}
 
-JSON Web Tokens are required to transport the implemented access and refresh tokens necessary for authentication and authorization purposes. This popular library deals with the creation and validation of the tokens.
+JSON Web Tokens are required to transport the implemented access and refresh tokens necessary for authentication and authorization purposes. This popular library deals with the creation and validation of the tokens.  \ksremark{jakiś odnośnik}
 
 \subsubsection{Bouncy Castle}
 
-One of many cryptographic APIs offered by Bouncy Castle library is SHA 3 which internally implements Keccak-f[1600] algorithm.
+One of many cryptographic APIs offered by Bouncy Castle library is SHA 3 which internally implements Keccak-f[1600] algorithm.  \ksremark{jakiś odnośnik}
 
 This library is used by the hashing data masking technique.
 
 \subsubsection{Apache Commons Lang}
 
-The sole purpose of this library is a generation of random alphabetic and alphanumeric characters for pattern masking anonymisation technique.
+The sole purpose of this library is a generation of random alphabetic and alphanumeric characters for pattern masking anonymisation technique.  \ksremark{jakiś odnośnik}
 
 \subsection{Client}
 
@@ -1881,12 +2011,12 @@ There were three possible issue types:
 \begin{itemize}
 \item feature – describing a new functionality
 \item improvement – describing an upgrade to the existing functionality
-\item epic – describing a big user story that aggregates other issues\cite{bib:agile_essentials}
+\item epic – describing a big user story that aggregates other issues \cite{bib:agile_essentials}
 \end{itemize}
 
 Note that an improvement to the functionality that is still under development is considered a \textit{feature} and not \textit{improvement}.
 
-Furthermore, the labels with the increasing values of \textit{XS}, \textit{S}, \textit{M}, \textit{L} and \textit{XL} were being added to all the tasks upon creation to estimate the time-to-finish complexities. The distribution of the estimations is shown in Fig. \ref{fig:img:estimations}. \textbf{todo updated pie chart}
+Furthermore, the labels with the increasing values of {XS}, {S}, {M}, {L}\ksremark{,} and {XL} were being added to all the tasks upon creation to estimate the time-to-finish complexities. The distribution of the estimations is shown in Fig. \ref{fig:img:estimations}. \textbf{todo updated pie chart}
 
 \begin{figure}
   \centering
