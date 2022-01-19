@@ -408,7 +408,7 @@ It is worth mentioning that there exists cases which are defined under Article 6
 
 \subsection{General Data Protection Regulation}
 
-One of the primary objectives of GDPR is personal data privacy protection which is a fundamental right and freedom of people as defined under the Recital 1 of GDPR \cite{bib:recital1} and the Charter of Fundamental Rights of the European Union \cite{bib:charter}. Newly discovered challenges for the protection of personal data arise from the ongoing globalization and quick development of digital technologies. This in turn vastly had increased both the scope of the gathering of the data, and the sharing of thereof. General Data Protection Regulation (GDPR) is a data protection law that came into force on May 25, 2018 to addresses these data privacy related issues in a strict manner\cite{bib:recital6}.
+One of the primary objectives of GDPR is personal data privacy protection which is a fundamental right and freedom of people as defined under the Recital 1 of GDPR \cite{bib:recital1} and the Charter of Fundamental Rights of the European Union \cite{bib:charter}. Newly discovered challenges for the protection of personal data arise from the ongoing globalization and quick development of digital technologies. This in turn vastly had increased both the scope of the gathering of the data, and the sharing of thereof. General Data Protection Regulation (GDPR) is a data protection law that came into force on May 25, 2018 to addresses these data privacy related issues in a strict manner \cite{bib:recital6}.
 
 Compliance with GDPR law is critical for organizations in the view of significant administrative fines they face. Violations of the data processor and data controller obligations defined in GPDR are subject to costly penalties that are imposed by European authorities. Non compliance with technical rules imply a penalty of 2 percent of the total annual turnover of the previous year, or €10 milion, whichever one is higher, whereas non compliance with basic data protection principles imply an even higher penalty of 4 percent of the total annual turnover of the previous year, or €20 million, whichever one is higher \cite{bib:art83}\cite{bib:gdpr_managing_data_risk}.
 
@@ -457,31 +457,7 @@ Consider the two theoretical boundary cases of either releasing data in its orig
 
 Clearly the data must not be released in its original state – strict GDPR that imposes large administrative fines \cite{bib:art83} exists to mitigate such violations. On the other hand, data that completely suppresses all the information has no value. The data controllers therefore need to strike a balance between the two cases. An appropriate anonymisation strategy maximizing the utility without endangering the privacy must be adopted.
 
-\subsection{Pseudonymisation}
-
-\color{blue}
-What is pseudonymization? How does it differ?
-\color{black}
-
-\subsection{De-identification}
-
-\color{blue}
-Nawet jeśli dane personall identifiable information PII są usunięte, to można połączyć osobe z pomocą istniejących nieusuniętych danych np. płeć oraz external informacjach np. social media. Komputery są coraz szybsze, źródeł danych coraz więcej - napastnikom coraz łatwiej.
-
-Przykłady takich ataków (Netflix Prize, IMDB).
-https://www.cs.princeton.edu/~arvindn/publications/de-anonymization-retrospective.pdf
-https://arxiv.org/abs/1512.08546
-
-
-
-// todo
-Conclusion: Anonymisation = false sense of security! All the known examples of this type of identification are from the research world — no commercial or malicious uses have yet come to light — but they prove that anonymization is not an absolute protection.
-\normalsize
-
-Why you can't really anonymize the data:
-
-https://web.archive.org/web/20140109052803/http://strata.oreilly.com/2011/05/anonymize-data-limits.html
-\color{black}
+For this reason the data controllers must select appropriate data masking techniques.
 
 \section{Data masking techniques}
 
@@ -1045,7 +1021,41 @@ It is possible to specify whether or not the each data record should be terminat
 
 \section{Existing solutions}
 
-List of existing solutions.
+
+All of the tools have a shared goal in mind of being GDPR compliant. As shown, the existing solutions are greatly similar to the engineered software and often offer \textit{less} versatility than the designed anonymisation web platform.
+
+Of course as the data privacy concerns are increasing in the society, the needs for data protection also increase. The relevance of anonymisation will only increase in the future. The market is just not steady yet.
+
+\subsection{Open Source}
+
+\subsubsection{Anonimatron}
+Anonimatron is a Java tool designed for anonymisation of the databases specifically for the development purposes. The idea behind the tool is that the software developers may not be authorized to access the production data, yet may be required to reproduce, e.g., data related performance problems. Internally, anonimatron uses the concept of synonyms.
+
+
+\subsubsection{Anonymizer}
+Similarly to Anonimatron, anonymizer is a tool that anonymises the databases specifically for development. This tool was written in Ruby.
+
+\subsubsection{ARX}
+ARX is a Java based desktop solution offering a significant variety of advanced data masking techniques. The tool offers a functionality of analysing the usefulness of the generated outcomes.
+
+\subsubsection{Amnesia}
+Amnesia is a software system that allows uploading the data, configuring the anonymisation parameters and downloading anonymised outcome. However, it supports merely the text files.
+
+
+Business software
+
+
+\subsubsection{SAP Data Services}
+SAP Data Services is an enterprise class data management software which internally uses Data Mask component of the Transformation module to provide the masking functionalities. Data Mask component offers highly configurable functionalities like perturbation, generalisation and pattern masking.
+
+\subsubsection{Oracle Data Masking and Subsetting}
+This is a yet another enterprise class data masking software, however it is solely focused on the masking. This software is optimised for Oracle database, however other databases are also partially supported. The available operations include shuffling, randomisation, pattern masking.
+
+\subsubsection{Microsoft Azure ecosystem}
+The anonymisation techniques that are used throughout Azure Synapse Analytics, Azure SQL Managed Instance or Azure SQL Database include pattern masking, random number generation and text substitution.
+
+\subsubsection{TurboCat.io}
+This tool primarily oscillates between the encryption method to protect the sensitive data.
 
 \section{Anonymisation as a platform}
 
@@ -1922,6 +1932,12 @@ Use special environment for inline code, eg \lstinline|descriptor| or \lstinline
 \item test cases, testing scope (full / partial)
 \item detected and fixed bugs
 \item results of experiments (optional)
+
+\textbf{Portability tests}
+\textbf{testcontainers, rest assured, junit, mockito, extendable}
+\textbf{CI working}
+\textbf{manual}
+\textbf{bugs}
 \end{itemize}
 
  
@@ -1929,6 +1945,7 @@ Use special environment for inline code, eg \lstinline|descriptor| or \lstinline
 
 \chapter{Conclusions}
 
+Wyniki są b. zadow. bo soft może konkurować z innymi.
 
 
 
