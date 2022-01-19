@@ -1875,7 +1875,7 @@ Axios is an asynchronous HTTP client used for sending the requests to the anonym
 
 \section{Development methodology}
 
-The development was driven by git like in the case of any software project that is of a non-trivial size. A total number of 6XX \textbf{todo} commits\footnote{the data as of 21.01.2022} were pushed to the master branch. Conventional Commits specification was followed in a simplified way.
+The development was driven by git like in the case of any software project that is of a non-trivial size. A total number of 6XX \textbf{todo} commits\footnote{the data as of 21.01.2022} were pushed to the master branch. Conventional Commits specification was followed in a simplified way. The branches were deleted following the merge.
 
 There were three possible issue types:
 \begin{itemize}
@@ -1904,34 +1904,6 @@ The non-epic tasks were marked either as resolved or as cancelled when closing t
   \label{fig:img:resolved_tasks}
 \end{figure}
 
-\subsection{Activation}
-
-New instance of the system database is preloaded with at least one admin account. The credentials of this initial account can be configured from the properties and must be overriden in production:
-\begin{verbatim}
-core:
-  preloader.admin:
-    login: admin@admin.com
-    password: admin
-\end{verbatim}
-
-
-\subsection{Types of users}
-
-Four types of users can interact with the system:
-\begin{itemize}
-\item admin user
-\item verified user
-\item unverified user
-\item anonymous user
-\end{itemize}
-
-It is very important to note that while the admin user can manage other users' accounts, he is not authorized to access the users' confidential data such as anonymisation scripts. The admin user who may be a non technical business person must not be confused with the system administrator.
-
-The relation between the users and their use-cases are summarized in Fig. \ref{fig:use_cases_management} and \ref{fig:use_cases_anonymisation}.
-
-\subsection{System administration}
-
-
 \chapter{External specification}
 \begin{itemize}
 \item hardware and software requirements
@@ -1943,6 +1915,18 @@ The relation between the users and their use-cases are summarized in Fig. \ref{f
 \item security issues
 \item example of usage
 \item working scenarios (with screenshots or output files)
+\end{itemize}
+
+\subsection{Domain specific glossary}
+
+The application defines several business names related to the anonymisation domain in order to concisely introduce complex technical problems. These names include:
+\begin{itemize}
+\item template – the user restores the database from the dump he provides to create a read-only replicable template that is used to produce worksheets
+\item worksheet – a concept which represents the user's working area for configuring the anonymisation to match the exact business requirements of his interest. The worksheet is produced from the template and is used to generate the outcomes
+\item summary – this is the worksheet's representation – a summary layer of the configured anonymisation that presents in one place all the information concerning the template, worksheet, operations and outcomes
+\item operation – an individual anonymisation technique applied to the given attribute
+\item outcome – the outcomes are generated from the worksheet after processing the anonymisation request and encapsulate the anonymisation script and anonymised dumps
+\item metadata – represents the information about the template database, i.e., information concerning columns, tables, primary keys, foreign keys, number of tables and records, etc.
 \end{itemize}
 
 \section{Installation}
@@ -2099,6 +2083,62 @@ cd frontend
 yarn install
 yarn start
 \end{verbatim}
+
+If all steps are successful the application is fully accessible.
+
+Note that the services are decoupled from each other, e.g. the client service (frontend) does not necessarily need to be started to access the anonymisation server capabilities, i.e., the server would still be accessible through the REST API.
+
+\section{Activation}
+
+The database of a new instance of the anonymisation platform is preloaded with at least one admin account. The credentials of this initial account can be configured from the properties and must be overriden in production:
+\begin{verbatim}
+core:
+  preloader.admin:
+    login: admin@admin.com
+    password: admin
+\end{verbatim}
+
+
+\section{Types of users}
+
+Four types of users can interact with the system:
+\begin{itemize}
+\item admin user
+\item verified user
+\item unverified user
+\item anonymous user
+\end{itemize}
+
+It is very important to note that while the admin user can manage other users' accounts, he is not authorized to access the users' confidential data such as anonymisation scripts. The admin user who may be a non technical business person should not be confused with the system administrator.
+
+The relation between the users and their use-cases are summarized in Fig. \ref{fig:use_cases_management} and \ref{fig:use_cases_anonymisation}.
+
+\section{User manual}
+
+\section{System administration}
+
+
+\section{Security issues}
+
+\subsection{User account}
+The system requires the user to verify his e-mail address to access the platform capabilities. The application allows blocking potentially malicious users. To ensure the security of users data through data protection measures, the user can request to remove his account.
+
+\subsection{Continuous integration}
+Multiple advanced continuous integrity workflows were established to follow the state of the art software development practices of ensuring the quality and security. The plans verify the state of quality, security and tests — and are triggered daily, upon creating a pull request or upon committing to the master branch.
+
+\subsection{Containers isolation}
+The platform runs as a secure network of isolated docker containers.
+
+\subsubsection{Authentication and authorization}
+Platform endpoints are gated behind the authorization logic, i.e., in order to access the platform resources the user first needs to authenticate himself by logging in to his account, and then his account is also required to have the appropriate role authority to access the particular resources such as the templates or worksheets.
+
+The authentication and the authorization is implemented using JWT access tokens. To increase the safety of the system, the functionality is further enhanced by the functionality of refresh tokens.
+
+\subsection{Validation}
+The application pays special attention to the validation which is performed on the client's side and on the server's side in a multi-level fashion. Taking the proper validation measures prevents the potentially devastating effects of putting the application in a breaking, unsupported state.
+
+
+\section{Working scenarios}
 
 
 \chapter{Internal specification}
