@@ -1898,27 +1898,30 @@ The non-epic tasks were marked either as resolved or as cancelled when closing t
 
 \subsection{Activation}
 
-New instance of the system database is preloaded with at least one admin account. The of this initial account can be configured from the properties and must be overriden in production:
-
-\begin{itemize}
-% application.yml
-core.preloader.admin.login=admin@admin.com
-core.preloader.admin.password=admin
-\end{itemize}
-
+New instance of the system database is preloaded with at least one admin account. The credentials of this initial account can be configured from the properties and must be overriden in production:
+\begin{verbatim}
+core:
+  preloader.admin:
+    login: admin@admin.com
+    password: admin
+\end{verbatim}
 
 
 \subsection{Types of users}
 
 Four types of users can interact with the system:
 \begin{itemize}
-\item admin
+\item admin user
 \item verified user
 \item unverified user
 \item anonymous user
 \end{itemize}
 
+It is very important to note that while the admin user can manage other users accounts, he is not authorized to access the users' confidential data such as anonymisation scripts. The \text{admin user} who may be a non technical business person must not be confused with the \textit{system administrator}.
 
+The relation between the users and their use-cases are summarized in Fig. \ref{fig:use_cases_management} and \ref{fig:use_cases_anonymisation}.
+
+\subsection{System administration}
 
 \chapter{External specification}
 \begin{itemize}
