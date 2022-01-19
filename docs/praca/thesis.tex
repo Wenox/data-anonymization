@@ -38,6 +38,8 @@
 \usepackage{minted}  
 \usepackage{algorithm}
 \usepackage{algpseudocode}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{float}
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \usepackage{booktabs}
@@ -62,6 +64,12 @@
 
 %%%%%%%%%
  
+\mdfsetup{skipabove=0.4mm,skipbelow=0.4mm}
+\BeforeBeginEnvironment{minted}{\singlespacing\begin{mdframed}[innertopmargin=0mm, innerbottommargin=0mm, frametitlebelowskip=0pt, frametitleaboveskip=0pt, splittopskip=0pt,linewidth=0.75pt]}
+\AfterEndEnvironment{minted}{\end{mdframed}\onehalfspacing}
+
+\BeforeBeginEnvironment{verbatim}{\singlespacing\begin{mdframed}[innertopmargin=1mm, innerbottommargin=1mm, frametitlebelowskip=0pt, frametitleaboveskip=0pt, splittopskip=0pt,linewidth=0.75pt]}
+\AfterEndEnvironment{verbatim}{\end{mdframed}\onehalfspacing}
 
 %%%%%%%%%%%% FANCY HEADERS %%%%%%%%%%%%%%%
 
@@ -475,7 +483,7 @@ Suppression is the strongest anonymisation technique which completely removes al
 
 Consider the raw data of the three attributes presented in the table \ref{id:tab:suppression_raw} to be put under the process of suppression.
 
-\begin{table}[h]
+\begin{table}[H]
 \centering
 \caption{Suppression – input data.}
 \label{id:tab:suppression_raw}
@@ -491,7 +499,7 @@ M   & 1337                          & 5191 – 915100 \\
 
 Exemplary results of performed suppression are depicted in the table \ref{id:tab:suppression}. All of the three attributes values were suppressed to the value of the suppression token supplied by the data controller.
 
-\begin{table}[h]
+\begin{table}[H]
 \centering
 \caption{Suppression  – masked data.}
 \label{id:tab:suppression}
@@ -511,7 +519,7 @@ Suppression is typically applied on the column level of an attribute, however it
 
 The designed software offers column level suppression with a user specified value (i.e., suppression token). The values are transformed to this user specified value using a simple algorithm shown in Fig. \ref{fig:code:suppression}.
 
-\begin{figure}[h]
+\begin{figure}[H]
 \begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=lines, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
 procedure suppression(values, token)
   for (value in values)
@@ -534,7 +542,7 @@ The proposed software solution includes two generalisation strategies, namely:
 
 Consider the raw data of the three attributes presented in the table \ref{id:tab:generalisation_raw} to be put under the process of generalisation.
 
-\begin{table}[h]
+\begin{table}[H]
 \centering
 \caption{Generalisation – input data.}
 \label{id:tab:generalisation_raw}
@@ -550,7 +558,7 @@ Consider the raw data of the three attributes presented in the table \ref{id:tab
 
 Results shown in the table \ref{id:tab:generalisation} include exemplary possible values after being processed by the generalisation method. As depicted in the table, all three attributes have been grouped into broader value ranges, hence undergoing the generalisation, yet every column was generalised with a different generalisation strategy.
 
-\begin{table}[h]
+\begin{table}[H]
 \centering
 \caption{Generalised – masked data.}
 \label{id:tab:generalisation}
@@ -676,7 +684,7 @@ The supported methods include adding the noise based on the strategies of:
 
 Height attribute values could have been perturbed using the former (i.e., fixed noise of $\pm 3$), whereas weight attribute values could have been perturbed using the latter (i.e., percentage value of $\pm 5 \%$). In either case, the linkage between individual records is blurred with this technique. 
 
-\begin{figure}[h]
+\begin{figure}[H]
 \begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=lines, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
 procedure perturbation(values, noise)
   for (value in values)
@@ -870,6 +878,7 @@ E57DC4      & 1100             \\
 \end{tabular}
 \end{table}
 
+
 \subsection{Artificial data}
 
 Replacing the original data with an artificial data can be achieved through substitution, tokenisation or random number generation.
@@ -958,7 +967,7 @@ The fundamental requirement of anonymisation platform is to be a versatile softw
 
 Consider the data of customer satisfaction described as a value ranging from 1 to 5 shown in the table \ref{id:tab:random_number_raw}.
 
-\begin{table}[h]
+\begin{table}[H]
 \centering
 \caption{Random number – input data.}
 \label{id:tab:random_number_raw}
@@ -973,7 +982,7 @@ Customer satisfaction \\ \midrule
 
 The values from the table \ref{id:tab:random_number_masked} show the new masked values.
 
-\begin{table}[h]
+\begin{table}[H]
 \centering
 \caption{Random number – masked data.}
 \label{id:tab:random_number_masked}
@@ -986,10 +995,11 @@ Customer satisfaction \\ \midrule
 \end{tabular}
 \end{table}
 
+
 \subsection{Shortening}
 Consider the surnames from the table \ref{id:tab:shortening_raw} to be shortened to a length of 5 characters.
 
-\begin{table}[h]
+\begin{table}[H]
 \centering
 \caption{Shortening – input data.}
 \label{id:tab:shortening_raw}
@@ -1004,7 +1014,7 @@ Nowak      \\ \bottomrule
 
 The shortened data is visible in the table \ref{id:tab:shortening_masked}.
 
-\begin{table}[h]
+\begin{table}[H]
 \centering
 \caption{Shortening – masked data.}
 \label{id:tab:shortening_masked}
@@ -1021,12 +1031,11 @@ It is possible to specify whether or not the each data record should be terminat
 
 \section{Existing solutions}
 
-
-All of the tools have a shared goal in mind of being GDPR compliant. As shown, the existing solutions are greatly similar to the engineered software and often offer \textit{less} versatility than the designed anonymisation web platform.
+All of the tools have a shared goal of being GDPR compliant in mind. As this section shows, the existing solutions are greatly similar to the engineered software and often offer \textit{less} versatility than the designed anonymisation web platform.
 
 Of course as the data privacy concerns are increasing in the society, the needs for data protection also increase. The relevance of anonymisation will only increase in the future. The market is just not steady yet.
 
-\subsection{Open Source}
+\subsection{Open source software}
 
 \subsubsection{Anonimatron}
 Anonimatron is a Java tool designed for anonymisation of the databases specifically for the development purposes. The idea behind the tool is that the software developers may not be authorized to access the production data, yet may be required to reproduce, e.g., data related performance problems. Internally, anonimatron uses the concept of synonyms.
@@ -1042,7 +1051,7 @@ ARX is a Java based desktop solution offering a significant variety of advanced 
 Amnesia is a software system that allows uploading the data, configuring the anonymisation parameters and downloading anonymised outcome. However, it supports merely the text files.
 
 
-Business software
+\subsection{Enterprise class software}
 
 
 \subsubsection{SAP Data Services}
@@ -1900,13 +1909,161 @@ The non-epic tasks were marked either as resolved or as cancelled when closing t
 \item working scenarios (with screenshots or output files)
 \end{itemize}
 
-\section{Environments}
-\begin{figure}
+\section{Installation}
+
+One of the primary reasons why the containerization concept was so remarkably well received \cite{bib:stackoverflow2021} and exhibited by the massive global adoptions of the Docker technology is the ease it offers regarding the software installation. Decoupling the software from the hardware it runs on allows a portable way to install the software in a simple manner. Instead of making it a responsibility for the end users to manually install the dependent software (e.g., database server, JDK, Node.js or yarn), all the dependencies come encapsulated within the image, effectively transferring the difficulties of managing the dependencies to the application developers.
+
+\subsection{Environments — overview}
+
+The software solution is designed to be runnable in multiple deployment environments hence reproducing the deployment characteristics of a simple modern business-class software system.
+
+As depicted in Fig. \ref{fig:img:environments} the available environments include:
+\begin{itemize}
+\item production
+\item development
+\end{itemize}
+
+and the environments are further divided into three available setup options, i.e.:
+\begin{itemize}
+\item cloud setup
+\item semi-cloud setup
+\item local setup
+\end{itemize}
+
+\begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{img/environments.png}
   \caption{Environments}
   \label{fig:img:environments}
 \end{figure}
+
+The shared prerequisite for the cloud and semi-cloud setup is to have Docker up and running on the host system. Furthermore, the development environments Local setup does require the installation of additional dependencies.
+
+\subsection{Cloud setup}
+
+The cloud-ready production environment is the easiest one to install.
+
+\subsubsection{Prerequisite}
+
+Docker up and running.
+
+\subsubsection{Installation procedure}
+
+Start up everything at once:
+
+\begin{verbatim}
+cd docker/prod
+docker compose up
+\end{verbatim}
+
+If successful the application should be accessible at \verb|http://localhost:3000|.
+
+The setup is customized from:
+\begin{itemize}
+\item \verb|prod/.env|
+\item \verb|application.yml|
+\item \verb|application-prod.yml|
+\end{itemize}
+
+
+\subsection{Semi-cloud setup}
+
+This is the preferred setup for development. PostgreSQL \textit{server} is abstracted away from the host thanks to this setup. Optionally, the anonymisation server can also run in the container.
+
+The semi-cloud setup requires an installation of additional software.
+
+\subsubsection{Prerequisite}
+
+JDK 17, Node.js and yarn needs to be installed on the host system — apart from the Docker. Note that the Apache Maven which is the build tool for the anonymisation server does not need to be installed neither in the host nor in the container because Maven wrapper is provided and used.
+
+The semi-cloud setup requires an additional installation of the PostgreSQL \textit{client} in the host system if the setup is run without the server profile. The minimum supported version is the version 13.5 released on November 11, 2021.
+
+The setup is customized from:
+\begin{itemize}
+\item \verb|dev/.env|
+\item \verb|application.yml|
+\item \verb|application-dev.yml|
+\end{itemize}
+
+Verify if the required software is installed:
+\begin{verbatim}
+java --version
+psql -V # if running without server profile
+node -v
+yarn -v
+\end{verbatim}
+
+
+\subsubsection{Installation procedure}
+Start up the database server:
+\begin{verbatim}
+cd docker/dev
+docker compose up
+\end{verbatim}
+
+Start the anonymisation server:
+\begin{verbatim}
+cd backend
+./mvnw spring-boot:run
+\end{verbatim}
+
+Alternatively, the server could be started up in the container together with the database server by specifying the server profile:
+\begin{verbatim}
+cd docker/dev
+docker compose --profile server up
+\end{verbatim}
+
+
+
+Start the client:
+\begin{verbatim}
+cd frontend
+yarn install
+yarn start
+\end{verbatim}
+
+\subsection{Local setup}
+
+While the preferred setup for development is the semi-cloud, the local on-premise setup is the preferred option if the Docker is not installed.
+
+The setup is customized from:
+\begin{itemize}
+\item \verb|application.yml|
+\end{itemize}
+
+\subsubsection{Prerequisites}
+
+Apart from Docker, local setup requires everything that the semi-cloud setup requires, and an additional installation of the PostgreSQL \textit{server}.
+
+Verify if the required software is installed:
+\begin{verbatim}
+java --version
+postgres -V
+psql -V
+node -v
+yarn -v
+\end{verbatim}
+
+\subsubsection{Installation procedure}
+
+\begin{verbatim}
+cd backend
+./mvnw spring-boot:run
+\end{verbatim}
+
+Start the anonymisation server:
+\begin{verbatim}
+cd backend
+./mvnw spring-boot:run
+\end{verbatim}
+
+Start the client:
+\begin{verbatim}
+cd frontend
+yarn install
+yarn start
+\end{verbatim}
+
 
 \chapter{Internal specification}
 
