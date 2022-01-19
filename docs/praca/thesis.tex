@@ -773,89 +773,6 @@ Analysis of pattern masking possibilities has yielded the need to create a versa
 
 User can specify the masking character, e.g., \textit{\#}, and can also decide whether the result is truncated to the pattern length (as shown in the masking of software version in the table \ref{id:tab:pattern_masking_masked}).
 
-\subsection{Randomisation}
-
-Randomisation methods offers the best middle ground between maintaining the data utility and preserving the privacy \cite{bib:data_shuffling}. This method can be performed on a column or a row level.
-
-\subsubsection{Column shuffle}
-
-Column shuffle is an exceptionally effective method for breaking the strong links of the data belonging to the individual data subjects. All of that is achieved while preserving the data utility \cite{bib:gdpr_handbook}, hence this technique is great for maintaining the analytical value of the data \cite{bib:data_shuffling}.
-
-Consider the medical data from the table \ref{id:tab:column_randomisation_raw}
-
-\begin{table}[h]
-\centering
-\caption{Randomisation – column – raw data.}
-\label{id:tab:column_randomisation_raw}
-\begin{tabular}{ll}
-\toprule
-Identity & Virus \\ \midrule
-John & Influenza A \\
-Marc & Pneumonia \\
-Stephen & Bronchitis \\ \bottomrule
-\end{tabular}
-\end{table}
-
-An exemplary randomised data is shown in the table \ref{id:tab:column_randomisation_masked}.
-
-\begin{table}[h]
-\centering
-\caption{Randomisation – column – masked data.}
-\label{id:tab:column_randomisation_masked}
-\begin{tabular}{ll}
-\toprule
-Identity & Virus \\ \midrule
-Stephen & Influenza A \\
-Marc & Pneumonia \\
-John & Bronchitis \\ \bottomrule
-\end{tabular}
-\end{table}
-
-This technique can be used in two ways:
-\begin{itemize}
-\item shuffle without repetitions which preserves the data distribution
-\item shuffle with repetitions which distorts the data distribution
-\end{itemize}
-
-
-
-\subsubsection{Row shuffle}
-\subsection{Artificial data}
-\subsubsection{Substitution}
-\subsubsection{Random data}
-\subsection{Shortening}
-Consider the surnames from the table \ref{id:tab:shortening_raw} to be shortened to a length of 5 characters.
-
-\begin{table}[h]
-\centering
-\caption{Shortening – input data.}
-\label{id:tab:shortening_raw}
-\begin{tabular}{l}
-\toprule
-Surname    \\ \midrule
-Kowalski   \\
-Kowalewski \\
-Nowak      \\ \bottomrule
-\end{tabular}
-\end{table}
-
-The shortened data is visible in the table \ref{id:tab:shortening_masked}.
-
-\begin{table}[h]
-\centering
-\caption{Shortening – masked data.}
-\label{id:tab:shortening_masked}
-\begin{tabular}{l}
-\toprule
-Surname    \\ \midrule
-Kowal.     \\
-Kowal.     \\
-Nowak      \\ \bottomrule
-\end{tabular}
-\end{table}
-
-It is possible to specify whether or not the each data record should be terminated with a dot.
-
 \subsection{Hashing}
 
 Hashing is a deterministic masking technique \cite{bib:anonymization_for_research} which transforms the data to the fixed length output. This technique is best used for unstructured data. Available implementations include SHA2 and SHA3.
@@ -892,10 +809,232 @@ b27ffd54e5b05a538f333157363f18df0a2aaae5754dfd9ec9daad9cc4ccd7a2 \\
 
 Although a mere inspection of the generated hash value does not immediately trace back to the original value, an attack to de-anonymise the data can be easily performed when the attacker knows what the hashed data represents, e.g. a structured birth date \cite{bib:hash}. Like in the case of all techniques, the decision to use this technique is context dependent.
 
+\subsection{Randomisation}
+
+Randomisation methods offers the best middle ground between maintaining the data utility and preserving the privacy \cite{bib:data_shuffling}. This method can be performed on a column or a row level.
+
+\subsubsection{Column shuffle}
+
+Column shuffle is an exceptionally effective method for breaking the strong links of the data belonging to the individual data subjects. All of that is achieved while preserving the data utility \cite{bib:gdpr_handbook}, hence this technique is great for maintaining the analytical value of the data \cite{bib:data_shuffling}.
+
+Consider the medical data from the table \ref{id:tab:attribute_randomisation_raw}
+
+\begin{table}[h]
+\centering
+\caption{Randomisation – attribute - input data.}
+\label{id:tab:attribute_randomisation_raw}
+\begin{tabular}{ll}
+\toprule
+Identity & Virus        \\ \midrule
+John     & Influenza A  \\
+Marc     & Pneumonia    \\
+Stephen  & Bronchitis   \\ \bottomrule
+\end{tabular}
+\end{table}
+
+An exemplary randomised data is shown in the table \ref{id:tab:attribute_randomisation_masked}.
+
+\begin{table}[h]
+\centering
+\caption{Randomisation – attribute – masked data.}
+\label{id:tab:attribute_randomisation_masked}
+\begin{tabular}{ll}
+\toprule
+Identity & Virus         \\ \midrule
+Stephen  & Pneumonia     \\
+Marc     &  Influenza A  \\
+John     & Bronchitis    \\ \bottomrule
+\end{tabular}
+\end{table}
+
+This technique can be used in two ways:
+\begin{itemize}
+\item shuffle without repetitions which preserves the data distribution
+\item shuffle with repetitions which distorts the data distribution
+\end{itemize}
+
+\subsubsection{Row shuffle}
+
+The data may also be needed to be shuffled on a record level – similarly, with or without preserving the distribution.
+
+Consider shuffling the characters of an RGB colour described in hexadecimal format. Furthermore, consider a concept of storing a set of abstract decisions (e.g., willingness to participate in the election voting) as a sequence of bits where each bit represents an individual boolean decision. The table \ref{id:tab:record_randomisation_raw} shows the data.
+
+\begin{table}[h]
+\centering
+\caption{Randomisation – record – input data.}
+\label{id:tab:record_randomisation_raw}
+\begin{tabular}{lc}
+\toprule
+Hex triplet & Set of decisions \\ \midrule
+FF00FF      & 1101             \\
+54E7CD      & 1010             \\
+E5E5E5      & 0000             \\ \bottomrule
+\end{tabular}
+\end{table}
+
+The table \ref{id:tab:record_randomisation_masked} shows the data after the masking process. The colours were processed without preserving the original characters distribution.
+
+\begin{table}[h]
+\centering
+\caption{Randomisation – record – masked data.}
+\label{id:tab:record_randomisation_masked}
+\begin{tabular}{lc}
+\toprule
+Hex triplet & Set of decisions \\ \midrule
+0000F0      & 0111             \\
+E57DC4      & 1100             \\
+5E5555      & 0000             \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Artificial data}
+
+Replacing the original data with an artificial data can be achieved through substitution, tokenisation or random number generation.
 
 
+\subsubsection{Substitution}
 
-\subsection{Tokenisation}
+Substitution is of a particular relevance when the masked data needs to be realistic \cite{bib:anonymization_planning}.
+
+Consider the data from the table \ref{id:tab:substitution_raw} undergoing the substitution process.
+
+\begin{table}[h]
+\centering
+\caption{Substitution – input data.}
+\label{id:tab:substitution_raw}
+\begin{tabular}{ll}
+\toprule
+Name   & Surname  \\ \midrule
+Jan    & Gold     \\
+Bob    & Ng       \\
+Bob    & Xi       \\ 
+Maria  & Robin    \\ \bottomrule
+\end{tabular}
+\end{table}
+
+Consider that the data controller provides the following data for the name parameter: \textit{Lucius}, \textit{Decimus}, \textit {Amanda}, and the following data for the surname parameter: \textit{Lucci}, \textit{Rector}. The table \ref{id:tab:substitution_masked} presents an exemplary possible masked result.
+
+\begin{table}[h]
+\centering
+\caption{Substitution – masked data.}
+\label{id:tab:substitution_masked}
+\begin{tabular}{ll}
+\toprule
+Name    & Surname   \\ \midrule
+Lucius  & Lucci     \\
+Decimus & Rector    \\
+Decimus & Lucci     \\ 
+Amanda  & Rector    \\ \bottomrule
+\end{tabular}
+\end{table}
+
+The name attribute is masked without memorylessness, and the masking occurs in a circular manner.
+
+The method is designed to be used with or without memorylessness in mind. Duplicate entries of the same unmasked data values may always be altered to the same masked data values. This technique is also a great extension point for data controller customisations, as the external data set needs to be provided, therefore the data controller can have full control over the data.
+
+\subsubsection{Tokenisation}
+
+In comparison to the substitution technique, this operation is relevant when the masked data does not need to be realistic \cite{bib:anonymization_planning}, i.e., it could be useful to perform the analytics on the frequencies of data duplicates.
+
+Consider the data from a survey question shown in the table \ref{id:tab:tokenisation_raw}.
+
+\begin{table}[h]
+\centering
+\caption{Tokenisation – input data.}
+\label{id:tab:tokenisation_raw}
+\begin{tabular}{l}
+\toprule
+\multicolumn{1}{c}{Survey response} \\ \midrule
+Agree                               \\
+Not sure                            \\
+Agree                               \\
+Strongly disagree                   \\ \bottomrule
+\end{tabular}
+\end{table}
+
+The tokenised data is shown in the table \ref{id:tab:tokenisation_masked}. The \textit{agree} value was tokenised to the same token value hence conserving the frequency characteristics of the data.
+
+\begin{table}[h]
+\centering
+\caption{Tokenisation – masked data.}
+\label{id:tab:tokenisation_masked}
+\begin{tabular}{l}
+\toprule
+
+\multicolumn{1}{c}{Survey response} \\ \midrule
+1                                   \\
+2                                   \\
+1                                   \\
+3                                   \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Random number}
+
+The fundamental requirement of anonymisation platform is to be a versatile software to anonymise the data, hence even a simple random number technique needs to be supported to possibly cover a broader range of the business needs.
+
+Consider the data of customer satisfaction described as a value ranging from 1 to 5 shown in the table \ref{id:tab:random_number_raw}.
+
+\begin{table}[h]
+\centering
+\caption{Random number – input data.}
+\label{id:tab:random_number_raw}
+\begin{tabular}{c}
+\toprule
+Customer satisfaction \\ \midrule
+2                     \\
+1                     \\
+3                     \\ \bottomrule
+\end{tabular}
+\end{table}
+
+The values from the table \ref{id:tab:random_number_masked} show the new masked values.
+
+\begin{table}[h]
+\centering
+\caption{Random number – masked data.}
+\label{id:tab:random_number_masked}
+\begin{tabular}{c}
+\toprule
+Customer satisfaction \\ \midrule
+5                     \\
+5                     \\
+4                     \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Shortening}
+Consider the surnames from the table \ref{id:tab:shortening_raw} to be shortened to a length of 5 characters.
+
+\begin{table}[h]
+\centering
+\caption{Shortening – input data.}
+\label{id:tab:shortening_raw}
+\begin{tabular}{l}
+\toprule
+Surname    \\ \midrule
+Kowalski   \\
+Kowalewski \\
+Nowak      \\ \bottomrule
+\end{tabular}
+\end{table}
+
+The shortened data is visible in the table \ref{id:tab:shortening_masked}.
+
+\begin{table}[h]
+\centering
+\caption{Shortening – masked data.}
+\label{id:tab:shortening_masked}
+\begin{tabular}{l}
+\toprule
+Surname    \\ \midrule
+Kowal.     \\
+Kowal.     \\
+Nowak      \\ \bottomrule
+\end{tabular}
+\end{table}
+
+It is possible to specify whether or not the each data record should be terminated with a dot.
 
 \color{blue}
 \section{Existing solutions}
@@ -1599,7 +1738,7 @@ Hibernate functionality was additionally enhanced with Hibernate Types library \
 
 \subsubsection{PostgreSQL – Server}
 
-The choice of appropriate database was of particular importance for due to domain of the designed system.
+The choice of appropriate database was of particular importance due to domain of the designed system.
 
 PostgreSQL was fourth most popular database management system worldwide back in 2017 as shown in the annual Stack Overflow Developer Survey report \cite{bib:stackoverflow2017}. Each consequtive report demonstrated further growth of PostgreSQL. As PostgreSQL is at continuous growth, MySQL (i.e., the most popular database) is at continuous decline. Latest report published in 2021 \cite{bib:stackoverflow2021} placed PostgreSQL on the second place and it is believed that it will at last beat MySQL this year.
 
