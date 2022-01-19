@@ -18,12 +18,13 @@ public class DatabasePreloader {
   @Bean
   public CommandLineRunner loadDatabaseContent(UserRepository userRepository,
                                                PasswordEncoder passwordEncoder,
-                                               VerifyMailTokenRepository verifyMailTokenRepository) {
+                                               VerifyMailTokenRepository verifyMailTokenRepository,
+                                               DatabasePreloaderConfiguration databasePreloaderConfiguration) {
     return args -> {
       User admin = new User();
       admin.setRole(Role.ADMIN);
-      admin.setEmail("admin@admin.com");
-      admin.setPassword(passwordEncoder.encode("admin"));
+      admin.setEmail(databasePreloaderConfiguration.getAdminLogin());
+      admin.setPassword(passwordEncoder.encode(databasePreloaderConfiguration.getAdminPassword()));
       admin.setStatus(UserStatus.ACTIVE);
       admin.setVerified(true);
       admin.setFirstName("Tadeusz");

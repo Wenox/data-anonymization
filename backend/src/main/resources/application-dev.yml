@@ -1,0 +1,13 @@
+# Miscellaneous
+server.environment.cloud: true
+
+# Uploader module configuration
+uploader.templates.path: /var/lib/anonymisation_platform/templates
+
+# Processing module configuration
+processing:
+  anonymisations:
+    scripts.path: /var/lib/anonymisation_platform/anonymisations/scripts
+  dumps:
+    scripts.path: /var/lib/anonymisation_platform/dumps/scripts
+    archives.path: /var/lib/anonymisation_platform/dumps/archives

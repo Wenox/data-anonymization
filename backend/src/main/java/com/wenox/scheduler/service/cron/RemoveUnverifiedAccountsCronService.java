@@ -25,11 +25,11 @@ public class RemoveUnverifiedAccountsCronService implements CronService {
   private final String description;
   private final UserRepository userRepository;
 
-  public RemoveUnverifiedAccountsCronService(@Value("${core.removeUnverifiedAccounts.removeAfterTimeInSeconds}") Long removeAfter,
-                                             @Value("${core.removeUnverifiedAccounts.cron}") String cronExpression,
-                                             @Value("${core.removeUnverifiedAccounts.scheduled}") boolean isScheduled,
-                                             @Value("${core.removeUnverifiedAccounts.executable}") boolean isExecutable,
-                                             @Value("${core.removeUnverifiedAccounts.description}") String description,
+  public RemoveUnverifiedAccountsCronService(@Value("${scheduler.removeUnverifiedAccounts.removeAfterTimeInSeconds}") Long removeAfter,
+                                             @Value("${scheduler.removeUnverifiedAccounts.cron}") String cronExpression,
+                                             @Value("${scheduler.removeUnverifiedAccounts.scheduled}") boolean isScheduled,
+                                             @Value("${scheduler.removeUnverifiedAccounts.executable}") boolean isExecutable,
+                                             @Value("${scheduler.removeUnverifiedAccounts.description}") String description,
                                              UserRepository userRepository) {
     this.removeAfter = removeAfter;
     this.cronExpression = cronExpression;
@@ -40,7 +40,7 @@ public class RemoveUnverifiedAccountsCronService implements CronService {
   }
 
   @Override
-  @Scheduled(cron = "${core.removeUnverifiedAccounts.cron}")
+  @Scheduled(cron = "${scheduler.removeUnverifiedAccounts.cron}")
   public void execute() {
     log.info("Started removing unverified accounts...");
 
