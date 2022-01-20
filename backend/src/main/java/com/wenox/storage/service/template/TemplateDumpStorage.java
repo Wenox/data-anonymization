@@ -10,7 +10,7 @@ public class TemplateDumpStorage extends LocalFileStorage {
 
   private final String templatesPath;
 
-  public TemplateDumpStorage(@Value("${uploader.templates.path}") String templatesPath) {
+  public TemplateDumpStorage(@Value("${uploading.templates.path}") String templatesPath) {
     this.templatesPath = templatesPath;
   }
 

@@ -1,8 +1,8 @@
 # Miscellaneous
 server.environment.cloud: true
 
-# Uploader module configuration
-uploader.templates.path: /var/lib/anonymisation_platform/templates
+# Uploading module configuration
+uploading.templates.path: /var/lib/anonymisation_platform/templates
 
 # Processing module configuration
 processing:

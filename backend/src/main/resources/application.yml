@@ -2,11 +2,11 @@
 server.environment.cloud: false
 
 
-# Uploader module configuration
-uploader.templates.path: stored_files/templates
+# Uploading module configuration
+uploading.templates.path: stored_files/templates
 spring.servlet.multipart:
-  max-file-size: 10MB
-  max-request-size: 10MB
+  max-file-size: 100MB
+  max-request-size: 100MB
 
 # Processing module configuration
 processing:
@@ -16,19 +16,27 @@ processing:
     archives.path: stored_files/dumps/archives
 
 
-# PostgreSQL configuration
-spring.datasource:
-  url: jdbc:postgresql://localhost:5007/anonymisation_db
-  username: postgres
-  password: postgres
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5007/anonymisation_db
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate.ddl-auto: create
+    generate-ddl: false
+    show-sql: false
+    properties.hibernate.types.print.banner: false
 
-
-# JPA configuration
-spring.jpa:
-  hibernate.ddl-auto: create
-  generate-ddl: false
-  show-sql: false
-  properties.hibernate.types.print.banner: false
+  # Mail service configuration
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: data.anonymisation
+    #password: <Specified in secrets.properties>
+    properties:
+      smtp:
+        auth: true
+        starttls.enable: true
 
 # Core configuration
 core:
@@ -38,7 +46,7 @@ core:
   jwt:
     algorithm: HS512
     secretKey: /EOAqvJOzlPxRdTJO5iblCYSCGMXsVaCU47BpvxvO19L87/pVpyoab9sy2rDzHS5vNwHzu8rX/E8FJGqx5oCkA==
-    accessToken.expireTimeInSeconds: 12000
+    accessToken.expireTimeInSeconds: 3600
     refreshToken.expireTimeInSeconds: 2419200
   api:
     unprotectedResources: /api/v1/auth/**,\
@@ -48,9 +56,9 @@ core:
                           /api/v1/me/restore-account/**
 
 # Token based services configuration
-  resetPasswordToken.expireTimeInSeconds: 10
-  verifyMailToken.expireTimeInSeconds: 10
-  undoRemoveAccountToken.expireTimeInSeconds: 10
+  resetPasswordToken.expireTimeInSeconds: 3600
+  verifyMailToken.expireTimeInSeconds: 604800
+  undoRemoveAccountToken.expireTimeInSeconds: 604800
 
 
 # Scheduler module configuration
@@ -58,7 +66,7 @@ scheduler:
   notifyExpiringAccounts:
     scheduled: true
     executable: true
-    cron: '*/450 * * * * *'
+    cron: '0 0 0 * * *'
     notifyAfterTimeInSeconds: 300
     description: Send mail notifications to expiring accounts
 
@@ -72,25 +80,13 @@ scheduler:
   removeUnverifiedAccounts:
     scheduled: false
     executable: false
-    cron: '*/525 * * * * *'
+    cron: '@weekly'
     removeAfterTimeInSeconds: 300
     description: Remove dangling unverified accounts
 
   handleRemoveAccounts:
     scheduled: true
     executable: true
-    cron: '*/600 * * * * *'
+    cron: '@daily'
     markedRemoveAfterTimeInSeconds: 300
     description: Remove qualified accounts and clean-up their data
-
-
-# Mail service configuration
-spring.mail:
-  host: smtp.gmail.com
-  port: 587
-  username: data.anonymisation
-  #password: <Specified in secrets.properties>
-  properties:
-    smtp:
-      auth: true
-      starttls.enable: true

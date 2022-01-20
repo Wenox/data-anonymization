@@ -1,0 +1,4 @@
+spring:
+  datasource.url: jdbc:tc:postgresql:9.6:///anonymisation_db
+  jpa.defer-datasource-initialization: true
+  sql.init.mode: always

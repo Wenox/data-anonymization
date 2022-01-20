@@ -2239,6 +2239,254 @@ The relation between the users and their use-cases are summarized in Fig. \ref{f
 
 \section{System administration}
 
+Anonymisation server is highly configurable from \verb|application.yml|,\newline \verb|application-<env>.yml|, and \verb|<env>/.env| files. The idea is that concrete environments may need to behave differently, therefore the possibility to override only the selected local properties must be supported and is achievable through the creation of extra overriding files. A property from \verb|application.yml| may be overridden from the \verb|application-<env>.yml|.
+
+The system administrator must be provided with a possibility to configure the platform in an externalized way. The configuration changes merely require to re-deploy the platform -- it is not required to re-build it.
+
+\subsection{Environments}
+
+Consider the docker compose visible in Fig. \ref{fig:code:docker_compose_production} which is further configured by the environment file visible in Fig. \ref{fig:code:environment_production}.
+
+\begin{figure}[H]
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{yaml}
+POSTGRES_TAG=13.1
+POSTGRES_HOST_PORT=5007
+POSTGRES_CONTAINER_PORT=5432
+POSTGRES_PORTS_MAPPING=${POSTGRES_HOST_PORT}:${POSTGRES_CONTAINER_PORT}
+
+POSTGRES_DB=anonymisation_db
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+POSTGRES_DATA_PATH=/var/lib/postgresql/data
+
+SERVER_PORTS_MAPPING=8080:8080
+CLIENT_PORTS_MAPPING=3000:3000
+\end{minted}
+\caption{Environment file – development.}
+\label{fig:code:environment_production}
+\end{figure}
+
+Note that the environment files are typically not uploaded to the repository. The system administrator must configure the docker compose files from the environment files. Most of the configuration is related to the database connection.
+
+\begin{figure}[h]
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{yaml}
+version: '3.9'
+
+services:
+  anonymisation_postgres_db:
+    image: postgres:${POSTGRES_TAG}
+    ports:
+      - '${POSTGRES_PORTS_MAPPING}'
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:${POSTGRES_DATA_PATH}
+    tty: true
+
+  anonymisation_server:
+    ports:
+      - '${SERVER_PORTS_MAPPING}'
+    build:
+      context: ../../backend
+    depends_on:
+      - anonymisation_postgres_db
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      POSTGRES_IP_ADDRESS: anonymisation_postgres_db
+      SPRING_DATASOURCE_URL: jdbc:postgresql://anonymisation_postgres_db :${POSTGRES_CONTAINER_PORT}/${POSTGRES_DB}
+    tty: true
+
+  anonymisation_client:
+    ports:
+      - '${CLIENT_PORTS_MAPPING}'
+    build:
+      context: ../../frontend
+    depends_on:
+      - anonymisation_server
+
+volumes:
+  postgres_data:
+\end{minted}
+\caption{Docker compose – production.}
+\label{fig:code:docker_compose_production}
+\end{figure}
+
+The anonymisation server can override the individual properties in\newline \verb|application-<env>.yml|. The configuration visible in Fig. \ref{fig:code:application_prod_yml} shows an example of how the production environment may want to override certain properties.
+
+\begin{figure}[H]
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{yaml}
+# Miscellaneous
+server.environment.cloud: true
+
+# Uploading module configuration
+uploading.templates.path: /var/lib/anonymisation/templates
+
+# Processing module configuration
+processing:
+  anonymisations:
+    scripts.path: /var/lib/anonymisation_platform/anonymisations/scripts
+  dumps:
+    scripts.path: /var/lib/anonymisation_platform/dumps/scripts
+    archives.path: /var/lib/anonymisation_platform/dumps/archives
+\end{minted}
+\caption{application-prod.yml – example.}
+\label{fig:code:application_prod_yml}
+\end{figure}
+
+
+\subsection{Database}
+
+The primary database configuration can get complex.
+
+\subsubsection{Schema}
+
+By default, the database schema is dropped and re-created when the server restarts. This is configured through \verb|spring.jpa.hibernate.ddl-auto| and must be overridden in production. Typically, production environments need to execute the schema-altering SQL scripts manually and tools like Flyway \cite{bib:flyway} are designed to support the versioning of the database.
+
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{yaml}
+spring:
+  jpa.hibernate:
+    ddl-auto: create
+    show-sql: true
+    generate-ddl: false
+\end{minted}
+
+
+When \verb|spring.jpa.hibernate.show-sql| property is enabled, all SQL queries are logged and enabling the \verb|spring.jpa.hibernate.generate-ddl| will generate the log of the initial database schema. The script could be used by Flyway as the first initial version of the database.
+
+\subsubsection{Connection}
+
+The database url, username and password are all configurable and individual deployment setups override this property.
+
+Local setup:
+
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{yaml}
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5007/anonymisation_db
+    username: postgres
+    password: postgres
+\end{minted}
+
+For the containerized setups, this property is overridden in docker compose:
+
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{yaml}
+services:
+  anonymisation_server:
+      SPRING_DATASOURCE_URL:  jdbc:postgresql://anonymisation_postgres_db :${POSTGRES_CONTAINER_PORT}/${POSTGRES_DB}
+\end{minted}
+
+\subsection{Files}
+
+Files are the fuel for anonymisation platform and hence the need for customizations.
+
+Maximum accepted file size of the user uploaded dumps:
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{yaml}
+spring.servlet.multipart:
+  max-file-size: 100MB
+  max-request-size: 100MB
+\end{minted}
+
+The location configuration of the files managed throughout the anonymisation platform:
+processing:
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{yaml}
+  anonymisations.scripts.path: stored_files/anonymisations/scripts
+  dumps:
+    scripts.path: stored_files/dumps/scripts
+    archives.path: stored_files/dumps/archives
+\end{minted}
+
+Note that those are relative paths. Containerized environments override these properties to the full paths as depicted in Fig. \ref{fig:code:application_prod_yml}.
+
+
+
+\subsection{Mail service}
+
+Mail service is also configurable:
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{yaml}
+spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: data.anonymisation
+    # password: <Specified in secrets.properties>
+    properties:
+      smtp:
+        auth: true
+        starttls.enable: true
+\end{minted}
+In this case, the password for the mail service is provided in separate\newline \verb|secrets.properties| file that is not the part of the git repository.
+
+\subsection{Unprotected resources}
+
+By default, all REST resources require authentication and may require authorization. REST resources that do not require the user to authenticate must be configured:
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{yaml}
+core:
+  api:
+    unprotectedResources: /api/v1/auth/**,\
+                          /api/v1/users/register/**,\
+                          /api/v1/users/verify-mail/**,\
+                          /api/v1/reset-password/**,\
+                          /api/v1/me/restore-account/**
+\end{minted}
+
+\subsection{Authorization}
+
+The access and refresh tokens are used for authorization and are generated after the user authenticates himself by logging in. The configuration is necessary to control the behaviour of this:
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{yaml}
+core:
+  jwt:
+    algorithm: HS512
+    secretKey: /EOAqvJOzlPxRdTJO5iblCYSCGMXsVaCU47BpvxvO19L87 /pVpyoab9sy2rDzHS5vNwHzu8rX/E8FJGqx5oCkA==
+    accessToken.expireTimeInSeconds: 1800
+    refreshToken.expireTimeInSeconds: 2419200
+\end{minted}
+
+Note that the access token expires quickly while the refresh token is to stay for a long time. The secret key needs to be both valid for the selected hashing algorithm and also base64 encoded. Currently, the only supported algorithm is \verb|HS512|.
+
+\subsection{User account}
+
+The settings for the expiring time duration of the user account related services:
+
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{yaml}
+core:
+  resetPasswordToken.expireTimeInSeconds: 3600
+  verifyMailToken.expireTimeInSeconds: 604800
+  undoRemoveAccountToken.expireTimeInSeconds: 604800
+\end{minted}
+
+\subsection{Scheduler}
+
+The existing schedulers which are triggered based on the cron expression must be highly customizable, as there are quite a few of them, namely the schedulers are responsible for:
+\begin{itemize}
+\item notifying the users about approaching expiration of their account expiration due to inactivity,
+\item removing the inactive accounts after the configured duration of being inactive,
+\item removing the unverified accounts after the configured duration of being unverified,
+\item pruning the user data who wish to delete their account.
+\end{itemize}
+
+For brevity, the configuration of only one scheduler is shown:
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{yaml}
+scheduler:
+  notifyExpiringAccounts:
+    scheduled: true
+    executable: true
+    cron: '0 0 0 * * *'
+    notifyAfterTimeInSeconds: 300
+    description: Send mail notifications to expiring accounts
+\end{minted}
+
+The expression from the example is triggered daily and an easier form of \verb|@daily| could also be used \cite{bib:spring_cron}. There is a functionality that is able to compute the exact date of the next scheduled execution and shows it in the tasks panel.
+
+The available paramaters include:
+\begin{itemize}
+\item \verb|scheduled| -- controls if the given scheduler is periodically launched
+\item \verb|executable| -- controls if the given scheduler is manually executable from the tasks panel
+\item \verb|cron| -- the trigger expression. 
+\item \verb|description| -- the description for the tasks panel to identify the scheduler
+\item \verb|notifyAfterTimeInseconds| -- this particular parameter is specific to the scheduler and specifies a way of how long the user needs to be inactive to receive a notification e-mail with a prompt to login
+\end{itemize}
 
 \section{Security issues}
 

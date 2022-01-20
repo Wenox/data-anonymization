@@ -13,7 +13,7 @@ public class PostgreSQLRestoreFacade implements DatabaseRestoreFacade {
   private final String templatesPath;
 
   public PostgreSQLRestoreFacade(PostgreSQLRestoreService restoreService,
-                                 @Value("${uploader.templates.path}") String templatesPath) {
+                                 @Value("${uploading.templates.path}") String templatesPath) {
     this.restoreService = restoreService;
     this.templatesPath = templatesPath;
   }
