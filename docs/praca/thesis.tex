@@ -528,7 +528,7 @@ Suppression is typically applied on the column-level of an attribute, however, i
 The designed software offers column level suppression with a user-specified value (i.e., suppression token). The values are transformed to this value using a simple algorithm shown in Fig. \ref{fig:code:suppression}.
 
 \begin{figure}[H]
-\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
 procedure suppression(values, token)
   for (value in values)
     value := token
@@ -589,7 +589,7 @@ Finally, the generalisation does not necessarily concern only numerical values a
 Both supported generalisation strategies were further enhanced with customizations. The data processor is allowed to predefine minimum and maximum boundary values for the generalised intervals. The computed starting value for the distribution concerning the lowest interval is either minimum raw value or user predefined minimum value, whichever is lower. The maximal value for the highest interval is computed in an analogical way.
 
 \begin{figure}[h]
-\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
 procedure generalise(values, configuration)
   computedMin := min(values.min(), configuration.userMin())
   computedMax := max(values.max(), configuration.userMax())
@@ -618,7 +618,7 @@ procedure generalise(values, configuration)
 The generalisation strategies can be summarized with the pseudocodes shown in Fig. \ref{fig:code:generalisation1} and Fig. \ref{fig:code:generalisation2}.
 
 \begin{figure}[h]
-\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
 procedure generalise(values, configuration)
   computedMin := min(values.min(), configuration.userMin())
   computedMax := max(values.max(), configuration.userMax())
@@ -693,7 +693,7 @@ The supported methods include adding the noise based on the strategies of:
 Height attribute values could have been perturbed using the former (i.e., fixed noise of $\pm 3$), whereas weight attribute values could have been perturbed using the latter (i.e., percentage value of $\pm 5 \%$). In either case, the linkage between individual records is blurred with this technique. 
 
 \begin{figure}[H]
-\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
 procedure perturbation(values, noise)
   for (value in values)
     random := pick random from [value - noise, value + noise] interval
@@ -708,7 +708,7 @@ procedure perturbation(values, noise)
 Similarly to generalisation, both perturbation techniques allow the user to explicitly specify the minimum and maximum accepted boundary values.
 
 \begin{figure}[h]
-\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
 procedure perturbation(values, noise)
   for (value in values)
     coeff := pick random from [1 - noise, 1 + noise] interval
@@ -2243,12 +2243,14 @@ Anonymisation server is highly configurable from \verb|application.yml|,\newline
 
 The system administrator must be provided with a possibility to configure the platform in an externalized way. The configuration changes merely require to re-deploy the platform -- it is not required to re-build it.
 
+System administrator and admin user must not be confused. The former is a technical user responsible for technical software processes such as configuration and deploy, whereas the latter is a non-technical business user responsible for managing the users.
+
 \subsection{Environments}
 
 Consider the docker compose visible in Fig. \ref{fig:code:docker_compose_production} which is further configured by the environment file visible in Fig. \ref{fig:code:environment_production}.
 
 \begin{figure}[H]
-\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{yaml}
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{vim}
 POSTGRES_TAG=13.1
 POSTGRES_HOST_PORT=5007
 POSTGRES_CONTAINER_PORT=5432
@@ -2269,7 +2271,7 @@ CLIENT_PORTS_MAPPING=3000:3000
 Note that the environment files are typically not uploaded to the repository. The system administrator must configure the docker compose files from the environment files. Most of the configuration is related to the database connection.
 
 \begin{figure}[h]
-\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{yaml}
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{yaml}
 version: '3.9'
 
 services:
@@ -2316,7 +2318,7 @@ volumes:
 The anonymisation server can override the individual properties in\newline \verb|application-<env>.yml|. The configuration visible in Fig. \ref{fig:code:application_prod_yml} shows an example of how the production environment may want to override certain properties.
 
 \begin{figure}[H]
-\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{yaml}
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{yaml}
 # Miscellaneous
 server.environment.cloud: true
 
@@ -2335,6 +2337,26 @@ processing:
 \label{fig:code:application_prod_yml}
 \end{figure}
 
+\subsubsection{Prune containers data}
+
+The system administrator may want to execute \verb|docker/prune.sh| script to prune all Docker-related data. The prepared script may be useful for development and must not be used for production.
+
+To run the script after the prior assessment of necessity to do:
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{sh}
+cd docker
+sh prune.sh
+\end{minted}
+
+The script's internals:
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{sh}
+#!/bin/sh
+docker system prune -f
+docker container stop $(docker container ls -aq)
+docker container rm $(docker container ls -aq)
+docker rmi $(docker images -aq)
+docker volume prune -f
+\end{minted}
+
 
 \subsection{Database}
 
@@ -2344,7 +2366,7 @@ The primary database configuration can get complex.
 
 By default, the database schema is dropped and re-created when the server restarts. This is configured through \verb|spring.jpa.hibernate.ddl-auto| and must be overridden in production. Typically, production environments need to execute the schema-altering SQL scripts manually and tools like Flyway \cite{bib:flyway} are designed to support the versioning of the database.
 
-\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{yaml}
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{yaml}
 spring:
   jpa.hibernate:
     ddl-auto: create
@@ -2361,7 +2383,7 @@ The database url, username and password are all configurable and individual depl
 
 Local setup:
 
-\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{yaml}
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{yaml}
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5007/anonymisation_db
@@ -2371,7 +2393,7 @@ spring:
 
 For the containerized setups, this property is overridden in docker compose:
 
-\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{yaml}
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{yaml}
 services:
   anonymisation_server:
       SPRING_DATASOURCE_URL:  jdbc:postgresql://anonymisation_postgres_db :${POSTGRES_CONTAINER_PORT}/${POSTGRES_DB}
@@ -2382,7 +2404,7 @@ services:
 Files are the fuel for anonymisation platform and hence the need for customizations.
 
 Maximum accepted file size of the user uploaded dumps:
-\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{yaml}
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{yaml}
 spring.servlet.multipart:
   max-file-size: 100MB
   max-request-size: 100MB
@@ -2390,7 +2412,7 @@ spring.servlet.multipart:
 
 The location configuration of the files managed throughout the anonymisation platform:
 processing:
-\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{yaml}
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{yaml}
   anonymisations.scripts.path: stored_files/anonymisations/scripts
   dumps:
     scripts.path: stored_files/dumps/scripts
@@ -2404,7 +2426,7 @@ Note that those are relative paths. Containerized environments override these pr
 \subsection{Mail service}
 
 Mail service is also configurable:
-\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{yaml}
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{yaml}
 spring:
   mail:
     host: smtp.gmail.com
@@ -2421,7 +2443,7 @@ In this case, the password for the mail service is provided in separate\newline 
 \subsection{Unprotected resources}
 
 By default, all REST resources require authentication and may require authorization. REST resources that do not require the user to authenticate must be configured:
-\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{yaml}
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{yaml}
 core:
   api:
     unprotectedResources: /api/v1/auth/**,\
@@ -2434,7 +2456,7 @@ core:
 \subsection{Authorization}
 
 The access and refresh tokens are used for authorization and are generated after the user authenticates himself by logging in. The configuration is necessary to control the behaviour of this:
-\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{yaml}
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{yaml}
 core:
   jwt:
     algorithm: HS512
@@ -2449,7 +2471,7 @@ Note that the access token expires quickly while the refresh token is to stay fo
 
 The settings for the expiring time duration of the user account related services:
 
-\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{yaml}
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{yaml}
 core:
   resetPasswordToken.expireTimeInSeconds: 3600
   verifyMailToken.expireTimeInSeconds: 604800
@@ -2467,7 +2489,7 @@ The existing schedulers which are triggered based on the cron expression must be
 \end{itemize}
 
 For brevity, the configuration of only one scheduler is shown:
-\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{yaml}
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{yaml}
 scheduler:
   notifyExpiringAccounts:
     scheduled: true
