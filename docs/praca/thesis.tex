@@ -471,9 +471,11 @@ Clearly the data must not be released in its original state – strict GDPR that
 
 For this reason the data controllers must select appropriate data masking techniques.
 
-\ksremark{Zanim będziemy opisywać różne techniki, trzeba je wymienić, podzielić / sklasyfikować.}
-
 \section{Data masking techniques}
+
+The analysis of the domain concludes that the designed system needs to be enriched with diverse masking techniques to meet the fundamental requirement of offering a generic context flexible anonymisation tool. This is achievable on the account of the breadth of the available data masking techniques being genuinely remarkable. The methods that are supported by the anonymisation platform include suppression, generalisation, perturbation, pattern masking, hashing, attribute and record randomisation, substitution, tokenisation, shortening or random number generation. All of the available methods are subject to customisations.
+
+An individual method can be classified either as a non-perturbative method if it reduces the data detail by removing some of the information (e.g., suppression, generalisation, pattern masking or shortening) or as a perturbative method if it alters the data by creating some level of uncertainty (e.g. by adding noise through perturbation or randomisation) \cite{bib:anonymization_emr}. Perturbative techniques are the best for maintaining a high analytical value of the data as they preserve the data truthfulness, while non-perturbative methods are the best for protecting the privacy as they prune the information.
 
 It is not possible to predetermine – in a general fashion and without an extra context – the data masking techniques that need to be combined together in order to achieve an actual anonymisation of the previously identifiable information. Instead, a context consisting of:
 \begin{itemize}
