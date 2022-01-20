@@ -2237,13 +2237,41 @@ The relation between the users and their use-cases are summarized in Fig. \ref{f
 
 \section{User manual}
 
+It is easy to say that anonymisation platform was designed with the user experience in mind. The application presents complex technical concepts with graspable business abstractions. The end-user must not be surprised with the functionalities he interacts with -- intuitiveness is a crucial component for building user engagement. This had allowed limiting the user manual's complexity.
+
+This section presents a brief overview of how different users interact differently with the platform.
+
+\subsection{Anonymous user}
+
+An anonymous user can register, login, or reset his password.
+
+\subsection{Unverified user}
+
+The unverified user should activate his account by verifying the e-mail address to access the platform interface.
+
+\subsection{Verified user}
+
+A sequential scenario for anonymising the database uploaded by the verified user involves generating the template by uploading the database dump, producing the worksheet from it, building up the anonymisation request through adding individual anonymisation operations to the selected attributes, and finally generating the outcome.
+
+To offer maximum flexibility for the users trying to anonymise their data, the user can produce multiple worksheets from one template and can also generate multiple outcomes from one worksheet. This allows the user to produce several de-identified dumps and compare them for the best-expected results that meet the established business needs.
+
+The summary interface exists to concisely represent the worksheet in one place reducing the need to transition between the platform's views.
+
+It is possible for the user to always return to the previously generated templates, produced worksheets or generated outcomes. Additionally, the user may want to inspect and download the template metadata or request to remove his account along with its data.
+
+\subsection{Admin user}
+
+Admin user must not be able to access the user's sent database data. This user role can merely manage the users themselves, i.e., block, unblock, verify or delete the accounts. The user management is accessible through the users panel.
+
+Another admin-related functionality is inspecting and on-demand running of the defined tasks (i.e., schedulers). This is accessible through the tasks panel.
+
 \section{System administration}
+
+System administrator and admin user must not be confused. The former is a technical user responsible for technical software processes such as configuration and deploy, whereas the latter is a non-technical business user responsible for managing the platform users.
 
 Anonymisation server is highly configurable from \verb|application.yml|,\newline \verb|application-<env>.yml|, and \verb|<env>/.env| files. The idea is that concrete environments may need to behave differently, therefore the possibility to override only the selected local properties must be supported and is achievable through the creation of extra overriding files. A property from \verb|application.yml| may be overridden from the \verb|application-<env>.yml|.
 
 The system administrator must be provided with a possibility to configure the platform in an externalized way. The configuration changes merely require to re-deploy the platform -- it is not required to re-build it.
-
-System administrator and admin user must not be confused. The former is a technical user responsible for technical software processes such as configuration and deploy, whereas the latter is a non-technical business user responsible for managing the platform users.
 
 \subsection{Environments}
 
@@ -2532,6 +2560,9 @@ The application pays special attention to the validation which is performed on t
 
 \section{Working scenarios}
 
+\color{blue}
+Zajmę się tym podrozdziałem po skończeniu pozostałych rozdziałów.
+\color{black}
 
 \chapter{Internal specification}
 
