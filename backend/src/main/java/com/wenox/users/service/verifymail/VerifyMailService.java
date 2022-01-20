@@ -6,8 +6,8 @@ import com.wenox.users.domain.UserStatus;
 import com.wenox.users.domain.VerifyMailToken;
 import com.wenox.users.dto.ApiResponse;
 import com.wenox.users.repository.UserRepository;
-import com.wenox.users.service.mail.MailDescription;
-import com.wenox.users.service.mail.MailService;
+import com.wenox.infrastructure.service.mail.MailDescription;
+import com.wenox.infrastructure.service.mail.MailService;
 import java.util.concurrent.Executors;
 import org.springframework.stereotype.Service;
 
