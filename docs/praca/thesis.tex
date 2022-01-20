@@ -359,51 +359,51 @@ Wniosek: generyczny sposób anonimizacji - nie ma takiego.
 
 \chapter{Problem analysis}
 
-An extensive analysis of data anonymisation subject is required to be conducted to comprehend the growing data protection needs of the society and to engineer a solution that will properly suite those needs.
+An extensive analysis of data anonymisation subject is required to be conducted to comprehend the growing data protection needs of the society and to engineer a solution that will properly suit those needs.
 
 \section{Data explosion}
 
 \subsection{Technology advancement}
-The continuous and rapid exponential growth of data being collected globally is further excited by improvements to the overall population's accessibility to the digital technology \cite{bib:big_data_analytics}. Cisco Systems estimates within its annual report \cite{bib:cisco_annual} that 66 percent of the world population will have an access to the web by the 2023, compared to 51 percent in 2018, whereas the number of devices that are connected to the web will reach a staggering value of three times as many as the entire population size – demonstrating a total of 60 percent expansion when compared to 2018. Even the area of mobile connection, which was established long ago, is still sustaining a growth – by 2023, a mobile connectivity will be a privilege for 70 percent of the world's population, compared to 66 percent in 2018. The global average mobile network speeds will be tripled through a rapid increase from 13.2 Mbps in 2018 to 43.9 Mbps in 2023.
+The continuous and rapid exponential growth of data being collected globally is further excited by improvements to the overall population's accessibility to digital technology \cite{bib:big_data_analytics}. Cisco Systems estimates within its annual report \cite{bib:cisco_annual} that 66 percent of the world population will have access to the web by 2023, compared to 51 percent in 2018, whereas the number of devices that are connected to the web will reach a staggering value of three times as many as the entire population size – demonstrating a total of 60 percent expansion when compared to 2018. Even the area of mobile connection, which was established long ago, is still sustaining growth – by 2023, mobile connectivity will be a privilege for 70 percent of the world's population, compared to 66 percent in 2018. The global average mobile network speeds will be tripled through a rapid increase from 13.2 Mbps in 2018 to 43.9 Mbps in 2023.
 
 \subsection{Data analytics}
-Raw representation form of the data is not interpretable until it is put under a context and processed into practical information.
-Acquiring relevant insights and conclusions from the information can be achieved through a wide term of analytics, which encompasses the actions needed to be performed to produce new information, including: analysis, filtering, processing, grouping and contextualizing the information. Newly discovered knowledge is inferred from the produced information.
-Apart from the processes, analytics also includes the technologies, methodologies and algorithms to use and could be divided into descriptive analytics, diagnostic analytics, prescriptive analytics and predictive analytics \cite{bib:big_data_analytics}.
+The raw representation form of the data is not interpretable until it is put under a context and processed into practical information.
+Acquiring relevant insights and conclusions from the information can be achieved through a wide term of analytics, which encompasses the actions needed to be performed to produce new information, including analysis, filtering, processing, grouping, and contextualizing the information. Newly discovered knowledge is inferred from the produced information.
+Apart from the processes, analytics also includes the technologies, methodologies, and algorithms to use and could be divided into descriptive analytics, diagnostic analytics, prescriptive analytics, and predictive analytics \cite{bib:big_data_analytics}.
 
 \subsection{Big data}
 
-Big data analytics deals with the difficulties of managing the observed exponentially increasing collected volumes of data. Its purpose is not only to handle the processing and analysis of the data through specialized software tools and frameworks, but also to handle the means on how this enormous amount of data is collected and stored in the first place. It is in its nature that big data is all about massive volumes of information that require specialized hardware infrastructure to store it \cite{bib:big_data_analytics}.
+Big data analytics deals with the difficulties of managing the observed exponentially increasing collected volumes of data. Its purpose is not only to handle the processing and analysis of the data through specialized software tools and frameworks but also to handle the means on how this enormous amount of data is collected and stored in the first place. It is in its nature that big data is all about massive volumes of information that require specialized hardware infrastructure to store it \cite{bib:big_data_analytics}.
 
-Services of enterprise organizations are running on all the collected data which can take various forms such as database entries, metrics, logs or outgoing messages. New data streaming technologies working at a large scale needed to be engineered to handle the continuous flow of data between systems and databases. An example of such technology includes Apache Kafka which generates even more than a trillion of messages per day for individual large enterprise organizations taking advantage of it \cite{bib:kafka_online,bib:kafka}.
+Services of enterprise organizations are running on all the collected data which can take various forms such as database entries, metrics, logs, or outgoing messages. New data streaming technologies working at a large scale needed to be engineered to handle the continuous flow of data between systems and databases. An example of such technology includes Apache Kafka which generates even more than a trillion of messages per day for individual large enterprise organizations taking advantage of it \cite{bib:kafka_online,bib:kafka}.
 
-This only proves that big data deals not only with massive volumes – it has also to deal with the high velocities of data generation, which is yet another characteristic of data \cite{bib:big_data_analytics}. According to DOMO report published back in 2020, 90\% of world's data was generated just in the preceding two years, and on average every person in the world created 1.7 megabytes of data per second – which yields 2.5 quintillion ($2.5 \cdot 10^{18}$) bytes of new data each day \cite{bib:domo}.
+This only proves that big data deals not only with massive volumes – it has also to deal with the high velocities of data generation, which is yet another characteristic of data \cite{bib:big_data_analytics}. According to DOMO report published back in 2020, 90\% of the world's data was generated just in the preceding two years, and on average every person in the world created 1.7 megabytes of data per second – which yields 2.5 quintillions ($2.5 \cdot 10^{18}$) bytes of new data each day \cite{bib:domo}.
 
-The momentum of the immense big data interest growth among organizations is not fading away yet, as more and more new businesses and researches are drawn to this subject. The benefits of big data especially concern scientific organizations and large enterprises of which financial domain and IT industry are the common consumers \cite{bib:anonymization_chaos}. The organizations find the interest in information analytics for remarkably diversified reasons. It is recognized as a field that will entirely alter all parts of civilization such as businesses or society as a whole \cite{bib:big_data_in_practice}.
+The momentum of the immense big data interest growth among organizations is not fading away yet, as more and more new businesses and researchers are drawn to this subject. The benefits of big data especially concern scientific organizations and large enterprises of which the financial domain and IT industry are the common consumers \cite{bib:anonymization_chaos}. Organizations find interest in information analytics for remarkably diversified reasons. It is recognized as a field that will entirely alter all parts of civilization such as businesses or society as a whole \cite{bib:big_data_in_practice}.
 
 \subsubsection{Applications}
 
-Various types of organizations collect data to take advantage from the insights derived out of the data. The big data analytics applications' impact can be observed already today in a broad spectrum of domains. 
+Various types of organizations collect data to take advantage of the insights derived out of the data. The big data analytics applications impact can be observed already today in a broad spectrum of domains. 
 
-Leading technology companies, such as Google and Facebook, to name a few, sell anonymised collected user data access to their partner advertisers \cite{bib:big_data_in_practice}. This is legally possible as the information that was anonymised, i.e., de-identified in a way that it is no longer bound to an individual, may flow from a system to a system.
+Leading technology companies, such as Google and Facebook, to name a few, sell anonymised collected user data access to their partner advertisers \cite{bib:big_data_in_practice}. This is legally possible as the information that was anonymised, i.e., de-identified in a way that it is no longer bound to an individual, may flow from one system to a system.
 
-Large Hadron Collider (LHC) located in CERN, being the largest physical experiment, annually produces approximately 30 petabytes of data. LHC takes an advantage of light sensors that monitor the collisions of hundreds of millions of particles accelerated nearly to the speed of light. The collisions create enormous amount of data to be processed by computer algorithms in the hope of discovering new particles, e.g., a Nobel prize awarding discovery of Higgs boson had taken place in 2012 \cite{bib:cern}.
+The Large Hadron Collider (LHC) located in CERN, being the largest physical experiment, annually produces approximately 30 petabytes of data. LHC takes advantage of light sensors that monitor the collisions of hundreds of millions of particles accelerated nearly to the speed of light. The collisions create an enormous amount of data to be processed by computer algorithms in the hope of discovering new particles, e.g., a Nobel prize-awarding discovery of the Higgs boson had taken place in 2012 \cite{bib:cern}.
 
-Enterprise stores such as Amazon or SAP Commerce Cloud collect the information regarding the way of how the visitors browse and interact with these stores. Collected information may involve the behavioural data related to customer engagement, such as the pages we visit, event clicks, or the way we scroll the page. The insights derived from the collected information enable making future improvements of these services – for example by improving the digital marketing or performance improvements based on the metrics \cite{bib:sap}. The customer experience is also improved as based on the collected data the advertisements or item recommendations can be tailored to the specific user's preferences. The recommendation engine may also attempt to match your profile data to people of similar profile to provide better recommendations. Services attempt to analyse the behavioural patterns such as time of day we browse the store or what circumstances caused our last visit to finish. Even the details such as the exact neighbourhood location we live in, combined with its estimated wealth, organizations may attempt to guess our potential income level \cite{bib:big_data_in_practice}. These data analytics are performed to improve the possibility of customer buying yet another item.
+Enterprise stores such as Amazon or SAP Commerce Cloud collect information regarding the way how the visitors browse and interact with these stores. Collected information may involve behavioural data related to customer engagement, such as the pages we visit, event clicks, or the way we scroll the page. The insights derived from the collected information enable making future improvements of these services – for example by improving the digital marketing or performance improvements based on the metrics \cite{bib:sap}. The customer experience is also improved as based on the collected data the advertisements or item recommendations can be tailored to the specific user's preferences. The recommendation engine may also attempt to match your profile data to people of similar profiles to provide better recommendations. Services attempt to analyse the behavioural patterns such as time of day we browse the store or what circumstances caused our last visit to finish. Even the details such as the exact neighbourhood location we live in, combined with its estimated wealth, organizations may attempt to guess our potential income level \cite{bib:big_data_in_practice}. These data analytics are performed to improve the possibility of customers buying yet another item.
 
 \section{Data privacy}
 
-The privacy endangerment is inherent to big data and it is its major drawback. Our personal data we continuously give away to third parties is the big data fuel.
+Privacy endangerment is inherent to big data and it is its major drawback. The personal data we continuously give away to third parties is the big data fuel.
 
-As the technology evolves, concerns relating to the privacy of our personal information should also grow – and for a relevant reason.  We tend not to give a second thought to whom the data is shared, how it may be used and in what kind of circumstances. We don't wonder how our own data may be exploited to alter our thinking, decisions, or even ideas – whether in an ethical manner or not. 
+As technology evolves, concerns relating to the privacy of our personal information should also grow – and for a relevant reason.  We tend not to give a second thought to whom the data is shared, how it may be used, and in what kind of circumstances. We don't wonder how our data may be exploited to alter our thinking, decisions, or even ideas – whether in an ethical manner or not. 
 
 Although the use of our personal information existed ever since the very first census was created, data privacy is a relatively new concept, as it did not exist prior to the global adoption of the internet. Granted that our data was used by the researchers even before the digitalized era of the internet, the motives for that usage were not commercial \cite{bib:gdpr_handbook}. Nowadays, the data has most certainly become an asset – a resource like any others, and a rather precious one.
 
-It is argued that the data privacy should be centered only around the data usages that have the potential to be a privacy breach. On the other hand, it is argued that merely a collection of the data is already a privacy harm. The information that was collected is endangered by many threats, including data misuse, data breach, data leak or even authorities accesses without legal obligations. Anonymisation is the best method to mitigate conflicts raised by big data with respect to data privacy and data protection \cite{bib:big_data_privacy}.
+It is argued that data privacy should be centered only around data usage that has the potential to be a privacy breach. On the other hand, it is argued that merely a collection of the data is already privacy harm. The information that was collected is endangered by many threats, including data misuse, data breach, data leak, or even authorities access without legal obligations. Anonymisation is the best method to mitigate conflicts raised by big data with respect to data privacy and data protection \cite{bib:big_data_privacy}.
 
-Luckily the law had finally caught up to the circumstances of the increasing data usages and the associated risks. New European regulations were adopted in 2018 in the form of General Data Protection Regulation (GDPR) to protect our data privacy in a refined fashion. The data subjects, i.e., the individuals represented by the data \cite{bib:anonymization_pipeline}, now have a better control over their personal information – we are now entitled to know what information concerning us is being  processed and for what purpose. We are also entitled to withdraw at any time the consent for the processing of our data. In case of violations we have the right to complain to authorities and seek justice against both the data controllers, i.e., the entities that determine the intention and means of processing the personal information, and the data processors, i.e., the entities that process the personal information on behalf of the data controllers \cite{bib:gdpr_compliance}.
+Luckily the law had finally caught up to the circumstances of the increasing data usage and the associated risks. New European regulations were adopted in 2018 in the form of the General Data Protection Regulation (GDPR) to protect our data privacy in a refined fashion. The data subjects, i.e., the individuals represented by the data \cite{bib:anonymization_pipeline}, now have better control over their personal information – we are now entitled to know what information concerning us is being  processed and for what purpose. We are also entitled to withdraw at any time the consent for the processing of our data. In case of violations, we have the right to complain to authorities and seek justice against both the data controllers, i.e., the entities that determine the intention and means of processing the personal information, and the data processors, i.e., the entities that process the personal information on behalf of the data controllers \cite{bib:gdpr_compliance}.
 
-An overall awareness of the data privacy significance had improved in the society, and the means to achieve the data privacy through data protection had also improved as organizations needed to adopt to the new situation by applying enhanced measures to their protection of data – anonymisation and pseudonymisation being the notable examples of such measures. 
+Overall awareness of the data privacy significance had improved in the society, and the means to achieve data privacy through data protection had also improved as organizations needed to adapt to the new situation by applying enhanced measures to their protection of data – anonymisation and pseudonymisation being the notable examples of such measures. 
 
 \subsection{Authorization to share data}
 
@@ -411,42 +411,42 @@ Majority of data privacy regulations are based on a consent of an individual, i.
 
 Consider a patient entering medical facility for an ordinary appointment. The patient would likely find it unusual, disturbing or even shocking if upon his entrance to the facility he was to receive an overwhelming form that included dozens of independent consent authorization requests. The consents could give the impression of being seemingly unrelated to his visit in the first place, e.g., a constent to share the data with researchers of an university located on another continent. In the end that could destroy the data subject's trust – in this case patient's trust.
 
-This theoretical scenario may not easily be implemented in the real world counterpart, as it could be even impossible to know or predict all possible secondary purpose usages in the first place, and consent based authorization is all about knowing the usages.
+This theoretical scenario may not easily be implemented in the real world counterpart, as it could be even impossible to know or predict all possible secondary purpose usages in the first place, and consent-based authorization is all about knowing the usages.
 
-Consider a newly discovered purpose to process personal information of an already existing database. Getting a consent after the data had already been collected, i.e., backwards in time, would be impossible to accomplish as the data controller would need to contact potentially hundreds of thousands of people for their explicit consent. New purpose can be discovered years after the data collection.
+Consider a newly discovered purpose to process personal information of an already existing database. Getting consent after the data had already been collected, i.e., backward in time, would be impossible to accomplish as the data controller would need to contact potentially hundreds of thousands of people for their explicit consent. New purposes can be discovered years after the data collection.
 
-Having that in mind, no consent is required when processing the data that is already anonymised. A data that was stripped from personal identifying or identifiable information data can be used in any way and can be shared with third parties without previously agreed consent. Data controllers now face a realistic to solve problem of information anonymisation rather than an unrealistic problem of consents collection \cite{bib:anonymizing_health_data}.
+Having that in mind, no consent is required when processing the data that is already anonymised. Data that was stripped from personal identifying or identifiable information data can be used in any way and can be shared with third parties without previously agreed consent. Data controllers now face a realistic to solve the problem of information anonymisation rather than an unrealistic problem of consents collection \cite{bib:anonymizing_health_data}.
 
-It is worth mentioning that there exists cases which are defined under Article 6 of General Data Protection Regulation (GDPR) \cite{bib:art6} when consent is not required to process the data, e.g., if the processing is required to defend the data subject's interests or in order not to break the compliance with legal obligations as a data controller. GDPR is a new European law that replaces the preceeding Data Protection Directive regulation adopted by European Community in 1995 \cite{bib:gdpr_practical_guide}. 
+It is worth mentioning that there exist cases which are defined under Article 6 of General Data Protection Regulation (GDPR) \cite{bib:art6} when consent is not required to process the data, e.g., if the processing is required to defend the data subject's interests or in order not to break the compliance with legal obligations as a data controller. GDPR is a new European law that replaces the preceding Data Protection Directive regulation adopted by European Community in 1995 \cite{bib:gdpr_practical_guide}. 
 
 \subsection{General Data Protection Regulation}
 
-One of the primary objectives of GDPR is personal data privacy protection which is a fundamental right and freedom of people as defined under the Recital 1 of GDPR \cite{bib:recital1} and the Charter of Fundamental Rights of the European Union \cite{bib:charter}. Newly discovered challenges for the protection of personal data arise from the ongoing globalization and quick development of digital technologies. This in turn vastly had increased both the scope of the gathering of the data, and the sharing of thereof. General Data Protection Regulation (GDPR) is a data protection law that came into force on May 25, 2018 to addresses these data privacy related issues in a strict manner \cite{bib:recital6}.
+One of the primary objectives of GDPR is personal data privacy protection which is a fundamental right and freedom of people as defined under the Recital 1 of GDPR \cite{bib:recital1} and the Charter of Fundamental Rights of the European Union \cite{bib:charter}. Newly discovered challenges for the protection of personal data arising from the ongoing globalization and quick development of digital technologies. This in turn vastly had increased both the scope of the gathering of the data and the sharing of thereof. General Data Protection Regulation (GDPR) is a data protection law that came into force on May 25, 2018, to addresses these data privacy-related issues in a strict manner \cite{bib:recital6}.
 
-Compliance with GDPR law is critical for organizations in the view of significant administrative fines they face. Violations of the data processor and data controller obligations defined in GPDR are subject to costly penalties that are imposed by European authorities. Non compliance with technical rules imply a penalty of 2 percent of the total annual turnover of the previous year, or €10 milion, whichever one is higher, whereas non compliance with basic data protection principles imply an even higher penalty of 4 percent of the total annual turnover of the previous year, or €20 million, whichever one is higher \cite{bib:art83}\cite{bib:gdpr_managing_data_risk}.
+Compliance with GDPR law is critical for organizations in given the significant administrative fines they face. Violations of the data processor and data controller obligations defined in GPDR are subject to costly penalties that are imposed by European authorities. Non-compliance with technical rules implies a penalty of 2 percent of the total annual turnover of the previous year, or €10 million, whichever one is higher, whereas non-compliance with basic data protection principles imply an even higher penalty of 4 percent of the total annual turnover of the previous year, or €20 million, whichever one is higher \cite{bib:art83}\cite{bib:gdpr_managing_data_risk}.
 
-Implementation of this law had immediately increased the significance of data anonymisation as an information sanitization process in today's world \cite{bib:anonymization_for_research}. Anonymisation being a specific form of data masking suddenly became more relevant in today's world for the reason that the strict regulations, and therefore administrative fines, defined in GDPR do not apply to the anonymised information. Data protection principles covered throughout GDPR concern only the processing of information that is already identified to a natural person, or that is identifiable to a natural person, i.e., an individual is yet to be identified. Given the fact that anonymised information is by definition not relating to a person, hence it can be completely exempted from falling under the GDPR requirements, which apply only to personal data, as stated under Recital 26 \cite{bib:recital26}:
+Implementation of this law had immediately increased the significance of data anonymisation as an information sanitization process in today's world \cite{bib:anonymization_for_research}. Anonymisation is a specific form of data masking that suddenly became more relevant in today's world for the reason that the strict regulations, and therefore administrative fines, defined in GDPR do not apply to the anonymised information. Data protection principles covered throughout GDPR concern only the processing of information that is already identified to a natural person, or that is identifiable to a natural person, i.e., an individual is yet to be identified. Given the fact that anonymised information is by definition not relating to a person, hence it can be completely exempted from falling under GDPR requirements, which apply only to personal data, as stated under Recital 26 \cite{bib:recital26}:
 
 \begin{displayquote}
 	The principles of data protection should apply to any information concerning an identified or identifiable natural person. [\ldots] The principles of data protection should therefore not apply to anonymous information, namely information which does not relate to an identified or identifiable natural person or to personal data rendered anonymous in such a manner that the data subject is not or no longer identifiable. This Regulation does not therefore concern the processing of such anonymous information, including for statistical or research purposes.
 \end{displayquote}
 
-GDPR distinguishes personal data, anonymised data and pseudonymised data as distinct variations of data. The information that had gone merely through pseudonymisation process would still fall under the regulations of GDPR, due to the existing relevant possibility of future re-identification of the data subject, whereas in case of the anonymised data, such re-identification is by definition either impossible or extremely impractical, and the anonymisation is irreversible by definition. Anonymised data is completely exempted from being governed by GDPR. Nevertheless, pseudonymisation is still one of many possibilities for the data controllers and data processors to be GDPR compliant \cite{bib:gdpr_practical_guide}. The point of anonymisation in the context of GDPR is to be completely exempted from being governed by this regulation.
+GDPR distinguishes personal data, anonymised data, and pseudonymised data as distinct variations of data. The information that had gone merely through the pseudonymisation process would still fall under the regulations of GDPR, due to the existing relevant possibility of future re-identification of the data subject, whereas in the case of the anonymised data, such re-identification is by definition either impossible or extremely impractical, and the anonymisation is irreversible by definition. Anonymised data is completely exempted from being governed by GDPR. Nevertheless, pseudonymisation is still one of many possibilities for the data controllers and data processors to be GDPR compliant \cite{bib:gdpr_practical_guide}. The point of anonymisation in the context of GDPR is to be completely exempted from being governed by this regulation.
 
 \section{Data anonymisation}
 
-The data released by organizations exclude identity related information such as names, addresses, telephone numbers or credit card numbers. Personal data is stripped from disseminated data sets through anonymisation to protect the anonymity of the individuals, i.e., data subjects \cite{bib:anonymization_extensive_study}.
+The data released by organizations exclude identity-related information such as names, addresses, telephone numbers, or credit card numbers. Personal data is stripped from disseminated data sets through anonymisation to protect the anonymity of the individuals, i.e., data subjects \cite{bib:anonymization_extensive_study}.
 
 \subsection{Background}
-Consider a collection of medical data concerning patients' clinical information. Processing and sharing of medical data volumes is crucial for the evolution of world's healthcare services. Medical researchers and doctors take an advantage of the collected data sets to improve their comprehension of diseases and explore new possibilities to treat these diseases, and hence both the overall capability to treat the diseases and the general efficiency of health services are improved. At last it is the patients who benefit from the research conducted on their data since the services they are offered with continuously improve. Nevertheless, it is known that medical data is exceptionally sensitive by its nature due to the details that include e.g., patient data, laboratory tests results, diagnosis details, prescribed medications and history of diseases \cite{bib:anonymization_emr}.
+Disseminating the medical data volumes is crucial for the evolution of the world's healthcare services. Consider a collection of medical data concerning patients' clinical information. Medical researchers and doctors take an advantage of the collected data sets to improve their comprehension of diseases and explore new possibilities to treat these diseases, and hence both the overall capability to treat the diseases and the general efficiency of health services are improved. At last, it is the patients who benefit from the research conducted on their data since the services they are offered continuously improve. Nevertheless, it is known that medical data is exceptionally sensitive by its nature due to the details that include e.g., patient data, laboratory tests results, diagnosis details, prescribed medications, and history of diseases \cite{bib:anonymization_emr}.
 
 Having understood how sensitive by its essence is the patient information and the vital needs to share this data, this is where data anonymisation plays an indeed crucial role. It would be impossible to disseminate patient information without prior anonymisation of thereof.
 
 \subsection{Definition}
 
-Anonymisation is a statistical disclosure control method of a particular importance. The ultimate anonymisation goal is to de-identify the data by pruning the personal information in such a way that the relation between data subject and corresponding records is blurred.
+Anonymisation is a statistical disclosure control method of particular importance. The ultimate anonymisation goal is to de-identify the data by pruning the personal information in such a way that the relationship between the data subject and corresponding records is blurred.
 
-The data anonymisation is considered to be an effective one only if both of the following criterion hold true \cite{bib:anonymization_taxa}:
+The data anonymisation is considered to be an effective one only if both of the following criteria hold true \cite{bib:anonymization_taxa}:
 \begin{itemize}
 \item performed anonymisation operations are irreversible,
 \item data subject re-identification is impossible or impractical.
@@ -456,9 +456,9 @@ The data anonymisation is considered to be an effective one only if both of the 
 
 The prerequisite for anonymisation is to understand the context of what does the data represent and by whom – in addition to how – will it be processed \cite{bib:anonymizing_health_data}. 
 
-The commonly adopted approach when attempting to anonymise the data is to first classify the data attributes as direct identifiers (i.e., personal identifying confidential attributes unique to an individual, such as address or tax identification number), indirect identifiers (i.e., so called quasi-identifiers that when combined can discover the individual's identity – such as sex or date of birth) and non identifiers \cite{bib:privacy_unesco_bigdata,bib:anonymizing_health_data}.
+The commonly adopted approach when attempting to anonymise the data is to first classify the data attributes as direct identifiers (i.e., personal identifying confidential attributes unique to an individual, such as address or tax identification number), indirect identifiers (i.e., so-called quasi-identifiers that when combined can discover the individual's identity – such as sex or date of birth) and non-identifiers \cite{bib:privacy_unesco_bigdata,bib:anonymizing_health_data}.
 
-It is context dependent to determine which attributes are quasi-identifiers – and finally which techniques need to be combined to achieve anonymisation. Virtually, even the most unexpected attributes could be quasi-identifiers. Ignoring such fields when preparing for anonymisation may eventually lead to future re-identification of the data subjects, as successfully demonstrated, e.g., when breaking the anonymity of the Netflix Prize dataset back in 2006 \cite{bib:netflix}. Since then significant advancements in the field of de-identification were yielded – and in various domains \cite{bib:netflix_decade_later}.
+It is context-dependent to determine which attributes are quasi-identifiers – and finally which techniques need to be combined to achieve anonymisation. Virtually, even the most unexpected attributes could be quasi-identifiers. Ignoring such fields when preparing for anonymisation may eventually lead to future re-identification of the data subjects, as successfully demonstrated, e.g., when breaking the anonymity of the Netflix Prize dataset back in 2006 \cite{bib:netflix}. Since then significant advancements in the field of de-identification were yielded – and in various domains \cite{bib:netflix_decade_later}.
 
 On the other hand, too much anonymisation of quasi-identifiers strips the data out of utility.
 
@@ -473,11 +473,11 @@ For this reason the data controllers must select appropriate data masking techni
 
 \section{Data masking techniques}
 
-The analysis of the domain concludes that the designed system needs to be enriched with diverse masking techniques to meet the fundamental requirement of offering a generic context flexible anonymisation tool. This is achievable on the account of the breadth of the available data masking techniques being genuinely remarkable. The methods that are supported by the anonymisation platform include suppression, generalisation, perturbation, pattern masking, hashing, attribute and record randomisation, substitution, tokenisation, shortening or random number generation. All of the available methods are subject to customisations.
+The analysis of the domain concludes that the designed system needs to be enriched with diverse masking techniques to meet the fundamental requirement of offering a generic context flexible anonymisation tool. This is achievable on the account of the breadth of the available data masking techniques being genuinely remarkable. The methods that are supported by the anonymisation platform include suppression, generalisation, perturbation, pattern masking, hashing, attribute randomisation, record randomisation, substitution, tokenisation, shortening, or random number generation. All of the available methods are subject to customisations.
 
-An individual method can be classified either as a non-perturbative method if it reduces the data detail by removing some of the information (e.g., suppression, generalisation, pattern masking or shortening) or as a perturbative method if it alters the data by creating some level of uncertainty (e.g. by adding noise through perturbation or randomisation) \cite{bib:anonymization_emr}. Perturbative techniques are the best for maintaining a high analytical value of the data as they preserve the data truthfulness, while non-perturbative methods are the best for protecting the privacy as they prune the information.
+An individual method can be classified either as a non-perturbative method if it reduces the data detail by removing some of the information (e.g., suppression, generalisation, pattern masking or shortening) or as a perturbative method if it alters the data by creating some level of uncertainty (e.g. by adding noise through perturbation or randomisation) \cite{bib:anonymization_emr}. Perturbative techniques are the best for maintaining a high analytical value of the data as they preserve the data truthfulness, while non-perturbative methods are the best for protecting privacy as they prune the information.
 
-It is not possible to predetermine – in a general fashion and without an extra context – the data masking techniques that need to be combined together in order to achieve an actual anonymisation of the previously identifiable information. Instead, a context consisting of:
+It is not possible to predetermine – in a general fashion and without an extra context – the data masking techniques that need to be combined to achieve actual anonymisation of the previously identifiable information. Instead, a context consisting of:
 \begin{itemize}
 	\item exact representation form of the data being processed \textit{(What is the data?)}
 	\item data processors who use the data \textit{(Who will use the data?)}
@@ -487,7 +487,7 @@ is always required when considering an effective way to anonymise data under tha
 
 \subsection{Suppression}
 
-Suppression is the strongest anonymisation technique which completely removes all the values associated with the given attribute, hence rendering the complete protection of the data and therefore enforcing the best data subjects privacy. It is guaranteed that no further implication attacks can be performed against this data \cite{bib:anonymization_extensive_study}. Nevertheless, suppression being the strongest privacy preserving method implies the highest (i.e., worst) data utility loss as a inseparable consequence – the ultimate cost of complete anonymisation that is to be paid.
+Suppression is the strongest anonymisation technique which completely removes all the values associated with the given attribute, hence rendering the complete protection of the data and therefore enforcing the best data subjects privacy. It is guaranteed that no further implication attacks can be performed against this data \cite{bib:anonymization_extensive_study}. Nevertheless, suppression being the strongest privacy-preserving method implies the highest (i.e., worst) data utility loss as an inseparable consequence – the ultimate cost of complete anonymisation that is to be paid.
 
 Consider the raw data of the three attributes presented in Tab. \ref{id:tab:suppression_raw} to be put under the process of suppression.
 
@@ -521,11 +521,11 @@ F/M & \#\#\#\#  & 3000 – 123123 \\
 \end{tabular}
 \end{table}
 
-Phone number suppression deserves a brief discussion. Consider a context in which an attacker successfully obtained the information of exactly one individual data subject of his interest. Consider that the attacker decided to call the anonymised phone number. This number could be suppressed in a way to specifically protect against this attack and the attacker could call someone intentionally most definitely did not, i.e., data protection officer or authorities. In this scenario it could be trivial to trace the call and find the potential attacker. As demonstrated, suppressed could be used in unobvious ways.
+Phone number suppression deserves a brief discussion. Consider a context in which an attacker successfully obtained the information of exactly one individual data subject of his interest. Consider that the attacker decided to call the anonymised phone number. This number could be suppressed in a way to specifically protect against this attack and the attacker could call someone intentionally most definitely did not, i.e., data protection officer or authorities. In this scenario, it could be trivial to trace the call and find the potential attacker. As demonstrated, suppression could be used in unobvious ways.
 
-Suppression is typically applied on the column level of an attribute, however it is also applicable to the individual records. When compared to plain generalisation, suppression yields a higher information loss and can be though of as a particular case of generalisation \cite{bib:anonymization_emr}. 
+Suppression is typically applied on the column-level of an attribute, however, it is also applicable to the individual records. When compared to plain generalisation, suppression yields a higher information loss and can be thought of as a particular case of generalisation \cite{bib:anonymization_emr}. 
 
-The designed software offers column level suppression with a user specified value (i.e., suppression token). The values are transformed to this user specified value using a simple algorithm shown in Fig. \ref{fig:code:suppression}.
+The designed software offers column level suppression with a user-specified value (i.e., suppression token). The values are transformed to this value using a simple algorithm shown in Fig. \ref{fig:code:suppression}.
 
 \begin{figure}[H]
 \begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
@@ -580,13 +580,13 @@ Age   & Salary          & Location      \\ \midrule
 \end{tabular}
 \end{table}
 
-Age column was generalised with a strategy based on the size of distribution. In this case the size of distribution was defined as 5, as every interval aggregates five distinct increasing integer values.
+The age attribute was generalised with a strategy based on the size of distribution. In this case, the size of distribution was defined as 5, as every interval aggregates five distinct increasing integer values.
 
 On the other hand, salary data was generalised with a strategy based on the number of distributions – the values were aggregated to three even distributions.
 
-Finally, the generalisation does not necessarily concern only numerical values as observed in the generalisation of location attribute. To better understand this type of generalisation, consider that the age attribute could be generalised into the values of e.g., \textit{young adult, adult, senior}. This type of generalisation is not supported by the developed software, however an illustration of existence of such method is necessary. The fundamental assumption of the developed software is to be generic, i.e., data context-agnostic, and this generalisation method is too specific in its essence to be implemented in a generic fashion.
+Finally, the generalisation does not necessarily concern only numerical values as observed in the generalisation of location attribute. To better understand this type of generalisation, consider that the age attribute could be generalised into the values of e.g., \textit{young adult, adult, senior}. This type of generalisation is not supported by the developed software, however, an illustration of the existence of such a method is necessary. The fundamental assumption of the developed software is to be generic, i.e., data context-agnostic, and this generalisation method is too specific in its essence to be implemented generically.
 
-Both supported generalisation strategies were further enhanced with customizations. The data processor is allowed to predefine minimum and maximum boundary values for the generalised intervals. The computed starting value for the distribution concerning lowest interval is either minimum raw value or user predefined minimum value, whichever is lower. The maximal value for the highest interval is computed in an analogical way.
+Both supported generalisation strategies were further enhanced with customizations. The data processor is allowed to predefine minimum and maximum boundary values for the generalised intervals. The computed starting value for the distribution concerning the lowest interval is either minimum raw value or user predefined minimum value, whichever is lower. The maximal value for the highest interval is computed in an analogical way.
 
 \begin{figure}[h]
 \begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=4pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
@@ -648,11 +648,11 @@ procedure generalise(values, configuration)
 \label{fig:code:generalisation2}
 \end{figure}
 
-Generalisation may be applied on a global level or local level \cite{bib:anonymization_extensive_study}. In terms of database related vocabulary, as this paper primarily concerns an anonymisation of databases, we say generalisation on a column or record level, respectively.
+Generalisation may be applied on a global level or local level \cite{bib:anonymization_extensive_study}. In terms of database-related vocabulary, as this paper primarily concerns an anonymisation of databases, we say generalisation on a column or record level, respectively.
 
 \subsection{Perturbation}
 
-Perturbation is a data masking technique which encompasses the process of swapping the original values with artificial ones in a way that the statistical factors of the data are similar to the initial data. Perturbation is typically achieved by adding noise to the information so that the values are slightly different \cite{bib:anonymization_directory_structured}. 
+Perturbation is a data masking technique that encompasses the process of swapping the original values with artificial ones in a way that the statistical factors of the data are similar to the initial data. Perturbation is typically achieved by adding noise to the information so that the values are slightly different \cite{bib:anonymization_directory_structured}. 
 
 Consider weight and height data shown in Tab. \ref{id:tab:perturbation_raw}.
 
@@ -669,7 +669,7 @@ Height & Weight \\ \midrule
 \end{tabular}
 \end{table}
 
-The table \ref{id:tab:perturbation} shows the data after it was perturbed using the two different perturbation methods that are supported by the engineered software.
+Tab. \ref{id:tab:perturbation} shows the data after it was perturbed using the two different perturbation methods that are supported by the engineered software.
 
 \begin{table}%[h]
 \centering
@@ -725,9 +725,9 @@ Perturbation technique works the best with continuous values -- it is an effecti
 
 \subsection{Pattern masking}
 
-Pattern masking is a data distortion technique designed to be used when only some parts of the data should be masked. This technique is typically used to mask e.g., codes of various forms, phone numbers, credit card numbers and other structured data. 
+Pattern masking is a data distortion technique designed to be used when only some parts of the data should be masked. This technique is typically used to mask e.g., codes of various forms, phone numbers, credit card numbers, and other structured data. 
 
-Consider the data shown in Tab. \ref{id:tab:pattern_masking_raw} to be masked using the patterns from presented in Tab. \ref{id:tab:pattern_masking_patterns}.
+Consider the data shown in Tab. \ref{id:tab:pattern_masking_raw} to be masked using the patterns presented in Tab. \ref{id:tab:pattern_masking_patterns}.
 
 \begin{table}%[h]
 \centering
@@ -770,11 +770,11 @@ PIN code & Software version & Product code  \\ \midrule
 
 Analysis of pattern masking possibilities has yielded the need to create a versatile pattern configuration. This technique is therefore highly configurable, i.e., available pattern tokens include: \textit{O} – preserve the character, \textit{X} - mask the character, \textit{U} – mask with random uppercase letter, \textit{L} – mask with random lowercase letter, \textit{N} – mask with random digit, \textit{A} – mask with random alphabetic character and \textit{C} – mask with random alphanumeric character.
 
-User can specify the masking character, e.g., \textit{\#}, and can also decide whether the result is truncated to the pattern length (as shown in the masking of software version in Tab. \ref{id:tab:pattern_masking_masked}).
+Users can specify the masking character, e.g., \textit{\#}, and can also decide whether the result is truncated to the pattern length (as shown in the masking of software version in Tab. \ref{id:tab:pattern_masking_masked}).
 
 \subsection{Hashing}
 
-Hashing is a deterministic masking technique \cite{bib:anonymization_for_research} which transforms data to the fixed length output. This technique is best used for unstructured data. Available implementations include SHA2 and SHA3.
+Hashing is a deterministic masking technique \cite{bib:anonymization_for_research} that transforms data to the fixed-length output. This technique is best used for unstructured data. Available implementations include SHA2 and SHA3.
 
 Consider the server logs depicted in Tab. \ref{id:tab:hashing_raw}.
 %
@@ -806,17 +806,17 @@ b27ffd54e5b05a538f333157363f18df0a2aaae5754dfd9ec9daad9cc4ccd7a2 \\
 \end{tabular}
 \end{table}
 
-Although a mere inspection of the generated hash value does not immediately trace back to the original value, an attack to de-anonymise the data can be easily performed when the attacker knows what the hashed data represents, e.g. a structured birth date \cite{bib:hash}. Like in the case of all techniques, the decision to use this technique is context dependent.
+Although a mere inspection of the generated hash value does not immediately trace back to the original value, an attack to de-anonymise the data can be easily performed when the attacker knows what the hashed data represents, e.g. a structured birth date \cite{bib:hash}. Like in the case of all techniques, the decision to use this technique is context-dependent.
 
 \subsection{Randomisation}
 
-Randomisation methods offers the best middle ground between maintaining the data utility and preserving the privacy \cite{bib:data_shuffling}. This method can be performed on a column or a row level.
+Randomisation methods offer the best middle ground between maintaining the data utility and preserving privacy \cite{bib:data_shuffling}. This method can be performed on a column or a row level.
 
 \subsubsection{Column shuffle}
 
 Column shuffle is an exceptionally effective method for breaking strong links of data belonging to individual data subjects. All of that is achieved while preserving the data utility \cite{bib:gdpr_handbook}, hence this technique is great for maintaining the analytical value of the data \cite{bib:data_shuffling}.
 
-Consider the medical data from the table \ref{id:tab:attribute_randomisation_raw}
+Consider the medical data from Tab. \ref{id:tab:attribute_randomisation_raw}
 
 \begin{table}%[h]
 \centering
@@ -856,7 +856,7 @@ This technique can be used in two ways:
 
 The data may also be needed to be shuffled on a record level – similarly, with or without preserving the distribution.
 
-Consider shuffling the characters of an RGB colour described in hexadecimal format. Furthermore, consider a concept of storing a set of abstract decisions (e.g., willingness to participate in the election voting) as a sequence of bits where each bit represents an individual boolean decision. The table \ref{id:tab:record_randomisation_raw} shows the data.
+Consider shuffling the characters of an RGB colour described in hexadecimal format. Furthermore, consider a concept of storing a set of abstract decisions (e.g., willingness to participate in the election voting) as a sequence of bits where each bit represents an individual boolean decision. Tab. \ref{id:tab:record_randomisation_raw} shows the data.
 
 \begin{table}%[h]
 \centering
@@ -894,9 +894,9 @@ Replacing the original data with an artificial data can be achieved through subs
 
 \subsubsection{Substitution}
 
-Substitution is of a particular relevance when the masked data needs to be realistic \cite{bib:anonymization_planning}.
+Substitution is of particular relevance when the masked data needs to be realistic \cite{bib:anonymization_planning}.
 %
-Consider the data from the table \ref{id:tab:substitution_raw} undergoing the substitution process.
+Consider the data from Tab. \ref{id:tab:substitution_raw} undergoing the substitution process.
 %
 %\begin{table}%[h]
 %\centering
@@ -1083,7 +1083,7 @@ Consider the data of customer satisfaction described as a value ranging from 1 t
 %\end{tabular}
 %\end{table}
 %
-The values from the table \ref{id:tab:random_number_masked} show the new masked values.
+The values from Tab. \ref{id:tab:random_number_masked} show the new masked values.
 %
 %\begin{table}%[h]
 %\centering
@@ -1100,7 +1100,7 @@ The values from the table \ref{id:tab:random_number_masked} show the new masked 
 
 
 \subsection{Shortening}
-Consider the surnames from the table \ref{id:tab:shortening_raw} to be shortened to a length of 5 characters.
+Consider the surnames from Tab. \ref{id:tab:shortening_raw} to be shortened to a length of 5 characters.
 %
 %\begin{table}%[h]
 %\centering
@@ -1130,7 +1130,7 @@ The shortened data is visible in Tab. \ref{id:tab:shortening_masked}.
 %\end{tabular}
 %\end{table}
 %
-It is possible to specify whether or not the each data record should be terminated with a dot.
+It is possible to specify whether or not each data record should be terminated with a dot.
 
 
 \begin{figure}
@@ -1166,44 +1166,44 @@ Nowak      \\ \bottomrule
 
 All of the tools have a shared goal of being GDPR compliant in mind. As this section shows, the existing solutions are greatly similar to the engineered software and often offer \textit{less} versatility than the designed anonymisation web platform.
 
-Of course as the data privacy concerns are increasing in the society, the needs for data protection also increase. The relevance of anonymisation will only increase in the future. The market is just not steady yet.
+Of course, as data privacy concerns are increasing in society, the need for data protection also increase. The relevance of anonymisation will only increase in the future. The market is just not steady yet.
 
-\subsection{Open source software}
+\subsection{Open-source software}
 
 \subsubsection{Anonimatron}
-Anonimatron \cite{bib:anonimatron} is a Java tool designed for anonymisation of the databases specifically for the development purposes. The idea behind the tool is that the software developers may not be authorized to access the production data, yet may be required to reproduce, e.g., data related performance problems. Internally, anonimatron uses the concept of synonyms.
+Anonimatron \cite{bib:anonimatron} is a Java tool designed for anonymisation of databases specifically for development purposes. The idea behind the tool is that the software developers may not be authorized to access the production data, yet may be required to reproduce, e.g., data-related performance problems. Internally, anonimatron uses the concept of synonyms.
 
 
 \subsubsection{Anonymizer}
 Similarly to Anonimatron -- Anonymizer \cite{bib:anonymizer} is a tool that anonymises the databases specifically for development. This tool was written in Ruby.
 
 \subsubsection{ARX}
-ARX \cite{bib:arx_docs} is a Java based desktop solution offering a significant variety of advanced data masking techniques \cite{bib:arx_article}. The tool offers a functionality of analysing the usefulness of the generated outcomes.
+ARX \cite{bib:arx_docs} is a Java based desktop solution offering a significant variety of advanced data masking techniques \cite{bib:arx_article}. The tool offers the functionality of analysing the usefulness of the generated outcomes.
 
 \subsubsection{Amnesia}
-Amnesia \cite{bib:amnesia} is a software system that allows uploading the data, configuring the anonymisation parameters and downloading anonymised outcome. However, it supports merely the text files.
+Amnesia \cite{bib:amnesia} is a software system that allows uploading the data, configuring the anonymisation parameters, and downloading anonymised outcomes. However, it supports merely the text files.
 
 
-\subsection{Enterprise class software}
+\subsection{Enterprise-class software}
 
 
 \subsubsection{SAP Data Services}
-SAP Data Services is an enterprise class data management software which internally uses Data Mask component of the Transformation module to provide the masking functionalities \cite{bib:sap_data_mask}. Data Mask component offers highly configurable functionalities like perturbation, generalisation and pattern masking.
+SAP Data Services is a data management software that internally uses Data Mask component of the Transformation module to provide the masking functionalities \cite{bib:sap_data_mask}. Data Mask component offers highly configurable functionalities like perturbation, generalisation, and pattern masking.
 
 \subsubsection{Oracle Data Masking and Subsetting}
-This is a yet another enterprise class data masking software, however it is solely focused on the masking. This software is optimised for Oracle database, however other databases are also partially supported. The available operations include shuffling, randomisation, pattern masking \cite{bib:oracle_data_mask}.
+This is yet another enterprise-class data masking software, however, it is solely focused on masking. This software is optimised for Oracle database, however other databases are also partially supported. The available operations include shuffling, randomisation, pattern masking \cite{bib:oracle_data_mask}.
 
 \subsubsection{Microsoft Azure ecosystem}
-The anonymisation techniques that are used throughout Azure Synapse Analytics, Azure SQL Managed Instance or Azure SQL Database include pattern masking, random number generation and text substitution \cite{bib:azure_data_mask}.
+The anonymisation techniques that are used throughout Azure Synapse Analytics, Azure SQL Managed Instance, or Azure SQL Database include pattern masking, random number generation, and text substitution \cite{bib:azure_data_mask}.
 
 \subsubsection{TurboCat.io}
-This tool primarily oscillates between the encryption method to protect the sensitive data \cite{bib:turbocat}.
+This tool primarily oscillates between the encryption method to protect sensitive data \cite{bib:turbocat}.
 
 \section{Anonymisation as a platform}
 
-The people who were software engineers back in 1990s remember how the web had changed everything and how it dominated the marketed and the way business systems are now engineered \cite{bib:clean_architecture}.
+The people who were software engineers back in the 1990s remember how the web had changed everything. The market market was rapidly dominated and the way business systems are now engineered \cite{bib:clean_architecture}.
 
-The companies started to massively migrate their services to a cloud with the quite recent rise of the containerization and microservice architecture. Trending software concepts such as serverless or event-storming and tools such as Kubernetes — all of them are oscillating around the web, which is really the only clear and technologically available choice to build a new system. All this technological evolvement is enabled by the open source which is also continuously growing together with the web based software systems, in a feedback loop manner \cite{bib:distributed_systems}. The start of the decline in the web's growth is yet to be discovered, and likely will not emerge in the foreseeable future.
+The companies started to massively migrate their services to a cloud with the quite recent rise of containerization and microservice architecture. Trending software concepts such as serverless or event-storming and tools such as Kubernetes — all of them are oscillating around the web, which is the only clear and technologically available choice to build a new system. All this technological evolvement is enabled by the open-source which is also continuously growing together with the web-based software systems, in a feedback loop manner \cite{bib:distributed_systems}. The start of the decline in the web's growth is yet to be discovered and likely will not emerge in the foreseeable future.
 
 With that being said, the designed software system is categorized and delivered as Platform as a Service (PaaS) and runs in a cloud. The fundamental and the most significant objective of the system is to design an innovative platform that will offer anonymisation capabilities through a broad variety of highly configurable anonymisation techniques in such a way that the data controllers can fit their unique business needs easily.
 
@@ -1234,25 +1234,25 @@ There should be a validation standard established and enforced that will determi
 
 \subsubsection{Starting template generation}
 
-The user should be able to start the generation of a new template based on the database dump file he provides. The acceptable dump files should include compressed archive or plain script file. The user must successfully upload the dump before starting the template generation.
+The user should be able to start the generation of a new template based on the database dump file he provides. The acceptable dump files should include a compressed archive or plain script file. The user must successfully upload the dump before starting the template generation.
 
 \subsubsection{Template generation progress}
 
 The template generation should involve the sequence of three steps: persisting the dump file, restoring a new database from the dump, extracting metadata about the restored database. The user should be able to view the template generation progress.
 
-This should be presented as a progress panel containing a visualization of three steps. Completion of a step either marks it as a success or error. Currently processing step should be shown. Errors informing about e.g. invalid databases must be reported to the user. The generation progress should internally update status of the template and should be performed as a sequence of events.
+This should be presented as a progress panel containing a visualization of three steps. Completion of a step either marks it as a success or an error. Currently processing step should be shown. Errors informing about e.g. invalid databases must be reported to the user. The generation progress should internally update status of the template and should be performed as a sequence of events.
 
 \subsubsection{Restore database}
 
-The system should be able to restore a new database from a dump file of either compressed archive or script file.
+The system should be able to restore a new database from a dump file of either a compressed archive or script file.
 
 \subsubsection{Mirror database}
 
-The system should be able to create a mirror of an existing user database. The mirror should be used for writing the anonymisation script into and then dumping into the final outcome result.
+The system should be able to create a mirror of an existing user database. The mirror should be used for writing the anonymisation script into it and then dumping it into the final outcome result.
 
 \subsubsection{Extract metadata}
 
-The system should extract the metadata from the uploaded database when creating a new template. The metadata must include information concerning the structure of the database, e.g., the tables, columns and primary keys the database contains. Extracted metadata should be persisted in the server database as JSON type. 
+The system should extract the metadata from the uploaded database when creating a new template. The metadata must include information concerning the structure of the database, e.g., the tables, columns, and primary keys the database contains. Extracted metadata should be persisted in the server database as JSON type. 
 
 \subsubsection{Inspecting metadata}
 
@@ -1260,7 +1260,7 @@ The user should be able to inspect the extracted metadata.
 
 \subsubsection{Download metadata}
 
-The user should be able to download the extract metadata.
+The user should be able to download the extracted metadata.
 
 \subsubsection{Viewing templates}
 
@@ -1268,15 +1268,15 @@ The user should be able to view his templates.
 
 \subsubsection{Producing worksheet}
 
-The user should be able to produce a new worksheet from the templates he created earlier on. Worksheet should be used for building up the anonymisation setup. The worksheet must not be accessible to other users.
+The user should be able to produce a new worksheet from the templates he created earlier on. The worksheet should be used for building up the anonymisation setup. The worksheet must not be accessible to other users.
 
 \subsubsection{Viewing worksheets}
 
-There should be a table giving an overview of the created worksheets. Only worksheets belonging to the user should be shown. The table should embed buttons to go to viewing the summary or outcome generation.
+There should be a table giving an overview of the created worksheets. Only worksheets belonging to the user should be shown. The table should embed buttons to go to the summary view or outcome generation view.
 
 \subsubsection{Viewing summary}
 
-There should be a summary view which is an overview for the given worksheet. It should contain four distinct sections of information of the worksheet: template section, tables section, operations section and outcomes section.
+There should be a summary view which is an overview for the given worksheet. It should contain four distinct sections of information of the worksheet: template section, tables section, operations section, and outcomes section.
 
 \subsubsection{Viewing tables}
 
@@ -1284,34 +1284,34 @@ The tables included in the template should be enlisted in a worksheet summary.
 
 \subsubsection{Adding column operations}
 
-User must have the possibility of adding new anonymisation operations to the anonymisation concerned columns.
+Users must have the possibility of adding new anonymisation operations to the anonymisation concerned columns.
 
 \subsubsection{Viewing column operations}
 
-The so far accumulated column operations should be enlisted for each individual database table. Different operations should use different colors to provide a better visualization. Apart from accumulated operations, the view should also show information such as column name, type, nullability or whether the column is a primary or foreign key.
+The so far accumulated column operations should be enlisted for each individual database table. Different operations should use different colors to provide better visualization. Apart from accumulated operations, the view should also show information such as column name, type, nullability, or whether the column is a primary or foreign key.
 
 \subsubsection{PK and FK detection}
 
-Primary and foreign keys should be disallowed to undergo anonymisation. An appropriate information to the user should exist to indicate that a given column is primary or foreign key.
+Primary and foreign keys should be disallowed to undergo anonymisation. An appropriate information should exist to indicate to the user that a given column is a primary or foreign key.
 
 \subsubsection{Starting outcome generation}
 
-The user should be able to start the generation of an outcome based on the worksheet he prepared. It should be possible to select compressed archive or script file as a target output for the outcome. Starting the outcome generation must happen in an asynchronous non-blocking way.
+The user should be able to start the generation of an outcome based on the worksheet he prepared. It should be possible to select a compressed archive or script file as a target output for the outcome. Starting the outcome generation must happen in an asynchronous non-blocking way.
 
 On a high level, the outcome generation should include the complex sequential steps of:
 \begin{itemize}
 \item creating a writeable mirror database of the read-only template database
 \item creating a new empty anonymisation script
-\item populating the anonymisation script based on the user defined anonymisation setup
+\item populating the anonymisation script based on the user-defined anonymisation setup
 \item executing the anonymisation script against the mirror database
 \item dumping the anonymised database to the compressed archive or script file
 \end{itemize} 
 
-There should be an outcome database entity created with status field. Each consecutive step should update this status. The total time it took to process an outcome should be measured.
+There should be an outcome database entity created with a status field. Each consecutive step should update this status. The total time it took to process an outcome should be measured.
 
 \subsubsection{Browsing outcomes}
 
-The user has to have the possibility to browse the outcomes he created in a form of dedicated table. Each outcome should include the status, anonymisation script download button, outcome dump download button. processing time, template name, etc.
+The user has to have the possibility to browse the outcomes he created in a form of a dedicated table. Each outcome should include the status, anonymisation script download button, outcome dump download button. processing time, template name, etc.
 
 \subsubsection{Anonymisation script download}
 
@@ -1359,7 +1359,7 @@ Users that do not login to the platform for a configured amount of time should b
 
 \subsubsection{Mark account for removal}
 
-User must be able to initiate the process involving the removal of his account along with all the associated data, hence ensuring the GDPR compliance.
+The user must be able to initiate the process involving the removal of his account along with all the associated data, hence ensuring GDPR compliance.
 
 The process is started by an explicit user's requests to do so. The system should warn the user with a detailed message and a prompt to type in both the confirmation and the password. If successful, the account is marked for future removal -- the account is removed by a dedicated cron-based data pruning service.
 
@@ -1369,7 +1369,7 @@ Admin must have the possibility to force the account to be removed in case of ur
 
 \subsubsection{Revert marking account for removal}
 
-A scenario in which user changes his mind to delete his account needs to be supported. The user can revoke his request to remove the account by accessing the link that was earlier sent to his e-mail address.
+A scenario in which a user changes his mind to delete his account needs to be supported. The user can revoke his request to remove the account by accessing the link that was earlier sent to his e-mail address.
 
 The revert action should be possible only if all three conditions are met:
 \begin{itemize}
@@ -1388,26 +1388,26 @@ There should be a way to reset the password that was forgotten. The link should 
 
 \subsubsection{Tasks panel}
 
-There should be a tasks panel for the admin to retrieve and monitor the tasks. The panel should permit a non-blocking on demand execution of the selected individual tasks.
+There should be a tasks panel for the admin to retrieve and monitor the tasks. The panel should permit a non-blocking on-demand execution of the selected individual tasks.
 
 
 \subsection{Functional requirements – infrastructure}
 
 \subsubsection{Login}
 
-User should be able to login to the system and access his account's resources.
+The user should be able to login to the system and access his account's resources.
 
 \subsubsection{User context}
 
-The client should know the details of the user who is logged in. There should exist a user context functionality. Upon successful login the information about principal user should be fetched and stored on the client's side in the user context.
+The client should know the details of the user who is logged in. There should exist a user context functionality. Upon successful login the information about the principal user should be fetched and stored on the client's side in the user context.
 
 \subsubsection{Access token}
 
-A successful authentication should generate an access token which encompasses all the information necessary for the user authentication and authorization. The token should be valid for a brief duration, e.g., 5 minutes – which should be a matter of runtime configuration conducted by the system administrator. The token should be implemented using JSON Web Token (JWT) standard and should be stored on the client's side.
+A successful authentication should generate an access token that encompasses all the information necessary for user authentication and authorization. The token should be valid for a brief duration, e.g., 5 minutes – which should be a matter of runtime configuration conducted by the system administrator. The token should be implemented using JSON Web Token (JWT) standard and should be stored on the client's side.
 
 \subsubsection{Refresh Token}
 
-The refresh token which is generated together with access token during authentication should be used to periodically generate a new pair of the access and refresh tokens. There should exist a REST endpoint that will accept current valid refresh token and will output a new access and refresh token - effectively prolonging user's session. This token should be valid for a very long duration, e.g., 6 months – which should be a matter of runtime configuration.
+The refresh token which is generated together with the access token during authentication should be used to periodically generate a new pair of the access and refresh tokens. There should exist a REST endpoint that will accept the currently valid refresh token and will output new access and refresh token - effectively prolonging the user's session. This token should be valid for a very long duration, e.g., 6 months – which should be a matter of runtime configuration.
 
 \subsubsection{Logout}
 
@@ -1418,7 +1418,7 @@ Discarding the access and refresh tokens permits user logout.
 The user should not have to login to his account when starting a new visit unless
 \begin{itemize}
 \item the refresh token has expired after e.g., 6 months of inactivity
-\item the user has cleared browser cache
+\item the user has cleared browser's cache
 \item the user is logging from a new device
 \end{itemize}
 
@@ -1426,7 +1426,7 @@ Restarting the anonymisation platform should not logout the user.
 
 \subsubsection{Seamless tokens regeneration}
 
-Axios HTTP client should be configured in such a manner that it will detect a state of expired access token and will seamlessly generate new tokens. When the access token expires, the client should invoke refresh token service to generate a new tokens pairings in such a manner that the user does not even notice this implementation related behaviour. It is required that no unnecessary page refreshes, errors, logouts or prompts to login show up to the user.
+Axios HTTP client should be configured in such a manner that it will detect a state of the expired access token and will seamlessly generate new tokens. When the access token expires, the client should invoke refresh token service to generate new token pairings in such a manner that the user does not even notice this implementation-related behaviour. It is required that no unnecessary page refreshes, errors, logouts, or prompts to login show up to the user.
 
 \subsubsection{Role-based authorization}
 
@@ -1434,11 +1434,11 @@ All non-whitelisted REST resources should be protected with a declarative role-b
 
 \subsubsection{Resources whitelist}
 
-System administrator should be able to configure the REST resources that are whitelisted (i.e., unprotected). These endpoints should not require to be authenticated (i.e., logged in) to access them.
+The system administrator should be able to configure the REST resources that are whitelisted (i.e., unprotected). These endpoints should not require to be authenticated (i.e., logged in) to access them.
 
 \subsubsection{Redirection}
 
-System should redirect the user to the login page when accessing routes that are non existing or forbidden to access for them.
+The platform should redirect the user to the login page when accessing routes that are non existing or forbidden to access for them.
 
 \subsubsection{Password encryption}
 
@@ -1448,7 +1448,7 @@ User password should be stored in the database in an ecrypted form using e.g., b
 
 The client application should have a navigation menu. The panel should be located on the left side of the screen. Each navigation item should consist of a large icon and a text label. The entire panel should be hideable – the entire page content should seamlessly adapt to this. Optionally, smooth transition animation should be configurable during TypeScript compilation time.
 
-The items should be easily defined, ordered and configured by adopting a standard. Visibility of a particular item must be role-based, e.g. only admin can see \textit{users} item.
+The items should be easily defined, ordered, and configured by adopting a standard. Visibility of a particular item must be role-based, e.g. only admin can see \textit{users} item.
 
 \subsubsection{Timestamp data collection}
 
@@ -1462,11 +1462,11 @@ Exemplary dates concern:
 
 \subsubsection{Requests data collection}
 
-All HTTP requests to the anonymisation server should be logged in the system. The logged information should include HTTP method, HTTP response status and the request URI.	
+All HTTP requests to the anonymisation server should be logged in the system. The logged information should include HTTP method, HTTP response status, and the request URI.	
 
 \subsubsection{Request validation – client}
 
-The system should disallow sending HTTP requests that fail to meet the validation criterion set with Yup library.
+The system should disallow sending HTTP requests that fail to meet the validation criteria set with Yup library.
 
 \subsubsection{In-depth validation – client}
 
@@ -1476,21 +1476,21 @@ The client should have the possibility to specify required and optional fields a
 
 \subsubsection{Display validation errors}
 
-Client displays validation errors below the concerning HTML inputs.
+The client displays validation errors below concerning HTML inputs.
 
 \subsubsection{Error notifications}
 
-Client uses toast pop-ups to display client and server HTTP errors \cite{bib:rfc7231} – for example 400 Bad Request. The notifications along with the associated message are displayed in the upper-right corner. The pop-ups are red to underline its purpose and the purpose should be further emphasized - by adding more red color – when displaying the errors of extreme importance e.g. database restore failure.
+The frontend view uses toast pop-ups to display client and server HTTP errors \cite{bib:rfc7231} – for example, 400 Bad Request. The notifications along with the associated message are displayed in the upper-right corner. The pop-ups are red to underline its purpose and the purpose should be further emphasized - by adding more red color – when displaying the errors of extreme importance e.g. database restore failure.
 
 \subsubsection{Success notifications}
 
-Client sent HTTP requests that finished with a successful response \cite{bib:rfc7231} – for example 201 Accepted - should be displayed in a green coloured pop-up along with the associated message.
+Client-sent HTTP requests that finished with a successful response \cite{bib:rfc7231} – for example, 201 Accepted - should be displayed in a green coloured pop-up along with the associated message.
 
 \subsubsection{Request validation – server}
 
-The system must validate the HTTP requests on the server to protect the system from passing malformed requests sent by the malicious external HTTP clients. The validations should be declaratively used on the Data Transfer Object (DTO) classes. 
+The system must validate the HTTP requests on the server to protect the system from passing malformed requests sent by malicious external HTTP clients. The validations should be declaratively used on the Data Transfer Object (DTO) classes. 
 
-Exemplary validation constraints could include checking for values that meet any of the following criterion:
+Exemplary validation constraints could include checking for values that meet any of the following criteria:
 \begin{itemize}
 \item not null
 \item not blank
@@ -1502,11 +1502,11 @@ Exemplary validation constraints could include checking for values that meet any
 
 \subsubsection{Maximum file size}
 
-System administrator should be in control of configuration of the maximum accepted sizes of the files sent to the system (i.e. database dumps). The file sizes that are too large must not be accepted.
+The system administrator should be in control of the configuration of the maximum accepted sizes of the files sent to the system (i.e. database dumps). The file sizes that are too large must not be accepted.
 
 \subsubsection{In-depth validation – server}
 
-Server should perform numerous other advanced validations specific to individual scenarios.
+The server should perform numerous other advanced validations specific to individual scenarios.
 
 Exemplary infrastructure related cases should check if:
 \begin{itemize}
@@ -1545,7 +1545,7 @@ There should be a custom file selector input that will allow uploading files i.e
 
 \subsubsection{Uniform design}
 
-The user must not be surprised with a particular page looking in an unexpected way. There should be established a uniform design for the client pages. The design should uniformise, e.g., colors, borders, paddings, margins, shadows or components.
+The user must not be surprised with a particular page looking in an unexpected way. There should be established a uniform design for the client pages. The design should uniformise, e.g., colors, borders, paddings, margins, shadows, or components.
 
 \subsubsection{Theme}
 
@@ -1557,7 +1557,7 @@ The client should use skeletons and spinners to provide a seamless user experien
 
 \subsubsection{Mail notifications}
 
-The system has the capabilities of sending e-mails notifying about various actions such as expiring account. This functionality should be runtime configurable by the system administrator.
+The system has the capabilities of sending e-mails notifying about various actions such as expiring accounts. This functionality should be runtime configurable by the system administrator.
 
 \subsubsection{Database}
 
@@ -1565,7 +1565,7 @@ The system needs to use a database. The system should not be coupled to a partic
 
 \subsubsection{Database preloader}
 
-There should be a functionality to preloaded the system with prepared data. A new system instance must include at least one administrator account.
+There should be a functionality to preload the system with prepared data. A new system instance must include at least one administrator account.
 
 \subsubsection{Dynamic database connection}
 
@@ -1573,11 +1573,11 @@ There should exist a factory for data sources that will establish a connection t
 
 \subsubsection{Prune connection pool}
 
-There should be a functionality to drop all existing database connections, effectively allowing to create the database mirrors dynamically.
+There should be a functionality to drop all existing database connections, effectively allowing the creation of the database mirrors dynamically.
 
 \subsubsection{Containerization}
 
-Software components of the system should be containerized. All services should be running as containers when running the system in production environment.
+Software components of the system should be containerized. All services should be running as containers when running the system in the production environment.
 
 \subsubsection{Multiple environments}
 
@@ -1593,11 +1593,11 @@ The designed system has to be runnable in multiple environments, i.e.:
 
 \subsubsection{Environment based configuration}
 
-Different environments, i.e., production, develop and local should use different configurations of the environment and anonymisation server.
+Different environments, i.e., production, develop, and local should use different configurations of the environment and anonymisation server.
 
 \subsubsection{Storage configuration}
 
-The location of the files managed by the system, i.e., uploaded templates, anonymisation scripts and anonymised dumps (scrip based or compressed archive based), should be configurable.
+The location of the files managed by the system, i.e., uploaded templates, anonymisation scripts and anonymised dumps (scrip based or compressed archive-based), should be configurable.
 
 \subsubsection{Running processes from Java}
 
@@ -1609,7 +1609,7 @@ There should be a configuration for handling asynchronous events. The core funct
 
 \subsubsection{Scheduling}
 
-There should be a functionality for defining schedulable task services. The services should rely on the cron expression based triggers. Individual tasks should be runtime configurable in terms of their:
+There should be a functionality for defining schedulable task services. The services should rely on the cron expression-based triggers. Individual tasks should be runtime configurable in terms of their:
 
 \begin{itemize}
 \item cron expression
@@ -1624,11 +1624,11 @@ There should be a functionality prepared to load the secrets (i.e., password for
 
 \subsubsection{SonarQube}
 
-Both the client and the server should be scanned by the SonarQube static analysis tool. This software should be integrated into Quality CI workflow.
+Both the client and the server should be scanned by the SonarQube static analysis tool. This software should be integrated into the Quality CI workflow.
 
 \subsubsection{CodeQL}
 
-Application should be scanned by CodeQL for security issues as a part of Security CI workflow.
+The application should be scanned by CodeQL for security issues as a part of the Security CI workflow.
 
 \subsubsection{Swagger}
 
@@ -1636,11 +1636,11 @@ The REST API of the anonymisation server is to be documented with Swagger UI.
 
 \subsubsection{File storage}
 
-There should be a way to store the files, i.e., user input dumps, anonymisation scripts, anonymised output dumps (archives, scripts). The files should be stored in grouped directories whose path are runtime configurable. The file names should be randomly picked e.g. as a universally unique identifier (uuid).
+There should be a way to store the files, i.e., user input dumps, anonymisation scripts, anonymised output dumps (archives, scripts). The files should be stored in grouped directories whose paths are runtime configurable. The file names should be randomly picked e.g. as a universally unique identifier (UUID).
 
 \subsubsection{Prune user data}
 
-A service responsible for deleting accounts that were marked for removal should be executed in a periodic manner. Such service should prune the user data. The frequency of how often is the service executed is described as a cron expression. It should be a system administrator runtime configurable property.
+Service responsible for deleting accounts that were marked for removal should be executed in a periodic manner. Such a service should prune the user data. The frequency of how often is the service executed is described as a cron expression. It should be a system administrator runtime configurable property.
 
 \subsubsection{Prune system data}
 
@@ -1650,13 +1650,13 @@ There should be a script pruning the Docker data from the host system.
 \subsection{Non-functional requirements}
 
 \subsubsection{Modular}
-Server should be divided into modular architecture where each module has its own responsibiltiy. Modules have to be further divided into layers or packages. System implements client-server architecture.
+The anonymisation server should be divided into modular architecture where each module has its own responsibiltiy. Modules have to be further divided into layers or packages. The system implements client-server architecture.
 
 \subsubsection{Secure}
-Achieved through, e.g., vulenarability scanning, token based authentication enhanced with refresh token functionality, client and server validation, containerization, role based endpoint protection.
+Achieved through, e.g., vulnarability scanning, token-based authentication enhanced with refresh token functionality, client and server validation, containerization, role-based endpoint protection.
 
 \subsubsection{Configurable}
-System should be highly configurable by the system administrator. The software can be separately configured on the server, client and containers side.
+The platform should be highly configurable by the system administrator. The software can be separately configured on the server, client and containers side.
 
 \subsubsection{Confidential}
 Data sent by the users should not be accessible by the admins.
@@ -1674,7 +1674,7 @@ Achieved through, e.g., using lazy loading of the relations and individual optim
 Achieved through, e.g., performant client routing.
 
 \subsubsection{Engaging}
-Achieved by displaying skeletons, spinners and notifications that catch user's attention.
+Achieved by displaying skeletons, spinners, and notifications that catch the user's attention.
 
 \subsubsection{Usable}
 The system features should be easily understandable – the functionalities must not be confusing to be used.
@@ -1683,10 +1683,10 @@ The system features should be easily understandable – the functionalities must
 The system code should be written in a testable manner, e.g. by ensuring high quality of the code and separation of concerns.
 
 \subsubsection{Reliable}
-Achieved through continuous integration testing and using well known secure libraries.
+Achieved through continuous integration testing and using well-known secure libraries.
 
 \subsubsection{User experience}
-Achieved through client functionalities such as intuitiveness, responsive design and uniform styling of the system.
+Achieved through client functionalities such as intuitiveness, responsive design, and uniform styling of the system.
 
 \subsubsection{Measurable} 
 The system should collect metrics about e.g. processing time of outcomes.
@@ -1697,7 +1697,7 @@ The system must not use obsolete technologies or software engineering design tec
 \section{System engineering}
 \subsection{Use cases}
 
-The use cases were split into two distinct diagrams which group together the use cases concerning:
+The use cases were split into two distinct diagrams which group the related use cases concerning:
 \begin{itemize}
 \item management – shown in Fig. \ref{fig:use_cases_management}
 \item anonymisation – shown in Fig. \ref{fig:use_cases_anonymisation} 
@@ -1719,7 +1719,7 @@ The use cases were split into two distinct diagrams which group together the use
 
 \subsection{REST API}
 
-The communication with the anonymisation server is driven by the RESTful APIs. An overview of the available endpoints is listed in Tab. \ref{id:tab:rest_api}. The particular endpoint's purpose can be inferred from the surrounding context i.e., requirements, use cases, controller name and the endpoint URI.
+The communication with the anonymisation server is driven by the RESTful APIs. An overview of the available endpoints is listed in Tab. \ref{id:tab:rest_api}. The particular endpoint's purpose can be inferred from the surrounding context i.e., requirements, use cases, controller name, and the endpoint URI.
 
 \begin{table}[]
 \centering
@@ -1818,13 +1818,13 @@ This section encompasses a summary of tools needed to develop, build, and mainta
 
 \subsubsection{Docker}
 
-Docker is a virtualization software used to develop, run and manage applications in the form of containers taking advantage of Linux kernel features namespaces and cgroups. It consists of three components: a runtime, a daemon engine and an orchaestrator. 
+Docker is a virtualization software used to develop, run and manage applications in the form of containers taking advantage of Linux kernel features namespaces and cgroups. It consists of three components: a runtime, a daemon engine, and an orchestrator. 
 
-To run the production environment of anonymisation platform, only prior installation of Docker on the host system is required, because containerization technologies like Docker enable a separation of the software from the infrastructure the software is running on \cite{bib:docker_docs}\cite{bib:docker_book}.
+To run the production environment of anonymisation platform, only prior installation of Docker on the host system is required, because containerization technologies like Docker enable a separation of the software from the infrastructure the software is running on \cite{bib:docker_docs, bib:docker_book}.
 
 \subsubsection{Apache Maven}
 
-Apache Maven is an open source that automates the build process of foremostly Java based projects. Primary Maven objectives include ensuring an easy build process and an uniformly established build system which is achieved through Maven's build lifecycle (i.e., predefined build steps, e.g., \textit{validate}, \textit{compile}, \textit{test} or \textit{install}) \cite{bib:maven_docs}.
+Apache Maven is an open-source build tool that automates the build process of foremostly Java based projects. Primary Maven objectives include ensuring an easy build process and an uniformly established build system which is achieved through Maven's build lifecycle (i.e., predefined build steps, e.g., \textit{validate}, \textit{compile}, \textit{test} or \textit{install}) \cite{bib:maven_docs}.
 
 Anonymisation platform uses this tool to build the backend server. Maven is put into service in one of the two ways – depending on the selected environment – namely:
 \begin{itemize}
@@ -1876,11 +1876,11 @@ For an unified code formatting standard to be established for the client's appli
 
 \subsection{Server}
 
-This section encompasses a summary of technologies used for the implementation of modular and REST driven server.
+This section encompasses a summary of technologies used for the implementation of the modular and REST-driven anonymisation server.
 
 \subsubsection{Java}
 
-Anonymisation server uses the newest long-term support JDK 17 version released in September 2021, although the server is backwards compatible to JDK 11.
+Anonymisation server uses the newest long-term support JDK 17 version released in September 2021, although the server is backward compatible with JDK 11.
 
 Java is still globally the most widely adopted development language \cite{bib:java25years}, even after the 25 years that had passed after its first release – it is a truly mature language, accompanied by all types of frameworks and libraries that one can imagine.
 
@@ -1896,21 +1896,21 @@ Spring driven software system may include the following Spring projects \cite{bi
 \item Spring Security – to secure the application with authentication and authorization
 \end{itemize}
 
-Java based systems typically employ Spring technologies, and so does the anonymisation server, which extensively uses all of the listed above projects. 
+Java-based systems typically employ Spring technologies, and so does the anonymisation server, which extensively uses all of the listed above projects. 
 
 \subsubsection{Hibernate}
 
-Hibernate – a JPA implementation – which is a well tested and high performant \cite{bib:hibernate_high_performance} object-relational mapper was a natural choice for the engineered system given the fact that Spring has a built-in support for this library. It is used to map the database entities to the corresponding database tables \cite{bib:hibernate_docs}.
+Hibernate – a JPA implementation – which is a well-tested and high performant \cite{bib:hibernate_high_performance} object-relational mapper was a natural choice for the engineered system given the fact that Spring has built-in support for this library. It is used to map the database entities to the corresponding database tables \cite{bib:hibernate_docs}.
 
 Hibernate functionality was additionally enhanced with Hibernate Types library \cite{bib:hibernate_types} to provide the support for JSON column type – which is not supported by the plain Hibernate but is greatly supported by the underlying PostgreSQL database \cite{bib:postgresql_json}.
 
 \subsubsection{PostgreSQL – Server}
 
-The choice of appropriate database was of particular importance due to domain of the designed system.
+The choice of an appropriate database was of particular importance due to the domain of the designed system.
 
-PostgreSQL was fourth most popular database management system worldwide back in 2017 as shown in the annual Stack Overflow Developer Survey report \cite{bib:stackoverflow2017}. Each consequtive report demonstrated further growth of PostgreSQL. As PostgreSQL is at continuous growth, MySQL (i.e., the most popular database) is at continuous decline. Latest report published in 2021 \cite{bib:stackoverflow2021} placed PostgreSQL on the second place and it is believed that it will at last beat MySQL this year.
+PostgreSQL was the fourth most popular database management system worldwide back in 2017 as shown in the annual Stack Overflow Developer Survey report \cite{bib:stackoverflow2017}. Each consequtive report demonstrated further growth of PostgreSQL. As PostgreSQL is at the continuous growth, MySQL (i.e., the most popular database) is at the continuous decline. The latest report published in 2021 \cite{bib:stackoverflow2021} placed PostgreSQL in second place and it is believed that it will at last beat MySQL this year.
 
-For this reason PostgreSQL was chosen as the database for the server system. This database was also chosen as the supported database type for the data dumps uploaded by data controllers for the purpose of anonymisation.
+For this reason, PostgreSQL was chosen as the database for the server system. This database was also chosen as the supported database type for the data dumps uploaded by data controllers for the purpose of anonymisation.
 
 
 \subsubsection{PostgreSQL – Client}
@@ -1939,19 +1939,19 @@ JUnit 5 is the new and refined version of the worldwide recognized Java testing 
 
 \subsubsection{Testcontainers}
 
-Testcontainers is a cutting edge Java library to support instantiation of lightweight Docker containers for the tests needs. Effectively – the tests run in a containerized environment just like the real application hence blurring the technical differences between real and test environments \cite{bib:testcontainers}.
+Testcontainers is a cutting-edge Java library to support the instantiation of lightweight Docker containers for the tests needs. Effectively – the tests run in a containerized environment just like the real application hence blurring the technical differences between real and test environments \cite{bib:testcontainers}.
 
 This state-of-the-art library is used by the integration tests to bootstrap the PostgreSQL database for the tests.
 
 \subsubsection{REST Assured}
 
-REST Assured is an integration tests library and a HTTP client which allows sending true HTTP requests to the test server (bootstrapped by Testcontainers library). This library also offers the means to validate received HTTP responses \cite{bib:rest_assured}.
+REST Assured is an integration tests library and an HTTP client which allows sending true HTTP requests to the test server (bootstrapped by Testcontainers library). This library also offers the means to validate received HTTP responses \cite{bib:rest_assured}.
 
 The library is used by the integration tests.
 
 \subsubsection{Swagger UI}
 
-One of many Swagger modules is Swagger UI which deals with the design, description and documentation of REST APIs. The library allows visualization and interaction with the API \cite{bib:swagger}.
+One of many Swagger modules is Swagger UI which deals with the design, description, and documentation of REST APIs. The library allows visualization and interaction with the API \cite{bib:swagger}.
 
 This library is relevant due to the complexity of the designed system, as it provides the API documentation for the client.
 
@@ -1967,25 +1967,25 @@ This library is used by the hashing data masking technique.
 
 \subsubsection{Apache Commons Lang}
 
-The sole purpose of this library is a generation of random alphabetic and alphanumeric characters for pattern masking anonymisation technique \cite{bib:apache_commons_lang}.
+The sole purpose of this library is a generation of random alphabetic and alphanumeric characters for the pattern masking anonymisation technique \cite{bib:apache_commons_lang}.
 
 \subsection{Client}
 
-This section encompasses a summary of technologies used for the implementation of React based client.
+This section encompasses a summary of technologies used for the implementation of React-based client.
 
 \subsubsection{TypeScript}
 
-TypeScript is a transcompiled superset of JavaScript that the developers want to work with the most unless already doing so \cite{bib:stackoverflow2021}. The language was designed by Microsoft to extend JavaScript with types, interfaces and generics.
+TypeScript is a transcompiled superset of JavaScript that the developers want to work with the most unless already doing so \cite{bib:stackoverflow2021}. The language was designed by Microsoft to extend JavaScript with types, interfaces, and generics.
 
 The language is powering the frontend client application and React.
 
 \subsubsection{React.js}
 
-React.js was the most popular web framework as of 2021 \cite{bib:stackoverflow2021} as it has finally surpassed the obsolete jQuery library. This is an open source library developed by Facebook to build user interfaces for the web. As a high level overview – React centers around the concept of virtual DOM \cite{bib:modern_fullstack}.
+React.js was the most popular web framework as of 2021 \cite{bib:stackoverflow2021} as it has finally surpassed the obsolete jQuery library. This is an open-source library developed by Facebook to build user interfaces for the web. As a high-level overview – React centers around the concept of virtual DOM \cite{bib:modern_fullstack}.
 
 \subsubsection{React ecosystem}
 
-Independent authors create many external libraries to drive the React with extended functionalities. React ecosystem is rich in various libraries which typically include \textit{React} word in their names.
+Independent authors create many external libraries to drive React with extended functionalities. React ecosystem is rich in various libraries which typically include \textit{React} word in their names.
 
 Anonymisation client code extensively uses the following popular libraries:
 \begin{itemize}
@@ -2000,15 +2000,15 @@ Yup is a validation schema builder. In the case of engineered software, the sche
 
 \subsubsection{Material UI}
 
-Material UI is yet another React library and a large one. This library is responsible for the appearence of the application.
+Material UI is yet another React library and a large one. This library is responsible for the appearance of the application.
 
 \subsubsection{Axios}
 
-Axios is an asynchronous HTTP client used for sending the requests to the anonymisation server.
+Axios is an asynchronous HTTP client used for sending requests to the anonymisation server.
 
 \section{Development methodology}
 
-The development was driven by git like in the case of any software project that is of a non-trivial size. A total number of 6XX \textbf{todo} commits\footnote{the data as of 21.01.2022} were pushed to the master branch. Conventional Commits specification was followed in a simplified way. The branches were deleted following the merge.
+The development was driven by git like in the case of any software project that is of non-trivial size. A total number of 6XX \textbf{todo} commits\footnote{the data as of 21.01.2022} were pushed to the master branch. Conventional Commits specification was followed in a simplified way. The branches were deleted following the merge.
 
 There were three possible issue types:
 \begin{itemize}
@@ -2017,7 +2017,7 @@ There were three possible issue types:
 \item epic – describing a big user story that aggregates other issues \cite{bib:agile_essentials}
 \end{itemize}
 
-Note that an improvement to the functionality that is still under development is considered a \textit{feature} and not \textit{improvement}.
+Note that an improvement to the functionality that is still under development is considered a \textit{feature} and not an \textit{improvement}.
 
 Furthermore, the labels with the increasing values of {XS}, {S}, {M}, {L}, and {XL} were being added to all the tasks upon creation to estimate the time-to-finish complexities. The distribution of the estimations is shown in Fig. \ref{fig:img:estimations}. \textbf{todo updated pie chart}
 
@@ -2028,7 +2028,7 @@ Furthermore, the labels with the increasing values of {XS}, {S}, {M}, {L}, and {
   \label{fig:img:estimations}
 \end{figure}
 
-The non-epic tasks were marked either as resolved or as cancelled when closing the tasks. Vast majority of tasks was successfully resolved as shown in Fig. \ref{fig:img:resolved_tasks}. Exemplary reasons to close a given task include changing requirements or task duplication.
+The non-epic tasks were marked either as resolved or as canceled when closing the tasks. The vast majority of tasks were successfully resolved as shown in Fig. \ref{fig:img:resolved_tasks}. Exemplary reasons to close a given task include changing requirements or task duplication.
 
 \begin{figure}
   \centering
@@ -2041,19 +2041,19 @@ The non-epic tasks were marked either as resolved or as cancelled when closing t
 
 \section{Domain specific glossary}
 
-The application defines several business names related to the anonymisation domain in order to concisely introduce complex technical problems. These names include:
+The application defines several business names related to the anonymisation domain to concisely introduce complex technical problems. These names include:
 \begin{itemize}
-\item \textbf{template} – the user restores the database from the dump he provides to create a read-only replicable template that is used to produce worksheets
-\item \textbf{worksheet} – a concept which represents the user's working area for configuring the anonymisation to match the exact business requirements of his interest. The worksheet is produced from the template and is used to generate the outcomes
-\item \textbf{summary} – this is the worksheet's representation – a summary layer of the configured anonymisation that presents in one place all the information concerning the template, worksheet, operations and outcomes
-\item \textbf{operation} – an individual anonymisation technique applied to the given attribute
-\item \textbf{outcome} – the outcomes are generated from the worksheet after processing the anonymisation request and encapsulate the anonymisation script and anonymised dumps
-\item \textbf{metadata} – represents the information about the template database, i.e., information concerning columns, tables, primary keys, foreign keys, number of tables and records, etc.
+\item \textbf{Template} – the user restores the database from the dump he provides to create a read-only replicable template that is used to produce worksheets.
+\item \textbf{Metadata} – represents the information about the template database, i.e., information concerning columns, tables, primary keys, foreign keys, number of tables and records, etc.
+\item \textbf{Worksheet} – a concept that represents the user's working area for configuring the anonymisation to match the exact business requirements of his interest. The worksheet is produced from the template and is used to generate the outcomes.
+\item \textbf{Summary} – this is the worksheet's representation – a summary layer of the configured anonymisation that presents in one place all the information concerning the template, worksheet, operations, and outcomes.
+\item \textbf{Operation} – an individual anonymisation technique applied to the given attribute.
+\item \textbf{Outcome} – the outcomes are generated from the worksheet after processing the anonymisation request and encapsulate the anonymisation script and anonymised dumps.
 \end{itemize}
 
 \section{Installation}
 
-One of the primary reasons why the containerization concept was so remarkably well received \cite{bib:stackoverflow2021} and exhibited by the massive global adoptions of the Docker technology is the ease it offers regarding the software installation. Decoupling the software from the hardware it runs on allows a portable way to install the software in a simple manner. Instead of making it a responsibility for the end users to manually install the dependent software (e.g., database server, JDK, Node.js or yarn), all the dependencies come encapsulated within the image, effectively transferring the difficulties of managing the dependencies to the application developers.
+One of the primary reasons why the containerization concept was so remarkably well-received \cite{bib:stackoverflow2021} and exhibited by the massive global adoptions of the Docker technology is the ease it offers regarding software installation. Decoupling the software from the hardware it runs on allows a portable way to install the software in a simple manner. Instead of making it a responsibility for the end-users to manually install the dependent software (e.g., database server, JDK, Node.js, or yarn), all the dependencies come encapsulated within the image, effectively transferring the difficulties of managing the dependencies to the application developers.
 
 \subsection{Environments — overview}
 
@@ -2065,7 +2065,7 @@ As depicted in Fig. \ref{fig:img:environments} the available environments includ
 \item development
 \end{itemize}
 
-and the environments are further divided into three available setup options, i.e.:
+The environments are further divided into three available setup options, i.e.:
 \begin{itemize}
 \item cloud setup
 \item semi-cloud setup
@@ -2112,13 +2112,13 @@ The setup is customized from:
 
 This is the preferred setup for development. PostgreSQL \textit{server} is abstracted away from the host thanks to this setup. Optionally, the anonymisation server can also run in the container.
 
-The semi-cloud setup requires an installation of additional software.
+The semi-cloud setup requires the installation of additional software.
 
 \subsubsection{Prerequisite}
 
-JDK 17, Node.js and yarn needs to be installed on the host system — apart from the Docker. Note that the Apache Maven which is the build tool for the anonymisation server does not need to be installed neither in the host nor in the container because Maven wrapper is provided and used.
+JDK 17, Node.js, and yarn need to be installed on the host system — apart from the Docker. Note that the Apache Maven which is the build tool for the anonymisation server does not need to be installed neither in the host nor in the container because Maven wrapper is provided and used.
 
-The semi-cloud setup requires an additional installation of the PostgreSQL \textit{client} in the host system if the setup is run without the server profile. The minimum supported version is the version 13.5 released on November 11, 2021.
+The semi-cloud setup requires an additional installation of the PostgreSQL \textit{client} in the host system if the setup is run without the server profile. The minimum supported version is version 13.5 released on November 11, 2021.
 
 The setup is customized from:
 \begin{itemize}
@@ -2212,7 +2212,7 @@ Note that the services are decoupled from each other, e.g. the client service (f
 
 \section{Activation}
 
-The database of a new instance of the anonymisation platform is preloaded with at least one admin account. The credentials of this initial account can be configured from the properties and must be overriden in production:
+The database of a new instance of the anonymisation platform is preloaded with at least one admin account. The credentials of this initial account can be configured from the properties and must be overridden in production:
 \begin{verbatim}
 core:
   preloader.admin:
@@ -2231,7 +2231,7 @@ Four types of users can interact with the system:
 \item anonymous user
 \end{itemize}
 
-It is very important to note that while the admin user can manage other users' accounts, he is not authorized to access the users' confidential data such as anonymisation scripts. The admin user who may be a non technical business person should not be confused with the system administrator.
+It is very important to note that while the admin user can manage other users' accounts, he is not authorized to access the users' confidential data such as anonymisation scripts. The admin user who may be a non-technical business person should not be confused with the system administrator.
 
 The relation between the users and their use-cases are summarized in Fig. \ref{fig:use_cases_management} and \ref{fig:use_cases_anonymisation}.
 
@@ -2243,21 +2243,21 @@ The relation between the users and their use-cases are summarized in Fig. \ref{f
 \section{Security issues}
 
 \subsection{User account}
-The system requires the user to verify his e-mail address to access the platform capabilities. The application allows blocking potentially malicious users. To ensure the security of users data through data protection measures, the user can request to remove his account.
+The system requires the user to verify his e-mail address to access the platform capabilities. The application allows the blocking of potentially malicious users. To ensure the security of users' data through data protection measures, the users can request to remove their accounts.
 
 \subsection{Continuous integration}
-Multiple advanced continuous integrity workflows were established to follow the state of the art software development practices of ensuring the quality and security. The plans verify the state of quality, security and tests — and are triggered daily, upon creating a pull request or upon committing to the master branch.
+Multiple advanced continuous integrity workflows were established to follow the state-of-the-art software development practices of ensuring quality and security. The plans verify the state of quality, security, and tests. The workflows are triggered daily at a set time, upon creating a pull request or upon committing to the master branch.
 
 \subsection{Containers isolation}
-The platform runs as a secure network of isolated docker containers.
+The platform runs as a secure network of isolated Docker containers hence minimising the possible system vulnerabilities that could be taken advantage of.
 
 \subsubsection{Authentication and authorization}
-Platform endpoints are gated behind the authorization logic, i.e., in order to access the platform resources the user first needs to authenticate himself by logging in to his account, and then his account is also required to have the appropriate role authority to access the particular resources such as the templates or worksheets.
+Platform endpoints are gated behind the authorization logic, i.e., to access the platform resources the user first needs to authenticate himself by logging in to his account, and then his account is also required to have the appropriate role authority to access the particular resources such as the templates or worksheets.
 
 The authentication and the authorization is implemented using JWT access tokens. To increase the safety of the system, the functionality is further enhanced by the functionality of refresh tokens.
 
 \subsection{Validation}
-The application pays special attention to the validation which is performed on the client's side and on the server's side in a multi-level fashion. Taking the proper validation measures prevents the potentially devastating effects of putting the application in a breaking, unsupported state.
+The application pays special attention to the validation which is performed on the client's side and the server's side in a multi-level fashion. Taking the proper validation measures prevents the potentially devastating effects of putting the application in a breaking, unsupported state.
 
 
 \section{Working scenarios}
