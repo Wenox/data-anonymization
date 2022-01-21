@@ -2656,7 +2656,7 @@ The client code was divided into:
 \item \textbf{Utils} -- re-usable functions.
 \end{itemize}
 
-The client architecture is visualised in details as the part of the diagram in Fig. \ref{fig:architecture_platform} that shows the entire platform's architecture overview.
+The client architecture is visualised in details as the part of the diagram in Fig.~\ref{fig:architecture_platform} that shows the entire platform's architecture overview.
 
 \subsection{Architecture -- containerization}
 
@@ -2704,12 +2704,14 @@ Consider the concise REST endpoint responsible for user registration:
 }
 \end{minted}
 
-The declarative specification of \mintinline{java}{@PostMapping("/register")} explains that this will be the HTTP POST endpoint. When combined with the class level base URI declaration, the resource is computed to be available at \newline \verb|/api/v1/users/register|.
-
-This endpoint will be executed only if the validation of the input \newline \mintinline{java}{RegisterUserRequest} meets the validation criteria. The data transfer object (DTO) is in fact the request body sent by the client.
-
+The declarative specification of \mintinline{java}{@PostMapping("/register")} explains that this will be the HTTP POST endpoint. When combined with the class level base URI declaration, the resource is computed to be available at %\newline 
+\verb|/api/v1/users/register|.
+%
+This endpoint will be executed only if the validation of the input %\newline 
+\mintinline{java}{RegisterUserRequest} meets the validation criteria. The data transfer object (DTO) is in fact the request body sent by the client.
+%
 Upon successful validation, the controller delegates its work to the \mintinline{java}{AuthService} which belongs to a different abstraction layer.
-
+%
 Finally, the endpoint returns the response 200 OK \cite{bib:rfc7231} with the response body of whatever was returned by the service. The response body is serialised to a JSON representation.
 
 \subsubsection{Request validation}
@@ -2729,7 +2731,7 @@ class RegisterUserRequest {
 \end{minted}
 
 The server requires the client to provide a valid e-mail, among others, that is not blank and of size up to 40 characters. Failure to meet the criteria returns an error of 400 Bad Request to the client.
-
+%
 Let's consider yet another endpoint of the same controller, responsible for platform users retrieval hence specifying \verb|@GetMapping|:
 
 \begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
@@ -2747,10 +2749,10 @@ The declarative specification of \mintinline{java}{@PreAuthorize("hasAuthority('
 
 \subsubsection{Data transfer object mapping}
 
-Note that the result list obtained from the user service is mapped to the list of \mintinline{java}{FullUserResponse} which is the DTO returned to the client. This mapping occurs in the controller layer and not in the service layer as this is the concern of presentation and not domain \footnote{The domain layer is not aware of the presentation layer}.
-
-The relevant concept to understand here is that the underlying database entities \footnote{Possibly very complex database objects.} are not necessarily the same as returned data transfer objects \footnote{Usually simple objects encapsulating only the necessary information for the particular endpoint.} returned to the client.
-
+Note that the result list obtained from the user service is mapped to the list of \mintinline{java}{FullUserResponse} which is the DTO returned to the client. This mapping occurs in the controller layer and not in the service layer as this is the concern of presentation and not domain\footnote{The domain layer is not aware of the presentation layer}.
+%
+The relevant concept to understand here is that the underlying database entities\footnote{Possibly very complex database objects.} are not necessarily the same as returned data transfer objects\footnote{Usually simple objects encapsulating only the necessary information for the particular endpoint.} returned to the client.
+%
 Consider the internals of the returned data transfer object and its mapping logic:
 
 \begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
@@ -2822,15 +2824,15 @@ The internals of the users module are described in detail in Fig. \ref{fig:archi
 \subsection{Uploading module}
 
 The internals of the uploading module are described in detail in  Fig. \ref{fig:architecture_uploading}.
-
+%
 \begin{figure}
   \centering
   \includegraphics[width=\linewidth]{img/architecture_uploading.png}
   \caption{Architecture – uploading module}
   \label{fig:architecture_uploading}
 \end{figure}
-
-
+%
+%
 There are two possible restore modes for the dumps provided by the user:
 \begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
 public enum RestoreMode {
@@ -2841,14 +2843,14 @@ public enum RestoreMode {
 \subsection{Anonymisation module}
 
 The internals of the anonymisation module are described in detail in Fig. \ref{fig:architecture_anonymisation}.
-
+%
 \begin{figure}
   \centering
   \includegraphics[width=\linewidth]{img/architecture_anonymisation.png}
   \caption{Architecture – anonymisation module}
   \label{fig:architecture_anonymisation}
 \end{figure}
-
+%
 This module defines database entities for each individual anonymisation operation and links it with \mintinline{java}{ColumnOperations}. Example for the suppression method:
 
 \begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
@@ -2890,14 +2892,14 @@ class ColumnOperations {
 \subsection{Processing module}
 
 The internals of the processing module are described in detail in Fig. \ref{fig:architecture_processing}.
-
+%
 \begin{figure}
   \centering
   \includegraphics[width=\linewidth]{img/architecture_processing.png}
   \caption{Architecture – processing module}
   \label{fig:architecture_processing}
 \end{figure}
-
+%
 To provide an even greater detail of this module, an additional diagram is provided in Fig. \ref{fig:anonymisation_everything}. The implementation shown takes the advantage of a combination of design patterns including template method, facade and factory \cite{bib:gamma}.
 
 \begin{figure}
@@ -2921,9 +2923,9 @@ The scheduler module defines a set of cron job related task services as shown in
 \subsection{Infrastructure module}
 
 This module is different from the majority of other modules because it does not have controller or repository layer.
-
+%
 Infrastructure module is responsible for the configuration of security, swagger, web, asynchronous events, scheduling.
-
+%
 The configurations are declarative and simple, e.g.:
 \begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
 @Configuration
@@ -2934,14 +2936,14 @@ class AsyncEventsConfiguration {}
 \subsubsection{Services}
 
 Provided services include, e.g., a mail service shown in Fig. \ref{fig:mail_service}.
-
+%
 \begin{figure}
   \centering
   \includegraphics[width=0.6 \linewidth]{img/mail_service.png}
   \caption{Mail service diagram}
   \label{fig:mail_service}
 \end{figure}
-
+%
 Another exemplary service is a factory for processor executor which is responsible for executing commands from the Java code. The following is a simplified form of it:
 
 \begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
@@ -2972,18 +2974,18 @@ if (details.isRunningOnCloud()) {
 \subsection{Storage}
 
 The storage module is responsible for managing the files.
-
+%
 There is an implementation for storing the files on a local host. The implementation heavily relies on the template method design pattern \cite{bib:gamma} as shown in Fig. \ref{fig:storage_service}.
-
+%
 \begin{figure}
   \centering
   \includegraphics[width=\linewidth]{img/storage_service.png}
   \caption{Storage service -- template method example}
   \label{fig:storage_service}
 \end{figure}
-
+%
 The storage is configured with the docker volumes capabilities to decouple the files from the lifetime of the containers.
-
+%
 Other design patterns involved in the platform are facades to provide simpler interface to complex objects \cite{bib:gamma} or builder for querying the database.
 
 \section{Client in details}
