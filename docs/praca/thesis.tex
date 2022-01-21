@@ -3041,11 +3041,6 @@ export const NAVIGATION_ITEMS: NavigationItemDescription[] = [
 There are other configuration, e.g., the colours theme can be changed from just one place, or the minimum durations for the skeletons and spinners to show up for building up the user engagement.
 
 
-
-\chapter{Verification and validation}
-
-The researchers must remain unbiased to innovate with the research of a reliable value \cite{bib:objective_research} -- and likewise, the assessment of the designed software quality must be free of bias to be genuinely objective. The author believes there exists room for improvement. This chapter evaluates the methods applicable for ensuring the high quality of the system.
-
 \begin{itemize}
 \item testing paradigm (eg V model)
 \item test cases, testing scope (full / partial)
@@ -3059,8 +3054,182 @@ The researchers must remain unbiased to innovate with the research of a reliable
 \textbf{manual}
 \textbf{bugs}
 
+\chapter{Verification and validation}
+
+The researchers must remain unbiased to innovate with the research of a reliable value \cite{bib:objective_research} -- and likewise, the assessment of the designed software quality must be free of bias to be genuinely objective. This chapter evaluates the methods applicable for ensuring the high quality of the system.
+
+
+
+\section{Testing}
+
+The author believes there exists room for improvement as far as the unit tests and integration tests are concerned. To compensate for the problem of small quantity of the created tests -- mostly caused by the volume of the designed system -- other cutting-edge software practices must be introduced and demonstrated.
+
+\subsection{Server}
+
+\subsubsection{Testcontainers}
+The server takes the advantage of the Testcontainers library for containerizing the integration tests. Effectively, the tests can be ran in isolation from each other. This is the start-of-the-art library for running the integration tests (or even E2E tests as it is also supported).
+
+Thanks to the Docker capabilities, it is easy to bootstrap the PostgreSQL database for tests -- which is the same type of the database as the production database. Running the same type of the database for both tests and production yields the maximum reliability. A common poor practice among developers is to bootstrap tests with in-memory databases like H2. This is a poor practice for integration tests. The tests have diminished value if they are running on, e.g., H2 database, whereas the production is running on, e.g., PostgreSQL database. This may in the end produce false-negatives and false-positives. Such poor practices are avoided.
+
+The containers can be instantiated based on a test suite level, test case level, or other. The configuration is simple:
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
+@Testcontainers
+@ActiveProfiles("test")
+@SpringBootTest
+public class PostgreSQLSpecification {
+
+  @Container
+  public static PostgreSQLContainer<?> container = new PostgreSQLContainer<>("postgres")
+      .withUsername("postgres")
+      .withPassword("postgres")
+      .withDatabaseName("anonymisation_db");
+}
+\end{minted}
+
+The test classes need to extend this specification.
+
+\subsubsection{REST Assured}
+
+Another poor practice in the industry is to use \verb|MockMvc| or similar tool for integration tests. The reason why this is poor practice is that the integration tests must resemble the production environment, and mocked HTTP requests are what they are - a mock.
+
+For this reason, a library that offers sending real HTTP requests in the tests is configured. The library also allows functionalities for validating the HTTP responses.
+
+\subsubsection{User in tests}
+
+\verb|WebPostgreSQLSpecification| is created as the class that should be extended by the tests. This created specification allows the possibility to create a real admin user, verified user, unverified user or anonymous user in the test.
+
+This class is shown in its full size for reference:
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
+@ActiveProfiles("test")
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+public class WebPostgreSQLSpecification extends PostgreSQLSpecification {
+  @LocalServerPort
+  private int serverPort;
+
+  public RequestSpecification adminClient() {
+    return authenticatedClient(new AdminDetails());
+  }
+
+  public RequestSpecification verifiedUserClient() {
+    return authenticatedClient(new VerifiedUserDetails());
+  }
+
+  public RequestSpecification unverifiedUserClient() {
+    return authenticatedClient(new UnverifiedUserDetails());
+  }
+
+  public RequestSpecification authenticatedClient(AccountDetails details) {
+    String accessToken = authenticate(details);
+    return unauthenticatedClient()
+        .header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken);
+  }
+
+  public String authenticate(AccountDetails details) {
+    return unauthenticatedClient()
+        .port(serverPort)
+        .contentType(MediaType.APPLICATION_JSON.toString()).body(details)
+        .when()
+        .post("/auth/login")
+        .then()
+        .statusCode(200)
+        .extract()
+        .header("access_token");
+  }
+
+  public RequestSpecification unauthenticatedClient() {
+    return given()
+        .basePath("/api/v1")
+        .port(serverPort)
+        .accept(MediaType.APPLICATION_JSON.toString())
+        .contentType(MediaType.APPLICATION_JSON.toString());
+  }
+}
+\end{minted}
+
+Notice how the JWT access token is generated by forcing the user to login before sending the HTTP request under test. Given that there is no stubbing of any authorization related behaviour, the tests are rendered reliable.
+
+\subsubsection{Example}
+
+An exemplar integration tests taking the advantage of both of Testcontainers and REST Assured are shown:
+
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
+public class GetUsersIntegrationTest extends WebPostgreSQLSpecification {
+
+  @Test
+  public void getAllAsAdmin() {
+    adminClient()
+        .when()
+        .get("/users")
+        .then()
+        .statusCode(200)
+        .body("size()", equalTo(3));
+  }
+  @Test
+  public void getAllAsVerifiedUser() {
+    verifiedUserClient()
+        .when()
+        .get("/users")
+        .then()
+        .statusCode(403);
+
+  @Test
+  public void getAllAsUnverifiedUser() {
+    unverifiedUserClient()
+        .when()
+        .get("/users")
+        .then()
+        .statusCode(403);
+  }
+  @Test
+  public void getAllAsUnauthenticated() {
+    unauthenticatedClient()
+        .when()
+        .get("/users")
+        .then()
+        .statusCode(403);
+  }
+}
+\end{minted}
+
+The database was preloaded with 3 users. By comparing the response status codes, notice how it is possible to retrieve the users when trying to do as the admin. Different roles may not access the this REST API endpoint\footnote{Because \mintinline{java}{@PreAuthorize("hasAuthority('ADMIN')") protects the users resource.}} -- after all the business logic is that only admin has access to the users through users' panel.
+
+
+
+
+
+
+Naturally, the library supports databases or queues such as Redis, MongoDB, Cassandra or Apache Kafka -- which makes this a great choice as the future extension point.
+
+
+
+
+\subsection{Application}
+
+\subsection{Manual tests}
+
+\subsection{Portability}
+
+\subsection{Detected problems}
+
+\section{Code analysis}
  
- 
+\section{Security}
+
+\section{Continuous integration}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{img/ci_checks.png}
+  \caption{Continuous Integration – pull request checks}
+  \label{fig:use_cases_management}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{img/ci_badges.png}
+  \caption{Continuous Integration – rendered badges}
+  \label{fig:use_cases_management}
+\end{figure}
 
 \chapter{Conclusions}
 
