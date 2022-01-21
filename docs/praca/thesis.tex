@@ -2665,7 +2665,12 @@ The platform consists of three communicating containers, i.e., anonymisation ser
 The containers are decoupled from each other and do not necessarily require to be deployed on the same host machine and enable an independent maintenance of thereof, i.e., the client can be re-deployed without re-deploying the server. The same applies to the database re-deployment.
 
 \section{Server in details}
+
+The modules are supported by the detailed diagrams whenever necessary.
+
 \subsection{Users module}
+
+The internals of the users module are described in detail in Fig. \ref{fig:architecture_users}.
 
 \begin{figure}
   \centering
@@ -2676,7 +2681,7 @@ The containers are decoupled from each other and do not necessarily require to b
 
 \subsection{Uploading module}
 
-Processing
+The internals of the uploading module are described in detail in  Fig. \ref{fig:architecture_uploading}.
 
 \begin{figure}
   \centering
@@ -2687,7 +2692,7 @@ Processing
 
 \subsection{Anonymisation module}
 
-Processing
+The internals of the anonymisation module are described in detail in Fig. \ref{fig:architecture_anonymisation}.
 
 \begin{figure}
   \centering
@@ -2698,7 +2703,7 @@ Processing
 
 \subsection{Processing module}
 
-Processing
+The internals of the processing module are described in detail in Fig. \ref{fig:architecture_processing}.
 
 \begin{figure}
   \centering
@@ -2707,21 +2712,10 @@ Processing
   \label{fig:architecture_processing}
 \end{figure}
 
-\begin{itemize}
-\item description of data structures (and data bases)
-\item components, modules, libraries, resume of important classes (if used)
-\item resume of important algorithms (if used)
-\item details of implementation of selected parts
-\item applied design patterns
-\item UML diagrams
-\end{itemize}
-
-Use special environment for inline code, eg \lstinline|descriptor| or \lstinline|descriptor_gaussian|.
-
 
 \section{Client in details}
 
-
+The client internals are shown as the part of the diagram depicted in Fig. \ref{fig:architecture_platform}.
 
 \chapter{Verification and validation}
 
@@ -2747,7 +2741,7 @@ The researchers must remain unbiased to innovate with the research of a reliable
 
 Wyniki są b. zadow. bo soft może konkurować z innymi.
 
-
+Use special environment for inline code, eg \lstinline|descriptor| or \lstinline|descriptor_gaussian|.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
