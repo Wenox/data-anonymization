@@ -2569,13 +2569,28 @@ Zajmę się tym podrozdziałem po skończeniu pozostałych rozdziałów.
 
 This chapter summarizes the most significant internal implementation aspects of the engineered anonymisation platform. The concepts and architecture of the system are supported by diagrams that are rich in details. A total number of more than 400 source code files\footnote{The data as of January 21st, 2022.} somewhat describe the system's complexity hence it could not be a goal for this chapter to present all the -- often repetitive and not engaging -- technical details. Instead, the chapter attempts to focus on the quality of explanation and examples rather than repetitiveness.
 
-\section{System design}
+\section{Architecture analysis}
 
-Anonymisation platform implements a client-server architecture that was modernized through modularization and containerization.
+Anonymisation platform implements a client-server architecture that was modernized through modularization and containerization. The high-level overview of the system architecture is visible in Fig. \ref{fig:architecture_platform}.
 
-\subsection{Analysis of architecture -- server}
+\begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{img/architecture_platform.png}
+  \caption{Architecture – anonymisation platform overview}
+  \label{fig:architecture_platform}
+\end{figure}
+
+\subsection{Architecture -- server}
 
 The server had been designed in a modular manner since the very beginning of its implementation -- with the eventual distributed architecture preserved in mind. The server aims to separate the domain and infrastructure following the principles of clean architecture \cite{bib:clean_architecture}.
+
+\subsubsection{Microservices}
+
+The developers who design and develop a new software system and start right away with adopting the microservice-oriented distributed architecture may endanger their system with the risk of becoming the so-called \textit{distributed monolith} -- rather than the intended true distributed microservice system. The system is classified as a distributed monolith if the seemingly independent services cannot coexist independently -- therefore enforcing the deployment of all the services to make anything at all work.
+
+Instead, to mitigate this risk, it is thought it would be better to start with the adoption of \textit{modular monolith} architecture first \cite{bib:boiling_frogs_modularity}. As the services in this case are already divided into separate business concerns, future transition to distributed architecture is a natural consequence. The platform is designed in this modular fashion.
+
+Modularity is always the prerequisite for reusability, scalability, high availability, testability, or decent maintainability.
 
 \subsubsection{Modularity}
 
@@ -2617,7 +2632,7 @@ Although a particular module has the characteristics of a layered horizontal arc
 
 \subsubsection{Horizontal-vertical duality}
 
-Depending on the abstraction level, the system benefits from both of the horizontal and vertical ways to organise packages -- and hence responsibilities.
+The engineered software exhibits the horizontal-vertical duality\footnote{The paper introduces this name as the inspiration of wave-particle duality from quantum mechanics.} of its architecture concerning the packages organisation. Depending on the abstraction level, the system benefits from both of the horizontal and vertical ways to organise packages -- and hence responsibilities.
 
 On a high level, we have the business domain modules such as uploading, anonymisation or processing. On a lower technical level we have the controllers, services and repositories. Therefore this design combines the advantages of both architectural approaches depending on the level of abstraction.
 
@@ -2626,11 +2641,9 @@ On a high level, we have the business domain modules such as uploading, anonymis
 
 To meet the complex and versatile needs of anonymisation platform, the server needs to implement a wide range of services. Wherever possible, the existing well-tested and secure libraries are used to avoid re-inventing the wheel. Note that the actual implementations of interfaces do not follow the convention of putting \textit{-Impl} suffix to the class name -- this is considered a poor coding practice \cite{bib:clean_architecture}.
 
-\subsection{Analysis of architecture -- client}
+\subsection{Architecture -- client}
  
 The author believes that -- in terms of architecture -- complex software systems mostly evolve on the server-side. The client architecture is less likely to be changing. As the system grows, the complexity of the client architecture stays on the relatively unchanged level.
-
-\subsubsection{Modules}
 
 The client code was divided into:
 \begin{itemize}
@@ -2643,15 +2656,16 @@ The client code was divided into:
 \item \textbf{Utils} -- re-usable functions.
 \end{itemize}
 
+The client architecture is visualised in details as the part of the diagram in Fig. \ref{fig:architecture_platform} that shows the entire platform's architecture overview.
 
-\begin{figure}
-  \centering
-  \includegraphics[width=\linewidth]{img/architecture_platform.png}
-  \caption{Architecture – anonymisation platform overview}
-  \label{fig:architecture_platform}
-\end{figure}
+\subsection{Architecture -- containerization}
 
-\section{Users module}
+The platform consists of three communicating containers, i.e., anonymisation server, anonymisation client and PostgreSQL database.
+
+The containers are decoupled from each other and do not necessarily require to be deployed on the same host machine and enable an independent maintenance of thereof, i.e., the client can be re-deployed without re-deploying the server. The same applies to the database re-deployment.
+
+\section{Server in details}
+\subsection{Users module}
 
 \begin{figure}
   \centering
@@ -2660,7 +2674,7 @@ The client code was divided into:
   \label{fig:architecture_users}
 \end{figure}
 
-\section{Uploading module}
+\subsection{Uploading module}
 
 Processing
 
@@ -2671,7 +2685,7 @@ Processing
   \label{fig:architecture_uploading}
 \end{figure}
 
-\section{Anonymisation module}
+\subsection{Anonymisation module}
 
 Processing
 
@@ -2682,7 +2696,7 @@ Processing
   \label{fig:architecture_anonymisation}
 \end{figure}
 
-\section{Processing module}
+\subsection{Processing module}
 
 Processing
 
@@ -2703,6 +2717,10 @@ Processing
 \end{itemize}
 
 Use special environment for inline code, eg \lstinline|descriptor| or \lstinline|descriptor_gaussian|.
+
+
+\section{Client in details}
+
 
 
 \chapter{Verification and validation}
@@ -2759,8 +2777,6 @@ Wyniki są b. zadow. bo soft może konkurować z innymi.
 \begin{itemize}
 \item[DNA] deoxyribonucleic acid
 \end{itemize}
-
-
 
 
 \chapter*{List of additional files in~electronic submission (if applicable)}
