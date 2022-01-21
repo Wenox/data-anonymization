@@ -3287,42 +3287,87 @@ public class GetUsersIntegrationTest extends WebPostgreSQLSpecification {
 The database was preloaded with 3 users. By comparing the response status codes, notice how it is possible to retrieve the users when trying to do as the admin. Different roles may not access the this REST API endpoint\footnote{Because \mintinline{java}{@PreAuthorize("hasAuthority('ADMIN')") protects the users resource.}} -- after all the business logic is that only admin has access to the users through users' panel.
 
 
-
-
-
-
 Naturally, the library supports databases or queues such as Redis, MongoDB, Cassandra or Apache Kafka -- which makes this a great choice as the future extension point.
 
 
 
 
-\subsection{Application}
+\subsection{Client}
+
+
+Custom yarn commands were defined for the client application. Their responsibility is finding the problems by the measures of static code analysis and formatting the code. The commands are shown in Tab. \ref{id:tab:client_tests} with the first one being responsible for the static code analysis, the second one additionally attempts to fix the addressable problems, and the third and last one re-formats the code.
+
+\begin{table}%[h]
+\centering
+\caption{Client – code analysis tests.}
+\label{id:tab:client_tests}
+\begin{tabular}{ll}
+\toprule
+Custom command & Underlying command \\ \midrule
+yarn lint                          & \mintinline{sh}{eslint ./src --ext .js,.jsx,.ts,.tsx}           \\
+yarn fix                           & \mintinline{sh}{eslint --fix ./src --ext .js,.jsx,.ts,.tsx}  \\
+yarn format                        & \mintinline{sh}{prettier --write ./src/**}                  \\ \bottomrule                                 
+\end{tabular}
+\end{table}
 
 \subsection{Manual tests}
 
+Manual tests are the part of development life-cycle and were conducted, mostly on the frontend side.
+
 \subsection{Portability}
 
-\subsection{Detected problems}
+The containerization of the software makes the platform system-agnostic. A system that can run Docker can run the platform.
+
+As far as the hardware is concerned, no problems were detected on various hardware implementations including Apple M1.
 
 \section{Code analysis}
+
+Platform is scanned by the SonarQube static analysis tool. This is a great software, even for the enterprise-class level software, for finding the problems in code, including:
+\begin{itemize}
+\item code smells,
+\item vulnerabilities,
+\item security hotspots.
+\end{itemize}
+
+Separate instances were configured for the client and the server.
  
 \section{Security}
 
+Apart from finding the security problems by SonarQube, an additional CodeQL tool was configured to scan the platform.
+
 \section{Continuous integration}
+
+All the described tools were integrated into the Continuous Integration workflows in GitHub. The workflows trigger daily, upon commit to the master branch or upon pull request state update.
+
+Three workflows exist with slightly different but co-related purposes:
+\begin{itemize}
+\item security,
+\item testing,
+\item quality.
+\end{itemize}
+
+Individual CI run includes eight different checks. An exemplary CI run is visible in Fig. \ref{fig:ci_checks}. The results are also rendered to the main readme for an easy way to spot detected regressions, as visible in Fig. \ref{fig:ci_badges}. The badges may seem to be duplicates -- this is caused by the separation of the client checks and server checks.
 
 \begin{figure}
   \centering
-  \includegraphics[width=\linewidth]{img/ci_checks.png}
+  \includegraphics[width=0.6\linewidth]{img/ci_checks.png}
   \caption{Continuous Integration – pull request checks}
-  \label{fig:use_cases_management}
+  \label{fig:ci_checks}
 \end{figure}
 
 \begin{figure}
   \centering
   \includegraphics[width=\linewidth]{img/ci_badges.png}
   \caption{Continuous Integration – rendered badges}
-  \label{fig:use_cases_management}
+  \label{fig:ci_badges}
 \end{figure}
+
+\subsection{Detected problems}
+Various problems were detected as part of the development or testing. An example of a problem that was documented and fixed was described as an issue \verb|#38| in the GitHub repository and was related to the concurrent file upload problems.
+
+\section{Validation}
+
+As defined in the functional requirements, the validation in the anonymisation platform is complex and multi-level. It works in the client's forms, the data transfer objects in the controller layer, the services in the business layer, and when persisting the objects to the database.
 
 \chapter{Conclusions}
 
