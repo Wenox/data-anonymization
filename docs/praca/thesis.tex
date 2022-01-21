@@ -281,7 +281,7 @@ escapeinside={@*}{*@},%
 
 
 
-The information has become a stimulus for innovation in today's data-driven world. The volumes of produced digital data are at an unstoppable growth. The world constantly evolves as organizations derive new insights from the collected knowledge. With information becoming a valued resource, our privacy concerns substantially increase. Refined data protection methodologies must be implemented to comply with the newly adopted strict regulations. Anonymisation is the state-of-the-art method for privacy-preserving identity protection. The objective of this thesis is to engineer a cutting-edge anonymisation platform that will provide diversified data masking capabilities, including suppression, generalisation, perturbation, randomisation, hashing, shortening, and artificial data substitution. The broad variety of encompassed techniques renders the web platform a versatile anonymisation tool suiting the needs of businesses and researchers.
+The information has become a stimulus for innovation in today's data-driven world. The volumes of produced digital data are at an unstoppable growth. The world constantly evolves as organizations derive new insights from the collected knowledge. With information becoming a valued resource, our privacy concerns substantially increase. Refined data protection methodologies must be implemented to comply with the newly adopted strict regulations. Anonymisation is the state-of-the-art method for privacy-preserving identity protection. The objective of this thesis is to engineer a cutting-edge anonymisation platform that will provide diversified data masking capabilities, including suppression, generalisation, perturbation, randomisation, tokenisation, pattern masking, hashing, shortening, and artificial data substitution. The broad variety of encompassed techniques renders the web platform a versatile anonymisation tool suiting the needs of businesses and researchers.
 
 \paragraph{Keywords:} data anonymisation, privacy and data protection, GDPR compliance, platform as a web service
 
@@ -295,57 +295,34 @@ The information has become a stimulus for innovation in today's data-driven worl
 
 \chapter{Introduction}
 
-Technological advancement being observed in the past years fundamentally changed the relevance of data in today's digitalized world. Information became an innovation stimulus in the area of research and development. The quantity of data that organizations produce, process, store and share is at a continuous growth. An enormous amount of 1.8 zettabytes ($1.8 \cdot 10^{21}$ bytes) of new data was produced only in the 2011, and every two consecutive years this number is doubling \cite{bib:big_data_security}. After decades of observed technological advancement and innovation, the global internet traffic finally entered the zettabyte-era, as it had reached a magnitude of one zettabyte in 2016, and in the calender month being as early as September \cite{bib:cisco_blog}.
+Technological advancements being observed in the past years fundamentally changed the relevance of data in today's digitalized world. Information became an innovation stimulus in the area of research and development. The quantity of data that organizations produce, process, store, and share is at a continuous growth. An enormous amount of 1.8 zettabytes ($1.8 \cdot 10^{21}$ bytes) of new data was produced only in 2011, and every two consecutive years this number is doubling \cite{bib:big_data_security}. After decades of observed technological advancement and innovation, the global internet traffic finally entered the zettabyte era, as it had reached a magnitude of one zettabyte in 2016, and in the calendar month being as early as September \cite{bib:cisco_blog}.
 
-The vast quantities of processed information allowed for brand new research fields data science or big data analytics to form, which are used by organizations to derive new insights in a way that was previously impossible. Organizations collect and process the data to enhance the services they provide to the customers through statistical analysis or newly developed computer science processes including data mining and machine learning. The utility of delivered services is increased at a lower cost and improved efficiency through the insights extracted from the collected information about how the services are consumed \cite{bib:anonymization_pipeline}.
-
-
-\vfill
-
-\footnotesize
-\color{blue}
-Następne do zrobienia, w uproszczeniu i w podanej kolejności:
-\begin{itemize}
-\item Jak widać, dane są używane wszędzie. Przeciętna osoba sobie nawet nie zdaje sprawy.
-\item Istota prywatności danych, ochrona danych osobowych.
-\item Prawo wolno reaguje na uregulowanie ochrony danych osobowych: GDPR dopiero w 2018. Prawo różnie działa w różnych krajach.
-\item W czasach narastających danych, dane muszą być zanominizowane, bo...
-\item ...ale:
-\end{itemize}
-
-\normalsize
-\color{black}
-
-\footnotesize
-\color{blue}
-Wniosek: generyczny sposób anonimizacji - nie ma takiego.
-
-\begin{itemize}
-\item Mogą istnieć dobre algorytmy anonimizacji, ale są optymalale jedynie w określonych kontekstach
-
-\item \textbf{Cel pracy}: stworzenie generycznego rozwiązania do anonimizacji baz danych w dowolnej formie danych (nieważne co dane reprezentują).
-
-\item Kontroler danych zna swoje dane i sam dostosowuje optymalny sposób anonimizacji.
-
-\item Rozwiązanie może być dostarczone jako free-access (research), B2C lub nawet B2B.
-
-\item Zakres pracy, opis rozdziałów - na samym końcu, po zrobieniu innych rozdziałów.
-\normalsize
-
-\end{itemize}
-\color{black}
-\normalsize
+The vast quantities of processed information allowed for brand new research fields data science or big data analytics to form, which are used by organizations to derive new insights in a previously impossible way. Organizations collect and process the data to enhance the services they provide to the customers through statistical analysis or newly developed computer science processes including data mining and machine learning. The utility of delivered services is increased at a lower cost and improved efficiency through the insights extracted from the collected information about how the services are consumed \cite{bib:anonymization_pipeline}. Any modern organisation now processes digital information -- the government, academia, professional industries, Internet of Things, or businesses.
 
 
-\begin{itemize}
-\item introduction into the problem domain
-\item settling of the problem in the domain
-\item objective of the thesis 
-\item scope of the thesis
-\item short description of chapters
-\item clear description of contribution of the thesis's author – in case of more authors table with enumeration of contribution of authors
-\end{itemize}
+For some individuals, it appears obvious that the information flows everywhere, but most people do not give it a second thought, and the everywhere-processed information is becoming a more and more valued asset. In fact, the data is now a resource like any other -- and resources are to be exploited.
 
+
+The data breaches that we constantly observe \cite{bib:gdpr_handbook} are typically huge in their nature as they concern the world's largest organisations. Even hundreds of millions of users' data can be compromised in one data breach -- and consider the data breaches that we are not aware of. The origin usually involves a hacker gaining access, employees being tricked to unconsciously disclose it, or the software having critical vulnerabilities \footnote{Which was the case during the Facebook breach of 2018 that affected at least 50 million of users and involved exploiting the "View as" browsers functionality to steal the accounts.}.
+
+
+Nevertheless, the loudly commented data breaches are effective at raising the concerns of information privacy in society. The authorities react slowly when regulating the matter of privacy but eventually they regulate it. The regulation that was recently implemented was the General Data Protection Regulation and is already well recognised. It applies to organisations processing the data of European citizens and residents \cite{bib:gdpr_outside_eu}. The organisation itself does not necessarily have to be European to be obligated to comply with this regulation, hence making this a global matter.
+
+
+Software development craftsmanship is not a regulated profession yet -- but soon enough it might just be \cite{bib:we_rule_the_world}. We certainly are not yet being told how to write our modules and classes, however, we are now being told how to store the information and how to protect it with techniques like anonymisation. Perhaps the implementation of regulations protecting digital information is the introductory step towards the direction of formalizing our profession.
+
+
+The stricter regulations that we must now be compliant with safeguard data privacy by enforcing the usage of refined data protection methods to preserve privacy. Although anticipated, the relevance of data protection has suddenly and significantly increased. The needs for improved privacy-preserving methods arise with the increasing privacy requirements.
+
+Data anonymisation is the preferred way for achieving privacy in information as it is the most powerful data protection measure to render the data de-identified. At the same time, anonymisation is the cutting-edge method whose relevancy is only to be increased with the increasing privacy concerns. However, as every data and every context surrounding the data is unique, there is -- unfortunately -- no general method that needs to be performed to render the data anonymous. At least not unless we prune all the data. 
+
+Instead, an extensive context assessment needs to be conducted to establish the data masking techniques that need to be joined to achieve the anonymisation of the previously identifiable information. The context that must be evaluated includes at least answering the questions of \textit{"what is the data?"}, \textit{"who will use the data?"}, and \textit{"how will the data be used?"}. Only upon understanding this context the data controllers can start their preparation for anonymisation.
+
+The fundamental objective of this thesis is to design, implement and document an innovative solution that will meet the versatile needs of data controllers. The software should be enriched with a variety of data masking techniques to offer generic context-flexible anonymisation capabilities. The controllers should be able to customise the anonymisation in a way optimally fitting the exact business needs that they are aware of. For this reason, the diversified perturbative and non-perturbative data masking capabilities are engineered -- the techniques include suppression, generalisation, perturbation, randomisation, tokenisation, pattern masking, hashing, shortening, and artificial data substitution.
+
+These functionalities should be delivered as a modular and containerized web platform. The scope of the thesis also partially involves researching this modern civilization problem to understand the requirements and possibilities.
+
+This chapter lays the motivation for this problem. The second chapter goes into the details of analysing the root cause for the problem to exist. It examines the privacy significance and the regulations covering it. Moreover, the chapter investigates the details of anonymisation by analysing the available data masking techniques, the existing software, and finally establishes the foundation for the web platform. The third chapter makes assumptions about the system and its requirements. The chosen tools and development methodology are explained. The fourth allows the reader to understand how to interact with the platform on a high level. The fifth chapter dives into the vast details of the system architecture and internals. Chapter sixth concerns the quality assurance for the platform. The final chapter summarizes the achieved results and future expansions.
 
 
 \chapter{Problem analysis}
