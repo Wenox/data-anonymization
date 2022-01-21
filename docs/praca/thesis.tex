@@ -285,8 +285,6 @@ The information has become a stimulus for innovation in today's data-driven worl
 
 \paragraph{Keywords:} data anonymisation, privacy and data protection, GDPR compliance, platform as a web service
 
-\ksremark{Abstrakt i słowa kluczowe: OK}
-
 \cleardoublepage
 
 
@@ -1210,17 +1208,17 @@ With that being said, the designed software system is categorized and delivered 
 
 There should exist data transforming services that will offer the functionalities of the following techniques:
 \begin{itemize}
-\item suppression
-\item generalisation
-\item perturbation
-\item randomisation
-\item tokenisation
-\item random number replacement
-\item hashing
-\item column shuffle
-\item row shuffle
-\item shortening
-\item pattern masking
+\item suppression,
+\item generalisation,
+\item perturbation,
+\item randomisation,
+\item tokenisation,
+\item random number replacement,
+\item hashing,
+\item column shuffle,
+\item row shuffle,
+\item shortening,
+\item pattern masking.
 \end{itemize}
 
 There should be a validation standard established and enforced that will determine if a particular anonymisation technique is compatible with another technique. The techniques should be configurable.
@@ -1293,11 +1291,11 @@ The user should be able to start the generation of an outcome based on the works
 
 On a high level, the outcome generation should include the complex sequential steps of:
 \begin{itemize}
-\item creating a writeable mirror database of the read-only template database
-\item creating a new empty anonymisation script
-\item populating the anonymisation script based on the user-defined anonymisation setup
-\item executing the anonymisation script against the mirror database
-\item dumping the anonymised database to the compressed archive or script file
+\item creating a writeable mirror database of the read-only template database,
+\item creating a new empty anonymisation script,
+\item populating the anonymisation script based on the user-defined anonymisation setup,
+\item executing the anonymisation script against the mirror database,
+\item dumping the anonymised database to the compressed archive or script file.
 \end{itemize} 
 
 There should be an outcome database entity created with a status field. Each consecutive step should update this status. The total time it took to process an outcome should be measured.
@@ -1366,9 +1364,9 @@ A scenario in which a user changes his mind to delete his account needs to be su
 
 The revert action should be possible only if all three conditions are met:
 \begin{itemize}
-\item the link has not yet expired
-\item the admin did not explicitly force the account removal
-\item the account has not already been removed by the pruning service
+\item the link has not yet expired,
+\item the admin did not explicitly force the account removal,
+\item the account has not already been removed by the pruning service.
 \end{itemize}
 
 \subsubsection{Revert account removal expiration}
@@ -1410,9 +1408,9 @@ Discarding the access and refresh tokens permits user logout.
 
 The user should not have to login to his account when starting a new visit unless
 \begin{itemize}
-\item the refresh token has expired after e.g., 6 months of inactivity
-\item the user has cleared browser's cache
-\item the user is logging from a new device
+\item the refresh token has expired after e.g., 6 months of inactivity,
+\item the user has cleared browser's cache,
+\item the user is logging from a new device.
 \end{itemize}
 
 Restarting the anonymisation platform should not logout the user.
@@ -1449,8 +1447,8 @@ The system should collect timestamp data about various resources such as users o
 
 Exemplary dates concern:
 \begin{itemize}
-\item account registration, block, request for removal, removal
-\item template generation
+\item account registration, block, request for removal, removal,
+\item template generation.
 \end{itemize}
 
 \subsubsection{Requests data collection}
@@ -1485,12 +1483,12 @@ The system must validate the HTTP requests on the server to protect the system f
 
 Exemplary validation constraints could include checking for values that meet any of the following criteria:
 \begin{itemize}
-\item not null
-\item not blank
-\item not empty
-\item for integers – of a value in an allowed range
-\item for strings – of size in an allowed range
-\item non-standard such as e-mail
+\item not null,
+\item not blank,
+\item not empty,
+\item for integers – of a value in an allowed range,
+\item for strings – of size in an allowed range,
+\item non-standard such as e-mail.
 \end{itemize}
 
 \subsubsection{Maximum file size}
@@ -1503,33 +1501,33 @@ The server should perform numerous other advanced validations specific to indivi
 
 Exemplary infrastructure related cases should check if:
 \begin{itemize}
-\item the system is running in cloud environment
-\item an entity non compliant with the database schema is trying to be persisted
-\item database connection is established
+\item the system is running in cloud environment,
+\item an entity non compliant with the database schema is trying to be persisted,
+\item database connection is established.
 \end{itemize}
 
 Exemplary authorization related cases should check if:
 \begin{itemize}
-\item user is trying to access another user's resource
-\item user is unauthorized to access the resource due to lack of privileges
-\item long lasting refresh token has expired
+\item user is trying to access another user's resource,
+\item user is unauthorized to access the resource due to lack of privileges,
+\item long lasting refresh token has expired.
 \end{itemize}
 
 Exemplary domain related cases should check if:
 \begin{itemize}
-\item anonymisation operation is applicable the particular column
-\item column is a primary or foreign key
-\item a given task is manually executable
+\item anonymisation operation is applicable the particular column,
+\item column is a primary or foreign key,
+\item a given task is manually executable.
 \end{itemize}
 
 \subsubsection{Client tables settings}
 The tables presented used extensively by the client application should offer the functionalities of:
 
 \begin{itemize}
-\item pagination to a set page size
-\item filtering by attribute
-\item sorting by attribute
-\item hiding and showing of columns
+\item pagination to a set page size,
+\item filtering by attribute,
+\item sorting by attribute,
+\item hiding and showing of columns.
 \end{itemize}
 
 \subsubsection{File selector}
@@ -1577,11 +1575,11 @@ Software components of the system should be containerized. All services should b
 The designed system has to be runnable in multiple environments, i.e.:
 
 \begin{itemize}
-\item production
-\item development
-\item development with the \textit{server} profile enabled
-\item locally on the host with a database container
-\item fully locally on the host
+\item production,
+\item development,
+\item development with the \textit{server} profile enabled,
+\item locally on the host with a database container,
+\item fully locally on the host.
 \end{itemize}
 
 \subsubsection{Environment based configuration}
@@ -1605,10 +1603,10 @@ There should be a configuration for handling asynchronous events. The core funct
 There should be a functionality for defining schedulable task services. The services should rely on the cron expression-based triggers. Individual tasks should be runtime configurable in terms of their:
 
 \begin{itemize}
-\item cron expression
-\item whether the task is enabled for automated scheduling
-\item whether the task is enabled for manual execution
-\item displayed description in the panel
+\item cron expression,
+\item whether the task is enabled for automated scheduling,
+\item whether the task is enabled for manual execution,
+\item displayed description in the panel.
 \end{itemize}
 
 \subsubsection{Secrets}
@@ -1692,8 +1690,8 @@ The system must not use obsolete technologies or software engineering design tec
 
 The use cases were split into two distinct diagrams which group the related use cases concerning:
 \begin{itemize}
-\item management – shown in Fig. \ref{fig:use_cases_management}
-\item anonymisation – shown in Fig. \ref{fig:use_cases_anonymisation} 
+\item management – shown in Fig. \ref{fig:use_cases_management},
+\item anonymisation – shown in Fig. \ref{fig:use_cases_anonymisation}. 
 \end{itemize}
 
 \begin{figure}
@@ -1883,10 +1881,10 @@ Spring projects can be viewed together as a modular toolkit that addresses the c
 
 Spring driven software system may include the following Spring projects \cite{bib:spring_docs}:
 \begin{itemize}
-\item Spring Framework - the core supporting e.g., dependency injection and web applications
-\item Spring Boot – to achieve an easier setup of the Spring driven system
-\item Spring Data – to retrieve information from databases in a consistent, database-agnostic way
-\item Spring Security – to secure the application with authentication and authorization
+\item Spring Framework - the core supporting e.g., dependency injection and web applications.
+\item Spring Boot – to achieve an easier setup of the Spring driven system.
+\item Spring Data – to retrieve information from databases in a consistent, database-agnostic way.
+\item Spring Security – to secure the application with authentication and authorization.
 \end{itemize}
 
 Java-based systems typically employ Spring technologies, and so does the anonymisation server, which extensively uses all of the listed above projects. 
@@ -1982,9 +1980,9 @@ Independent authors create many external libraries to drive React with extended 
 
 Anonymisation client code extensively uses the following popular libraries:
 \begin{itemize}
-\item React Router – to handle the URL related concepts including routing, navigation and query parameters
-\item React Query – as an abstraction and improvement layer for fetching the data
-\item React Hook Form – to provide user input validation in the forms based on Yup defined rules
+\item React Router – to handle the URL related concepts including routing, navigation and query parameters.
+\item React Query – as an abstraction and improvement layer for fetching the data.
+\item React Hook Form – to provide user input validation in the forms based on Yup defined rules.
 \end{itemize}
 
 \subsubsection{Yup}
@@ -2005,9 +2003,9 @@ The development was driven by git like in the case of any software project that 
 
 There were three possible issue types:
 \begin{itemize}
-\item feature – describing a new functionality
-\item improvement – describing an upgrade to the existing functionality
-\item epic – describing a big user story that aggregates other issues \cite{bib:agile_essentials}
+\item \textbf{Feature} – describing a new functionality.
+\item \textbf{Improvement} – describing an upgrade to the existing functionality.
+\item \textbf{Epic} – describing a big user story that aggregates other issues. \cite{bib:agile_essentials}
 \end{itemize}
 
 Note that an improvement to the functionality that is still under development is considered a \textit{feature} and not an \textit{improvement}.
@@ -2055,15 +2053,15 @@ The software solution is designed to be runnable in multiple deployment environm
 
 As depicted in Fig. \ref{fig:img:environments} the available environments include:
 \begin{itemize}
-\item production \ksremark{tu i w innych listach: `,'}
-\item development \ksremark{`.'}
+\item production,
+\item development.
 \end{itemize}
 
 The environments are further divided into three available setup options, i.e.:
 \begin{itemize}
-\item cloud setup
-\item semi-cloud setup
-\item local setup
+\item cloud setup,
+\item semi-cloud setup,
+\item local setup.
 \end{itemize}
 
 \begin{figure}[H]
@@ -2096,9 +2094,9 @@ If successful the application should be accessible at \verb|http://localhost:300
 
 The setup is customized from:
 \begin{itemize}
-\item \verb|prod/.env|
-\item \verb|application.yml|
-\item \verb|application-prod.yml|
+\item \verb|prod/.env|,
+\item \verb|application.yml|,
+\item \verb|application-prod.yml|.
 \end{itemize}
 
 
@@ -2116,9 +2114,9 @@ The semi-cloud setup requires an additional installation of the PostgreSQL \text
 
 The setup is customized from:
 \begin{itemize}
-\item \verb|dev/.env|
-\item \verb|application.yml|
-\item \verb|application-dev.yml|
+\item \verb|dev/.env|,
+\item \verb|application.yml|,
+\item \verb|application-dev.yml|.
 \end{itemize}
 
 Verify if the required software is installed:
@@ -2162,10 +2160,7 @@ yarn start
 
 While the preferred setup for development is the semi-cloud, the local on-premise setup is the preferred option if the Docker is not installed.
 
-The setup is customized from:
-\begin{itemize}
-\item \verb|application.yml|
-\end{itemize}
+The setup is customized from \verb|application.yml|.
 
 \subsubsection{Prerequisites}
 
@@ -2219,10 +2214,10 @@ core:
 
 Four types of users can interact with the system:
 \begin{itemize}
-\item admin user
-\item verified user
-\item unverified user
-\item anonymous user
+\item admin user,
+\item verified user,
+\item unverified user,
+\item anonymous user.
 \end{itemize}
 
 It is very important to note that while the admin user can manage other users' accounts, he is not authorized to access the users' confidential data such as anonymisation scripts. The admin user who may be a non-technical business person should not be confused with the system administrator.
@@ -2530,11 +2525,11 @@ The expression from the example is triggered daily and an easier form of \verb|@
 
 The available paramaters include:
 \begin{itemize}
-\item \verb|scheduled| -- controls if the given scheduler is periodically launched
-\item \verb|executable| -- controls if the given scheduler is manually executable from the tasks panel
+\item \verb|scheduled| -- controls if the given scheduler is periodically launched.
+\item \verb|executable| -- controls if the given scheduler is manually executable from the tasks panel.
 \item \verb|cron| -- the trigger expression. 
-\item \verb|description| -- the description for the tasks panel to identify the scheduler
-\item \verb|notifyAfterTimeInseconds| -- this particular parameter is specific to the scheduler and specifies a way of how long the user needs to be inactive to receive a notification e-mail with a prompt to login
+\item \verb|description| -- the description for the tasks panel to identify the scheduler.
+\item \verb|notifyAfterTimeInseconds| -- this particular parameter is specific to the scheduler and specifies a way of how long the user needs to be inactive to receive a notification e-mail with a prompt to login.
 \end{itemize}
 
 \section{Security issues}
@@ -2556,8 +2551,6 @@ The authentication and the authorization is implemented using JWT access tokens.
 \subsection{Validation}
 The application pays special attention to the validation which is performed on the client's side and the server's side in a multi-level fashion. Taking the proper validation measures prevents the potentially devastating effects of putting the application in a breaking, unsupported state.
 
-
-\ksremark{Rozdział \ref{ch:external-specification} jest OK.}
 
 \section{Working scenarios}
 
@@ -3133,7 +3126,6 @@ Additional files uploaded to the system include:
 \begin{itemize}
 \item source code of the application,
 \item test data,
-\item a video file showing how software or hardware developed for thesis is used,
 \item etc.
 \end{itemize}
  
