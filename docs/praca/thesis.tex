@@ -2001,7 +2001,7 @@ Axios is an asynchronous HTTP client used for sending requests to the anonymisat
 
 \section{Development methodology}
 
-The development was driven by git like in the case of any software project that is of non-trivial size. A total number of 6XX \textbf{todo} commits\footnote{The data as of 21st January, 2022.} were pushed to the master branch. Conventional Commits specification was followed in a simplified way. The branches were deleted following the merge.
+The development was driven by git like in the case of any software project that is of non-trivial size. A total number of 6XX \textbf{todo} commits\footnote{The data as of January 21st, 2022.} were pushed to the master branch. Conventional Commits specification was followed in a simplified way. The branches were deleted following the merge.
 
 There were three possible issue types:
 \begin{itemize}
@@ -2245,7 +2245,7 @@ The unverified user should activate his account by verifying the e-mail address 
 
 \subsection{Verified user}
 
-A sequential scenario for anonymising the database uploaded by the verified user involves generating the template by uploading the database dump, producing the worksheet from it, building up the anonymisation request through adding individual anonymisation operations to the selected attributes, and finally generating the outcome.
+A sequential scenario for anonymising the database uploaded by the verified user involves generating the template by uploading the database dump, producing the worksheet from it, building up the anonymisation request by adding individual anonymisation operations to the selected attributes, and finally generating the outcome.
 
 To offer maximum flexibility for the users trying to anonymise their data, the user can produce multiple worksheets from one template and can also generate multiple outcomes from one worksheet. This allows the user to produce several de-identified dumps and compare them for the best-expected results that meet the established business needs.
 
@@ -2567,7 +2567,7 @@ Zajmę się tym podrozdziałem po skończeniu pozostałych rozdziałów.
 
 \chapter{Internal specification}
 
-This chapter summarizes the most significant internal implementation aspects of the engineered anonymisation platform. The concepts and architecture of the system are supported by diagrams that are rich in details. A total number of more than 400 source code files\footnote{The data as of 21st January, 2022.} somewhat describe the system's complexity hence it could not be a goal for this chapter to present all the -- often repetitive and not engaging -- technical details. Instead, the chapter attempts to focus on the quality of explanation and examples rather than repetitiveness.
+This chapter summarizes the most significant internal implementation aspects of the engineered anonymisation platform. The concepts and architecture of the system are supported by diagrams that are rich in details. A total number of more than 400 source code files\footnote{The data as of January 21st, 2022.} somewhat describe the system's complexity hence it could not be a goal for this chapter to present all the -- often repetitive and not engaging -- technical details. Instead, the chapter attempts to focus on the quality of explanation and examples rather than repetitiveness.
 
 \section{System design}
 
@@ -2593,7 +2593,7 @@ The available modules are:
 
 \end{itemize}
 
-The modularization helps enforcing the single responsibility principle of SOLID easily \cite{bib:clean_code} -- after all the only reason for, e.g., the uploading module to change is to alter the template generation behaviour.
+The modularization eases the enforcement of the single responsibility principle of SOLID \cite{bib:clean_code} -- after all the only reason for, e.g., the uploading module to change is to alter the template generation behaviour.
 
 \subsubsection{Horizontal architecture}
 
@@ -2601,31 +2601,47 @@ The individual modules follow the approach of the horizontal architecture design
 
 The packages that are typically adopted as the layers are the three:
 \begin{itemize}
-\item \textbf{Controller}\footnote{The other synonyms recognised in the industry are \textit{ui}, \textit{presentation}, and \textit{resource}.} -- define the REST API endpoints\footnote{Although starting to become obsolete, controllers often perform the so-called server-side rendering which is a fancy name for returning the view that should be rendered to the clients.} that work as the application's entry points for the external clients.
-\item \textbf{Service}\footnote{commonly known as the domain} -- define the domain functionalities of the application. In a non-trivial application, which this engineered solution is, activating one controller may activate dozens of services.
+\item \textbf{Controller}\footnote{The other synonyms recognised in the industry are \textit{ui}, \textit{presentation}, and \textit{resource}.} -- define the REST API endpoints\footnote{Although starting to become obsolete, controllers often perform the so-called server-side rendering which is a fancy name for returning the view that should be displayed to the clients.} that work as the application's entry points for the external clients.
+\item \textbf{Service}\footnote{Commonly referred to as the domain.} -- define the domain functionalities of the application. In a non-trivial application, which this engineered solution is, activating one controller may activate dozens of services.
 \item \textbf{Repository} -- the layer responsible for data access, i.e., persistence.
 \end{itemize}
 
-Other packages may include e.g., the mappers for data transfer objects or domain objects.
+Other packages may include, e.g., the domain objects or mappers for data transfer objects.
 
-Given the fact that the names of the packages are fixed, the code is decoupled from the underlying technical purpose. An individual layer is dependent only on the adjacent layers -- for example controller layer must not be dependent on the persistence layer, meaning that the persistence layer is not aware of the controllers and vice versa.
+Given the fact that the names of the packages are fixed, the code is decoupled from the underlying technical purpose. An individual layer is dependent only on the adjacent layers -- for example controller layer must not be dependent on the persistence layer, meaning that the persistence layer is not aware of the controllers existence, and vice versa.
 
 
 \subsubsection{Vertical architecture}
 
-Although a particular module has the characteristics of a layered horizontal architecture, the server divided into seven distinct modules start to have the characteristics of a vertical architecture \cite{bib:clean_architecture} where the related domain concepts are encapsulated within one package, i.e., package-by-feature. The top-level modules now tell.
+Although a particular module has the characteristics of a layered horizontal architecture, the server being divided into seven distinct modules also exhibits the characteristics of a vertical architecture \cite{bib:clean_architecture} where the related domain concepts are encapsulated within one package, i.e., package-by-feature. Rather than using the fixed technical package names, the top-level modules are now able to explain their business domain purpose simply by their names, e.g., it can be expected from the anonymisation module to be responsible for thereof.
+
+\subsubsection{Horizontal-vertical duality}
+
+Depending on the abstraction level, the system benefits from both of the horizontal and vertical ways to organise packages -- and hence responsibilities.
+
+On a high level, we have the business domain modules such as uploading, anonymisation or processing. On a lower technical level we have the controllers, services and repositories. Therefore this design combines the advantages of both architectural approaches depending on the level of abstraction.
 
 
+\subsubsection{Implementation context}
 
-Therefore this design combines the benefits of both architectural approaches.
-
-
-
-\subsubsection{Summary}
-
-To meet the complex and versatile needs of anonymisation platform, the server needs to implement a wide range of services. Wherever possible, the existing well-tested and secure libraries are used. Note that the actual implementations of interfaces do not follow the convention of putting \textit{-Impl} suffix to the class name -- this is considered a bad coding practice \cite{bib:clean_architecture}.
+To meet the complex and versatile needs of anonymisation platform, the server needs to implement a wide range of services. Wherever possible, the existing well-tested and secure libraries are used to avoid re-inventing the wheel. Note that the actual implementations of interfaces do not follow the convention of putting \textit{-Impl} suffix to the class name -- this is considered a poor coding practice \cite{bib:clean_architecture}.
 
 \subsection{Analysis of architecture -- client}
+ 
+The author believes that -- in terms of architecture -- complex software systems mostly evolve on the server-side. The client architecture is less likely to be changing. As the system grows, the complexity of the client architecture stays on the relatively unchanged level.
+
+\subsubsection{Modules}
+
+The client code was divided into:
+\begin{itemize}
+\item \textbf{Api} -- communication layer with the server -- the collection of available RESTful endpoints ready to be requested through axios HTTP client,
+\item \textbf{Pages} -- presentation layer -- renders the view pages,
+\item \textbf{Components} -- re-usable code for the pages such as dialogs or inputs, 
+\item \textbf{Constants} -- client's editable configuration,
+\item \textbf{Styling} -- drives the client's appearence,
+\item \textbf{Context} -- encapsulates authentication context, i.e., currently logged in user,
+\item \textbf{Utils} -- re-usable functions.
+\end{itemize}
 
 
 \begin{figure}
@@ -2699,6 +2715,7 @@ The researchers must remain unbiased to innovate with the research of a reliable
 \item detected and fixed bugs
 \item results of experiments (optional)
 \end{itemize}
+% Any objective assessment of the client code will show that the code is heavily yet easily refactorable.
 \textbf{Portability tests}
 \textbf{testcontainers, rest assured, junit, mockito, extendable}
 \textbf{CI working}
