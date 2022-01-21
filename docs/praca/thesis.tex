@@ -121,17 +121,6 @@ escapeinside={@*}{*@},%
 \usepackage{color}
 \definecolor{brickred}      {cmyk}{0   , 0.89, 0.94, 0.28}
 
-\makeatletter \newcommand \kslistofremarks{\section*{Remarks} \@starttoc{rks}}
-  \newcommand\l@uwagas[2]
-    {\par\noindent \textbf{#2:} %\parbox{10cm}
-{#1}\par} \makeatother
-
-
-\newcommand{\ksremark}[1]{%
-{%\marginpar{\textdbend}
-{\color{brickred}{[#1]}}}%
-\addcontentsline{rks}{uwagas}{\protect{#1}}%
-}
 
 %%%%%%%%%%%%%% END OF TODO LIST GENERATOR %%%%%%%%%%% 
 
@@ -200,7 +189,6 @@ escapeinside={@*}{*@},%
 
 
 \begin{document}
-\kslistofremarks
 \cleardoublepage
 	
 %%%%%%%%%%%%%%%%%%  Title page %%%%%%%%%%%%%%%%%%% 
@@ -3357,9 +3345,17 @@ As defined in the functional requirements, the validation in the anonymisation p
 
 \chapter{Conclusions}
 
-Wyniki są b. zadow. bo soft może konkurować z innymi.
+The fundamental objective of this thesis was to design, implement and document an innovative solution that will meet the versatile needs of the data controllers. These requirements have been successfully met as the software allows configuring the anonymisation request in a generic, context-agnostic way. 
 
-Use special environment for inline code, eg \lstinline|descriptor| or \lstinline|descriptor_gaussian|.
+A containerized and modular platform solution was engineered as the result of the design and development. The data controllers can use this platform to meet the requirements specific to their business or research context.
+
+To engineer the requirements that would properly suit the stated problem of this thesis, it had been necessary to first build a comprehensive understanding in the domain of anonymisation and privacy, hence an extensive study of the available privacy-preserving techniques, data protection, data security, regulations, and information privacy needed to be conducted. This was the primary challenge of this thesis given the fact that anonymisation is a newly emerging problem in the world of today.
+
+Nearly all of the functional requirements have been met which is backed up by the total number of 166 closed distinct GitHub issues.
+
+Even though the results are lined up with the expectations, there are improvements to be made. Fortunately, the system allows multiple extension points for the future thanks to the chosen architecture, implementation style, and prepared state-of-the-art testing infrastructure. Designing the server architecture in a modular way for the future migration to the microservice-oriented distributed architecture. Another possibility is to increase the variety of supported database column types, adding support for another database such as MySQL or designing functionality that would anonymise the primary and foreign keys for completeness. Fortunately, the architecture follows the principle of clean code and is split into numerous interfaces and facades -- enabling new possibilities to emerge.
+
+The author believes that the relevancy of privacy-preserving techniques will continue to increase in the upcoming years and decades, as the collected data volumes also increase. Information privacy and data protection will eventually be viewed as a civilization problem. New privacy regulations are yet to come. The increasing concerns for privacy in the digitalised world are valid and must not be ignored.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
