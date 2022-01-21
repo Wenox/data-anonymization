@@ -2001,7 +2001,7 @@ Axios is an asynchronous HTTP client used for sending requests to the anonymisat
 
 \section{Development methodology}
 
-The development was driven by git like in the case of any software project that is of non-trivial size. A total number of 6XX \textbf{todo} commits\footnote{the data as of 21.01.2022} were pushed to the master branch. Conventional Commits specification was followed in a simplified way. The branches were deleted following the merge.
+The development was driven by git like in the case of any software project that is of non-trivial size. A total number of 6XX \textbf{todo} commits\footnote{The data as of 21st January, 2022.} were pushed to the master branch. Conventional Commits specification was followed in a simplified way. The branches were deleted following the merge.
 
 There were three possible issue types:
 \begin{itemize}
@@ -2567,11 +2567,66 @@ Zajmę się tym podrozdziałem po skończeniu pozostałych rozdziałów.
 
 \chapter{Internal specification}
 
-\begin{itemize}
-\item concept of the system
-\item system architecture
+This chapter summarizes the most significant internal implementation's aspects of the engineered anonymisation platform. The concepts and architecture of the system are supported by the diagrams that are rich in details. A total number of more than 400 source code files\footnote{The data as of 21st January, 2022.} somewhat describe the system's complexity hence it was not a goal for this chapter to present all the -- often repetitive or not engaging -- technical details. This chapter attempts to focus on the quality of explanation rather than the repetitiveness.
 
-\section{Architecture overview}
+\section{System design}
+
+Anonymisation platform implements a client-server architecture that was modernized through modularization and containerization.
+
+\subsection{Analysis of architecture -- server}
+
+The backend server had been designed in a modular manner since the very beginning of its implementation -- with the eventual distributed architecture preserved in mind. The server aims to separate the domain and infrastructure following the principles of clean architecture \cite{bib:clean_architecture}.
+
+\subsubsection{Modularity}
+
+There are seven modules in the server -- which are to a high extent decoupled from each other hence allowing the \textit{separation of concerns} which is one of the most relevant development technique \cite{bib:clean_code}.
+
+The available modules are:
+\begin{itemize}
+\item \textbf{Uploading} -- responsible for template management, i.e., persisting the user provided dump, restoring the database from it and extracting the metadata.
+\item \textbf{Anonymisation} -- responsible for worksheet management, i.e., building up the anonymisation request through adding the anonymisation operations to the individual columns of the worksheet produced by the template.
+\item \textbf{Processing} -- responsible for outcome generation, i.e., the processing of the anonymisation request built by the user. The outcome generation includes creating a mirror database, creating and populating anonymisation script, executing the anonymisation script on the mirror database, and finally dumping and persisting the anonymised database as the result outcome.
+\item \textbf{Users} -- responsible for the functionalities related to the users management including technical details like user's authentication.
+\item \textbf{Scheduler} -- responsible for the scheduling and execution of the administration tasks.
+\item \textbf{Storage} -- responsible for storing the variety of available types of files created throughout the platform's use-cases.
+\item \textbf{Infrastructure} -- responsible for providing other domain-agnostic services such as the server configurations, security, mail service, processor executor, and a number of other database-related functionalities.
+
+\end{itemize}
+
+The modularization helps enforcing the single responsibility principle of SOLID easily \cite{bib:clean_code} -- after all the only reason for, e.g., the uploading module to change is to alter the template generation behaviour.
+
+\subsubsection{Horizontal architecture}
+
+The individual modules follow the approach of the horizontal architecture design, i.e., the modules are implemented in a package-by-layer way. It is commonly agreed to be the simplest design in the enterprise-class software development \cite{bib:fowler}.
+
+The packages that are typically adopted as the layers are the three:
+\begin{itemize}
+\item \textbf{Controller}\footnote{The other synonyms recognised in the industry are \textit{ui}, \textit{presentation}, and \textit{resource}.} -- define the REST API endpoints\footnote{Although starting to become obsolete, controllers often perform the so-called server-side rendering which is a fancy name for returning the view that should be rendered to the clients.} that work as the application's entry points for the external clients.
+\item \textbf{Service}\footnote{commonly known as the domain} -- define the domain functionalities of the application. In a non-trivial application, which this engineered solution is, activating one controller may activate dozens of services.
+\item \textbf{Repository} -- the layer responsible for data access, i.e., persistence.
+\end{itemize}
+
+Other packages may include e.g., the mappers for data transfer objects or domain objects.
+
+Given the fact that the names of the packages are fixed, the code is decoupled from the underlying technical purpose. An individual layer is dependent only on the adjacent layers -- for example controller layer must not be dependent on the persistence layer, meaning that the persistence layer is not aware of the controllers and vice versa.
+
+
+\subsubsection{Vertical architecture}
+
+Although a particular module has the characteristics of a layered horizontal architecture, the server divided into seven distinct modules start to have the characteristics of a vertical architecture \cite{bib:clean_architecture} where the related domain concepts are encapsulated within one package, i.e., package-by-feature. The top-level modules now tell.
+
+
+
+Therefore this design combines the benefits of both architectural approaches.
+
+
+
+\subsubsection{Summary}
+
+To meet the complex and versatile needs of anonymisation platform, the server needs to implement a wide range of services. Wherever possible, the existing well-tested and secure libraries are used. Note that the actual implementations of interfaces do not follow the convention of putting \textit{-Impl} suffix to the class name -- this is considered a bad coding practice \cite{bib:clean_architecture}.
+
+\subsection{Analysis of architecture -- client}
+
 
 \begin{figure}
   \centering
@@ -2589,7 +2644,7 @@ Zajmę się tym podrozdziałem po skończeniu pozostałych rozdziałów.
   \label{fig:architecture_users}
 \end{figure}
 
-\subsection{Uploading module}
+\section{Uploading module}
 
 Processing
 
@@ -2600,7 +2655,7 @@ Processing
   \label{fig:architecture_uploading}
 \end{figure}
 
-\section{Uploading}
+\section{Anonymisation module}
 
 Processing
 
@@ -2611,7 +2666,7 @@ Processing
   \label{fig:architecture_anonymisation}
 \end{figure}
 
-\subsection{Processing module}
+\section{Processing module}
 
 Processing
 
@@ -2622,6 +2677,7 @@ Processing
   \label{fig:architecture_processing}
 \end{figure}
 
+\begin{itemize}
 \item description of data structures (and data bases)
 \item components, modules, libraries, resume of important classes (if used)
 \item resume of important algorithms (if used)
