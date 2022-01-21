@@ -3145,12 +3145,15 @@ The author believes there exists room for improvement as far as the unit tests a
 
 \subsection{Server}
 
-\subsubsection{Testcontainers}
+\subsubsection{Testcontainers library}
 The server takes the advantage of the Testcontainers library for containerizing the integration tests. Effectively, the tests can be run in isolation from each other. This is the start-of-the-art library for running the integration tests (or even E2E tests as it is also supported).
 
 Thanks to the Docker capabilities, it is easy to bootstrap the PostgreSQL database for tests -- which is the same type of database as the production database. Running the same type of database for both tests and production yields maximum reliability. A common poor practice among developers is to bootstrap tests with in-memory databases like H2. This is a poor practice for integration tests. The tests have diminished value if they are running on, e.g., H2 database, whereas the production is running on, e.g., PostgreSQL database. This may in the end produce false negatives and false positives. Such poor practices are avoided.
 
 The containers can be instantiated based on a test suite level, test case level, or other. The configuration is simple:
+% Musi być wolna linia, bo minted zaburza odległości linii w akapicie.
+
+
 \begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
 @Testcontainers
 @ActiveProfiles("test")
@@ -3169,7 +3172,7 @@ The test classes need to extend this specification.
 
 \subsubsection{REST Assured}
 
-Another poor practice in the industry is to use \verb|MockMvc| or a similar tool for integration tests. The reason why this is poor practice is that the integration tests must resemble the production environment, and mocked HTTP requests are what they are - a mock.
+Another poor practice in the industry is to use \verb|MockMvc| or a similar tool for integration tests. The reason why this is poor practice is that the integration tests must resemble the production environment, and mocked HTTP requests are what they are -- a mock.
 
 For this reason, a library that offers to send real HTTP requests in the tests is configured. The library also allows functionalities for validating the HTTP responses.
 
@@ -3288,11 +3291,13 @@ Custom yarn commands were defined for the client application. Their responsibili
 \caption{Client – code analysis tests.}
 \label{id:tab:client_tests}
 \begin{tabular}{ll}
-\toprule
-Custom command & Underlying command \\ \midrule
-yarn lint                          & \mintinline{sh}{eslint ./src --ext .js,.jsx,.ts,.tsx}           \\
-yarn fix                           & \mintinline{sh}{eslint --fix ./src --ext .js,.jsx,.ts,.tsx}  \\
-yarn format                        & \mintinline{sh}{prettier --write ./src/**}                  \\ \bottomrule                                 
+	\toprule
+	Custom command               & Underlying command                                          \\
+	\midrule
+	\mintinline{sh}{yarn lint}   & \mintinline{sh}{eslint ./src --ext .js,.jsx,.ts,.tsx}       \\
+	\mintinline{sh}{yarn fix}    & \mintinline{sh}{eslint --fix ./src --ext .js,.jsx,.ts,.tsx} \\
+	\mintinline{sh}{yarn format} & \mintinline{sh}{prettier --write ./src/**}                  \\
+	\bottomrule
 \end{tabular}
 \end{table}
 
@@ -3308,7 +3313,7 @@ As far as the hardware is concerned, no problems were detected on various hardwa
 
 \section{Code analysis}
 
-The platform is scanned by the SonarQube static analysis tool. This is great software, even for the enterprise-class level software, for finding the problems in code, including:
+The platform is scanned by the SonarQube static analysis tool \ksremark{odnośnik}. This is great software, even for the enterprise-class level software, for finding the problems in code, including:
 \begin{itemize}
 \item code smells,
 \item vulnerabilities,
@@ -3323,7 +3328,7 @@ Apart from finding the security problems by SonarQube, an additional CodeQL tool
 
 \section{Continuous integration}
 
-All the described tools were integrated into the Continuous Integration workflows in GitHub. The workflows trigger daily, upon commit to the master branch, or upon pull request state update.
+All the described tools were integrated into the Continuous Integration (CI) workflows in GitHub. The workflows trigger daily, upon commit to the master branch, or upon pull request state update.
 
 Three workflows exist with slightly different but co-related purposes:
 \begin{itemize}
@@ -3353,7 +3358,8 @@ Various problems were detected as part of the development or testing. An example
 
 \section{Validation}
 
-As defined in the functional requirements, the validation in the anonymisation platform is complex and multi-level. It works in the client's forms, the data transfer objects in the controller layer, the services in the business layer, and when persisting the objects to the database.
+As defined in the functional requirements, the validation in the anonymisation platform is complex and multi-level. It works in the client's forms, the data transfer objects in the controller layer, the services in the business layer, and when persisting the objects to the database. 
+\ksremark{To jest bardzo skrótowe.}
 
 \chapter{Conclusions}
 
