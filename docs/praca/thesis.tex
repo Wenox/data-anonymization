@@ -2666,11 +2666,11 @@ The containers are decoupled from each other and do not necessarily require to b
 
 \section{Server in details}
 
-The modules are supported by the detailed diagrams whenever necessary.
+The modules are supported by the detailed diagrams whenever appropriate.
 
 \subsection{Platform development concepts}
 
-A brief introduction to the concepts behind the platform's code -- that is mostly based on the Spring Framework -- needs to be introduced as the knowledge basis.
+A brief introduction to the concepts behind the platform's code -- that is mostly based on the Spring Framework -- needs to be introduced as the knowledge basis for the extensive code-base.
 
 \subsubsection{Controller layer and dependency injection}
 
@@ -2846,6 +2846,15 @@ The internals of the uploading module are described in detail in  Fig. \ref{fig:
   \label{fig:architecture_uploading}
 \end{figure}
 
+
+There are two possible restore modes for the dumps provided by the user:
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
+public enum RestoreMode {
+  SCRIPT,
+  ARCHIVE
+}
+\end{minted}
+
 \subsection{Anonymisation module}
 
 The internals of the anonymisation module are described in detail in Fig. \ref{fig:architecture_anonymisation}.
@@ -2856,6 +2865,47 @@ The internals of the anonymisation module are described in detail in Fig. \ref{f
   \caption{Architecture – anonymisation module}
   \label{fig:architecture_anonymisation}
 \end{figure}
+
+This module defines database entities for each individual anonymisation operation and links it with \mintinline{java}{ColumnOperations}. Example for the suppression method:
+
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
+@Entity
+@Table(name = "suppressions")
+public class Suppression {
+
+  @OneToOne(mappedBy = "suppression")
+  ColumnOperations columnOperations;
+
+  private String suppressionToken;
+}
+\end{minted}
+
+\verb|ColumnOperations| is an aggregate of the configured operations for the given uniquely identifiable column. \newline
+
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
+@Entity
+@Table(name = "column_operations")
+public class ColumnOperations {
+
+  private String tableName;
+  private String columnName;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  private Worksheet worksheet;
+
+  @OneToOne private Suppression suppression;
+  @OneToOne private ColumnShuffle columnShuffle;
+  @OneToOne private RowShuffle rowShuffle;
+  @OneToOne private PatternMasking patternMasking;
+  @OneToOne private Shortening shortening;
+  @OneToOne private Generalisation generalisation;
+  @OneToOne private Perturbation perturbation;
+  @OneToOne private RandomNumber randomNumber;
+  @OneToOne private Tokenization tokenization;
+  @OneToOne private Hashing hashing;
+  @OneToOne private Substitution substitution;
+}
+\end{minted}
 
 \subsection{Processing module}
 
@@ -2868,6 +2918,85 @@ The internals of the processing module are described in detail in Fig. \ref{fig:
   \label{fig:architecture_processing}
 \end{figure}
 
+\subsection{Scheduler module}
+
+The scheduler module defines a set of cron job related task services as shown in Fig. \ref{fig:scheduler_service}.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{img/cron_service.png}
+  \caption{Scheduler module internals}
+  \label{fig:scheduler_service}
+\end{figure}
+
+\subsection{Infrastructure module}
+
+This module is different from the majority of other modules because it does not have controller or repository layer.
+
+Infrastructure module is responsible for the configuration of security, swagger, web, asynchronous events, scheduling.
+
+The configurations are mostly declarative and require at least \mint{java}{@Configuration} annotation, e.g.:
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
+@Configuration
+@EnableAsync
+public class AsyncEventsConfiguration {
+}
+\end{minted}
+
+\subsubsection{Services}
+
+Provided services include, e.g., a mail service shown in Fig. \ref{fig:mail_service}.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.6 \linewidth]{img/mail_service.png}
+  \caption{Mail service diagram}
+  \label{fig:mail_service}
+\end{figure}
+
+Another exemplary service is a factory for processor executor which is responsible for executing commands from the Java code. The following is a simplified form of it:
+
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
+public class ProcessExecutorFactory {
+  public static ProcessExecutor newProcess(String... cmd) {
+    return new ProcessExecutor(cmd)
+      .exitValue(0)
+      .readOutput(false)
+      .destroyOnExit();
+  }
+}
+\end{minted}
+
+An exemplary usage of the processor executor for the dynamic database creation:
+
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
+if (details.isRunningOnCloud()) {
+  ProcessExecutorFactory.newProcess(
+    "createdb",
+    "-h", details.getIpAddress(),
+    "-U", "postgres", "--no-password",
+    "-T", databaseName,
+    newDatabaseName
+  ).execute();
+}
+\end{minted}
+
+\subsection{Storage}
+
+The storage module is responsible for managing the files.
+
+There is an implementation for storing the files on a local host. The implementation heavily relies on the template method design pattern \cite{bib:gamma} as shown in Fig. \ref{fig:storage_service}.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{img/storage_service.png}
+  \caption{Storage service -- template method example}
+  \label{fig:storage_service}
+\end{figure}
+
+The storage is configured with the docker volumes capabilities to decouple the files from the lifetime of the containers.
+
+Other design patterns involved in the platform are facades to provide simpler interface to complex objects \cite{bib:gamma} or builder for querying the database.
 
 \section{Client in details}
 
