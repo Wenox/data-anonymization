@@ -2670,7 +2670,7 @@ The modules are supported by the detailed diagrams whenever appropriate.
 
 \subsection{Platform development concepts}
 
-A brief introduction to the concepts behind the platform's code -- that is mostly based on the Spring Framework -- needs to be introduced as the knowledge basis for the extensive code-base.
+A brief introduction to the concepts behind the platform's code -- that is mostly based on the Spring Framework -- needs to be introduced as the knowledge basis for the extensive code-base. Presented code snippets strip the code from the irrelevant details such as the access modifiers.
 
 \subsubsection{Controller layer and dependency injection}
 
@@ -2679,12 +2679,11 @@ Consider the simplified code of \mintinline{java}{UserController} of the users m
 \begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
 @RestController
 @RequestMapping("/api/v1/users")
-public class UserController {
+class UserController {
+  UserService userService;
+  AuthService authService;
 
-  private final UserService userService;
-  private final AuthService authService;
-
-  public UserController(UserService userService, AuthService authService) {
+  UserController(UserService userService, AuthService authService) {
     this.userService = userService;
     this.authService = authService;
   }
@@ -2700,7 +2699,7 @@ Note that the REST API is being versioned \cite{bib:modern_fullstack}.
 Consider the concise REST endpoint responsible for user registration:
 \begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
 @PostMapping("/register")
-  public ResponseEntity<ApiResponse> register(@Valid @RequestBody RegisterUserRequest dto) {
+  ResponseEntity<ApiResponse> register(@Valid @RequestBody RegisterUserRequest dto) {
   return ResponseEntity.ok(authService.register(dto));
 }
 \end{minted}
@@ -2717,18 +2716,15 @@ Finally, the endpoint returns the response 200 OK \cite{bib:rfc7231} with the re
 Let's examine the declarative approach to the validation of DTOs based on the \mintinline{java}{RegisterUserRequest}:
 
 \begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
-public class RegisterUserRequest {
-
+class RegisterUserRequest {
   @Email
   @NotBlank
   @Size(max = 40)
-  private String email;
+  String email;
 
   @NotBlank
   @Size(min = 4, max = 40)
-  private String password;
-  
-  // other fields, getters, setters omitted
+  String password;
 }
 \end{minted}
 
@@ -2739,7 +2735,7 @@ Let's consider yet another endpoint of the same controller, responsible for plat
 \begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
 @GetMapping
 @PreAuthorize("hasAuthority('ADMIN')")
-public ResponseEntity<List<FullUserResponse>> getAll() {
+ResponseEntity<List<FullUserResponse>> getAll() {
   return ResponseEntity.ok(userService.getAll()
                                       .stream()
                                       .map(FullUserResponse::from)
@@ -2759,14 +2755,12 @@ Consider the internals of the returned data transfer object and its mapping logi
 
 \begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
 /** Password and relations are not returned to the client. */
-public class FullUserResponse {
-
-  private String id;
-  private String email;
-  // numerous other fields, getters, setters are omitted
+class FullUserResponse {
+  String id;
+  String email;
 
   /** User is a complex database object. */
-  public static FullUserResponse from(User user) {
+  static FullUserResponse from(User user) {
     var dto = new FullUserResponse();
     dto.setId(user.getId());
     dto.setEmail(user.getEmail());
@@ -2784,21 +2778,12 @@ Consider the drastically simplified form of the \verb|User| database entity.
 \begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
 @Entity
 @Table(name = "users")
-public class User {
-
-  @Id
-  private final String id = UUID.randomUUID().toString();
-
-  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-  private List<Template> templates = new ArrayList<>();
-
-  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-  private List<Worksheet> worksheets = new ArrayList<>();
-
-  private String email;
-
-  @Enumerated(EnumType.STRING)
-  private Role role;
+class User {
+  String email;
+  @Id String id = UUID.randomUUID().toString();
+  @OneToMany(mappedBy = "user") List<Template> templates;
+  @OneToMany(mappedBy = "user") List<Worksheet> worksheets;
+  @Enumerated(EnumType.STRING) Role role;
 }
 \end{minted}
 
@@ -2809,8 +2794,7 @@ The user object is linked with a one-to-many relationship with templates and wor
 Spring's declarative approach is demonstrated in the repository layer as well. The developer defines the following simplified interface:
 \begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
 @Repository
-public interface UserRepository extends PagingAndSortingRepository<User, String> {
-
+interface UserRepository extends PagingAndSortingRepository<User, String> {
   Optional<User> findByEmail(String email);
   boolean existsByEmail(String email);
 }
@@ -2850,8 +2834,7 @@ The internals of the uploading module are described in detail in  Fig. \ref{fig:
 There are two possible restore modes for the dumps provided by the user:
 \begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
 public enum RestoreMode {
-  SCRIPT,
-  ARCHIVE
+  SCRIPT, ARCHIVE
 }
 \end{minted}
 
@@ -2871,12 +2854,11 @@ This module defines database entities for each individual anonymisation operatio
 \begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
 @Entity
 @Table(name = "suppressions")
-public class Suppression {
+class Suppression {
+  String suppressionToken;
 
   @OneToOne(mappedBy = "suppression")
   ColumnOperations columnOperations;
-
-  private String suppressionToken;
 }
 \end{minted}
 
@@ -2885,25 +2867,23 @@ public class Suppression {
 \begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
 @Entity
 @Table(name = "column_operations")
-public class ColumnOperations {
+class ColumnOperations {
+  String tableName;
+  String columnName;
 
-  private String tableName;
-  private String columnName;
+  @ManyToOne(fetch = FetchType.LAZY) Worksheet worksheet;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  private Worksheet worksheet;
-
-  @OneToOne private Suppression suppression;
-  @OneToOne private ColumnShuffle columnShuffle;
-  @OneToOne private RowShuffle rowShuffle;
-  @OneToOne private PatternMasking patternMasking;
-  @OneToOne private Shortening shortening;
-  @OneToOne private Generalisation generalisation;
-  @OneToOne private Perturbation perturbation;
-  @OneToOne private RandomNumber randomNumber;
-  @OneToOne private Tokenization tokenization;
-  @OneToOne private Hashing hashing;
-  @OneToOne private Substitution substitution;
+  @OneToOne Suppression suppression;
+  @OneToOne ColumnShuffle columnShuffle;
+  @OneToOne RowShuffle rowShuffle;
+  @OneToOne PatternMasking patternMasking;
+  @OneToOne Shortening shortening;
+  @OneToOne Generalisation generalisation;
+  @OneToOne Perturbation perturbation;
+  @OneToOne RandomNumber randomNumber;
+  @OneToOne Tokenization tokenization;
+  @OneToOne Hashing hashing;
+  @OneToOne Substitution substitution;
 }
 \end{minted}
 
@@ -2916,6 +2896,15 @@ The internals of the processing module are described in detail in Fig. \ref{fig:
   \includegraphics[width=\linewidth]{img/architecture_processing.png}
   \caption{Architecture – processing module}
   \label{fig:architecture_processing}
+\end{figure}
+
+To provide an even greater detail of this module, an additional diagram is provided in Fig. \ref{fig:anonymisation_everything}. The implementation shown takes the advantage of a combination of design patterns including template method, facade and factory \cite{bib:gamma}.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{img/anonymisation_everything.png}
+  \caption{Processing module -- anonymisation details}
+  \label{fig:anonymisation_everything}
 \end{figure}
 
 \subsection{Scheduler module}
@@ -2935,12 +2924,11 @@ This module is different from the majority of other modules because it does not 
 
 Infrastructure module is responsible for the configuration of security, swagger, web, asynchronous events, scheduling.
 
-The configurations are mostly declarative and require at least \mint{java}{@Configuration} annotation, e.g.:
+The configurations are declarative and simple, e.g.:
 \begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
 @Configuration
 @EnableAsync
-public class AsyncEventsConfiguration {
-}
+class AsyncEventsConfiguration {}
 \end{minted}
 
 \subsubsection{Services}
@@ -2957,8 +2945,8 @@ Provided services include, e.g., a mail service shown in Fig. \ref{fig:mail_serv
 Another exemplary service is a factory for processor executor which is responsible for executing commands from the Java code. The following is a simplified form of it:
 
 \begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
-public class ProcessExecutorFactory {
-  public static ProcessExecutor newProcess(String... cmd) {
+class ProcessExecutorFactory {
+  static ProcessExecutor newProcess(String... cmd) {
     return new ProcessExecutor(cmd)
       .exitValue(0)
       .readOutput(false)
@@ -3001,6 +2989,86 @@ Other design patterns involved in the platform are facades to provide simpler in
 \section{Client in details}
 
 The client internals are shown as the part of the diagram depicted in Fig. \ref{fig:architecture_platform}.
+
+\subsection{Presentation layer}
+
+An exemplary greatly simplified code for the rendering of TypeScript and React driven pages is shown below -- the code renders users panel:
+
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{js}
+const Users = () => {
+  const { data, isLoading, isRefetching } = useQuery('users', getUsers);
+  return <DataGrid autoHeight columns={columns} rows={users} loading={isLoading || isRefetching} />
+}
+\end{minted}
+
+\subsection{Communication layer}
+
+The APIs are easy to define. To create the method that will have the capabilities to asynchronously call the server using REST API is simple:
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{js}
+export const getUsers = () => {
+  return axios.get<FullUserResponse[]>(`/api/v1/users`);
+};
+\end{minted}
+
+\subsubsection{Type safety}
+The TypeScript offers the type safety possibilities through interfaces:
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{js}
+export interface FullUserResponse {
+  id: string;
+  email: string;
+  role: Role;
+  // ..
+}
+\end{minted}
+
+\subsection{Configuration layer}
+
+We are a lot of configuration details in the client. The application must be re-deployed for the changes to the TypeScript files to take effect.
+
+\subsubsection{Routing}
+
+The application routes can be easily configured in a fine-grained fashion:
+
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{js}
+export const APP_ROUTES: RouteDescription[] = [
+  {
+    path: ROUTES.LOGIN,   // This path will...
+    element: Login,       // ...render this.
+    authenticated: false, // Requires logging in?
+    menu: false,          // Should the menu be visible?
+  },
+  {
+    path: ROUTES.MY_WORKSHEETS,
+    element: MY_WORKSHEETS,
+    authenticated: true,
+    menu: true,
+  }
+];
+\end{minted}
+
+\subsubsection{Menu}
+
+The menu is configurable in a fashion similar to the routes configuration. Developer can easily control which menu items should be displayable to which user roles. For example, only the admin user would be able to see the users item in the menu:
+
+\begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{js}
+export const NAVIGATION_ITEMS: NavigationItemDescription[] = [
+{
+  path: ROUTES.USERS,
+  name: 'Users',
+  roles: [Role.ADMIN],
+  icon: Groups,
+},
+{
+  path: ROUTES.MY_WORKSHEETS,
+  name: 'Worksheets',
+  roles: [Role.ADMIN, Role.VERIFIED_USER],
+  icon: TableView,
+}];
+\end{minted}
+
+There are other configuration, e.g., the colours theme can be changed from just one place, or the minimum durations for the skeletons and spinners to show up for building up the user engagement.
+
+
 
 \chapter{Verification and validation}
 
