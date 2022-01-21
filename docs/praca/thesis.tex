@@ -3346,7 +3346,7 @@ Various problems were detected as part of the development or testing. An example
 
 \section{Validation}
 
-As defined in the functional requirements, the validation in the anonymisation platform is complex and multi-level. It works in the client's forms, the data transfer objects in the controller layer, the services in the business layer, and when persisting the objects to the database.
+As defined in the functional requirements, the validation in the anonymisation platform is complex and multi-level. The validation works is enabled all of the forms on the client side, i.e., checking for the mail format correctness. Even if the potentially malicious user somehow sends invalid data to the server (e.g., by expliting the REST API from an external HTTP client), then there is validation on the individual data transfer objects in the server's controller layer. Diving deeper into the server's architecture, in the service layer, there are complex business validations, e.g., checking if the worksheet that is trying to be retrieved indeed belongs to the given user. An even deeper data access layer will disallow persisting the malformed entities.
 
 \chapter{Conclusions}
 
