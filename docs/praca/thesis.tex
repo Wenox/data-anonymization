@@ -621,12 +621,44 @@ Generalisation may be applied on a global level or local level \cite{bib:anonymi
 \subsection{Perturbation}
 
 Perturbation is a data masking technique that encompasses the process of swapping the original values with artificial ones in a way that the statistical factors of the data are similar to the initial data. Perturbation is typically achieved by adding noise to the information so that the values are slightly different \cite{bib:anonymization_directory_structured}. 
-
+%
 Consider weight and height data shown in Tab. \ref{id:tab:perturbation_raw}.
-
-\begin{table}%[h]
+%
+%\begin{table}%[h]
+%\centering
+%\caption{Perturbation – input data.}
+%\label{id:tab:perturbation_raw}
+%\begin{tabular}{rr}
+%\toprule
+%Height & Weight \\ \midrule
+%166                        & 58                         \\
+%170                        & 66                         \\
+%194                        & 91                        \\ \bottomrule
+%\end{tabular}
+%\end{table}
+%
+Tab. \ref{id:tab:perturbation} shows the data after it was perturbed using the two different perturbation methods that are supported by the engineered software.
+%
+%\begin{table}%[h]
+%\centering
+%\caption{Perturbation – masked data.}
+%\label{id:tab:perturbation}
+%\begin{tabular}{rr}
+%\toprule
+%Height & Weight \\ \midrule
+%169                        & 57                         \\
+%168                        & 67                         \\
+%193                        & 91                        \\ \bottomrule
+%\end{tabular}
+%\end{table}
+%
+%%%%%%%%%%%%%%%%%
+\begin{table}
 \centering
-\caption{Perturbation – input data.}
+\caption{Perturbation.}
+\begin{subfigure}{.4\textwidth}
+\centering
+\caption{Input data.}
 \label{id:tab:perturbation_raw}
 \begin{tabular}{rr}
 \toprule
@@ -635,13 +667,10 @@ Height & Weight \\ \midrule
 170                        & 66                         \\
 194                        & 91                        \\ \bottomrule
 \end{tabular}
-\end{table}
-
-Tab. \ref{id:tab:perturbation} shows the data after it was perturbed using the two different perturbation methods that are supported by the engineered software.
-
-\begin{table}%[h]
+\end{subfigure}
+\begin{subfigure}{.4\textwidth}
 \centering
-\caption{Perturbation – masked data.}
+\caption{Masked data.}
 \label{id:tab:perturbation}
 \begin{tabular}{rr}
 \toprule
@@ -650,17 +679,19 @@ Height & Weight \\ \midrule
 168                        & 67                         \\
 193                        & 91                        \\ \bottomrule
 \end{tabular}
+\end{subfigure}
 \end{table}
-
+%%%%%%%%%%%%%%%%%
+%
 The supported methods include adding the noise based on the strategies of:
 \begin{itemize}
 \item fixed value,
 \item percentage value.
 \end{itemize}
-
+%
 Height attribute values could have been perturbed using the former (i.e., fixed noise of $\pm 3$), whereas weight attribute values could have been perturbed using the latter (i.e., percentage value of $\pm 5 \%$). In either case, the linkage between individual records is blurred with this technique. 
-
-\begin{figure}[H]
+%
+\begin{figure}%[H]
 \begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
 procedure perturbation(values, noise)
   for (value in values)
@@ -673,9 +704,9 @@ procedure perturbation(values, noise)
 \label{fig:code:perturbation_fixed}
 \end{figure}
 
-Similarly to generalisation, both perturbation techniques allow the user to explicitly specify the minimum and maximum accepted boundary values.
-
-\begin{figure}[h]
+Similarly to generalisation, both perturbation techniques allow a user to explicitly specify the minimum and maximum accepted boundary values.
+%
+\begin{figure}%[h]
 \begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
 procedure perturbation(values, noise)
   for (value in values)
@@ -687,16 +718,16 @@ procedure perturbation(values, noise)
 \caption{Pseudocode – perturbation based on percentage noise.}
 \label{fig:code:perturbation_percentage}
 \end{figure}
-
+%
 Perturbation technique works the best with continuous values -- it is an effective method for de-identification of quasi-identifiers such as dates and numbers \cite{bib:anonymisation_techniques_singapore}. Scientifically advanced perturbation approaches are further divided into linear and non-linear perturbation models \cite{bib:perturbation_methods}.
 
 
 \subsection{Pattern masking}
 
 Pattern masking is a data distortion technique designed to be used when only some parts of the data should be masked. This technique is typically used to mask e.g., codes of various forms, phone numbers, credit card numbers, and other structured data. 
-
+%
 Consider the data shown in Tab. \ref{id:tab:pattern_masking_raw} to be masked using the patterns presented in Tab. \ref{id:tab:pattern_masking_patterns}.
-
+%
 \begin{table}%[h]
 \centering
 \caption{Pattern masking – input data.}
@@ -709,7 +740,7 @@ PIN code & Software version & Product code  \\ \midrule
 76590209 & 1.0.1-alpha      & QUX/utility/0 \\ \bottomrule
 \end{tabular}
 \end{table}
-
+%
 \begin{table}%[h]
 \centering
 \caption{Pattern masking – exemplary patterns.}
@@ -720,9 +751,9 @@ PIN code & Software version & Product code  \\ \midrule
 OOXXXXXO & OOXOX            & UUUOOOOOOOOON \\ \bottomrule
 \end{tabular}
 \end{table}
-
+%
 Exemplary masked output is visible in Tab. \ref{id:tab:pattern_masking_masked}.
-
+%
 \begin{table}%[h]
 \centering
 \caption{Pattern masking – masked data.}
@@ -735,15 +766,15 @@ PIN code & Software version & Product code  \\ \midrule
 76\verb|#####|9 & 0.1.9 & IZE/utility/1 \\ \bottomrule
 \end{tabular}
 \end{table}
-
+%
 Analysis of pattern masking possibilities has yielded the need to create a versatile pattern configuration. This technique is therefore highly configurable, i.e., available pattern tokens include: \textit{O} – preserve the character, \textit{X} - mask the character, \textit{U} – mask with random uppercase letter, \textit{L} – mask with random lowercase letter, \textit{N} – mask with random digit, \textit{A} – mask with random alphabetic character and \textit{C} – mask with random alphanumeric character.
-
+%
 Users can specify the masking character, e.g., \textit{\#}, and can also decide whether the result is truncated to the pattern length (as shown in the masking of software version in Tab. \ref{id:tab:pattern_masking_masked}).
 
 \subsection{Hashing}
 
 Hashing is a deterministic masking technique \cite{bib:anonymization_for_research} that transforms data to the fixed-length output. This technique is best used for unstructured data. Available implementations include SHA2 and SHA3.
-
+%
 Consider the server logs depicted in Tab. \ref{id:tab:hashing_raw}.
 %
 \begin{table}%[h]
@@ -773,7 +804,7 @@ b27ffd54e5b05a538f333157363f18df0a2aaae5754dfd9ec9daad9cc4ccd7a2 \\
 2cd3e1912285c765f1746d5b68b1fdbbff6be9460e305acc18a1d9d777d89b5e \\ \bottomrule
 \end{tabular}
 \end{table}
-
+%
 Although a mere inspection of the generated hash value does not immediately trace back to the original value, an attack to de-anonymise the data can be easily performed when the attacker knows what the hashed data represents, e.g. a structured birth date \cite{bib:hash}. Like in the case of all techniques, the decision to use this technique is context-dependent.
 
 \subsection{Randomisation}
@@ -783,12 +814,44 @@ Randomisation methods offer the best middle ground between maintaining the data 
 \subsubsection{Column shuffle}
 
 Column shuffle is an exceptionally effective method for breaking strong links of data belonging to individual data subjects. All of that is achieved while preserving the data utility \cite{bib:gdpr_handbook}, hence this technique is great for maintaining the analytical value of the data \cite{bib:data_shuffling}.
-
+%
 Consider the medical data from Tab. \ref{id:tab:attribute_randomisation_raw}
-
-\begin{table}%[h]
+%
+%\begin{table}%[h]
+%\centering
+%\caption{Randomisation – attribute -- input data.}
+%\label{id:tab:attribute_randomisation_raw}
+%\begin{tabular}{ll}
+%\toprule
+%Identity & Virus        \\ \midrule
+%John     & Influenza A  \\
+%Marc     & Pneumonia    \\
+%Stephen  & Bronchitis   \\ \bottomrule
+%\end{tabular}
+%\end{table}
+%
+An exemplary randomised data is shown in Tab. \ref{id:tab:attribute_randomisation_masked}.
+%
+%\begin{table}%[h]
+%\centering
+%\caption{Randomisation – attribute – masked data.}
+%\label{id:tab:attribute_randomisation_masked}
+%\begin{tabular}{ll}
+%\toprule
+%Identity & Virus         \\ \midrule
+%Stephen  & Pneumonia     \\
+%Marc     &  Influenza A  \\
+%John     & Bronchitis    \\ \bottomrule
+%\end{tabular}
+%\end{table}
+%
+%%%%%%%%%%%%%%%%%
+\begin{table}
 \centering
-\caption{Randomisation – attribute -- input data.}
+\caption{Randomisation – column shuffle.}
+\begin{subfigure}{.4\textwidth}
+\centering
+\caption{Input data.}
 \label{id:tab:attribute_randomisation_raw}
 \begin{tabular}{ll}
 \toprule
@@ -797,13 +860,10 @@ John     & Influenza A  \\
 Marc     & Pneumonia    \\
 Stephen  & Bronchitis   \\ \bottomrule
 \end{tabular}
-\end{table}
-
-An exemplary randomised data is shown in Tab. \ref{id:tab:attribute_randomisation_masked}.
-
-\begin{table}%[h]
+\end{subfigure}
+\begin{subfigure}{.4\textwidth}
 \centering
-\caption{Randomisation – attribute – masked data.}
+\caption{Masked data.}
 \label{id:tab:attribute_randomisation_masked}
 \begin{tabular}{ll}
 \toprule
@@ -812,8 +872,10 @@ Stephen  & Pneumonia     \\
 Marc     &  Influenza A  \\
 John     & Bronchitis    \\ \bottomrule
 \end{tabular}
+\end{subfigure}
 \end{table}
-
+%%%%%%%%%%%%%%%%%
+%
 This technique can be used in two ways:
 \begin{itemize}
 \item shuffle without repetitions which preserves the data distribution,
@@ -823,12 +885,45 @@ This technique can be used in two ways:
 \subsubsection{Row shuffle}
 
 The data may also be needed to be shuffled on a record level – similarly, with or without preserving the distribution.
-
+%
 Consider shuffling the characters of an RGB colour described in hexadecimal format. Furthermore, consider a concept of storing a set of abstract decisions (e.g., willingness to participate in the election voting) as a sequence of bits where each bit represents an individual boolean decision. Tab. \ref{id:tab:record_randomisation_raw} shows the data.
+%
+%\begin{table}%[h]
+%\centering
+%\caption{Randomisation – record – input data.}
+%\label{id:tab:record_randomisation_raw}
+%\begin{tabular}{lc}
+%\toprule
+%Hex triplet & Set of decisions \\ \midrule
+%FF00FF      & 1101             \\
+%54E7CD      & 1010             \\
+%E5E5E5      & 0000             \\ \bottomrule
+%\end{tabular}
+%\end{table}
+%
+Table \ref{id:tab:record_randomisation_masked} shows the data after the masking process. The colours were processed without preserving the original characters distribution.
+%
+%\begin{table}%[h]
+%\centering
+%\caption{Randomisation – record – masked data.}
+%\label{id:tab:record_randomisation_masked}
+%\begin{tabular}{lc}
+%\toprule
+%Hex triplet & Set of decisions \\ \midrule
+%0000F0      & 0111             \\
+%E57DC4      & 1100             \\
+%5E5555      & 0000             \\ \bottomrule
+%\end{tabular}
+%\end{table}
 
-\begin{table}%[h]
+
+%%%%%%%%%%%%%%%%%
+\begin{table}
 \centering
-\caption{Randomisation – record – input data.}
+\caption{Randomisation – row shuffle.}
+\begin{subfigure}{.4\textwidth}
+\centering
+\caption{Input data.}
 \label{id:tab:record_randomisation_raw}
 \begin{tabular}{lc}
 \toprule
@@ -837,13 +932,10 @@ FF00FF      & 1101             \\
 54E7CD      & 1010             \\
 E5E5E5      & 0000             \\ \bottomrule
 \end{tabular}
-\end{table}
-
-The table \ref{id:tab:record_randomisation_masked} shows the data after the masking process. The colours were processed without preserving the original characters distribution.
-
-\begin{table}%[h]
+\end{subfigure}
+\begin{subfigure}{.4\textwidth}
 \centering
-\caption{Randomisation – record – masked data.}
+\caption{Masked data.}
 \label{id:tab:record_randomisation_masked}
 \begin{tabular}{lc}
 \toprule
@@ -852,7 +944,9 @@ Hex triplet & Set of decisions \\ \midrule
 E57DC4      & 1100             \\
 5E5555      & 0000             \\ \bottomrule
 \end{tabular}
+\end{subfigure}
 \end{table}
+%%%%%%%%%%%%%%%%%
 
 
 \subsection{Artificial data}
@@ -897,7 +991,7 @@ Consider that the data controller provides the following data for the name param
 %\end{table}
 %
 %
-\begin{figure}
+\begin{table}
 \centering
 \caption{Substitution.}
 \begin{subfigure}{.4\textwidth}
@@ -926,7 +1020,7 @@ Decimus & Lucci     \\
 Amanda  & Rector    \\ \bottomrule
 \end{tabular}
 \end{subfigure}
-\end{figure}
+\end{table}
 %
 The name attribute is masked without memorylessness, and the masking occurs in a circular manner.
 %
@@ -935,9 +1029,9 @@ The method is designed to be used with or without memorylessness in mind. Duplic
 \subsubsection{Tokenisation}
 
 In comparison to the substitution technique, this operation is relevant when the masked data does not need to be realistic \cite{bib:anonymization_planning}, i.e., it could be useful to perform the analytics on the frequencies of data duplicates.
-
+%
 Consider the data from a survey question shown in Tab. \ref{id:tab:tokenisation_raw}.
-
+%
 %\begin{table}%[h]
 %\centering
 %\caption{Tokenisation – input data.}
@@ -951,9 +1045,9 @@ Consider the data from a survey question shown in Tab. \ref{id:tab:tokenisation_
 %Strongly disagree                   \\ \bottomrule
 %\end{tabular}
 %\end{table}
-
-
-\begin{figure}
+%
+%
+\begin{table}
 \centering
 \caption{Tokenisation.}
 \begin{subfigure}{.4\textwidth}
@@ -962,7 +1056,7 @@ Consider the data from a survey question shown in Tab. \ref{id:tab:tokenisation_
 	\label{id:tab:tokenisation_raw}
 	\begin{tabular}{l}
 	\toprule
-	\multicolumn{1}{c}{Survey response} \\ \midrule
+	Survey response\\ \midrule
 	Agree                               \\
 	Not sure                            \\
 	Agree                               \\
@@ -973,18 +1067,17 @@ Consider the data from a survey question shown in Tab. \ref{id:tab:tokenisation_
 	\centering
 	\caption{Masked data.}
 	\label{id:tab:tokenisation_masked}
-	\begin{tabular}{l}
+	\begin{tabular}{c}
 	\toprule
-	
-	\multicolumn{1}{c}{Survey response} \\ \midrule
+	Survey response \\ \midrule
 	1                                   \\
 	2                                   \\
 	1                                   \\
 	3                                   \\ \bottomrule
 	\end{tabular}
 \end{subfigure}
-\end{figure}
-
+\end{table}
+%
 The tokenised data is shown in Tab. \ref{id:tab:tokenisation_masked}. The \textit{agree} value was tokenised to the same token value hence conserving the frequency characteristics of the data.
 
 %\begin{table}%[h]
@@ -1005,7 +1098,7 @@ The tokenised data is shown in Tab. \ref{id:tab:tokenisation_masked}. The \texti
 \subsubsection{Random number}
 
 
-\begin{figure}
+\begin{table}
 \centering
 \caption{Random number.}
 \begin{subfigure}{.4\textwidth}
@@ -1032,10 +1125,10 @@ Customer satisfaction \\ \midrule
 4                     \\ \bottomrule
 \end{tabular}
 \end{subfigure}
-\end{figure}
+\end{table}
 
 The fundamental requirement of anonymisation platform is to be a versatile software to anonymise the data, hence even a simple random number technique needs to be supported to possibly cover a broader range of the business needs.
-
+%
 Consider the data of customer satisfaction described as a value ranging from 1 to 5 shown in Tab. \ref{id:tab:random_number_raw}.
 %
 %\begin{table}%[h]
@@ -1099,9 +1192,9 @@ The shortened data is visible in Tab. \ref{id:tab:shortening_masked}.
 %\end{table}
 %
 It is possible to specify whether or not each data record should be terminated with a dot.
-
-
-\begin{figure}
+%
+%
+\begin{table}
 \centering
 \caption{Shortening.}
 \begin{subfigure}{.4\textwidth}
@@ -1128,7 +1221,7 @@ Kowal.     \\
 Nowak      \\ \bottomrule
 \end{tabular}
 \end{subfigure}
-\end{figure}
+\end{table}
 
 \section{Existing solutions}
 
