@@ -299,7 +299,7 @@ The information has become a stimulus for innovation in today's data-driven worl
 
 Technological advancement being observed in the past years fundamentally changed the relevance of data in today's digitalized world. Information became an innovation stimulus in the area of research and development. The quantity of data that organizations produce, process, store and share is at a continuous growth. An enormous amount of 1.8 zettabytes ($1.8 \cdot 10^{21}$ bytes) of new data was produced only in the 2011, and every two consecutive years this number is doubling \cite{bib:big_data_security}. After decades of observed technological advancement and innovation, the global internet traffic finally entered the zettabyte-era, as it had reached a magnitude of one zettabyte in 2016, and in the calender month being as early as September \cite{bib:cisco_blog}.
 
-The vast quantities of processed information allowed for brand new research fields such as data science or big data analytics to form, which are used by organizations to derive new insights in a way that was previously impossible. Organizations collect and process the data to enhance the services they provide to the customers through statistical analysis or newly developed computer science processes including data mining and machine learning. The utility of delivered services is increased at a lower cost and improved efficiency through the insights extracted from the collected information about how the services are consumed \cite{bib:anonymization_pipeline}.
+The vast quantities of processed information allowed for brand new research fields data science or big data analytics to form, which are used by organizations to derive new insights in a way that was previously impossible. Organizations collect and process the data to enhance the services they provide to the customers through statistical analysis or newly developed computer science processes including data mining and machine learning. The utility of delivered services is increased at a lower cost and improved efficiency through the insights extracted from the collected information about how the services are consumed \cite{bib:anonymization_pipeline}.
 
 
 \vfill
@@ -2705,9 +2705,9 @@ Consider the concise REST endpoint responsible for user registration:
 }
 \end{minted}
 
-The declarative specification of \mintinline{java}{@PostMapping("/register")} explains that this will be the HTTP POST endpoint. When combined with the class level base URI declaration, the resource is computed to be available at \verb|/api/v1/users/register|.
+The declarative specification of \mintinline{java}{@PostMapping("/register")} explains that this will be the HTTP POST endpoint. When combined with the class level base URI declaration, the resource is computed to be available at \newline \verb|/api/v1/users/register|.
 
-This endpoint will be executed only if the validation of the input \mintinline{java}{RegisterUserRequest} meets the validation criteria. The data transfer object (DTO) is in fact the request body sent by the client.
+This endpoint will be executed only if the validation of the input \newline \mintinline{java}{RegisterUserRequest} meets the validation criteria. The data transfer object (DTO) is in fact the request body sent by the client.
 
 Upon successful validation, the controller delegates its work to the \mintinline{java}{AuthService} which belongs to a different abstraction layer.
 
@@ -2818,8 +2818,8 @@ public interface UserRepository extends PagingAndSortingRepository<User, String>
 
 The implementation for this interface and other Spring repositories are automatically created during application's start up.
 
-The developer merely specifies interface methods such as \mintinline{java}{Optional<User> findByEmail(String email)}. 
-This method needs to be named in a specific manner \cite{bib:spring_in_action} as the actual SQL implementation (e.g. \mintinline{sql}{SELECT * FROM users WHERE email = ?}) are created by the Spring
+The developer merely specifies interface methods such as \mintinline[breaklines]{java}{Optional<User> findByEmail(String email)}. 
+This method needs to be named in a specific manner \cite{bib:spring_in_action} as the actual SQL implementation (e.g. \mintinline[breaklines]{sql}{SELECT * FROM users WHERE email = ?}) are created by the Spring
 solely based on the method name.
 
 
