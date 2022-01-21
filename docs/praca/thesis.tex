@@ -189,7 +189,7 @@ escapeinside={@*}{*@},%
 
 
 \begin{document}
-\cleardoublepage
+%\cleardoublepage
 	
 %%%%%%%%%%%%%%%%%%  Title page %%%%%%%%%%%%%%%%%%% 
 \pagestyle{empty}
@@ -2690,7 +2690,7 @@ On a high level, we have the business domain modules such as uploading, anonymis
 
 \subsubsection{Implementation context}
 
-To meet the complex and versatile needs of anonymisation platform, the server needs to implement a wide range of services. Wherever possible, the existing well-tested and secure libraries are used to avoid re-inventing the wheel. Note that the actual implementations of interfaces do not follow the convention of putting \textit{-Impl} suffix to the class name -- this is considered a poor coding practice \cite{bib:clean_architecture}.
+To meet the complex and versatile needs of anonymisation platform, the server needs to implement a wide range of services. Wherever possible, the existing well-tested and secure libraries are used to avoid re-inventing the wheel. Note that the actual implementations of interfaces do not follow the convention of putting \texttt{`-Impl'} suffix to the class name -- this is considered a poor coding practice \cite{bib:clean_architecture}.
 
 \subsection{Architecture -- client}
  
@@ -3346,7 +3346,10 @@ Various problems were detected as part of the development or testing. An example
 
 \section{Validation}
 
+
 As defined in the functional requirements, the validation in the anonymisation platform is complex and multi-level. The validation works is enabled all of the forms on the client side, i.e., checking for the mail format correctness. Even if the potentially malicious user somehow sends invalid data to the server (e.g., by expliting the REST API from an external HTTP client), then there is validation on the individual data transfer objects in the server's controller layer. Diving deeper into the server's architecture, in the service layer, there are complex business validations, e.g., checking if the worksheet that is trying to be retrieved indeed belongs to the given user. An even deeper data access layer will disallow persisting the malformed entities.
+
+\chapter{Conclusions}.
 
 \chapter{Conclusions}
 
