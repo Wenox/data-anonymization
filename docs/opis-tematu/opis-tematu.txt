@@ -5,21 +5,20 @@ informatics, 284512
 Data anonimisation web platform
 Webowa platforma anonimizacji danych
 
-Platforma udostępnia użytkownikom kompleksowe narzędzie do anonimizacji danych. Dane mogą zostać przekazane w różnych formach, na przykład w postaci relacyjnej bazy danych lub pliku (json, csv). Narzędzie posługuje się algorytmami opartymi na zróżnicowanych technikach anonimizacji, dzięki czemu użytkownik łatwo może osiągnąć oczekiwany rezultat. Użytkownik przekazuje dane wejściowe, dostosowuje żądanie anonimizacji pod własne potrzeby biznesowe, a następnie rozpoczyna proces anonimizacji i otrzymuje gotowy wynik. Platforma udostępnia interfejs webowy.
+Platforma udostępnia użytkownikom kompleksowe narzędzie do anonimizacji danych. Dane mogą zostać przekazane w różnych formach, na przykład skompresowanego archiwum lub skryptu SQL. Narzędzie posługuje się algorytmami opartymi na zróżnicowanych technikach anonimizacji, dzięki czemu użytkownik łatwo może osiągnąć oczekiwany rezultat. Użytkownik przekazuje dane wejściowe, dostosowuje żądanie anonimizacji pod własne potrzeby biznesowe, a następnie rozpoczyna proces anonimizacji i otrzymuje gotowy wynik. Platforma udostępnia interfejs webowy.
 
 
 --------------------
 * techniki anonimizacji:
   - supresja, randomizacja, perturbacja, czy też pseudonimizacja nieodwracalna (w tym: zastąpienie sztucznymi danymi, maskowanie, szyfrowanie kluczem, tokenizacja)
 * dane wejściowe
-  - relacyjna baza danych (wielotabelowa)
-  - pliki (json, csv)
+  - relacyjna baza danych (wielotabelowa) - w postaci skryptu SQL lub skompresowanego archiwum
 * użytkownicy, konta w serwisie
   - zwykły 
   - administrator
-  -
+  - niezweryfikwowany użytkownik
 * aplikacja webowa (TypeScript, React)
-* Java spring
+* Java spring docker
 
 
 UZASADNIENIE
