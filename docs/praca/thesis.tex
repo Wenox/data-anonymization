@@ -1944,7 +1944,7 @@ The library is used by the integration tests.
 
 \subsubsection{Swagger UI}
 
-One of many Swagger modules is Swagger UI which deals with the design, description, and documentation of REST APIs. The library allows visualization and interaction with the API \cite{bib:swagger}.
+One of many Swagger modules is Swagger UI which deals with the design, description, and documentation of REST APIs. The library allows visualization and interaction with the API \cite{bib:swagger, bib:swagger_blog}.
 
 This library is relevant due to the complexity of the designed system, as it provides the API documentation for the client.
 
@@ -2567,7 +2567,7 @@ Zajmę się tym podrozdziałem po skończeniu pozostałych rozdziałów.
 
 \chapter{Internal specification}
 
-This chapter summarizes the most significant internal implementation's aspects of the engineered anonymisation platform. The concepts and architecture of the system are supported by the diagrams that are rich in details. A total number of more than 400 source code files\footnote{The data as of 21st January, 2022.} somewhat describe the system's complexity hence it was not a goal for this chapter to present all the -- often repetitive or not engaging -- technical details. This chapter attempts to focus on the quality of explanation rather than the repetitiveness.
+This chapter summarizes the most significant internal implementation aspects of the engineered anonymisation platform. The concepts and architecture of the system are supported by diagrams that are rich in details. A total number of more than 400 source code files\footnote{The data as of 21st January, 2022.} somewhat describe the system's complexity hence it could not be a goal for this chapter to present all the -- often repetitive or not engaging -- technical details. Instead, the chapter attempts to focus on the quality of explanation and examples rather than repetitiveness.
 
 \section{System design}
 
@@ -2575,7 +2575,7 @@ Anonymisation platform implements a client-server architecture that was moderniz
 
 \subsection{Analysis of architecture -- server}
 
-The backend server had been designed in a modular manner since the very beginning of its implementation -- with the eventual distributed architecture preserved in mind. The server aims to separate the domain and infrastructure following the principles of clean architecture \cite{bib:clean_architecture}.
+The server had been designed in a modular manner since the very beginning of its implementation -- with the eventual distributed architecture preserved in mind. The server aims to separate the domain and infrastructure following the principles of clean architecture \cite{bib:clean_architecture}.
 
 \subsubsection{Modularity}
 
@@ -2689,21 +2689,21 @@ Processing
 Use special environment for inline code, eg \lstinline|descriptor| or \lstinline|descriptor_gaussian|.
 
 
-
-
 \chapter{Verification and validation}
+
+The researchers must remain unbiased to innovate with the research of a reliable value \cite{bib:objective_research} -- and likewise, the assessment of the designed software quality must be free of bias to be genuinely objective. The author believes there exists room for improvement. This chapter evaluates the methods applicable for ensuring the high quality of the system.
+
 \begin{itemize}
 \item testing paradigm (eg V model)
 \item test cases, testing scope (full / partial)
 \item detected and fixed bugs
 \item results of experiments (optional)
-
+\end{itemize}
 \textbf{Portability tests}
 \textbf{testcontainers, rest assured, junit, mockito, extendable}
 \textbf{CI working}
 \textbf{manual}
 \textbf{bugs}
-\end{itemize}
 
  
  
