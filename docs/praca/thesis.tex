@@ -2057,7 +2057,7 @@ Axios is an asynchronous HTTP client used for sending requests to the anonymisat
 
 \section{Development methodology}
 
-The development was driven by git like in the case of any software project that is of non-trivial size. A total number of 6XX \textbf{todo} commits\footnote{The data as of January 21st, 2022.} were pushed to the master branch. Conventional Commits specification was followed in a simplified way. The branches were deleted following the merge.
+The development was driven by git like in the case of any software project that is of non-trivial size. A total number of 679 commits {The data as of January 21st, 2022.} were pushed to the master branch. Conventional Commits specification was followed in a simplified way. The branches were deleted following the merge.
 
 There were three possible issue types:
 \begin{itemize}
@@ -2068,7 +2068,7 @@ There were three possible issue types:
 
 Note that an improvement to the functionality that is still under development is considered a \textit{feature} and not an \textit{improvement}.
 
-Furthermore, the labels with the increasing values of {XS}, {S}, {M}, {L}, and {XL} were being added to all the tasks upon creation to estimate the time-to-finish complexities. The distribution of the estimations is shown in Fig. \ref{fig:img:estimations}. \textbf{todo updated pie chart}
+Furthermore, the labels with the increasing values of {XS}, {S}, {M}, {L}, and {XL} were being added to all the tasks upon creation to estimate the time-to-finish complexities. The distribution of the estimations is shown in Fig. \ref{fig:img:estimations}.
 
 \begin{figure}
   \centering
@@ -2614,9 +2614,7 @@ The application pays special attention to the validation which is performed on t
 
 
 
-The application works intuitively. Only part of the functionalities are clearly shown in the screens.
-
-\subsection{Login form}
+The application works intuitively. For brevity only the part of the most relevant functionalities could be shown in the screens.
 
 The user can register to the platform through the form visible in Fig. \ref{fig:register1}.
 
@@ -2658,42 +2656,67 @@ The users panel for the admin is visible in Fig. \ref{fig:userspanell}.
 \end{figure}
 
 
-User can send upload a new database to generate the template from it, as shown in Fig. \ref{fig:template_uploading_view}.
+User can upload a new database to generate the template from it, as shown in Fig. \ref{fig:template_uploading_view}.
 
 \begin{figure}
   \centering
   \includegraphics[width=\linewidth]{img/app_template.png}
-  \caption{Application -- template uploading}
+  \caption{Application -- new template panel}
   \label{fig:template_uploading_view}
 \end{figure}
 
-
-
-User can inspect the process of template generation in great details, as shown in Fig. \ref{fig:template_uploading_process}. The view is animated to provide user engagement.
+User can inspect the process of template generation in great details which is shown in Fig. \ref{fig:template_uploading_process}. The view is animated to provide user engagement.
 
 \begin{figure}
   \centering
   \includegraphics[width=\linewidth]{img/app_template_ready.png}
-  \caption{Application -- template uploading process}
+  \caption{Application -- template uploading success}
   \label{fig:template_uploading_process}
 \end{figure}
 
-
-User can add the anonymisation operation(s) of his choice -- as shown in Fig. \ref{fig:generalisation_view}.
+User can inspect and analyse the critical failures during template generation -- as displayed in Fig. \ref{fig:template_uploading_process_fail}.
 
 \begin{figure}
   \centering
-  \includegraphics[width=\linewidth]{img/generalisation_view.png}
-  \caption{Application -- adding anonymisation operation}
+  \includegraphics[width=\linewidth]{img/app_template_fail.png}
+  \caption{Application -- template uploading failure}
+  \label{fig:template_uploading_process_fail}
+\end{figure}
+
+
+User can view templates he generated -- depicted in Fig. \ref{fig:templates_view1}.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{img/app_templates.png}
+  \caption{Application -- templates panel}
+  \label{fig:templates_view1}
+\end{figure}
+
+User can view and download the computed metadata of the restored databases -- depicted in Fig. \ref{fig:metadata1}.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.85 \linewidth]{img/app_metadata.png}
+  \caption{Application -- computed template metadata}
+  \label{fig:metadata1}
+\end{figure}
+
+User can configure the anonymisation by adding the operation(s) that suit his business needs -- as shown in Fig. \ref{fig:generalisation_view}.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.85 \linewidth]{img/generalisation_view.png}
+  \caption{Application -- configuring the anonymisation}
   \label{fig:generalisation_view}
 \end{figure}
 
-User can view the collected anonymisation operations for the particular table, as shown in Fig. \ref{fig:app_view}.
+User can view and add the collected anonymisation operations for the selected table -- as visible in Fig. \ref{fig:app_view}.
 
 \begin{figure}
   \centering
-  \includegraphics[width=\linewidth]{img/app_view.png}
-  \caption{Application -- collected anonymisation operations}
+  \includegraphics[width=\linewidth]{img/app_operations_in_table.png}
+  \caption{Application -- anonymisation operations for table}
   \label{fig:app_view}
 \end{figure}
 
@@ -2702,17 +2725,17 @@ User can access the main application view -- a worksheet summary -- as shown in 
 \begin{figure}
   \centering
   \includegraphics[width=\linewidth]{img/app_worksheet.png}
-  \caption{Application -- worksheet summary}
+  \caption{Application -- worksheet summary panel}
   \label{fig:summary_view}
 \end{figure}
 
 
-User can access all the worksheets he produced -- as shown in Fig. \ref{fig:allworksheetsv}.
+User can access the worksheets he produced -- as shown in Fig. \ref{fig:allworksheetsv}.
 
 \begin{figure}
   \centering
   \includegraphics[width=\linewidth]{img/app_worksheets_view.png}
-  \caption{Application -- worksheets view}
+  \caption{Application -- worksheets panel}
   \label{fig:allworksheetsv}
 \end{figure}
 
@@ -2721,27 +2744,26 @@ User can access the anonymised outcomes he generated -- as shown in Fig. \ref{fi
 \begin{figure}
   \centering
   \includegraphics[width=\linewidth]{img/app_outcomes.png}
-  \caption{Application -- outcomes view}
+  \caption{Application -- outcomes panel}
   \label{fig:theoutcomes}
 \end{figure}
 
-
-User can access all the outcomes -- as shown in Fig. \ref{fig:alloutcomes}.
-
-\begin{figure}
-  \centering
-  \includegraphics[width=\linewidth]{img/app_outcomes.png}
-  \caption{Application -- outcomes view}
-  \label{fig:alloutcomes}
-\end{figure}
-
-Admin can access the tasks panel to inspect the tasks -- as shown in Fig. \ref{fig:app_scheduling}.
+Admin can access the tasks panel to inspect and run the tasks -- as shown in Fig. \ref{fig:app_scheduling}.
 
 \begin{figure}
   \centering
   \includegraphics[width=\linewidth]{img/app_scheduling.png}
-  \caption{Application -- scheduling view}
+  \caption{Application -- tasks panel}
   \label{fig:app_scheduling}
+\end{figure}
+
+User can choose to delete his account as shown in Fig. \ref{fig:deleteacc} -- the possibility to undo this action by withdrawing the decision is available only for a limited time.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.4\linewidth]{img/app_delete_account.png}
+  \caption{Application -- delete account notification}
+  \label{fig:deleteacc}
 \end{figure}
 
 
@@ -3108,8 +3130,7 @@ Infrastructure module is responsible for the configuration of security, swagger,
 %
 The configurations are declarative and simple, e.g.:
 \begin{minted}[baselinestretch=1, mathescape, linenos, numbersep=12pt, frame=none, fontsize=\footnotesize, breaklines=true, framesep=1mm]{java}
-@Configuration
-@EnableAsync
+@EnableAsync @Configuration
 class AsyncEventsConfiguration {}
 \end{minted}
 
@@ -3130,9 +3151,7 @@ Another exemplary service is a factory for processor executor which is responsib
 class ProcessExecutorFactory {
   static ProcessExecutor newProcess(String... cmd) {
     return new ProcessExecutor(cmd)
-      .exitValue(0)
-      .readOutput(false)
-      .destroyOnExit();
+     .exitValue(0).readOutput(false).destroyOnExit();
   }
 }
 \end{minted}
@@ -3515,12 +3534,28 @@ The author believes that the relevancy of privacy-preserving techniques will con
 
  
 
-%\chapter*{Index of abbreviations and symbols}
-%\addcontentsline{toc}{chapter}{Index of abbreviations and symbols}
+\chapter*{Index of abbreviations and symbols}
+\addcontentsline{toc}{chapter}{Index of abbreviations and symbols}
 
-%\begin{itemize}
-%\item[DNA] deoxyribonucleic acid
-%\end{itemize}
+\begin{itemize}
+\item[API] Application Programming Interface
+\item[CD] Continuous Delivery
+\item[CI] Continuous Integration
+\item[DTO] Data Transfer Object
+\item[GDPR] General Data Protection Regulation
+\item[HTTP] Hypertext Transfer Protocol
+\item[JDK] Java Development Toolkit 17
+\item[JSON] JavaScript Object Notation
+\item[JWT] JSON Web Token
+\item[LHC] The Large Hadron Collider
+\item[PaaS] Platform as a Service
+\item[REST] Representational state transfer
+\item[SOLID] Acronym for the five industry recognised design principles
+\item[SQL] Structured Query Language
+\item[TCP] Transmission Control Protocol
+\item[UUID] Universally Unique Identifier
+
+\end{itemize}
 
 
 \chapter*{List of additional files in~electronic submission}
