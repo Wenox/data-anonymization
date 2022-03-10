@@ -105,7 +105,7 @@ const Templates: FC = () => {
           }, FILE_UPLOADER_TIMEOUT);
           toast.success('Successfully started to generate a new template.', {
             position: 'top-right',
-            autoClose: 5000,
+            autoClose: 4000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
